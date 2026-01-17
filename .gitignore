@@ -11,3 +11,4 @@ coverage
 *.tmp
 *.bak
 *.swp
+.next

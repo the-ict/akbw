@@ -1,16 +1,19 @@
 import express from "express";
 import type { NextFunction, Request, Response } from "express";
 import helmet from "helmet";
-import dotenv from "dotenv";
-import cors from "cors";
-import morgan from "morgan";
 import logger from "./utils/loggers.js";
+import dotenv from "dotenv";
+import morgan from "morgan";
+import cors from "cors";
 
 // configure dotenv
 dotenv.config();
 
 // initialize express
 const app = express();
+
+// environment variables
+const PORT = process.env.PORT || 3000;
 
 // middlewares
 app.use(helmet());
@@ -30,6 +33,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 // start server
-app.listen(3000, () => {
-    logger.info("Server is running on port 3000");
+app.listen(PORT, () => {
+    logger.info(`Server is running on port ${PORT}`);
 });
