@@ -1,0 +1,19 @@
+{
+  "HomePage": {
+    "Navbar": {
+      "shop": "Shop",
+      "on_sale": "On Sale",
+      "brands": "Brands",
+      "search": "Looking for products...",
+      "login": "Login"
+    },
+    "Hero": {
+      "title": "FIND CLOSERS THAT MATCHES YOUR STYLE",
+      "desc": "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
+      "buy_now": "Shop Now",
+      "high_quality": "High Quality",
+      "international_brands": "International Brands",
+      "happy_customers": "Happy Customers"
+    }
+  }
+}
