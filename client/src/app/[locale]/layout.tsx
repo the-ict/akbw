@@ -13,6 +13,8 @@ import { setRequestLocale } from 'next-intl/server';
 import QueryProvider from '@/shared/config/react-query/QueryProvider';
 import Script from 'next/script';
 
+import {Kenao} from "@/shared/fonts"
+
 export const metadata: Metadata = {
   title: PRODUCT_INFO.name,
   description: PRODUCT_INFO.description,
@@ -38,7 +40,7 @@ export default async function RootLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning className={`${Kenao.variable}`}>
       <body className={`${golosText.variable} antialiased`}>
         <NextIntlClientProvider locale={locale}>
           <ThemeProvider
