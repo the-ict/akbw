@@ -126,7 +126,7 @@
     @apply container px-4 mx-auto;
   }
 
-  body {
+  .kenao-font {
     font-family: var(--font-kenao);
   }
 }

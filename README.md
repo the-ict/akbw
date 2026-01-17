@@ -11,3 +11,6 @@
 * Tez va Sifatli maxsulotlarni xush ko'radiganlar
 * Online buyurtma berishni yoqtiradiganlar
 * Kutib turishni yoqtirmaydiganlar
+
+# akbw - enviroment o'zgaruvchilar
+* NEXT_PUBLIC_API_URL - server uchun path
