@@ -125,8 +125,8 @@
   .custom-container {
     @apply container px-4 mx-auto;
   }
-}
 
-* {
-  
+  body {
+    font-family: var(--font-kenao);
+  }
 }
