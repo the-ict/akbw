@@ -1,9 +1,11 @@
-import { Golos_Text } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
-const golosText = Golos_Text({
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-golos-text',
+// Inter font for UI elements - AKBW brand standard
+const inter = Inter({
+  weight: ['300', '400', '500', '600'],
+  variable: '--font-inter',
   subsets: ['latin', 'cyrillic'],
+  display: 'swap',
 });
 
-export { golosText };
+export { inter };

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import '../globals.css';
-import { golosText } from '@/shared/config/fonts';
+import { inter } from '@/shared/config/fonts';
 import { ThemeProvider } from '@/shared/config/theme-provider';
 import { PRODUCT_INFO } from '@/shared/constants/data';
 import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl';
@@ -13,10 +13,10 @@ import { setRequestLocale } from 'next-intl/server';
 import QueryProvider from '@/shared/config/react-query/QueryProvider';
 import Script from 'next/script';
 
-import {Kenao} from "@/shared/fonts"
+import { Kenao } from '@/shared/fonts';
 
 export const metadata: Metadata = {
-  title: PRODUCT_INFO.name,
+  title: PRODUCT_INFO.name + ' - ' + PRODUCT_INFO.fullName,
   description: PRODUCT_INFO.description,
   icons: PRODUCT_INFO.favicon,
 };
@@ -40,8 +40,8 @@ export default async function RootLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} suppressHydrationWarning className={`${Kenao.variable}`}>
-      <body className={`${golosText.variable} antialiased`}>
+    <html lang={locale} suppressHydrationWarning className={`${Kenao.variable} ${inter.variable}`}>
+      <body className="antialiased">
         <NextIntlClientProvider locale={locale}>
           <ThemeProvider
             attribute={'class'}

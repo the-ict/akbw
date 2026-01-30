@@ -14,5 +14,5 @@ const NavbarItems: INavbarItem[] = [
         href: "/brands",
     }
 ];
-
+    
 export {NavbarItems};
