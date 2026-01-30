@@ -35,12 +35,18 @@ const Navbar = () => {
             <ShoppingCart size={20} />
           </button>
 
+          <select>
+            <option value="english">English 🇺🇸</option>
+            <option value="uzbek">Uzbek 🇺🇿</option>
+            <option value="russian">Russian 🇷🇺</option>
+          </select>
+
           <div className="flex items-center gap-2">
             <Button variant={"outline"} className="btn-sign-in-padding">
               Sign In
             </Button>
 
-            <Button className="bg-[#fff]/50 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl">
+            <Button className="bg-[#fff]/50 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20  shadow-xl">
               Sign Up
             </Button>
           </div>
