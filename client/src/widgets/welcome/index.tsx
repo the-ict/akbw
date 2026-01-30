@@ -203,7 +203,7 @@ export default function Welcome() {
           </div>
         </div>
 
-        <div className="flex gap-5 overflow-x-scroll no-scrollbar" ref={wrapperRef}>
+        <div className="flex gap-5 overflow-x-scroll px-5 no-scrollbar" ref={wrapperRef}>
           {[
             {
               name: "Sarah M.",
@@ -230,7 +230,7 @@ export default function Welcome() {
               text: "I love the minimalist aesthetic of AKBW. The fabrics are so comfortable and the fit is perfect. Highly recommend for anyone looking for quality basics.",
             },
           ].map((review, index) => (
-            <div ref={reviewRef} key={index} className="flex flex-col gap-3 border-1 border-black/10 p-5 rounded-[20px] bg-[#D6D3CC]/20">
+            <div ref={reviewRef} key={index} className="flex flex-col gap-3 border-1 border-black/10 p-5 rounded-[20px] bg-[#D6D3CC]/20 w-[300px] shrink-0">
               <div className="flex items-center gap-2">
                 <Star size={20} fill="yellow" className="text-yellow-500" />
                 <Star size={20} fill="yellow" className="text-yellow-500" />
