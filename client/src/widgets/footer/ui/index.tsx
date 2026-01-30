@@ -125,6 +125,7 @@ const Footer = () => {
           </div>
         </div>
 
+        <hr />
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-black">

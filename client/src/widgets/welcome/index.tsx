@@ -152,7 +152,7 @@ export default function Welcome() {
 
         <div className="flex flex-col items-start w-full gap-5">
           <div className="flex gap-5 w-full">
-            <div className="flex-[3] flex items-center">
+            <div className="flex-[3] flex items-center cursor-pointer">
               <div className="relative w-full h-[330px] rounded-[10px] overflow-hidden">
                 <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg">
                   <h1>Oversize</h1>
@@ -160,7 +160,7 @@ export default function Welcome() {
                 <Image src={OverSize.src} alt="product" fill className="object-cover z-1" />
               </div>
             </div>
-            <div className="flex-[7]">
+            <div className="flex-[7] cursor-pointer">
               <div className="relative w-full h-[330px] rounded-[10px] overflow-hidden">
                 <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg">
                   <h1>Old Money</h1>
@@ -170,7 +170,7 @@ export default function Welcome() {
             </div>
           </div>
           <div className="flex gap-5 w-full">
-            <div className="flex-[7] flex items-center">
+            <div className="flex-[7] flex items-center cursor-pointer">
               <div className="relative w-full h-[330px] rounded-[10px] overflow-hidden">
                 <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg">
                   <h1>Sport Style</h1>
@@ -178,7 +178,7 @@ export default function Welcome() {
                 <Image src={SportStyle.src} alt="product" fill className="object-cover z-1" />
               </div>
             </div>
-            <div className="flex-[3]">
+            <div className="flex-[3] cursor-pointer">
               <div className="relative w-full h-[330px] rounded-[10px] overflow-hidden">
                 <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg">
                   <h1>Minimalistik</h1>
