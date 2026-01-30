@@ -8,6 +8,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-display: var(--font-kenao);
+  --font-kenao: var(--font-kenao);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);

@@ -13,6 +13,7 @@ const config: Config = {
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         display: ['var(--font-kenao)', 'sans-serif'],
+        kenao: ['var(--font-kenao)', 'sans-serif'],
       },
       colors: {
         'akbw-sand': '#a6a195',
