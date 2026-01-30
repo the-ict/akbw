@@ -1,6 +1,8 @@
 'use client';
 
-import { Button } from "@/shared/ui/button";
+import {
+  Button
+} from "@/shared/ui/button";
 import WelcomePng from "../../../public/assets/welcome.png"
 import Image from "next/image";
 import {
@@ -11,10 +13,18 @@ import OverSize from "../../../public/assets/oversize.jpg";
 import OldMoney from "../../../public/assets/oldmoney.jpg";
 import SportStyle from "../../../public/assets/sport-style.jpg";
 import Minimalistik from "../../../public/assets/minimalistik.jpg";
-import { monsterrat } from "@/shared/fonts";
+import {
+  monsterrat
+} from "@/shared/fonts";
+import {
+  ArrowLeft,
+  ArrowRight,
+  MapPinCheckInside,
+  Star,
+} from "lucide-react";
+import { useRef } from "react";
 
 export default function Welcome() {
-
   const logos = [
     {
       name: "VERCAGE",
@@ -39,8 +49,21 @@ export default function Welcome() {
       name: "VERCAGE",
       style: "font-inter text-sm font-bold text-5xl"
     }
-
   ]
+
+  const reviewRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = (direction: "left" | "right") => {
+    if (wrapperRef.current && reviewRef.current) {
+      const scrollAmount = reviewRef.current.offsetWidth + 20;
+      const newScrollPosition = direction === "left" ? wrapperRef.current.scrollLeft - scrollAmount : wrapperRef.current.scrollLeft + scrollAmount;
+      wrapperRef.current.scrollTo({
+        left: newScrollPosition,
+        behavior: "smooth"
+      })
+    }
+  }
 
   return (
     <div>
@@ -71,7 +94,7 @@ export default function Welcome() {
         </div>
       </div>
 
-      <div className="h-[200px] bg-[#D6D3CC] flex items-center justify-center mb-3">
+      <div className="h-[200px] bg-[#D6D3CC]/40 flex items-center justify-center mb-3">
         <div className="container flex items-center gap-3 text-black overflow-hidden">
           {
             logos.map((logo, logoIndex) => (
@@ -124,7 +147,7 @@ export default function Welcome() {
       </div>
 
 
-      <div className="container bg-[#D6D3CC] p-20 pt-2 rounded-[20px] my-10">
+      <div className="container bg-[#D6D3CC]/40 p-20 pt-2 rounded-[20px] my-10">
         <h1 className={cn("text-4xl font-bold text-center uppercase my-10", monsterrat.className)}>BROWSE BY DRESS STYLE</h1>
 
         <div className="flex flex-col items-start w-full gap-5">
@@ -164,6 +187,64 @@ export default function Welcome() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="py-20">
+        <div className="container mb-10 flex items-end justify-between">
+          <h1 className={cn("text-4xl font-bold uppercase", monsterrat.className)}>Our happy customers</h1>
+          <div className="flex gap-4">
+            <button onClick={() => handleScroll('left')} className="p-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all cursor-pointer">
+              <ArrowLeft size={20} />
+            </button>
+            <button onClick={() => handleScroll('right')} className="p-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all cursor-pointer">
+              <ArrowRight size={20} />
+            </button>
+          </div>
+        </div>
+
+        <div className="flex gap-5 overflow-x-scroll no-scrollbar" ref={wrapperRef}>
+          {[
+            {
+              name: "Sarah M.",
+              text: "I'm blown away by the quality and style of the clothes I received from AKBW. From everyday essentials to standout pieces, every item I've purchased has exceeded my expectations.",
+            },
+            {
+              name: "Sarah M.",
+              text: "I'm blown away by the quality and style of the clothes I received from AKBW. From everyday essentials to standout pieces, every item I've purchased has exceeded my expectations.",
+            },
+            {
+              name: "Alex K.",
+              text: "Finding clothes that align with my personal style used to be a challenge until I discovered AKBW. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.",
+            },
+            {
+              name: "James L.",
+              text: "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have come across AKBW. The selection of clothes is not only diverse but also on-point with the latest trends.",
+            },
+            {
+              name: "Michael R.",
+              text: "The customer service at AKBW is top-notch. I had a small issue with my order and they handled it quickly and professionally. Plus, the clothes look even better in person!",
+            },
+            {
+              name: "Emma D.",
+              text: "I love the minimalist aesthetic of AKBW. The fabrics are so comfortable and the fit is perfect. Highly recommend for anyone looking for quality basics.",
+            },
+          ].map((review, index) => (
+            <div ref={reviewRef} key={index} className="flex flex-col gap-3 border-1 border-black/10 p-5 rounded-[20px] bg-[#D6D3CC]/20">
+              <div className="flex items-center gap-2">
+                <Star size={20} fill="yellow" className="text-yellow-500" />
+                <Star size={20} fill="yellow" className="text-yellow-500" />
+                <Star size={20} fill="yellow" className="text-yellow-500" />
+                <Star size={20} fill="yellow" className="text-yellow-500" />
+                <Star size={20} fill="yellow" className="text-yellow-500" />
+              </div>
+              <div className="flex items-center gap-2">
+                <h1 className="font-bold">{review.name}</h1>
+                <MapPinCheckInside size={20} />
+              </div>
+              <p className="text-sm line-clamp-3">{review.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

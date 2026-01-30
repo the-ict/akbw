@@ -114,3 +114,11 @@
 .btn-welcome {
   padding: 24px 50px;
 }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
