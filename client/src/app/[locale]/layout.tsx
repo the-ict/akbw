@@ -32,6 +32,7 @@ import {
 } from 'next-intl/server';
 import QueryProvider from '@/shared/config/react-query/QueryProvider';
 import Script from 'next/script';
+import { Toaster } from '@/shared/ui/toast';
 
 import {
   Kenao,
@@ -80,6 +81,7 @@ export default async function RootLayout({ children, params }: Props) {
               <Navbar />
               {children}
               <Footer />
+              <Toaster />
             </QueryProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
