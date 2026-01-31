@@ -12,6 +12,7 @@ import {
 } from "@/shared/ui/dropdown-menu";
 import Register from "@/widgets/register";
 import Login from "@/widgets/login";
+import Link from "next/link";
 
 const categories = [
   "Classic",
@@ -50,7 +51,9 @@ const Navbar = () => {
           >
             <Menu size={24} />
           </button>
-          <h1 className="font-display text-2xl md:text-3xl font-bold">AKBW</h1>
+          <Link href={"/"}>
+            <h1 className="font-display text-2xl md:text-3xl font-bold">AKBW</h1>
+          </Link>
         </div>
 
         {/* Desktop Nav Links */}

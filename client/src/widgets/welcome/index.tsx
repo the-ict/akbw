@@ -153,7 +153,7 @@ export default function Welcome() {
 
       <div className="container py-20">
         <div>
-          <h1 className={cn("text-4xl font-bold text-center uppercase my-10", monsterrat.className)}>New Arrivals</h1>
+          <h1 className={cn("text-4xl font-bold text-center uppercase my-10", monsterrat.className)}>Yangi Qo'shilganlar</h1>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
             {
@@ -175,7 +175,7 @@ export default function Welcome() {
 
       <div className="container py-20">
         <div>
-          <h1 className={cn("text-4xl font-bold text-center uppercase my-10", monsterrat.className)}>Top Selling</h1>
+          <h1 className={cn("text-4xl font-bold text-center uppercase my-10", monsterrat.className)}>Eng ko'p sotilayotganlar</h1>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
             {
@@ -196,7 +196,7 @@ export default function Welcome() {
 
       <div className="container bg-[#D6D3CC]/40 p-6 lg:p-20 pt-10 rounded-[20px] my-10">
         <h1 className={cn("text-3xl lg:text-4xl font-bold text-center uppercase mb-10", monsterrat.className)}>
-          BROWSE BY DRESS STYLE
+          Stillar
         </h1>
 
         <div className="flex flex-col gap-5 w-full">
@@ -241,7 +241,7 @@ export default function Welcome() {
 
       <div className="py-20">
         <div className="container mb-10 flex items-end justify-between">
-          <h1 className={cn("text-4xl font-bold uppercase", monsterrat.className)}>Our happy customers</h1>
+          <h1 className={cn("text-4xl font-bold uppercase", monsterrat.className)}>Bizning minnatdor mijozlarimiz</h1>
           <div className="flex gap-4">
             <button onClick={() => handleScroll('left')} className="p-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all cursor-pointer">
               <ArrowLeft size={20} />

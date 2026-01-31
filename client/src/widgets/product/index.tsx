@@ -6,9 +6,14 @@ import Image from "next/image";
 
 export default function Product() {
     return (
-        <div className="cursor-pointer flex flex-col gap-2">
-            <div className="relative w-full h-[190px] md:h-[330px] rounded-[10px] overflow-hidden">
-                <Image src={ProductImage.src} alt="product" fill className="object-cover" />
+        <div className="cursor-pointer flex flex-col gap-3 group">
+            <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden bg-[#F0EEED]">
+                <Image
+                    src={ProductImage.src}
+                    alt="product"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                />
             </div>
             <h1 className="text-lg font-semibold">T-shirt with Tape Details</h1>
             <div className="flex items-center gap-2">
