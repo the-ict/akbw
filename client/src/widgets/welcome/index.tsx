@@ -93,7 +93,7 @@ export default function Welcome() {
             </div>
           </div>
         </div>
-        <div className="relative w-full h-[300px] md:h-[400px] lg:h-[800px] lg:w-1/2">
+        <div className="relative w-full h-[300px] md:h-[400px] lg:h-[800px] xl:h-[800px] 2xl:h-[800px] 2xl:w-1/2">
           <Image src={WelcomePng.src} fill alt="welcome" className="object-contain" priority />
         </div>
       </div>
