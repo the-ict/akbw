@@ -12,26 +12,19 @@ import {
     cn
 } from "@/shared/lib/utils";
 import {
-    ChevronDown,
     X,
 } from "lucide-react";
 import React from "react";
 import * as z from "zod";
 
 const registerSchema = z.object({
-    name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
-    lastName: z.string().min(2, "Familiya kamida 2 ta harfdan iborat bo'lishi kerak"),
-    gender: z.string().min(2, "Jins kamida 2 ta harfdan iborat bo'lishi kerak"),
     phone: z.string().min(12, "Telefon raqami noto'g'ri").regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "Telefon raqami noto'g'ri"),
 });
 
 
 type Steps = "register" | "verify"
 
-function Register() {
-    const [name, setName] = React.useState("");
-    const [lastName, setLastName] = React.useState("");
-    const [gender, setGender] = React.useState("male");
+function Login() {
     const [phone, setPhone] = React.useState("+998");
     const [otp, setOtp] = React.useState("");
     const [errors, setErrors] = React.useState<Record<string, string>>({});
@@ -80,7 +73,7 @@ function Register() {
     };
 
     const handleRegister = () => {
-        const result = registerSchema.safeParse({ name, lastName, gender, phone });
+        const result = registerSchema.safeParse({ phone });
 
         if (!result.success) {
             const newErrors: Record<string, string> = {};
@@ -110,6 +103,7 @@ function Register() {
         setTimeLeft(60);
         setOtp("");
         console.log("Resending code to:", phone);
+        // Add your resend API call here
     };
 
 
@@ -118,49 +112,6 @@ function Register() {
             case "register":
                 return (
                     <>
-                        <div className="flex flex-col gap-1 mt-3">
-                            <label className="text-sm font-medium">Ism</label>
-                            <Input
-                                placeholder="Abdullox"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className={errors.name ? "border-red-500" : "placeholder:opacity-50"}
-                            />
-                            {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
-                        </div>
-
-                        <div className="flex flex-col gap-1 mt-3">
-                            <label className="text-sm font-medium">Familiya</label>
-                            <Input
-                                placeholder="Akbarov"
-                                value={lastName}
-                                onChange={(e) => setLastName(e.target.value)}
-                                className={errors.lastName ? "border-red-500" : "placeholder:opacity-50"}
-                            />
-                            {errors.lastName && <p className="text-xs text-red-500">{errors.lastName}</p>}
-                        </div>
-
-                        <div className="flex flex-col gap-1 mt-3">
-                            <label className="text-sm font-medium">Jins</label>
-                            <div className="relative">
-                                <select
-                                    name="gender"
-                                    id="gender"
-                                    className={cn(
-                                        "flex h-10 w-full rounded-md px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 appearance-none pr-8 bg-white shadow-lg border-none outline-none",
-                                        errors.gender ? "border-1 border-red-500" : ""
-                                    )}
-                                    value={gender}
-                                    onChange={(e) => setGender(e.target.value)}
-                                >
-                                    <option value="male">Erkak</option>
-                                    <option value="female">Ayol</option>
-                                </select>
-                                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none" />
-                            </div>
-                            {errors.gender && <p className="text-xs text-red-500">{errors.gender}</p>}
-                        </div>
-
                         <div className="flex flex-col gap-1 mt-3">
                             <label className="text-sm font-medium">Telefon raqami</label>
                             <Input
@@ -223,7 +174,7 @@ function Register() {
                             }}
                             className="bg-[#fff]/50 mt-3 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl text-sm font-bold w-full"
                         >
-                            Malumotlarni tahrirlash
+                            Raqamni o'zgartirish
                         </Button>
                     </>
                 )
@@ -233,8 +184,8 @@ function Register() {
     return (
         <Modal>
             <ModalTrigger asChild>
-                <Button variant={"outline"} className="bg-[#fff]/50 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl text-sm font-bold">
-                    Ro'yhatdan o'tish
+                <Button>
+                    Kirish
                 </Button>
             </ModalTrigger>
             <ModalContent>
@@ -244,18 +195,16 @@ function Register() {
 
                 <h1 className="font-display text-2xl md:text-3xl font-bold w-full text-center">AKBW</h1>
                 <ModalTitle className="text-center">
-                    {steps === "register" ? "Ro'yhatdan o'tish" : "Tasdiqlash kodi"}
+                    {steps === "register" ? "Kirish" : "Tasdiqlash kodi"}
                 </ModalTitle>
-
                 {renderRegisterSteps()}
 
                 <ModalDescription className="text-gray-500 mt-3 text-[11px] text-center">
                     Davom etgan holda men <a href="google.com" className="text-gray-600 underline font-bold">AKBW malumotlarni qayta ishlash siyosatiga rozilik bildiraman!</a>
                 </ModalDescription>
-
             </ModalContent>
         </Modal>
     )
 }
 
-export default Register;
+export default Login;

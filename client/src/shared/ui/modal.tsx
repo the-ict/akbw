@@ -91,7 +91,7 @@ function ModalDescription({
 function ModalClose({
     ...props
 }: React.ComponentProps<typeof DialogPrimitive.Close>) {
-    return <DialogPrimitive.Close data-slot="modal-close" {...props} className={cn("cursor-pointer", props.className)} />;
+    return <DialogPrimitive.Close data-slot="modal-close" {...props} className={cn("cursor-pointer absolute top-5 right-5", props.className)} />;
 }
 
 export {
