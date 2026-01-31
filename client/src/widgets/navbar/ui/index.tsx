@@ -10,6 +10,7 @@ import {
   DropdownMenuContent,
   DropdownMenuLabel
 } from "@/shared/ui/dropdown-menu";
+import Register from "@/widgets/register";
 
 const categories = [
   "Classic",
@@ -95,9 +96,7 @@ const Navbar = () => {
           </select>
 
           <div className="hidden sm:flex items-center gap-2">
-            <Button variant={"outline"} className="btn-sign-in-padding text-sm font-bold">
-              Kirish
-            </Button>
+            <Register />
             <Button className="bg-[#fff]/50 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl text-sm font-bold">
               Ro'yhatdan o'tish
             </Button>
