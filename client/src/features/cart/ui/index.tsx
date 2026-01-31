@@ -1,14 +1,58 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, {
+    useState
+} from 'react';
 import Image from 'next/image';
-import { Minus, Plus, Trash2, ArrowRight, Tag, Check } from 'lucide-react';
+import {
+    Minus,
+    Plus,
+    Trash2,
+    ArrowRight,
+    Tag,
+    Check,
+    MapPin,
+    CreditCard,
+    Wallet,
+    X,
+    ChevronDown
+} from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { cn } from '@/shared/lib/utils';
-import { monsterrat } from '@/shared/fonts';
+import { monsterrat, Radiant } from '@/shared/fonts';
 import ProductImage from "../../../../public/assets/product.png";
 import { toast } from '@/shared/ui/toast';
+import {
+    Modal,
+    ModalContent,
+    ModalTitle,
+    ModalDescription,
+    ModalClose,
+} from "@/shared/ui/modal";
+
+const UZBEKISTAN_DATA: Record<string, string[]> = {
+    "Toshkent shahri": ["Olmazor", "Bektemir", "Mirobod", "Mirzo Ulug'bek", "Sergeli", "Uchtepa", "Chilonzor", "Shayxontohur", "Yunusobod", "Yakkasaroy", "Yashnobod"],
+    "Toshkent viloyati": ["Angren", "Olmaliq", "Chirchiq", "Bekobod", "Bo'stonliq", "Zangiota", "Qibray", "Parkent", "Piskent", "O'rtachirchiq", "Yangiyo'l"],
+    "Samarqand viloyati": ["Samarqand sh.", "Oqdaryo", "Bulung'ur", "Jomboy", "Ishtixon", "Kattaqo'rg'on", "Narpay", "Payariq", "Pastdarg'om", "Toyloq"],
+    "Buxoro viloyati": ["Buxoro sh.", "G'ijduvon", "Jondor", "Kogon", "Olot", "Peshku", "Romitan", "Shorofirkon", "Qorovulbozor", "Qorakol"],
+    "Fargʻona viloyati": ["Farg'ona sh.", "Marg'ilon sh.", "Qo'qon sh.", "Quva", "Oltiariq", "Bog'dod", "Buvayda", "Dang'ara", "Uchko'prik", "Yozyovon"],
+    "Andijon viloyati": ["Andijon sh.", "Asaka", "Baliqchi", "Bo'ston", "Buloqboshi", "Jalaquduq", "Izboskan", "Qo'rg'ontepa", "Marhamat", "Paxtaobod"],
+    "Namangan viloyati": ["Namangan sh.", "Chartaq", "Chust", "Kosonsoy", "Mingbuloq", "Norin", "Pop", "To'raqo'rg'on", "Uychi", "Uchqo'rg'on", "Yangiqo'rg'on"],
+    "Jizzax viloyati": ["Jizzax sh.", "Arnasoy", "Baxmal", "Do'stlik", "Forish", "G'allaorol", "Mirzachol", "Paxtakor", "Zamin", "Zafarobod"],
+    "Sirdaryo viloyati": ["Guliston sh.", "Boyovut", "Oqoltin", "Sardoba", "Sayxunobod", "Sirdaryo", "Xovos", "Shirin sh.", "Yangiyer sh."],
+    "Qashqadaryo viloyati": ["Qarshi sh.", "G'uzor", "Dehqonobod", "Kasbi", "Kitob", "Koson", "Muborak", "Nishon", "Shahrisabz", "Yakkabog'"],
+    "Surxondaryo viloyati": ["Termiz sh.", "Angor", "Boysun", "Denov", "Jarqo'rg'on", "Qiziriq", "Qumqo'rg'on", "Muzrabot", "Sariosiyo", "Sherobod", "Sho'rchi"],
+    "Navoiy viloyati": ["Navoiy sh.", "Zarafshon sh.", "Karmana", "Konimex", "Navbahor", "Nurota", "Tomdi", "Uchkuduk sh.", "Xatirchi", "Qiziltepa"],
+    "Xorazm viloyati": ["Urganch sh.", "Xiva sh.", "Bog'ot", "Gurlan", "Qo'shko'pir", "Showot", "Tuproqqal'a", "Xazorasp", "Xonqa", "Yangiariq", "Yangibozor"],
+    "Qoraqalpogʻiston Respublikasi": ["Nukus sh.", "Amudaryo", "Beruniy", "Kanlikul", "Mo'ynoq", "Nukus", "Taxiatosh sh.", "To'rtkol", "Xojayli", "Chimboy", "Ellikqal'a"]
+};
+
+
+import Uzum from "../../../../public/icons/uzum.png"
+import Click from "../../../../public/icons/click.png"
+import Payme from "../../../../public/icons/payme.png"
+import Paynet from "../../../../public/icons/paynet.svg"
 
 export default function Cart() {
     const [cartItems, setCartItems] = useState([
@@ -42,6 +86,13 @@ export default function Cart() {
     ]);
 
     const [checkingOrders, setCheckingOrders] = useState<any[]>([]);
+    const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+    const [selectedOrder, setSelectedOrder] = useState<any>(null);
+    const [region, setRegion] = useState('');
+    const [district, setDistrict] = useState('');
+    const [detailedAddress, setDetailedAddress] = useState('');
+    const [checkoutPromoCode, setCheckoutPromoCode] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState<'payme' | 'click'>('payme');
 
     const updateQuantity = (id: number, delta: number) => {
         setCartItems(items => items.map(item =>
@@ -70,9 +121,12 @@ export default function Cart() {
         const newOrder = {
             id: Date.now(),
             items: [...cartItems],
-            status: 'checking', // 'checking' | 'approved'
+            status: 'checking',
             date: new Date().toLocaleDateString(),
-            total: subtotal - discount + deliveryFee
+            total: subtotal - discount + deliveryFee,
+            subtotal,
+            discount,
+            deliveryFee
         };
 
         setCheckingOrders(prev => [newOrder, ...prev]);
@@ -82,7 +136,6 @@ export default function Cart() {
             description: "Tez orada operatorlarimiz siz bilan bog'lanishadi."
         });
 
-        // Simulate approval for demo
         setTimeout(() => {
             setCheckingOrders(prev => prev.map(order =>
                 order.id === newOrder.id ? { ...order, status: 'approved' } : order
@@ -91,6 +144,35 @@ export default function Cart() {
                 description: "Endi buyurtma berishingiz mumkin."
             });
         }, 5000);
+    };
+
+    const handleOrderNow = (order: any) => {
+        setSelectedOrder(order);
+        setIsCheckoutOpen(true);
+    };
+
+    const finalizePayment = () => {
+        if (!region || !district || !detailedAddress) {
+            toast.error("Iltimos, barcha manzillarni to'ldiring");
+            return;
+        }
+
+        toast.promise(
+            new Promise((resolve) => setTimeout(resolve, 2000)),
+            {
+                loading: "To'lov amalga oshirilmoqda...",
+                success: "To'lov muvaffaqiyatli yakunlandi! Rahmat.",
+                error: "To'lovda xatolik yuz berdi.",
+            }
+        );
+        setTimeout(() => {
+            setIsCheckoutOpen(false);
+            setCheckingOrders(prev => prev.filter(o => o.id !== selectedOrder.id));
+            setRegion('');
+            setDistrict('');
+            setDetailedAddress('');
+            setCheckoutPromoCode('');
+        }, 2500);
     };
 
     return (
@@ -270,7 +352,10 @@ export default function Cart() {
                                             </div>
 
                                             {order.status === 'approved' && (
-                                                <Button className='rounded-full px-10 py-6 font-black uppercase text-sm bg-black hover:bg-black/90 shadow-xl transition-all cursor-pointer'>
+                                                <Button
+                                                    onClick={() => handleOrderNow(order)}
+                                                    className='rounded-full px-10 py-6 font-black uppercase text-sm bg-black hover:bg-black/90 shadow-xl transition-all cursor-pointer'
+                                                >
                                                     Order Now
                                                 </Button>
                                             )}
@@ -282,6 +367,150 @@ export default function Cart() {
                     </div>
                 )}
             </div>
+
+            {/* Checkout Modal */}
+            <Modal open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
+                <ModalContent className="max-w-2xl bg-white p-0 overflow-hidden border-none rounded-[32px] shadow-2xl max-h-[90vh] overflow-y-auto no-scrollbar">
+                    <div className="p-8 space-y-8">
+                        <div className="space-y-2">
+                            <ModalTitle className={cn("text-3xl font-black uppercase tracking-tight", Radiant.className)}>
+                                Finalize Your Order
+                            </ModalTitle>
+                            <ModalDescription className="text-gray-400 font-medium">
+                                Provide your delivery address and choose a payment method.
+                            </ModalDescription>
+                        </div>
+
+                        {/* Products Preview */}
+                        <div className="flex -space-x-10 overflow-x-auto py-2 no-scrollbar">
+                            {selectedOrder?.items.map((item: any, i: number) => (
+                                <div key={i} className="w-24 h-24 rounded-2xl overflow-hidden border-4 border-white shadow-xl hover:-translate-y-2 transition-transform flex-shrink-0">
+                                    <Image src={item.image} alt={item.name} width={96} height={96} className="object-cover" />
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Manual Location Selection */}
+                        <div className="space-y-4">
+                            <h3 className="font-bold text-lg flex items-center gap-2 text-black">
+                                <MapPin size={20} />
+                                Delivery Address
+                            </h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">Region</label>
+                                    <div className="relative">
+                                        <select
+                                            value={region}
+                                            onChange={(e) => { setRegion(e.target.value); setDistrict(''); }}
+                                            className="w-full bg-gray-50 border-none rounded-2xl h-14 px-5 text-sm font-semibold appearance-none cursor-pointer focus:ring-2 focus:ring-black/5"
+                                        >
+                                            <option value="">Select Region</option>
+                                            {Object.keys(UZBEKISTAN_DATA).map(r => (
+                                                <option key={r} value={r}>{r}</option>
+                                            ))}
+                                        </select>
+                                        <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                                    </div>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">District</label>
+                                    <div className="relative">
+                                        <select
+                                            value={district}
+                                            disabled={!region}
+                                            onChange={(e) => setDistrict(e.target.value)}
+                                            className="w-full bg-gray-50 border-none rounded-2xl h-14 px-5 text-sm font-semibold appearance-none cursor-pointer focus:ring-2 focus:ring-black/5 disabled:opacity-50"
+                                        >
+                                            <option value="">Select District</option>
+                                            {region && UZBEKISTAN_DATA[region].map(d => (
+                                                <option key={d} value={d}>{d}</option>
+                                            ))}
+                                        </select>
+                                        <ChevronDown size={18} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="space-y-1.5">
+                                <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">Detailed Address (Street, House, Apartment)</label>
+                                <Input
+                                    value={detailedAddress}
+                                    onChange={(e) => setDetailedAddress(e.target.value)}
+                                    placeholder="e.g. Amir Temur Avenue, 108"
+                                    className="h-14 rounded-2xl bg-gray-50 border-none px-5 text-sm font-semibold focus:ring-2 focus:ring-black/5"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Payment Selection */}
+                        <div className="space-y-4">
+                            <h3 className="font-bold text-lg flex items-center gap-2">
+                                <CreditCard size={20} className="text-black" />
+                                Payment Method
+                            </h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                {[
+                                    { id: 'payme', name: 'Payme', icon: Payme.src },
+                                    { id: 'click', name: 'Click', icon: Click.src },
+                                    { id: "uzum", name: "Uzum", icon: Uzum.src },
+                                    { id: "paynet", name: "Paynet", icon: Paynet.src }
+                                ].map((method) => (
+                                    <div
+                                        key={method.id}
+                                        onClick={() => setPaymentMethod(method.id as any)}
+                                        className={cn(
+                                            "flex flex-col items-center justify-center p-2 rounded-[12px] border-2 transition-all cursor-pointer gap-2",
+                                            paymentMethod === method.id
+                                                ? "border-black bg-black/5 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]"
+                                                : "border-gray-50 bg-gray-50/50 hover:border-black/10"
+                                        )}
+                                    >
+                                        <Image src={method.icon} alt={method.name} width={120} height={120} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Coupon Code Selection */}
+                        <div className="space-y-4">
+                            <h3 className="font-bold text-lg flex items-center gap-2">
+                                <Tag size={20} className="text-black" />
+                                Coupon Code
+                            </h3>
+                            <div className="flex gap-3">
+                                <Input
+                                    value={checkoutPromoCode}
+                                    onChange={(e) => setCheckoutPromoCode(e.target.value)}
+                                    placeholder="Enter coupon code"
+                                    className="h-12 rounded-full bg-gray-50 border-none px-5 text-sm font-semibold"
+                                />
+                                <Button className="rounded-full px-8 bg-gray-100 hover:bg-gray-200 text-black font-bold h-12 shadow-none border-none">
+                                    Apply
+                                </Button>
+                            </div>
+                        </div>
+
+                        {/* Total & Pay */}
+                        <div className="bg-black rounded-[28px] p-6 flex justify-between items-center text-white shadow-xl shadow-black/10">
+                            <div className="flex flex-col">
+                                <span className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Total to Pay</span>
+                                <span className={cn("text-3xl font-black", Radiant.className)}>
+                                    ${selectedOrder?.total}
+                                </span>
+                            </div>
+                            <Button
+                                onClick={finalizePayment}
+                                className="rounded-full px-10 py-7 font-black text-lg bg-white text-black hover:bg-white/90 transition-all uppercase tracking-widest cursor-pointer border-none"
+                            >
+                                Pay Now
+                            </Button>
+                        </div>
+                    </div>
+                    <ModalClose className="bg-white/80 backdrop-blur-md rounded-full p-2 hover:bg-white transition-all shadow-sm">
+                        <X size={20} />
+                    </ModalClose>
+                </ModalContent>
+            </Modal>
         </div>
     );
 }
