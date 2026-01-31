@@ -26,6 +26,10 @@ import {
   useRef
 } from "react";
 
+import ShoppingCartIcon from "../../../public/icons/shoppingcart.png";
+import TufliIcon from "../../../public/icons/tufli.png";
+import KiyimIcon from "../../../public/icons/kiyim.png";
+import Futbolka from "../../../public/icons/futbolka.png";
 
 
 export default function Welcome() {
@@ -101,6 +105,39 @@ export default function Welcome() {
         </div>
         <div className="relative w-full h-[300px] md:h-[400px] lg:h-[800px] xl:h-[800px] 2xl:h-[800px] 2xl:w-1/2">
           <Image src={WelcomePng.src} fill alt="welcome" className="object-contain" priority />
+
+          <Image
+            src={ShoppingCartIcon.src}
+            width={300}
+            height={300}
+            alt="shopping cart icon"
+            className="w-[50px] md:w-[100px] lg:w-[150px] absolute bottom-40 left-10 lg:left-0 animate-float object-contain z-10 opacity-50"
+            priority
+          />
+          <Image
+            src={TufliIcon.src}
+            width={300}
+            height={300}
+            alt="tufli icon"
+            className="w-[50px] md:w-[100px] lg:w-[150px] absolute top-10 left-0 lg:left-[-50px] animate-float object-contain z-10 opacity-50"
+            priority
+          />
+          <Image
+            src={KiyimIcon.src}
+            width={300}
+            height={300}
+            alt="kiyim icon"
+            className="w-[50px] md:w-[100px] lg:w-[150px] absolute top-10 right-0 lg:right-[-50px] animate-float object-contain z-10 opacity-50"
+            priority
+          />
+          <Image
+            src={Futbolka.src}
+            width={300}
+            height={300}
+            alt="futbolka icon"
+            className="w-[50px] md:w-[100px] lg:w-[150px] absolute bottom-40 right-10 lg:right-0 animate-float object-contain z-10 opacity-50"
+            priority
+          />
         </div>
       </div>
 

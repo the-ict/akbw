@@ -41,6 +41,20 @@
   --color-akbw-gray: #7C7A74;
   --color-akbw-olive: #6B6E5F;
   --color-akbw-taupe: #8A847A;
+
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+      transform: translateY(-20px) rotate(3deg);
+    }
+  }
 }
 
 :root {
