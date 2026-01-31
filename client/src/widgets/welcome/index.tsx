@@ -3,7 +3,7 @@
 import {
   Button
 } from "@/shared/ui/button";
-import WelcomePng from "../../../public/assets/welcome.png"
+import WelcomePng from "../../../public/assets/welcome-right.png"
 import Image from "next/image";
 import {
   cn
@@ -93,7 +93,7 @@ export default function Welcome() {
             </div>
           </div>
         </div>
-        <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] lg:w-1/2">
+        <div className="relative w-full h-[300px] md:h-[400px] lg:h-[800px] lg:w-1/2">
           <Image src={WelcomePng.src} fill alt="welcome" className="object-contain" priority />
         </div>
       </div>
