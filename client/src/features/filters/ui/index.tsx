@@ -43,7 +43,7 @@ export default function FilterPage() {
     };
 
     return (
-        <div className='min-h-screen container max-w-[1400px] py-10 px-4 md:px-6'>
+        <div className='min-h-screen container py-10 px-4 md:px-6'>
             <div>
                 <p className='text-gray-500 text-sm'>Home / Filters</p>
             </div>
@@ -140,7 +140,7 @@ export default function FilterPage() {
                                             key={size}
                                             onClick={() => toggleSize(size)}
                                             className={cn(
-                                                "px-5 py-2.5 rounded-full text-xs font-semibold transition-all border",
+                                                "px-5 py-2.5 rounded-full text-xs font-semibold transition-all border cursor-pointer",
                                                 selectedSizes.includes(size)
                                                     ? "bg-black text-white border-black"
                                                     : "bg-[#F0F0F0] text-gray-600 border-transparent hover:border-black"
@@ -199,7 +199,7 @@ export default function FilterPage() {
                                     key={i}
                                     onClick={() => typeof page === 'number' && setCurrentPage(page)}
                                     className={cn(
-                                        "min-w-11 h-11 rounded-xl text-sm font-bold transition-all",
+                                        "min-w-11 h-11 rounded-xl text-sm font-bold transition-all cursor-pointer",
                                         currentPage === page
                                             ? "bg-black text-white shadow-lg scale-105"
                                             : "hover:bg-gray-100 text-gray-500 hover:text-black"
