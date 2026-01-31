@@ -111,7 +111,7 @@ export default function Welcome() {
             width={300}
             height={300}
             alt="shopping cart icon"
-            className="w-[50px] md:w-[100px] lg:w-[150px] absolute bottom-40 left-10 lg:left-0 animate-float object-contain z-10 opacity-50"
+            className="w-[50px] md:w-[100px] lg:w-[150px] absolute bottom-40 left-10 lg:left-0 animate-float object-contain z-10 opacity-15"
             priority
           />
           <Image
@@ -119,7 +119,7 @@ export default function Welcome() {
             width={300}
             height={300}
             alt="tufli icon"
-            className="w-[50px] md:w-[100px] lg:w-[150px] absolute top-10 left-0 lg:left-[-50px] animate-float object-contain z-10 opacity-50"
+            className="w-[50px] md:w-[100px] lg:w-[150px] absolute top-10 left-0 lg:left-[-50px] animate-float object-contain z-10 opacity-15"
             priority
           />
           <Image
@@ -127,7 +127,7 @@ export default function Welcome() {
             width={300}
             height={300}
             alt="kiyim icon"
-            className="w-[50px] md:w-[100px] lg:w-[150px] absolute top-10 right-0 lg:right-[-50px] animate-float object-contain z-10 opacity-50"
+            className="w-[50px] md:w-[100px] lg:w-[150px] absolute top-10 right-0 lg:right-[-50px] animate-float object-contain z-10 opacity-15"
             priority
           />
           <Image
@@ -135,7 +135,7 @@ export default function Welcome() {
             width={300}
             height={300}
             alt="futbolka icon"
-            className="w-[50px] md:w-[100px] lg:w-[150px] absolute bottom-40 right-10 lg:right-0 animate-float object-contain z-10 opacity-50"
+            className="w-[50px] md:w-[100px] lg:w-[150px] absolute bottom-40 right-10 lg:right-0 animate-float object-contain z-10 opacity-15"
             priority
           />
         </div>
