@@ -1,19 +1,46 @@
-import type { Metadata } from 'next';
+import type {
+  Metadata
+} from 'next';
 import '../globals.css';
-import { inter } from '@/shared/config/fonts';
-import { ThemeProvider } from '@/shared/config/theme-provider';
-import { PRODUCT_INFO } from '@/shared/constants/data';
-import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl';
-import { routing } from '@/shared/config/i18n/routing';
-import { notFound } from 'next/navigation';
+import {
+  inter
+} from '@/shared/config/fonts';
+import {
+  ThemeProvider
+} from '@/shared/config/theme-provider';
+import {
+  PRODUCT_INFO
+} from '@/shared/constants/data';
+import {
+  hasLocale,
+  Locale,
+  NextIntlClientProvider
+} from 'next-intl';
+import {
+  routing
+} from '@/shared/config/i18n/routing';
+import {
+  notFound
+} from 'next/navigation';
 import Footer from '@/widgets/footer/ui';
 import Navbar from '@/widgets/navbar/ui';
-import { ReactNode } from 'react';
-import { setRequestLocale } from 'next-intl/server';
+import {
+  ReactNode
+} from 'react';
+import {
+  setRequestLocale
+} from 'next-intl/server';
 import QueryProvider from '@/shared/config/react-query/QueryProvider';
 import Script from 'next/script';
 
-import { Kenao } from '@/shared/fonts';
+import {
+  Kenao,
+  Radiant,
+  Didot,
+  Granjon,
+  Rosan,
+  Futura
+} from '@/shared/fonts';
 
 export const metadata: Metadata = {
   title: PRODUCT_INFO.name + ' - ' + PRODUCT_INFO.fullName,
@@ -40,7 +67,7 @@ export default async function RootLayout({ children, params }: Props) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} suppressHydrationWarning className={`${Kenao.variable} ${inter.variable}`}>
+    <html lang={locale} suppressHydrationWarning className={`${Kenao.variable} ${Radiant.variable} ${Didot.variable} ${Granjon.variable} ${inter.variable} ${Rosan.variable} ${Futura.variable}`}>
       <body className="antialiased">
         <NextIntlClientProvider locale={locale}>
           <ThemeProvider

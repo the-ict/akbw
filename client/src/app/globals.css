@@ -9,6 +9,11 @@
   --font-sans: var(--font-inter);
   --font-display: var(--font-kenao);
   --font-kenao: var(--font-kenao);
+  --font-radiant: var(--font-radiant);
+  --font-didot: var(--font-didot);
+  --font-granjon: var(--font-granjon);
+  --font-rosan: var(--font-rosan);
+  --font-futura: var(--font-futura);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -114,6 +119,7 @@
 .btn-welcome {
   padding: 24px 50px;
 }
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

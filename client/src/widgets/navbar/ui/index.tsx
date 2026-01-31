@@ -4,6 +4,36 @@ import { Button } from "@/shared/ui/button";
 import { ArrowDown, Menu, Search, ShoppingCart, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/shared/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel
+} from "@/shared/ui/dropdown-menu";
+
+const categories = [
+  "Classic",
+  "Casual",
+  "Oversize",
+  "Streetwear",
+  "Sport / Active",
+  "Minimal",
+  "Elegant",
+  "Business",
+  "Formal",
+  "Old Money",
+  "Y2K",
+  "Urban",
+  "Vintage",
+  "Grunge",
+  "Korean Style",
+  "Romantic",
+  "Chic",
+  "Modest",
+  "Luxury",
+  "Daily Wear"
+]
+
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,13 +53,23 @@ const Navbar = () => {
 
         {/* Desktop Nav Links */}
         <ul className="hidden lg:flex items-center gap-5 flex-1 justify-center">
-          <li className="flex items-center gap-1 cursor-pointer hover:font-bold transition-all">
-            <span>Shop</span>
-            <ArrowDown size={16} />
-          </li>
-          <li className="cursor-pointer hover:font-bold transition-all">On Sale</li>
-          <li className="cursor-pointer hover:font-bold transition-all">New Arrivals</li>
-          <li className="cursor-pointer hover:font-bold transition-all">Brands</li>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="outline-none">
+              <li className="flex items-center gap-1 cursor-pointer transition-all">
+                <span>Kategoriya</span>
+                <ArrowDown size={16} />
+              </li>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent className="grid grid-cols-8 grid-rows-2 p-4 mt-10 ml-10 bg-[#D6D3CC]/60 border-none items-center gap-3">
+              {categories.map((item, index) => (
+                <DropdownMenuLabel className="cursor-pointer py-3  bg-[#fff]/40 hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all" key={index}>{item}</DropdownMenuLabel>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <li className="cursor-pointer transition-all">Biz haqimizda</li>
+          <li className="cursor-pointer transition-all">Bog'lanish</li>
         </ul>
 
         {/* Desktop Search */}
@@ -37,7 +77,7 @@ const Navbar = () => {
           <button type="button">
             <Search size={20} />
           </button>
-          <input type="text" placeholder="Search for products" className="bg-transparent outline-none flex-1 text-sm" />
+          <input type="text" placeholder="Maxsulotlarni qidiring" className="bg-transparent outline-none flex-1 text-sm" />
         </form>
 
         <div className="flex items-center gap-3">
@@ -56,10 +96,10 @@ const Navbar = () => {
 
           <div className="hidden sm:flex items-center gap-2">
             <Button variant={"outline"} className="btn-sign-in-padding text-sm font-bold">
-              Sign In
+              Kirish
             </Button>
             <Button className="bg-[#fff]/50 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl text-sm font-bold">
-              Sign Up
+              Ro'yhatdan o'tish
             </Button>
           </div>
         </div>
@@ -78,7 +118,7 @@ const Navbar = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between mb-8">
-            <h1 className="font-display text-2xl font-bold text-black border-b border-black pb-2">AKBW MENU</h1>
+            <h1 className="font-display text-2xl font-bold text-black border-b border-black pb-2">AKBW MENYU</h1>
             <button onClick={() => setIsMenuOpen(false)}>
               <X size={24} />
             </button>
@@ -89,9 +129,9 @@ const Navbar = () => {
               <span>Shop</span>
               <ArrowDown size={18} />
             </li>
-            <li className="border-b border-black/5 pb-2">On Sale</li>
-            <li className="border-b border-black/5 pb-2">New Arrivals</li>
-            <li className="border-b border-black/5 pb-2">Brands</li>
+            <li className="border-b border-black/5 pb-2">To'plamlar</li>
+            <li className="border-b border-black/5 pb-2">Haqimizda</li>
+            <li className="border-b border-black/5 pb-2">Bog'lanish</li>
           </ul>
 
           <div className="mt-10 flex flex-col gap-4">

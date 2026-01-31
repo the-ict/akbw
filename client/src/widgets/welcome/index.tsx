@@ -22,32 +22,32 @@ import {
   MapPinCheckInside,
   Star,
 } from "lucide-react";
-import { useRef } from "react";
+import {
+  useRef
+} from "react";
+
+
 
 export default function Welcome() {
   const logos = [
     {
       name: "VERCAGE",
-      style: "font-inter text-sm font-bold text-5xl"
+      style: "font-radiant text-sm font-bold text-5xl"
+    },
+    {
+      name: "ZARA",
+      style: "font-didot text-sm font-bold text-5xl"
+
     }, {
-      name: "VERCAGE",
-      style: "font-inter text-sm font-bold text-5xl"
-    }
-    , {
-      name: "VERCAGE",
-      style: "font-inter text-sm font-bold text-5xl"
-    }
-    , {
-      name: "VERCAGE",
-      style: "font-inter text-sm font-bold text-5xl"
-    }
-    , {
-      name: "VERCAGE",
-      style: "font-inter text-sm font-bold text-5xl"
-    }
-    , {
-      name: "VERCAGE",
-      style: "font-inter text-sm font-bold text-5xl"
+      name: "GUCCI",
+      style: "font-granjon text-sm font-bold text-5xl"
+    }, {
+      name: "PRADA",
+      style: "font-rosan text-sm font-bold text-5xl"
+    },
+    {
+      name: "Calvin Klein",
+      style: "font-futura text-sm font-bold text-5xl"
     }
   ]
 
@@ -69,27 +69,33 @@ export default function Welcome() {
     <div>
       <div className="container flex flex-col lg:flex-row items-center justify-between py-10 min-h-[calc(100vh-300px)] gap-10">
         <div className="flex flex-col gap-5 lg:w-1/2">
-          <h1 className={cn("text-4xl lg:text-6xl font-bold leading-tight", monsterrat.className)}>
-            FIND CLOSTHER THAT MATCHES YOUR STYLE
+          <h1 className={cn("text-3xl lg:text-[40px] font-bold leading-tight", monsterrat.className)}>
+            AKBW YANGI AVLOD ONLINE KIYIM PLATFORMASI
           </h1>
           <p className="text-sm text-gray-500 lg:text-base">
-            Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
+            Maqsadimiz nafaqat O‘zbekistonda, balki xalqaro bozorda ham ishonchli brendga aylanish.
+            <br />
+            Biz kiyimga bo‘lgan munosabatni o‘zgartiramiz. Chunki kiyim — shunchaki kundalik vosita emas, u sizning tashqi ko‘rinishingiz va o‘zingizga bo‘lgan ishonchingizdir.
           </p>
           <Button className="w-full lg:w-fit rounded-full btn-welcome font-bold" size={"lg"} variant={"outline"}>
-            Shop Now
+            Maxsulotlarni ko'rish
           </Button>
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 lg:gap-10 mt-5">
             <div className="text-center lg:text-left">
-              <p className="text-2xl lg:text-3xl font-bold">200+</p>
-              <p className="text-xs text-gray-500">International Brands</p>
+              <p className="text-2xl lg:text-3xl font-bold text-center">1000+</p>
+              <p className="text-xs text-gray-500">Mijozlar</p>
             </div>
             <div className="text-center lg:text-left">
-              <p className="text-2xl lg:text-3xl font-bold">2,000+</p>
-              <p className="text-xs text-gray-500">High-Quality Products</p>
+              <p className="text-2xl lg:text-3xl font-bold text-center">300+</p>
+              <p className="text-xs text-gray-500">Maxsulotlar</p>
             </div>
             <div className="text-center lg:text-left">
-              <p className="text-2xl lg:text-3xl font-bold">30,000+</p>
-              <p className="text-xs text-gray-500">Happy Customers</p>
+              <p className="text-2xl lg:text-3xl font-bold text-center">900+</p>
+              <p className="text-xs text-gray-500">Minnatdor Mijozlar</p>
+            </div>
+            <div className="text-center lg:text-left">
+              <p className="text-2xl lg:text-3xl font-bold text-center">5+</p>
+              <p className="text-xs text-gray-500">Asartimentlar</p>
             </div>
           </div>
         </div>
@@ -99,10 +105,10 @@ export default function Welcome() {
       </div>
 
       <div className="py-10 lg:h-[120px] bg-[#D6D3CC]/40 flex items-center justify-center mb-3 overflow-hidden">
-        <div className="container flex flex-wrap items-center justify-center gap-8 lg:justify-between text-black">
+        <div className="container flex flex-wrap items-center justify-between gap-8 lg:justify-between text-black">
           {
             logos.map((logo, logoIndex) => (
-              <h1 className={cn("font-inter text-2xl lg:text-4xl font-bold")} key={logoIndex}>{logo.name}</h1>
+              <h1 className={cn(logo.style)} key={logoIndex}>{logo.name}</h1>
             ))
           }
         </div>
