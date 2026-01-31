@@ -1,0 +1,52 @@
+name: akbw
+
+services:
+
+  web:
+    build:
+      context: .
+      dockerfile: dockerfile
+      ports:
+        - "3000:3000"
+      env_file:
+        - .env
+      depends_on:
+        - db
+        - server
+      start: always
+      network: akbw-network
+
+  db:
+    image: postgres:15
+    container_name: akbw
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=akbw
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - akbw-network
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      ports:
+        - "8000:8000"
+      env_file:
+        - .env
+      depends_on:
+        - db
+      networks:
+        - akbw-network
+
+volumes:
+  postgres_data:
+
+
+networks:
+  akbw-network:
+    driver: bridge

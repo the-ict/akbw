@@ -1,7 +1,10 @@
 import express from "express";
-import type { NextFunction, Request, Response } from "express";
+import type {
+    NextFunction,
+    Request,
+    Response
+} from "express";
 import helmet from "helmet";
-import logger from "./utils/loggers.js";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
@@ -34,5 +37,5 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 // start server
 app.listen(PORT, () => {
-    logger.info(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });

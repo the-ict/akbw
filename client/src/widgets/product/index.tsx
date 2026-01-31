@@ -7,7 +7,7 @@ import Image from "next/image";
 export default function Product() {
     return (
         <div className="cursor-pointer flex flex-col gap-2">
-            <div className="relative w-full h-[330px] rounded-[10px] overflow-hidden">
+            <div className="relative w-full h-[190px] md:h-[330px] rounded-[10px] overflow-hidden">
                 <Image src={ProductImage.src} alt="product" fill className="object-cover" />
             </div>
             <h1 className="text-lg font-semibold">T-shirt with Tape Details</h1>
