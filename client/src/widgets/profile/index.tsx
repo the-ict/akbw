@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import React from "react";
 import * as z from "zod";
+import { useUIStore } from "@/shared/model/use-ui-store";
 
 const profileSchema = z.object({
     name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
@@ -72,8 +73,19 @@ interface ProfileProps {
 }
 
 function Profile({ children }: ProfileProps) {
-    const [activeTab, setActiveTab] = React.useState<TabType>("menu");
-    const [activeSubSection, setActiveSubSection] = React.useState<SubSectionType>(null);
+    const {
+        isProfileOpen,
+        onOpenChange,
+        activeProfileTab,
+        activeProfileSubSection,
+        setProfileSubSection,
+        setProfileTab
+    } = useUIStore();
+
+    // Mapping store string types to component types
+    const activeTab = activeProfileTab as TabType;
+    const activeSubSection = activeProfileSubSection as SubSectionType;
+
     const [name, setName] = React.useState("Abdullox");
     const [lastName, setLastName] = React.useState("Akbarov");
     const [gender, setGender] = React.useState("male");
@@ -138,7 +150,7 @@ function Profile({ children }: ProfileProps) {
     };
 
     const handleBackToMenu = () => {
-        setActiveSubSection(null);
+        setProfileSubSection(null);
     };
 
     const tabs = [
@@ -208,7 +220,7 @@ function Profile({ children }: ProfileProps) {
                 return (
                     <button
                         key={item.id}
-                        onClick={() => setActiveSubSection(item.id)}
+                        onClick={() => setProfileSubSection(item.id)}
                         className="w-full cursor-pointer flex items-center gap-4 p-4 bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-md transition-all group"
                     >
                         <div className={cn("p-3 rounded-lg bg-gradient-to-br text-white", item.color)}>
@@ -552,7 +564,7 @@ function Profile({ children }: ProfileProps) {
     };
 
     return (
-        <Modal>
+        <Modal open={isProfileOpen} onOpenChange={onOpenChange}>
             <ModalTrigger asChild>
                 {children || <User size={24} className="cursor-pointer" />}
             </ModalTrigger>
@@ -562,10 +574,8 @@ function Profile({ children }: ProfileProps) {
                     <X className="h-5 w-5" />
                 </ModalClose>
 
-                {/* Only show profile header when NOT in a sub-section */}
                 {(activeTab === "menu" || activeSubSection === "editProfile" || activeTab === "reviews" || activeTab === "notifications" || activeTab === "favorites") && renderProfileHeader()}
 
-                {/* Only show navigation tabs when NOT in a sub-section */}
                 {!(activeTab === "menu" && activeSubSection) && (
                     <div className="flex items-center justify-between gap-2 no-scrollbar border border-gray-300 p-2 rounded-2xl">
                         {tabs.map((tab) => {
@@ -574,8 +584,8 @@ function Profile({ children }: ProfileProps) {
                                 <button
                                     key={tab.id}
                                     onClick={() => {
-                                        setActiveTab(tab.id);
-                                        setActiveSubSection(null);
+                                        setProfileTab(tab.id);
+                                        setProfileSubSection(null);
                                     }}
                                     className={cn(
                                         "flex items-center justify-center py-2 px-3 gap-2 cursor-pointer rounded-lg text-sm font-semibold transition-all whitespace-nowrap",
