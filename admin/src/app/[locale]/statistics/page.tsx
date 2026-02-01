@@ -1,10 +1,10 @@
-import Products from '@/features/products/ui'
+import Statistics from '@/features/statistics/ui'
 import React from 'react'
 
 export default function page() {
     return (
         <>
-            <Products />
+            <Statistics />
         </>
     )
-}
+};

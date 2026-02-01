@@ -1,10 +1,10 @@
-import Products from '@/features/products/ui'
+import Inventory from '@/features/inventory/ui'
 import React from 'react'
 
 export default function page() {
     return (
         <>
-            <Products />
+            <Inventory />
         </>
     )
-}
+};

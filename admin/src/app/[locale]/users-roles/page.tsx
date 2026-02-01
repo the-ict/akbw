@@ -1,10 +1,10 @@
-import Products from '@/features/products/ui'
+import UsersRoles from '@/features/users-roles/ui'
 import React from 'react'
 
 export default function page() {
     return (
         <>
-            <Products />
+            <UsersRoles />
         </>
     )
-}
+};

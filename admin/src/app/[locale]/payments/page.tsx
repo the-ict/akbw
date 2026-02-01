@@ -1,10 +1,10 @@
-import Products from '@/features/products/ui'
+import Payments from '@/features/payments/ui'
 import React from 'react'
 
 export default function page() {
     return (
         <>
-            <Products />
+            <Payments />
         </>
     )
-}
+};

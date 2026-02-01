@@ -1,10 +1,10 @@
-import Products from '@/features/products/ui'
+import Users from '@/features/users/ui'
 import React from 'react'
 
 export default function page() {
     return (
         <>
-            <Products />
+            <Users />
         </>
     )
-}
+};

@@ -1,10 +1,10 @@
-import Products from '@/features/products/ui'
+import ContentManagment from '@/features/content-managment/ui'
 import React from 'react'
 
 export default function page() {
     return (
         <>
-            <Products />
+            <ContentManagment />
         </>
     )
-}
+};
