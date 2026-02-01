@@ -200,8 +200,8 @@ export default function Privacy() {
                             </div>
                             <div>
                                 <p className="text-sm text-gray-400">Email</p>
-                                <a href="mailto:info@akbw.uz" className="text-white hover:text-gray-300 transition-colors">
-                                    info@akbw.uz
+                                <a href="mailto:akbw.uz@gmail.com" className="text-white hover:text-gray-300 transition-colors">
+                                    akbw.uz@gmail.com
                                 </a>
                             </div>
                         </div>
@@ -212,7 +212,7 @@ export default function Privacy() {
                             <div>
                                 <p className="text-sm text-gray-400">Telefon</p>
                                 <a href="tel:+998901234567" className="text-white hover:text-gray-300 transition-colors">
-                                    +998 90 123 45 67
+                                    +998 90 566 11 07
                                 </a>
                             </div>
                         </div>
@@ -223,7 +223,7 @@ export default function Privacy() {
                             <div>
                                 <p className="text-sm text-gray-400">Manzil</p>
                                 <p className="text-white">
-                                    Toshkent shahar, Yunusobod tumani
+                                    Toshkent shahar, Shayxontoxur tumani
                                 </p>
                             </div>
                         </div>
