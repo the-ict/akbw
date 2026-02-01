@@ -13,14 +13,22 @@ import {
     Check,
     MapPin,
     CreditCard,
-    Wallet,
     X,
     ChevronDown
 } from 'lucide-react';
-import { Button } from '@/shared/ui/button';
-import { Input } from '@/shared/ui/input';
-import { cn } from '@/shared/lib/utils';
-import { monsterrat, Radiant } from '@/shared/fonts';
+import {
+    Button
+} from '@/shared/ui/button';
+import {
+    Input
+} from '@/shared/ui/input';
+import {
+    cn
+} from '@/shared/lib/utils';
+import {
+    monsterrat,
+    Radiant
+} from '@/shared/fonts';
 import ProductImage from "../../../../public/assets/product.png";
 import { toast } from '@/shared/ui/toast';
 import {
