@@ -1,5 +1,4 @@
 import { getPosts } from '@/shared/config/api/testApi';
-import Welcome from '@/widgets/welcome';
 
 export default async function Home() {
   const res = await getPosts({ _limit: 1 });
@@ -7,7 +6,7 @@ export default async function Home() {
 
   return (
     <div>
-      <Welcome />
+      <h1>Admin dashboard</h1>
     </div>
   );
 }
