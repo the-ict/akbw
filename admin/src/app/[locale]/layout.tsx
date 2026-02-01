@@ -6,12 +6,11 @@ import { PRODUCT_INFO } from '@/shared/constants/data';
 import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl';
 import { routing } from '@/shared/config/i18n/routing';
 import { notFound } from 'next/navigation';
-import Footer from '@/widgets/footer/ui';
-import Navbar from '@/widgets/navbar/ui';
 import { ReactNode } from 'react';
 import { setRequestLocale } from 'next-intl/server';
 import QueryProvider from '@/shared/config/react-query/QueryProvider';
 import Script from 'next/script';
+import AdminLayout from '@/widgets/layout/ui';
 
 export const metadata: Metadata = {
   title: PRODUCT_INFO.name,
@@ -48,9 +47,9 @@ export default async function RootLayout({ children, params }: Props) {
             disableTransitionOnChange
           >
             <QueryProvider>
-              <Navbar />
-              {children}
-              <Footer />
+              <AdminLayout>
+                {children}
+              </AdminLayout>
             </QueryProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
