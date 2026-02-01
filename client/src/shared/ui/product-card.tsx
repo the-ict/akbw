@@ -55,11 +55,11 @@ export function ProductCard({ product }: ProductCardProps) {
 
         <div className="flex items-center gap-2">
           <span className="text-lg font-semibold text-akbw-black">
-            ${product.price.toFixed(2)}
+            {product.price.toLocaleString('uz-UZ')} UZS
           </span>
           {product.originalPrice && (
             <span className="text-sm text-akbw-gray line-through">
-              ${product.originalPrice.toFixed(2)}
+              {product.originalPrice.toLocaleString('uz-UZ')} UZS
             </span>
           )}
         </div>
