@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from "@/shared/ui/button";
-import { ArrowDown, Menu, Search, ShoppingCart, X } from "lucide-react";
+import { ArrowDown, Menu, Search, ShoppingCart, User, X } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/shared/lib/utils";
 import {
@@ -12,6 +12,7 @@ import {
 } from "@/shared/ui/dropdown-menu";
 import Register from "@/widgets/register";
 import Login from "@/widgets/login";
+import Profile from "@/widgets/profile";
 import Link from "next/link";
 
 const categories = [
@@ -39,7 +40,8 @@ const categories = [
 
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [token, setToken] = useState<string | null>("null");
 
   return (
     <nav className="bg-[#D6D3CC] py-5 sticky top-0 z-50">
@@ -99,10 +101,18 @@ const Navbar = () => {
             <option value="russian">Russian 🇷🇺</option>
           </select>
 
-          <div className="hidden sm:flex items-center gap-2">
-            <Login />
-            <Register />
-          </div>
+          {
+            token === null ? (
+              <div className="hidden sm:flex items-center gap-2">
+                <Login />
+                <Register />
+              </div>
+            ) : (
+              <Profile>
+                <User size={24} className="cursor-pointer hover:opacity-70 transition-opacity" />
+              </Profile>
+            )
+          }
         </div>
       </div>
 
