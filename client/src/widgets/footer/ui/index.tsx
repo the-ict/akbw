@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { PRODUCT_INFO } from '@/shared/constants/data';
-import { Instagram, Facebook, Youtube, Send } from 'lucide-react';
+import { Instagram, Facebook, Youtube, Send, Globe2Icon } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -104,22 +104,12 @@ const Footer = () => {
                 <Send className="w-5 h-5 icon-minimal" />
               </a>
               <a
-                href={PRODUCT_INFO.socials.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={PRODUCT_INFO.socials.website}
+                rel='noopener noreferrer'
                 className="text-black hover:font-bold transition-colors"
-                aria-label="Facebook"
+                aria-label="Website"
               >
-                <Facebook className="w-5 h-5 icon-minimal" />
-              </a>
-              <a
-                href={PRODUCT_INFO.socials.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-black hover:font-bold transition-colors"
-                aria-label="YouTube"
-              >
-                <Youtube className="w-5 h-5 icon-minimal" />
+                <Globe2Icon className="w-5 h-5 icon-minimal" />
               </a>
             </div>
           </div>

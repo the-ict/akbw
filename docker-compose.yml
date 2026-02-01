@@ -1,7 +1,6 @@
 name: akbw
 
 services:
-
   web:
     build:
       context: .

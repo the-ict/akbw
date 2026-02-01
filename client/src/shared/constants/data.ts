@@ -6,10 +6,9 @@ const PRODUCT_INFO = {
   favicon: '/icons/akbw.png',
   url: 'https://akbw.com',
   socials: {
-    telegram: 'https://t.me/akbw_official',
-    instagram: 'https://instagram.com/akbw.official',
-    youtube: 'https://youtube.com/@akbw',
-    facebook: 'https://facebook.com/akbw.official',
+    telegram: 'https://t.me/akbwuz',
+    instagram: 'https://instagram.com/akbw.uz',
+    website: "/",
   },
   contact: {
     phone: '+998901234567',

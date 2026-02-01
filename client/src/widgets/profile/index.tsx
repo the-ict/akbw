@@ -557,6 +557,7 @@ function Profile({ children }: ProfileProps) {
                 {children || <User size={24} className="cursor-pointer" />}
             </ModalTrigger>
             <ModalContent className="max-w-xl max-h-[90vh] overflow-hidden flex flex-col bg-white">
+                <ModalTitle className="sr-only">Foydalanuvchi profili</ModalTitle>
                 <ModalClose className="absolute right-4 top-4 z-10">
                     <X className="h-5 w-5" />
                 </ModalClose>
