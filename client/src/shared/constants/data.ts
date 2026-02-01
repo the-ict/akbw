@@ -1,7 +1,7 @@
 const PRODUCT_INFO = {
   name: 'AKBW',
   fullName: 'AKBARA BRAND WEAR',
-  description: 'Premium minimal streetwear - Calm, confident, high-quality fashion for the modern wardrobe',
+  description: 'Biz kiyimga bo‘lgan munosabatni o‘zgartiramiz. Chunki kiyim — shunchaki kundalik vosita emas, u sizning tashqi ko‘rinishingiz va o‘zingizga bo‘lgan ishonchingizdir.',
   logo: '/icons/akbw.png',
   favicon: '/icons/akbw.png',
   url: 'https://akbw.com',

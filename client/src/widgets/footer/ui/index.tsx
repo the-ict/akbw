@@ -129,7 +129,7 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-black">
-              © {currentYear} {PRODUCT_INFO.name}. All rights reserved.
+              © «2026© XK MCHJ «AKBW». STIR 00000000. Barcha huquqlar himoyalangan»
             </p>
             <div className="flex space-x-6 text-sm text-black">
               <Link href={PRODUCT_INFO.privacy_policy} className="hover:font-bold transition-colors">
