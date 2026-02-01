@@ -24,6 +24,7 @@ import {
 } from 'next/navigation';
 import Footer from '@/widgets/footer/ui';
 import Navbar from '@/widgets/navbar/ui';
+import LoadingScreen from '@/widgets/loading-screen';
 import {
   ReactNode
 } from 'react';
@@ -70,6 +71,7 @@ export default async function RootLayout({ children, params }: Props) {
   return (
     <html lang={locale} suppressHydrationWarning className={`${Kenao.variable} ${Radiant.variable} ${Didot.variable} ${Granjon.variable} ${inter.variable} ${Rosan.variable} ${Futura.variable}`}>
       <body className="antialiased">
+        <LoadingScreen />
         <NextIntlClientProvider locale={locale}>
           <ThemeProvider
             attribute={'class'}
