@@ -41,7 +41,8 @@ const categories = [
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>("null");
+  const [token, setToken] = useState<string | null>(null);
+
 
   return (
     <nav className="bg-[#D6D3CC] py-5 sticky top-0 z-50">
@@ -75,8 +76,8 @@ const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <li className="cursor-pointer transition-all">Biz haqimizda</li>
-          <li className="cursor-pointer transition-all">Bog'lanish</li>
+          <Link href={"/about"} className="cursor-pointer transition-all">Biz haqimizda</Link>
+          <Link href={"/contact"} className="cursor-pointer transition-all">Bog'lanish</Link>
         </ul>
 
         {/* Desktop Search */}

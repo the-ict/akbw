@@ -115,13 +115,13 @@ export default function ContactPage() {
                             <div className="pb-6 border-b border-gray-100">
                                 <h4 className="font-semibold text-lg mb-2">Yetkazib berish qancha vaqt oladi?</h4>
                                 <p className="text-gray-600">
-                                    Xalqaro yetkazib berish (1-bosqich) va ichki yetkazib berish (2-bosqich) birgalikda o'rtacha 10-15 kun davom etishi mumkin.
+                                    Xalqaro yetkazib berish (1-bosqich) va ichki yetkazib berish (2-bosqich) birgalikda o'rtacha 5-15 kun davom etishi mumkin.
                                 </p>
                             </div>
                             <div className="pb-6 border-b border-gray-100">
                                 <h4 className="font-semibold text-lg mb-2">To'lov turlari qanday?</h4>
                                 <p className="text-gray-600">
-                                    Biz Click, Payme, Uzcard va Humo orqali to'lovlarni qabul qilamiz.
+                                    Biz Click, Payme, Uzum va Paynet orqali to'lovlarni qabul qilamiz.
                                 </p>
                             </div>
                             <div>

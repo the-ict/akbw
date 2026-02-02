@@ -200,7 +200,7 @@ function Login() {
                 {renderRegisterSteps()}
 
                 <ModalDescription className="text-gray-500 mt-3 text-[11px] text-center">
-                    Davom etgan holda men <a href="google.com" className="text-gray-600 underline font-bold">AKBW malumotlarni qayta ishlash siyosatiga rozilik bildiraman!</a>
+                    Davom etgan holda men <a href="/terms" className="text-gray-600 underline font-bold">AKBW malumotlarni qayta ishlash siyosatiga rozilik bildiraman!</a>
                 </ModalDescription>
             </ModalContent>
         </Modal>

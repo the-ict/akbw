@@ -2,6 +2,9 @@ import React from 'react';
 import { Leaf, Globe, ShieldCheck, } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import Link from 'next/link';
+import Image from 'next/image';
+import AkbaraAbout from "../../../../public/assets/akbw-about.jpg";
+
 
 export default function AboutPage() {
     const features = [
@@ -41,19 +44,16 @@ export default function AboutPage() {
                 <div className="container mx-auto max-w-4xl">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="space-y-6">
-                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">O'zbekistonda tug'ilgan zamonaviy brend</h2>
+                            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">O'zbekistonda tashkil topgan zamonaviy platforma</h2>
                             <p className="text-lg text-gray-600 leading-relaxed">
-                                <span className="font-bold text-black">AKBW (AKBARA BRAND WEAR)</span> — O‘zbekistonda tashkil topgan zamonaviy kiyim brendi bo‘lib, soddalik, sifat va minimal dizayn g‘oyalariga asoslangan.
+                                <span className="font-bold text-black">AKBW (AKBARA KRAFT BRAND WEAR)</span> — O‘zbekistonda tashkil topgan zamonaviy kiyim platformasi bo‘lib, soddalik, sifat va minimal dizayn g‘oyalariga asoslangan.
                             </p>
                             <p className="text-lg text-gray-600 leading-relaxed">
-                                Brendning asosiy maqsadi kundalik hayot uchun qulay, zamonaviy va estetik jihatdan toza kiyimlarni taklif qilish orqali o‘ziga xos uslubni shakllantirishdir.
+                                Platformaning asosiy maqsadi kundalik hayot uchun qulay, zamonaviy va estetik jihatdan toza kiyimlarni taklif qilish orqali o‘ziga xos uslubni shakllantirishdir.
                             </p>
                         </div>
-                        <div className="h-full min-h-[400px] bg-gray-200 rounded-2xl relative overflow-hidden group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 group-hover:scale-105 transition-transform duration-700 ease-out"></div>
-                            <div className="absolute inset-0 flex items-center justify-center opacity-30 font-display text-9xl font-bold text-white select-none">
-                                AKBW
-                            </div>
+                        <div className="h-full min-h-[400px] bg-gray-200 rounded-2xl relative overflow-hidden group relative">
+                            <Image src={AkbaraAbout.src} alt="AKBW" className="w-full h-full object-cover" fill />
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@ export default function AboutPage() {
                             <span className="text-sm font-semibold tracking-widest uppercase text-gray-500">Vizyon</span>
                             <h3 className="text-3xl md:text-5xl font-bold leading-tight">Vaqt sinovidan o'tadigan uslubni tanlash</h3>
                             <p className="text-xl text-gray-600 leading-relaxed font-light">
-                                "Brend g‘oyasi shovqinli trendlar va tez o‘zgaruvchan modadan ko‘ra, uzoq muddatli qiymatga ega bo‘lgan dizayn, sokin ranglar va sifatli materiallarga tayanadi."
+                                "Platforma g‘oyasi shovqinli trendlar va tez o‘zgaruvchan modadan ko‘ra, uzoq muddatli qiymatga ega bo‘lgan dizayn, sokin ranglar va sifatli materiallarga tayanadi."
                             </p>
                             <div className="pt-4">
                                 <div className="inline-block border-t border-gray-300 pt-4">
@@ -104,15 +104,12 @@ export default function AboutPage() {
                             <h2 className="text-3xl md:text-4xl font-bold">Rivojlanish va Maqsadlar</h2>
                             <div className="space-y-6 text-gray-600 text-lg">
                                 <p>
-                                    Brend Toshkent shahrida tashkil topgan bo‘lib, faoliyati <span className="font-semibold text-black">AKBARA GROUP</span> tarkibida olib boriladi. AKBW jamoasi dizayn, sifat nazorati va onlayn savdo jarayonlariga alohida e’tibor qaratadi.
+                                    Platforma Toshkent shahrida tashkil topgan bo‘lib, faoliyati <span className="font-semibold text-black">AKBARA GROUP</span> tarkibida olib boriladi. AKBW jamoasi dizayn, sifat nazorati va onlayn savdo jarayonlariga alohida e’tibor qaratadi.
                                 </p>
                                 <p>
-                                    AKBW dastlab sifatli ishlab chiqaruvchilar bilan hamkorlik qilish orqali bozorda o‘z o‘rnini mustahkamlashni maqsad qilgan. Kelajakda esa brend o‘z dizayniga ega bo‘lgan, AKBW falsafasini to‘liq aks ettiruvchi mahsulotlarni yaratishni rejalashtiradi.
+                                    AKBW dastlab sifatli ishlab chiqaruvchilar bilan hamkorlik qilish orqali bozorda o‘z o‘rnini mustahkamlashni maqsad qilgan. Kelajakda esa platforma o‘z dizayniga ega bo‘lgan, AKBW falsafasini to‘liq aks ettiruvchi mahsulotlarni yaratishni rejalashtiradi.
                                 </p>
                             </div>
-                            <Button className="mt-4 bg-black text-white rounded-full px-8 py-6 text-lg hover:bg-neutral-800 transition-all font-medium">
-                                <Link href="/shop">To'plamni ko'rish</Link>
-                            </Button>
                         </div>
 
                         <div className="lg:col-span-7 grid grid-cols-2 gap-4">
