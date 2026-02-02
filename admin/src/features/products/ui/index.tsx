@@ -67,6 +67,7 @@ const initialProducts = [
 export default function Products() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Barcha Kategoriyalar');
+    const [selectedStatus, setSelectedStatus] = useState('Barcha Statuslar');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<typeof initialProducts[0] | null>(null);
     const [deletingProduct, setDeletingProduct] = useState<typeof initialProducts[0] | null>(null);
@@ -75,7 +76,8 @@ export default function Products() {
     const filteredProducts = initialProducts.filter(product => {
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
         const matchesCategory = selectedCategory === 'Barcha Kategoriyalar' || product.category === selectedCategory;
-        return matchesSearch && matchesCategory;
+        const matchesStatus = selectedStatus === 'Barcha Statuslar' || product.status === selectedStatus;
+        return matchesSearch && matchesCategory && matchesStatus;
     });
 
     const handleEdit = (product: typeof initialProducts[0]) => {
@@ -152,10 +154,21 @@ export default function Products() {
                     />
                 </div>
                 <div className='flex items-center gap-3 w-full md:w-auto'>
-                    <Button variant='outline' className='rounded-2xl border-gray-100 h-12 px-6 flex items-center gap-2 font-bold text-xs uppercase cursor-pointer'>
-                        <Filter size={16} />
-                        Filter
-                    </Button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant='outline' className='rounded-2xl border-gray-100 h-12 px-6 flex items-center gap-2 font-bold text-xs uppercase cursor-pointer'>
+                                <Filter size={16} />
+                                {selectedStatus === 'Barcha Statuslar' ? 'Filter' : selectedStatus}
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl min-w-[200px]'>
+                            <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Status bo'yicha</DropdownMenuLabel>
+                            <DropdownMenuItem onClick={() => setSelectedStatus('Barcha Statuslar')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Barcha Statuslar</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setSelectedStatus('Instock')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Instock</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setSelectedStatus('Low Stock')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Low Stock</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setSelectedStatus('Out of Stock')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Out of Stock</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                     <select
                         value={selectedCategory}
                         onChange={(e) => setSelectedCategory(e.target.value)}

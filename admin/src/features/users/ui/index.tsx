@@ -4,21 +4,26 @@ import React from 'react';
 import {
     Search,
     Filter,
-    MoreHorizontal,
-    Mail,
     Phone,
     Calendar,
     ShoppingBag,
     Star,
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuTrigger,
+} from '@/shared/ui/dropdown-menu';
+import UserHistoryModal from './user-history-modal';
 import { Input } from '@/shared/ui/input';
 
 const customers = [
     {
         id: '1',
         name: 'Davlatbek Erkinov',
-        email: 'davlat@example.com',
         phone: '+998 90 123 45 67',
         orders: 12,
         spent: '$2,450.00',
@@ -28,7 +33,6 @@ const customers = [
     {
         id: '2',
         name: 'Nilufar Rahimova',
-        email: 'nilufar@example.com',
         phone: '+998 99 888 77 66',
         orders: 5,
         spent: '$890.00',
@@ -38,7 +42,6 @@ const customers = [
     {
         id: '3',
         name: 'Omon Giyasov',
-        email: 'omon@example.com',
         phone: '+998 91 555 44 33',
         orders: 1,
         spent: '$45.00',
@@ -48,6 +51,36 @@ const customers = [
 ];
 
 export default function Customers() {
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [sortBy, setSortBy] = React.useState('Eng so‘nggi');
+    const [selectedUser, setSelectedUser] = React.useState<typeof customers[0] | null>(null);
+    const [isHistoryOpen, setIsHistoryOpen] = React.useState(false);
+
+    const handleViewHistory = (user: typeof customers[0]) => {
+        setSelectedUser(user);
+        setIsHistoryOpen(true);
+    };
+
+    const filteredAndSortedCustomers = React.useMemo(() => {
+        let result = customers.filter(customer =>
+            customer.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            customer.phone.includes(searchQuery)
+        );
+
+        if (sortBy === 'Ism bo‘yicha (A-Z)') {
+            result.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortBy === 'Xaridlar soni') {
+            result.sort((a, b) => b.orders - a.orders);
+        } else if (sortBy === 'Eng ko‘p sarf') {
+            result.sort((a, b) => {
+                const spentA = parseFloat(a.spent.replace('$', '').replace(',', ''));
+                const spentB = parseFloat(b.spent.replace('$', '').replace(',', ''));
+                return spentB - spentA;
+            });
+        }
+
+        return result;
+    }, [searchQuery, sortBy]);
     return (
         <div className='space-y-6'>
             <div>
@@ -82,18 +115,31 @@ export default function Customers() {
                     <Search className='absolute left-4 top-1/2 -translate-y-1/2 text-gray-400' size={18} />
                     <Input
                         placeholder='Mijoz ismini yoki tel raqamini qidiring...'
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                         className='pl-12 h-12 bg-gray-50 border-none rounded-2xl text-sm focus-visible:ring-1 focus-visible:ring-black/5'
                     />
                 </div>
-                <Button variant='outline' className='rounded-2xl border-gray-100 h-12 px-6 flex items-center gap-2 font-bold text-xs uppercase cursor-pointer'>
-                    <Filter size={16} />
-                    Saralash
-                </Button>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant='outline' className='rounded-2xl border-gray-100 h-12 px-6 flex items-center gap-2 font-bold text-xs uppercase cursor-pointer transition-all hover:bg-black hover:text-white'>
+                            <Filter size={16} />
+                            {sortBy === 'Eng so‘nggi' ? 'Saralash' : sortBy}
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl min-w-[200px]'>
+                        <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Saralash usuli</DropdownMenuLabel>
+                        <DropdownMenuItem onClick={() => setSortBy('Eng so‘nggi')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Eng so‘nggi</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSortBy('Ism bo‘yicha (A-Z)')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Ism bo‘yicha (A-Z)</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSortBy('Xaridlar soni')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Xaridlar soni</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSortBy('Eng ko‘p sarf')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Eng ko‘p sarf</DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
 
             {/* Customers List */}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-                {customers.map((customer) => (
+                {filteredAndSortedCustomers.map((customer) => (
                     <div key={customer.id} className='bg-white p-6 rounded-[32px] border border-gray-100 hover:shadow-xl hover:shadow-black/5 transition-all group cursor-pointer'>
                         <div className='flex justify-between items-start mb-6'>
                             <div className='flex items-center gap-4'>
@@ -111,17 +157,10 @@ export default function Customers() {
                                     </div>
                                 </div>
                             </div>
-                            <button className='p-2 hover:bg-gray-50 rounded-xl transition-all'>
-                                <MoreHorizontal size={20} className='text-gray-400' />
-                            </button>
                         </div>
 
                         <div className='grid grid-cols-2 gap-4 mb-6'>
                             <div className='space-y-3'>
-                                <div className='flex items-center gap-2 text-xs text-gray-500 font-medium'>
-                                    <Mail size={14} className='text-gray-300' />
-                                    {customer.email}
-                                </div>
                                 <div className='flex items-center gap-2 text-xs text-gray-500 font-medium'>
                                     <Phone size={14} className='text-gray-300' />
                                     {customer.phone}
@@ -144,13 +183,26 @@ export default function Customers() {
                                 <p className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>Umumiy sarf</p>
                                 <p className='text-lg font-black tracking-tight'>{customer.spent}</p>
                             </div>
-                            <Button variant='outline' className='rounded-xl h-10 px-4 bg-white border-none shadow-sm text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer'>
+                            <Button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleViewHistory(customer);
+                                }}
+                                variant='outline'
+                                className='rounded-xl h-10 px-4 bg-white border-none shadow-sm text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer'
+                            >
                                 Tarixni ko‘rish
                             </Button>
                         </div>
                     </div>
                 ))}
             </div>
+
+            <UserHistoryModal
+                isOpen={isHistoryOpen}
+                onClose={() => setIsHistoryOpen(false)}
+                user={selectedUser}
+            />
         </div>
     );
 }

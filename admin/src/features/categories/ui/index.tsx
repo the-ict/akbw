@@ -11,6 +11,7 @@ import {
     Pencil,
     Trash2,
     Layers,
+    Eye,
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
@@ -179,6 +180,13 @@ export default function Categories() {
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
                                                 <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Amallar</DropdownMenuLabel>
+                                                <DropdownMenuItem
+                                                    onClick={() => handleView(category)}
+                                                    className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
+                                                >
+                                                    <Eye size={16} className='text-gray-400' />
+                                                    <span className='text-xs font-bold uppercase tracking-wider'>Ko‘rish</span>
+                                                </DropdownMenuItem>
                                                 <DropdownMenuItem
                                                     onClick={() => handleEdit(category)}
                                                     className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
