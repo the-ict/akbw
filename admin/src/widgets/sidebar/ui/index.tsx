@@ -18,11 +18,13 @@ import {
     LogOut,
     ChevronLeft,
     ChevronRight,
+    Layers,
 } from 'lucide-react';
 
 const sidebarItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
     { name: 'Mahsulotlar', icon: Package, href: '/products' },
+    { name: 'Kategoriyalar', icon: Layers, href: '/categories' },
     { name: 'Buyurtmalar', icon: ShoppingBag, href: '/orders' },
     { name: 'Mijozlar', icon: Users, href: '/users' },
     { name: 'Statistika', icon: BarChart3, href: '/statistics' },

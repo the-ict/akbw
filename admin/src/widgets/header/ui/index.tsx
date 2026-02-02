@@ -41,10 +41,6 @@ export default function Header() {
 
             {/* Right: Actions */}
             <div className='flex items-center gap-4'>
-                <button className='p-2.5 rounded-xl hover:bg-gray-50 text-gray-500 hover:text-black transition-all relative cursor-pointer'>
-                    <Bell size={20} />
-                    <span className='absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white' />
-                </button>
                 <div className='w-[1px] h-8 bg-gray-100 mx-2' />
                 <div className='flex items-center gap-3'>
                     <div className='text-right hidden sm:block'>
