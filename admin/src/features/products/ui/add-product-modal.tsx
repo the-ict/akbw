@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
-import { Modal, ModalContent } from '@/shared/ui/modal';
+import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/modal';
 import { cn } from '@/shared/lib/utils';
 import { LanguageRoutes } from '@/shared/config/i18n/types';
 
@@ -153,12 +153,12 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                     {/* Header */}
                     <div className='p-8 border-b border-gray-50 flex justify-between items-center bg-gray-50/30'>
                         <div>
-                            <h2 className='text-xl font-black uppercase tracking-tight'>
+                            <ModalTitle className='text-xl font-black uppercase tracking-tight'>
                                 {viewOnly ? 'Mahsulot ma’lumotlari' : product ? 'Mahsulotni tahrirlash' : 'Mahsulot qo‘shish'}
-                            </h2>
-                            <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1'>
+                            </ModalTitle>
+                            <ModalDescription className='text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1'>
                                 {viewOnly ? 'Mahsulot tafsilotlarini ko‘rish' : `Qadam ${step} / 3 — ${step === 1 ? 'Asosiy ma\'lumotlar' : step === 2 ? 'Media va Stock' : 'Varyantlar'}`}
-                            </p>
+                            </ModalDescription>
                         </div>
                         <button onClick={onClose} className='p-2 hover:bg-white rounded-full transition-all cursor-pointer'>
                             <X size={20} />

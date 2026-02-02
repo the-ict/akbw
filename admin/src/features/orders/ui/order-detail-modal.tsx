@@ -13,7 +13,7 @@ import {
     Package,
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
-import { Modal, ModalContent } from '@/shared/ui/modal';
+import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/modal';
 
 interface OrderDetailModalProps {
     isOpen: boolean;
@@ -34,11 +34,11 @@ export default function OrderDetailModal({ isOpen, onClose, order }: OrderDetail
                             <span className='inline-flex items-center gap-2 px-3 py-1 bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full mb-3'>
                                 #BUYURTMA {order.id}
                             </span>
-                            <h2 className='text-2xl font-black uppercase tracking-tight'>Buyurtma tafsilotlari</h2>
-                            <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1 flex items-center gap-2'>
+                            <ModalTitle className='text-2xl font-black uppercase tracking-tight'>Buyurtma tafsilotlari</ModalTitle>
+                            <ModalDescription className='text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1 flex items-center gap-2'>
                                 <Calendar size={12} />
                                 {order.date}
-                            </p>
+                            </ModalDescription>
                         </div>
                         <div className='flex items-center gap-3'>
                             <Button variant='outline' className='rounded-xl border-gray-200 h-11 px-4 text-xs font-black uppercase tracking-widest cursor-pointer'>

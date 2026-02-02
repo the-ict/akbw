@@ -66,10 +66,17 @@ const initialProducts = [
 
 export default function Products() {
     const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('Barcha Kategoriyalar');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<typeof initialProducts[0] | null>(null);
     const [deletingProduct, setDeletingProduct] = useState<typeof initialProducts[0] | null>(null);
     const [isViewOnly, setIsViewOnly] = useState(false);
+
+    const filteredProducts = initialProducts.filter(product => {
+        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesCategory = selectedCategory === 'Barcha Kategoriyalar' || product.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+    });
 
     const handleEdit = (product: typeof initialProducts[0]) => {
         setEditingProduct(product);
@@ -149,11 +156,16 @@ export default function Products() {
                         <Filter size={16} />
                         Filter
                     </Button>
-                    <select className='bg-gray-50 border-none rounded-2xl h-12 px-6 text-xs font-bold uppercase focus:ring-0 cursor-pointer flex-1 md:flex-none'>
-                        <option>Barcha Kategoriyalar</option>
-                        <option>T-Shirts</option>
-                        <option>Outerwear</option>
-                        <option>Shoes</option>
+                    <select
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                        className='bg-gray-50 border-none rounded-2xl h-12 px-6 text-xs font-bold uppercase focus:ring-0 cursor-pointer flex-1 md:flex-none'
+                    >
+                        <option value="Barcha Kategoriyalar">Barcha Kategoriyalar</option>
+                        <option value="T-Shirts">T-Shirts</option>
+                        <option value="Outerwear">Outerwear</option>
+                        <option value="Shoes">Shoes</option>
+                        <option value="Pants">Pants</option>
                     </select>
                 </div>
             </div>
@@ -187,7 +199,7 @@ export default function Products() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {initialProducts.map((product) => (
+                            {filteredProducts.map((product) => (
                                 <tr key={product.id} className='hover:bg-gray-50/50 transition-colors group'>
                                     <td className='px-6 py-4'>
                                         <div className='flex items-center gap-4'>

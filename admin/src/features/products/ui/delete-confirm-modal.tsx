@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { AlertTriangle, X } from 'lucide-react';
-import { Modal, ModalContent } from '@/shared/ui/modal';
+import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/modal';
 import { Button } from '@/shared/ui/button';
 
 interface DeleteConfirmModalProps {
@@ -31,8 +31,8 @@ export default function DeleteConfirmModal({
                                 <AlertTriangle size={20} />
                             </div>
                             <div>
-                                <h2 className="text-lg font-black uppercase tracking-tight text-red-600">Tasdiqlash</h2>
-                                <p className="text-[10px] text-red-400 font-bold uppercase tracking-widest mt-0.5">O‘chirishni tasdiqlang</p>
+                                <ModalTitle className="text-lg font-black uppercase tracking-tight text-red-600">Tasdiqlash</ModalTitle>
+                                <ModalDescription className="text-[10px] text-red-400 font-bold uppercase tracking-widest mt-0.5">O‘chirishni tasdiqlang</ModalDescription>
                             </div>
                         </div>
                         <button onClick={onClose} className="p-2 hover:bg-white rounded-full transition-all cursor-pointer">
