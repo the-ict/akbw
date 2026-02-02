@@ -6,7 +6,9 @@ import Image from "next/image";
 
 export default function Product() {
     return (
-        <div className="cursor-pointer flex flex-col gap-3 group">
+        <div className="cursor-pointer flex flex-col gap-3 group" onClick={() => {
+            window.location.replace("/product/1");
+        }}>
             <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden bg-[#F0EEED]">
                 <Image
                     src={ProductImage.src}
