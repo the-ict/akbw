@@ -10,11 +10,23 @@ import {
     Lock,
     Unlock,
     Activity,
+    Trash2,
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/shared/ui/dropdown-menu';
+import AddUserModal from './add-user-modal';
+import CredentialsModal from './credentials-modal';
 
-const roles = [
+const initialRoles = [
     {
+        id: '1',
         name: 'Davlatbek Erkinov',
         role: 'Admin',
         permissions: ['Barcha huquqlar', 'Moliyaviy hisobotlar', 'Foydalanuvchi boshqaruvi'],
@@ -24,6 +36,7 @@ const roles = [
         icon: ShieldCheck,
     },
     {
+        id: '2',
         name: 'Anvar Toshmatov',
         role: 'Manager',
         permissions: ['Mahsulotlar', 'Buyurtmalar', 'Mijozlar'],
@@ -33,6 +46,7 @@ const roles = [
         icon: Shield,
     },
     {
+        id: '3',
         name: 'Nilufar Rahimova',
         role: 'Content',
         permissions: ['Mahsulotlar', 'Bannerlar', 'Blog'],
@@ -44,6 +58,27 @@ const roles = [
 ];
 
 export default function UsersRoles() {
+    const [users, setUsers] = React.useState(initialRoles);
+    const [isAddModalOpen, setIsAddModalOpen] = React.useState(false);
+    const [createdCredentials, setCreatedCredentials] = React.useState<{ login: string, pass: string } | null>(null);
+
+    const handleAddUser = (newUser: any) => {
+        const user = {
+            id: Math.random().toString(),
+            ...newUser,
+            avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${newUser.name}`,
+            color: 'bg-gray-900',
+            icon: Shield,
+        };
+        setUsers([...users, user]);
+        setIsAddModalOpen(false);
+        setCreatedCredentials({ login: newUser.login, pass: newUser.pass });
+    };
+
+    const handleRemoveUser = (userId: string) => {
+        setUsers(users.filter(u => u.id !== userId));
+    };
+
     return (
         <div className='space-y-8'>
             <div className='flex justify-between items-center'>
@@ -51,7 +86,10 @@ export default function UsersRoles() {
                     <h1 className='text-2xl font-black uppercase tracking-tight'>Foydalanuvchilar va Rollar</h1>
                     <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Admin panelga kirish huquqlarini boshqarish</p>
                 </div>
-                <Button className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'>
+                <Button
+                    onClick={() => setIsAddModalOpen(true)}
+                    className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
+                >
                     <UserPlus size={18} />
                     Yangi User Qo‘shish
                 </Button>
@@ -59,7 +97,7 @@ export default function UsersRoles() {
 
             {/* Role Summary Grid */}
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                {roles.map((user, i) => {
+                {users.map((user, i) => {
                     const Icon = user.icon;
                     return (
                         <div key={i} className='bg-white rounded-[32px] border border-gray-100 p-8 shadow-sm hover:shadow-xl hover:shadow-black/5 transition-all relative overflow-hidden group'>
@@ -101,9 +139,22 @@ export default function UsersRoles() {
                                     <Activity size={14} className='text-green-500' />
                                     <span className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>{user.lastActive}</span>
                                 </div>
-                                <button className='p-2 hover:bg-gray-50 rounded-xl transition-all cursor-pointer'>
-                                    <MoreVertical size={18} className='text-gray-400' />
-                                </button>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <button className='p-2 hover:bg-gray-50 rounded-xl transition-all cursor-pointer'>
+                                            <MoreVertical size={18} className='text-gray-400' />
+                                        </button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
+                                        <DropdownMenuItem
+                                            onClick={() => handleRemoveUser(user.id)}
+                                            className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'
+                                        >
+                                            <Trash2 size={16} />
+                                            <span className='text-xs font-bold uppercase tracking-wider'>O‘chirish</span>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </div>
                         </div>
                     );
@@ -137,6 +188,18 @@ export default function UsersRoles() {
                     ))}
                 </div>
             </div>
+
+            <AddUserModal
+                isOpen={isAddModalOpen}
+                onClose={() => setIsAddModalOpen(false)}
+                onAdd={handleAddUser}
+            />
+
+            <CredentialsModal
+                isOpen={!!createdCredentials}
+                onClose={() => setCreatedCredentials(null)}
+                credentials={createdCredentials}
+            />
         </div>
     );
 }

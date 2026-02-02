@@ -30,12 +30,13 @@ const sidebarItems = [
     { name: 'Statistika', icon: BarChart3, href: '/statistics' },
     { name: 'To‘lovlar', icon: CreditCard, href: '/payments' },
     { name: 'Ombor', icon: Box, href: '/inventory' },
-    { name: 'Kontent', icon: ImageIcon, href: '/content-managment' },
+    // { name: 'Kontent', icon: ImageIcon, href: '/content-managment' },
     { name: 'Rollar', icon: ShieldCheck, href: '/users-roles' },
-    { name: 'Sozlamalar', icon: Settings, href: '/settings' },
+    // { name: 'Sozlamalar', icon: Settings, href: '/settings' },
 ];
 
 export default function Sidebar() {
+
     const pathname = usePathname();
     const [isCollapsed, setIsCollapsed] = React.useState(false);
 

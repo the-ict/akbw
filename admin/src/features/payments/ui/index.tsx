@@ -9,6 +9,13 @@ import {
     Search,
     Filter,
 } from 'lucide-react';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuTrigger,
+} from '@/shared/ui/dropdown-menu';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 
@@ -20,6 +27,43 @@ const transactions = [
 ];
 
 export default function Payments() {
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [filterStatus, setFilterStatus] = React.useState('Barcha Statuslar');
+
+    const filteredTransactions = React.useMemo(() => {
+        return transactions.filter(t => {
+            const matchesSearch =
+                t.customer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                t.amount.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                t.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                t.order.toLowerCase().includes(searchQuery.toLowerCase());
+
+            const matchesStatus = filterStatus === 'Barcha Statuslar' || t.status === filterStatus;
+
+            return matchesSearch && matchesStatus;
+        });
+    }, [searchQuery, filterStatus]);
+
+    const handleExportCSV = () => {
+        const headers = ['ID', 'Order', 'Customer', 'Amount', 'Method', 'Status', 'Date'];
+        const csvContent = [
+            headers.join(','),
+            ...filteredTransactions.map(t => [t.id, t.order, t.customer, t.amount, t.method, t.status, t.date].join(','))
+        ].join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        if (link.download !== undefined) {
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'transactions.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    };
+
     return (
         <div className='space-y-6'>
             {/* Header */}
@@ -28,7 +72,10 @@ export default function Payments() {
                     <h1 className='text-2xl font-black uppercase tracking-tight'>To‘lovlar</h1>
                     <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Tranzaksiyalar va moliyaviy oqim boshqaruvi</p>
                 </div>
-                <Button className='rounded-2xl bg-white text-black border border-gray-100 px-6 py-4 h-auto font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-sm hover:bg-gray-50 transition-all cursor-pointer'>
+                <Button
+                    onClick={handleExportCSV}
+                    className='rounded-2xl bg-white text-black border border-gray-100 px-6 py-4 h-auto font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-sm hover:bg-gray-50 transition-all cursor-pointer'
+                >
                     <Download size={16} />
                     Export CSV
                 </Button>
@@ -70,11 +117,30 @@ export default function Payments() {
                 <div className='p-6 border-b border-gray-50 flex gap-4 items-center'>
                     <div className='relative flex-1'>
                         <Search className='absolute left-4 top-1/2 -translate-y-1/2 text-gray-400' size={18} />
-                        <Input placeholder='Search transactions...' className='pl-12 h-11 bg-gray-50 border-none rounded-xl text-sm' />
+                        <Input
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder='Search transactions...'
+                            className='pl-12 h-11 bg-gray-50 border-none rounded-xl text-sm'
+                        />
                     </div>
-                    <Button variant='outline' className='rounded-xl border-gray-100 h-11 px-4 cursor-pointer'>
-                        <Filter size={18} />
-                    </Button>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant='outline' className='rounded-xl border-gray-100 h-11 px-4 cursor-pointer gap-2 flex items-center min-w-[140px] justify-between'>
+                                <div className='flex items-center gap-2'>
+                                    <Filter size={18} />
+                                    <span className='text-[10px] font-bold uppercase truncate max-w-[80px]'>{filterStatus === 'Barcha Statuslar' ? 'Filter' : filterStatus}</span>
+                                </div>
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl min-w-[200px]'>
+                            <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Status bo'yicha</DropdownMenuLabel>
+                            <DropdownMenuItem onClick={() => setFilterStatus('Barcha Statuslar')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Barcha Statuslar</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setFilterStatus('Succeeded')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Succeeded</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setFilterStatus('Pending')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Pending</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => setFilterStatus('Refunded')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Refunded</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
                 <div className='overflow-x-auto no-scrollbar'>
                     <table className='w-full'>
@@ -89,7 +155,7 @@ export default function Payments() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {transactions.map((t) => (
+                            {filteredTransactions.map((t) => (
                                 <tr key={t.id} className='hover:bg-gray-50/50 transition-all'>
                                     <td className='px-8 py-5'>
                                         <p className='text-sm font-black uppercase'>{t.id}</p>

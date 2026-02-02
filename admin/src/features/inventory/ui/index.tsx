@@ -5,11 +5,11 @@ import {
     Box,
     AlertTriangle,
     ArrowRight,
-    Plus,
     Search,
-    RefreshCw,
 } from 'lucide-react';
-import { Button } from '@/shared/ui/button';
+import {
+    Button
+} from '@/shared/ui/button';
 
 const inventory = [
     { name: 'Oversized T-Shirt (Black)', category: 'T-Shirts', stock: 124, status: 'In Stock', color: 'bg-green-500' },
@@ -21,22 +21,6 @@ const inventory = [
 export default function Inventory() {
     return (
         <div className='space-y-8'>
-            <div className='flex justify-between items-center'>
-                <div>
-                    <h1 className='text-2xl font-black uppercase tracking-tight'>Ombor (Inventory)</h1>
-                    <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Mahsulot qoldiqlari va stok nazorati</p>
-                </div>
-                <div className='flex gap-3'>
-                    <Button variant='outline' className='rounded-xl h-11 px-4 border-gray-100 cursor-pointer'>
-                        <RefreshCw size={18} />
-                    </Button>
-                    <Button className='rounded-xl bg-black text-white h-11 px-6 text-[10px] font-black uppercase tracking-widest flex items-center gap-2 cursor-pointer shadow-xl shadow-black/10'>
-                        <Plus size={18} />
-                        Stok qo‘shish
-                    </Button>
-                </div>
-            </div>
-
             <div className='grid grid-cols-1 lg:grid-cols-4 gap-6'>
                 <div className='lg:col-span-3 space-y-6'>
                     <div className='bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm'>
@@ -87,19 +71,6 @@ export default function Inventory() {
                 </div>
 
                 <div className='space-y-6'>
-                    <div className='bg-red-50 text-red-600 rounded-[32px] p-8 border border-red-100 shadow-xl shadow-red-500/5'>
-                        <div className='p-3 bg-red-600 text-white rounded-2xl w-fit mb-6 shadow-lg shadow-red-500/20'>
-                            <AlertTriangle size={24} />
-                        </div>
-                        <h3 className='text-lg font-black uppercase tracking-tight mb-2'>Kam Qolgan!</h3>
-                        <p className='text-xs font-medium leading-relaxed mb-6 opacity-80'>
-                            Sizda 5 ta mahsulot kritik darajaga yetdi. Zudlik bilan stokni to‘ldirish tavsiya etiladi.
-                        </p>
-                        <Button className='w-full rounded-2xl bg-red-600 text-white h-12 text-[10px] font-black uppercase tracking-widest shadow-xl shadow-red-600/20 hover:scale-105 active:scale-95 transition-all cursor-pointer'>
-                            Batafsil ko‘rish
-                        </Button>
-                    </div>
-
                     <div className='bg-white rounded-[32px] border border-gray-100 p-8 shadow-sm'>
                         <h3 className='text-[10px] font-black uppercase tracking-widest text-gray-400 mb-6'>Kategoriyalar</h3>
                         <div className='space-y-4'>

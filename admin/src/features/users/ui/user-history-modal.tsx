@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ShoppingBag, Calendar, X, Package } from 'lucide-react';
+import { Calendar, X, Package } from 'lucide-react';
 import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/modal';
 import { Button } from '@/shared/ui/button';
 
