@@ -1,6 +1,9 @@
 import React from 'react';
-import { Leaf, Globe, ShieldCheck, } from 'lucide-react';
-import { Button } from '@/shared/ui/button';
+import {
+    Leaf,
+    Globe,
+    ShieldCheck,
+} from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import AkbaraAbout from "../../../../public/assets/akbw-about.jpg";
