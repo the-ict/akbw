@@ -1,6 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React,
+{
+    useState
+} from 'react';
 import {
     Plus,
     Search,
@@ -19,6 +22,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
+import AddCategoryModal from './add-category-modal';
+import DeleteConfirmModal from '../../products/ui/delete-confirm-modal';
 
 // Mock Data
 const initialCategories = [
@@ -32,10 +37,41 @@ const initialCategories = [
 export default function Categories() {
     const [searchQuery, setSearchQuery] = useState('');
     const [categories, setCategories] = useState(initialCategories);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [editingCategory, setEditingCategory] = useState<typeof initialCategories[0] | null>(null);
+    const [deletingCategory, setDeletingCategory] = useState<typeof initialCategories[0] | null>(null);
+    const [isViewOnly, setIsViewOnly] = useState(false);
 
     const filteredCategories = categories.filter(cat =>
         cat.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    const handleEdit = (category: typeof initialCategories[0]) => {
+        setEditingCategory(category);
+        setIsViewOnly(false);
+        setIsAddModalOpen(true);
+    };
+
+    const handleView = (category: typeof initialCategories[0]) => {
+        setEditingCategory(category);
+        setIsViewOnly(true);
+        setIsAddModalOpen(true);
+    };
+
+    const handleDelete = (category: typeof initialCategories[0]) => {
+        setDeletingCategory(category);
+    };
+
+    const handleCloseModal = () => {
+        setIsAddModalOpen(false);
+        setEditingCategory(null);
+        setIsViewOnly(false);
+    };
+
+    const confirmDelete = () => {
+        // Logic to delete category
+        setDeletingCategory(null);
+    };
 
     return (
         <div className='space-y-6'>
@@ -46,12 +82,28 @@ export default function Categories() {
                     <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Mahsulot kategoriyalarini boshqarish</p>
                 </div>
                 <Button
+                    onClick={() => setIsAddModalOpen(true)}
                     className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-xs flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
                 >
                     <Plus size={18} />
                     Kategoriya qo‘shish
                 </Button>
             </div>
+
+            <AddCategoryModal
+                isOpen={isAddModalOpen}
+                category={editingCategory}
+                viewOnly={isViewOnly}
+                onClose={handleCloseModal}
+            />
+
+            <DeleteConfirmModal
+                isOpen={!!deletingCategory}
+                onClose={() => setDeletingCategory(null)}
+                onConfirm={confirmDelete}
+                title="Kategoriyani o‘chirasizmi?"
+                description={`Siz haqiqatan ham "${deletingCategory?.name}" kategoriyasini o‘chirmoqchimisiz? Bu kategoriya ostidagi mahsulotlar kategoriya-siz qolishi mumkin.`}
+            />
 
             {/* Filter Bar */}
             <div className='bg-white p-4 rounded-[24px] border border-gray-100 flex flex-col md:flex-row gap-4 items-center shadow-sm'>
@@ -127,12 +179,18 @@ export default function Categories() {
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
                                                 <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Amallar</DropdownMenuLabel>
-                                                <DropdownMenuItem className='rounded-xl gap-3 px-3 py-2 cursor-pointer'>
+                                                <DropdownMenuItem
+                                                    onClick={() => handleEdit(category)}
+                                                    className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
+                                                >
                                                     <Pencil size={16} className='text-gray-400' />
                                                     <span className='text-xs font-bold uppercase tracking-wider'>Tahrirlash</span>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuSeparator className='bg-gray-50' />
-                                                <DropdownMenuItem className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'>
+                                                <DropdownMenuItem
+                                                    onClick={() => handleDelete(category)}
+                                                    className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'
+                                                >
                                                     <Trash2 size={16} />
                                                     <span className='text-xs font-bold uppercase tracking-wider'>O‘chirish</span>
                                                 </DropdownMenuItem>

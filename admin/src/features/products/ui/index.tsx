@@ -22,9 +22,10 @@ import {
     DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
 import AddProductModal from './add-product-modal';
+import DeleteConfirmModal from './delete-confirm-modal';
 
 // Mock Data
-const products = [
+const initialProducts = [
     {
         id: '1',
         name: 'Oversized Graphics T-Shirt',
@@ -66,6 +67,36 @@ const products = [
 export default function Products() {
     const [searchQuery, setSearchQuery] = useState('');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [editingProduct, setEditingProduct] = useState<typeof initialProducts[0] | null>(null);
+    const [deletingProduct, setDeletingProduct] = useState<typeof initialProducts[0] | null>(null);
+    const [isViewOnly, setIsViewOnly] = useState(false);
+
+    const handleEdit = (product: typeof initialProducts[0]) => {
+        setEditingProduct(product);
+        setIsViewOnly(false);
+        setIsAddModalOpen(true);
+    };
+
+    const handleView = (product: typeof initialProducts[0]) => {
+        setEditingProduct(product);
+        setIsViewOnly(true);
+        setIsAddModalOpen(true);
+    };
+
+    const handleDelete = (product: typeof initialProducts[0]) => {
+        setDeletingProduct(product);
+    };
+
+    const handleCloseAddModal = () => {
+        setIsAddModalOpen(false);
+        setEditingProduct(null);
+        setIsViewOnly(false);
+    };
+
+    const confirmDelete = () => {
+        // Logic to delete product
+        setDeletingProduct(null);
+    };
 
     return (
         <div className='space-y-6'>
@@ -76,7 +107,10 @@ export default function Products() {
                     <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Barcha mahsulotlarni boshqarish</p>
                 </div>
                 <Button
-                    onClick={() => setIsAddModalOpen(true)}
+                    onClick={() => {
+                        setIsViewOnly(false);
+                        setIsAddModalOpen(true);
+                    }}
                     className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-xs flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
                 >
                     <Plus size={18} />
@@ -86,7 +120,17 @@ export default function Products() {
 
             <AddProductModal
                 isOpen={isAddModalOpen}
-                onClose={() => setIsAddModalOpen(false)}
+                product={editingProduct}
+                viewOnly={isViewOnly}
+                onClose={handleCloseAddModal}
+            />
+
+            <DeleteConfirmModal
+                isOpen={!!deletingProduct}
+                onClose={() => setDeletingProduct(null)}
+                onConfirm={confirmDelete}
+                title="Mahsulotni o‘chirasizmi?"
+                description={`Siz haqiqatan ham "${deletingProduct?.name}" mahsulotini o‘chirmoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
             />
 
             {/* Filter Bar */}
@@ -143,7 +187,7 @@ export default function Products() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {products.map((product) => (
+                            {initialProducts.map((product) => (
                                 <tr key={product.id} className='hover:bg-gray-50/50 transition-colors group'>
                                     <td className='px-6 py-4'>
                                         <div className='flex items-center gap-4'>
@@ -199,16 +243,25 @@ export default function Products() {
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
                                                 <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Amallar</DropdownMenuLabel>
-                                                <DropdownMenuItem className='rounded-xl gap-3 px-3 py-2 cursor-pointer'>
+                                                <DropdownMenuItem
+                                                    onClick={() => handleView(product)}
+                                                    className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
+                                                >
                                                     <Eye size={16} className='text-gray-400' />
                                                     <span className='text-xs font-bold uppercase tracking-wider'>Ko‘rish</span>
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem className='rounded-xl gap-3 px-3 py-2 cursor-pointer'>
+                                                <DropdownMenuItem
+                                                    onClick={() => handleEdit(product)}
+                                                    className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
+                                                >
                                                     <Pencil size={16} className='text-gray-400' />
                                                     <span className='text-xs font-bold uppercase tracking-wider'>Tahrirlash</span>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuSeparator className='bg-gray-50' />
-                                                <DropdownMenuItem className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'>
+                                                <DropdownMenuItem
+                                                    onClick={() => handleDelete(product)}
+                                                    className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'
+                                                >
                                                     <Trash2 size={16} />
                                                     <span className='text-xs font-bold uppercase tracking-wider'>O‘chirish</span>
                                                 </DropdownMenuItem>

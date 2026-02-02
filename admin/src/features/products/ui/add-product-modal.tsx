@@ -18,6 +18,16 @@ import { LanguageRoutes } from '@/shared/config/i18n/types';
 interface AddProductModalProps {
     isOpen: boolean;
     onClose: () => void;
+    product?: {
+        id: string;
+        name: string;
+        category: string;
+        price: number;
+        stock: number;
+        image: string;
+        status: string;
+    } | null;
+    viewOnly?: boolean;
 }
 
 const LANGUAGES = [
@@ -26,7 +36,7 @@ const LANGUAGES = [
     { id: LanguageRoutes.EN, label: 'English' },
 ];
 
-export default function AddProductModal({ isOpen, onClose }: AddProductModalProps) {
+export default function AddProductModal({ isOpen, onClose, product, viewOnly }: AddProductModalProps) {
     const [step, setStep] = useState(1);
     const [activeLang, setActiveLang] = useState<LanguageRoutes>(LanguageRoutes.UZ);
 
@@ -44,6 +54,8 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
 
     const [images, setImages] = useState<string[]>([]);
     const [stock, setStock] = useState(45);
+    const [price, setPrice] = useState<string>('');
+    const [discountPrice, setDiscountPrice] = useState<string>('');
 
     // Categories
     const [selectedCategories, setSelectedCategories] = useState<string[]>(['T-Shirts']);
@@ -63,6 +75,44 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
     const [showColorInput, setShowColorInput] = useState(false);
     const [newColor, setNewColor] = useState('#000000');
     const [newColorHex, setNewColorHex] = useState('');
+
+    // Sync state with product prop when editing
+    React.useEffect(() => {
+        if (product && isOpen) {
+            setNames({
+                [LanguageRoutes.UZ]: product.name,
+                [LanguageRoutes.RU]: product.name + ' (RU)',
+                [LanguageRoutes.EN]: product.name + ' (EN)',
+            });
+            setDescriptions({
+                [LanguageRoutes.UZ]: 'Description in UZ',
+                [LanguageRoutes.RU]: 'Description in RU',
+                [LanguageRoutes.EN]: 'Description in EN',
+            });
+            setStock(product.stock);
+            setPrice(product.price.toString());
+            setSelectedCategories([product.category]);
+            // Mocking images, sizes, colors for now
+            setImages([product.image]);
+            setStep(1);
+        } else if (isOpen) {
+            setNames({
+                [LanguageRoutes.UZ]: '',
+                [LanguageRoutes.RU]: '',
+                [LanguageRoutes.EN]: '',
+            });
+            setDescriptions({
+                [LanguageRoutes.UZ]: '',
+                [LanguageRoutes.RU]: '',
+                [LanguageRoutes.EN]: '',
+            });
+            setStock(0);
+            setPrice('');
+            setSelectedCategories(['T-Shirts']);
+            setImages([]);
+            setStep(1);
+        }
+    }, [product, isOpen]);
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, 3));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -103,9 +153,11 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                     {/* Header */}
                     <div className='p-8 border-b border-gray-50 flex justify-between items-center bg-gray-50/30'>
                         <div>
-                            <h2 className='text-xl font-black uppercase tracking-tight'>Mahsulot qo‘shish</h2>
+                            <h2 className='text-xl font-black uppercase tracking-tight'>
+                                {viewOnly ? 'Mahsulot ma’lumotlari' : product ? 'Mahsulotni tahrirlash' : 'Mahsulot qo‘shish'}
+                            </h2>
                             <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1'>
-                                Qadam {step} / 3 — {step === 1 ? 'Asosiy ma\'lumotlar' : step === 2 ? 'Media va Stock' : 'Varyantlar'}
+                                {viewOnly ? 'Mahsulot tafsilotlarini ko‘rish' : `Qadam ${step} / 3 — ${step === 1 ? 'Asosiy ma\'lumotlar' : step === 2 ? 'Media va Stock' : 'Varyantlar'}`}
                             </p>
                         </div>
                         <button onClick={onClose} className='p-2 hover:bg-white rounded-full transition-all cursor-pointer'>
@@ -137,6 +189,7 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                     <div className='space-y-2'>
                                         <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Nomi ({activeLang.toUpperCase()})</label>
                                         <Input
+                                            disabled={viewOnly}
                                             placeholder='Mahsulot nomi...'
                                             className='h-12 border-gray-100 rounded-2xl focus-visible:ring-black/10 font-bold'
                                             value={names[activeLang]}
@@ -150,12 +203,15 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                                 <button
                                                     key={cat}
                                                     type="button"
+                                                    disabled={viewOnly}
                                                     onClick={() => toggleCategory(cat)}
                                                     className={cn(
                                                         'px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all border',
                                                         selectedCategories.includes(cat)
                                                             ? 'bg-black text-white border-black'
-                                                            : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300'
+                                                            : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300',
+                                                        viewOnly && selectedCategories.includes(cat) && 'opacity-100',
+                                                        viewOnly && !selectedCategories.includes(cat) && 'opacity-50 cursor-not-allowed'
                                                     )}
                                                 >
                                                     {cat}
@@ -167,6 +223,7 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                 <div className='space-y-2'>
                                     <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Tavsif ({activeLang.toUpperCase()})</label>
                                     <textarea
+                                        disabled={viewOnly}
                                         placeholder='Mahsulot haqida batafsil...'
                                         className='w-full h-32 bg-white border border-gray-100 rounded-2xl p-4 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-black/10 transition-all resize-none'
                                         value={descriptions[activeLang]}
@@ -176,11 +233,25 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                 <div className='grid grid-cols-2 gap-6'>
                                     <div className='space-y-2'>
                                         <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Narx ($)</label>
-                                        <Input type='number' placeholder='0.00' className='h-12 border-gray-100 rounded-2xl' />
+                                        <Input
+                                            disabled={viewOnly}
+                                            type='number'
+                                            placeholder='0.00'
+                                            className='h-12 border-gray-100 rounded-2xl'
+                                            value={price}
+                                            onChange={(e) => setPrice(e.target.value)}
+                                        />
                                     </div>
                                     <div className='space-y-2'>
                                         <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Chegirma Narxi ($)</label>
-                                        <Input type='number' placeholder='Ixtiyoriy' className='h-12 border-gray-100 rounded-2xl' />
+                                        <Input
+                                            disabled={viewOnly}
+                                            type='number'
+                                            placeholder='Ixtiyoriy'
+                                            className='h-12 border-gray-100 rounded-2xl'
+                                            value={discountPrice}
+                                            onChange={(e) => setDiscountPrice(e.target.value)}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -191,17 +262,21 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                 <div className='space-y-4'>
                                     <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Mahsulot Rasmlari</label>
                                     <div className='grid grid-cols-4 gap-4'>
-                                        <div className='aspect-square rounded-[24px] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center gap-2 text-gray-400 hover:border-black hover:text-black transition-all cursor-pointer bg-gray-50/50'>
-                                            <Upload size={24} />
-                                            <span className='text-[10px] font-black uppercase tracking-widest'>Yuklash</span>
-                                        </div>
+                                        {!viewOnly && (
+                                            <div className='aspect-square rounded-[24px] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center gap-2 text-gray-400 hover:border-black hover:text-black transition-all cursor-pointer bg-gray-50/50'>
+                                                <Upload size={24} />
+                                                <span className='text-[10px] font-black uppercase tracking-widest'>Yuklash</span>
+                                            </div>
+                                        )}
                                         {[1, 2].map(i => (
                                             <div key={i} className='aspect-square rounded-[24px] bg-gray-100 relative group overflow-hidden'>
-                                                <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center'>
-                                                    <button className='p-2 bg-red-500 text-white rounded-full'>
-                                                        <Trash2 size={16} />
-                                                    </button>
-                                                </div>
+                                                {!viewOnly && (
+                                                    <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center'>
+                                                        <button className='p-2 bg-red-500 text-white rounded-full'>
+                                                            <Trash2 size={16} />
+                                                        </button>
+                                                    </div>
+                                                )}
                                                 <div className='w-full h-full flex items-center justify-center text-gray-300'>
                                                     <ImageIcon size={32} />
                                                 </div>
@@ -212,13 +287,15 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                 <div className='space-y-4 pt-4 border-t border-gray-50'>
                                     <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Ombor Miqdori</label>
                                     <div className='flex items-center gap-6'>
-                                        <div className='flex items-center gap-4 bg-gray-100 p-2 rounded-2xl'>
+                                        <div className={cn('flex items-center gap-4 bg-gray-100 p-2 rounded-2xl', viewOnly && 'opacity-60 cursor-not-allowed')}>
                                             <button
+                                                disabled={viewOnly}
                                                 onClick={() => setStock(Math.max(0, stock - 1))}
                                                 className='w-10 h-10 bg-white rounded-xl shadow-sm font-black'
                                             >-</button>
                                             <span className='w-12 text-center text-lg font-black'>{stock}</span>
                                             <button
+                                                disabled={viewOnly}
                                                 onClick={() => setStock(stock + 1)}
                                                 className='w-10 h-10 bg-black text-white rounded-xl shadow-lg font-black'
                                             >+</button>
@@ -234,12 +311,14 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                 <div className='space-y-4'>
                                     <div className='flex justify-between items-center'>
                                         <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>O‘lchamlar</label>
-                                        <button
-                                            onClick={() => setShowSizeInput(!showSizeInput)}
-                                            className='text-[10px] font-black uppercase tracking-widest text-blue-500'
-                                        >
-                                            {showSizeInput ? 'Yopish' : '+ qo‘shish'}
-                                        </button>
+                                        {!viewOnly && (
+                                            <button
+                                                onClick={() => setShowSizeInput(!showSizeInput)}
+                                                className='text-[10px] font-black uppercase tracking-widest text-blue-500'
+                                            >
+                                                {showSizeInput ? 'Yopish' : '+ qo‘shish'}
+                                            </button>
+                                        )}
                                     </div>
 
                                     {showSizeInput && (
@@ -263,12 +342,14 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                                 <button className='px-6 py-3 border border-gray-100 rounded-xl text-xs font-black hover:border-black active:bg-black active:text-white transition-all'>
                                                     {size}
                                                 </button>
-                                                <button
-                                                    onClick={() => removeSize(size)}
-                                                    className='absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full items-center justify-center hidden group-hover:flex shadow-lg'
-                                                >
-                                                    <X size={10} strokeWidth={3} />
-                                                </button>
+                                                {!viewOnly && (
+                                                    <button
+                                                        onClick={() => removeSize(size)}
+                                                        className='absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full items-center justify-center hidden group-hover:flex shadow-lg'
+                                                    >
+                                                        <X size={10} strokeWidth={3} />
+                                                    </button>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -277,12 +358,14 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                 <div className='space-y-4 pt-4 border-t border-gray-50'>
                                     <div className='flex justify-between items-center'>
                                         <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Ranglar</label>
-                                        <button
-                                            onClick={() => setShowColorInput(!showColorInput)}
-                                            className='text-[10px] font-black uppercase tracking-widest text-blue-500'
-                                        >
-                                            {showColorInput ? 'Yopish' : '+ qo‘shish'}
-                                        </button>
+                                        {!viewOnly && (
+                                            <button
+                                                onClick={() => setShowColorInput(!showColorInput)}
+                                                className='text-[10px] font-black uppercase tracking-widest text-blue-500'
+                                            >
+                                                {showColorInput ? 'Yopish' : '+ qo‘shish'}
+                                            </button>
+                                        )}
                                     </div>
 
                                     {showColorInput && (
@@ -325,12 +408,14 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                                                 >
                                                     {color.value === 'bg-white border-gray-200' && <div className='w-full h-full rounded-full border border-gray-100' />}
                                                 </button>
-                                                <button
-                                                    onClick={() => removeColor(color.id)}
-                                                    className='absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full items-center justify-center hidden group-hover:flex shadow-lg z-10'
-                                                >
-                                                    <X size={10} strokeWidth={3} />
-                                                </button>
+                                                {!viewOnly && (
+                                                    <button
+                                                        onClick={() => removeColor(color.id)}
+                                                        className='absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full items-center justify-center hidden group-hover:flex shadow-lg z-10'
+                                                    >
+                                                        <X size={10} strokeWidth={3} />
+                                                    </button>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -353,7 +438,7 @@ export default function AddProductModal({ isOpen, onClose }: AddProductModalProp
                             onClick={step === 3 ? onClose : nextStep}
                             className='rounded-[20px] h-14 px-12 bg-black text-white font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-black/20 hover:scale-105 active:scale-95 transition-all cursor-pointer'
                         >
-                            {step === 3 ? 'Saqlash' : 'Keyingi'}
+                            {viewOnly ? (step === 3 ? 'Yopish' : 'Keyingi') : (step === 3 ? 'Saqlash' : 'Keyingi')}
                         </Button>
                     </div>
                 </div>
