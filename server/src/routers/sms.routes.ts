@@ -12,12 +12,23 @@ import {
 } from "../services/sms.service";
 import {
     prisma
-} from "../db/client";
+} from "../db/client.js";
+import {
+    sendSmsSchema,
+    verifySmsSchema
+} from "../validators/sms.validator.js";
 
 const router = Router();
 
 router.post("/send", async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const { error } = sendSmsSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0]?.message });
+        }
+
+        console.log("request: ", req.body);
+
         const randomDigitCode = randomNumbers();
 
         const existingVerify = await prisma.verify.findUnique({
@@ -59,6 +70,11 @@ router.post("/send", async (req: Request, res: Response, next: NextFunction) => 
 
 router.post("/verify", async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const { error } = verifySmsSchema.validate(req.body);
+        if (error) {
+            return res.status(400).json({ message: error.details[0]?.message });
+        }
+
         const verifyCode = await prisma.verify.findUnique({
             where: {
                 phone: req.body.phone,

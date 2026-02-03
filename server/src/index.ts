@@ -21,7 +21,7 @@ dotenv.config();
 const app = express();
 
 // environment variables
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.POR || 3000;
 
 // middlewares
 app.use(helmet());
@@ -29,6 +29,8 @@ app.use(morgan("combined"));
 app.use(cors({
     origin: "http://localhost:5000",
 }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.get("/", (req: Request, res: Response) => {
