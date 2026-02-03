@@ -41,7 +41,7 @@ const categories = [
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>("null");
+  const [token, setToken] = useState<string | null>(null);
 
 
   return (

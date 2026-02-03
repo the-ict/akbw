@@ -9,6 +9,10 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
 
+
+// import routers
+import authRoutes from "./routers/auth.routes.js";
+
 // configure dotenv
 dotenv.config();
 
@@ -29,6 +33,8 @@ app.use(cors({
 app.get("/", (req: Request, res: Response) => {
     res.send("Working !");
 });
+
+app.use("/api/auth", authRoutes);
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
