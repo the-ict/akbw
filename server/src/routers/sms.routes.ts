@@ -10,7 +10,9 @@ import {
 import {
     telegramSms
 } from "../services/sms.service";
-import { prisma } from "../db/client";
+import {
+    prisma
+} from "../db/client";
 
 const router = Router();
 

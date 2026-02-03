@@ -40,7 +40,9 @@ app.use("/api/sms", smsRoutes);
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    res.status(500).send("Something broke!");
+    res.status(500).json({
+        message: err.message,
+    });
 });
 
 // start server
