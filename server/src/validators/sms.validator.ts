@@ -12,4 +12,4 @@ const verifySmsSchema = Joi.object({
 export {
     sendSmsSchema,
     verifySmsSchema,
-}
+};

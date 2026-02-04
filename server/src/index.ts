@@ -9,7 +9,6 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import cors from "cors";
 
-
 // import routers
 import authRoutes from "./routers/auth.routes.js";
 import smsRoutes from "./routers/sms.routes.js";
