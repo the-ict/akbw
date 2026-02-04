@@ -88,17 +88,22 @@ export const updateAdmin = async (req: Request, res: Response, next: NextFunctio
         const { id } = req.params;
         const { name, lastName, phone, role, access } = req.body;
 
+        const updateData: any = {
+            name,
+            lastName,
+            phone,
+            role,
+        };
+
+        if (access) {
+            updateData.access = {
+                set: access.map((name: string) => ({ name }))
+            };
+        }
+
         const updatedAdmin = await prisma.admins.update({
             where: { id: Number(id) },
-            data: {
-                name,
-                lastName,
-                phone,
-                role,
-                access: access ? {
-                    set: access.map((name: string) => ({ name }))
-                } : undefined
-            },
+            data: updateData,
             include: {
                 access: true
             }

@@ -1,5 +1,5 @@
 const BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
 
 const ENDP_POSTS = '/posts/';
 const ENDP_SEND_SMS = "/sms/send";
@@ -9,6 +9,7 @@ const ENDP_PRODUCT = "/product";
 const ENDP_PRODUCT_CATEGORIES = "/product/categories";
 const ENDP_PRODUCT_SIZES = "/product/sizes";
 const ENDP_PRODUCT_COLORS = "/product/colors";
+const ENDP_ADMIN = "/admin";
 
 export {
   BASE_URL,
@@ -19,5 +20,6 @@ export {
   ENDP_PRODUCT,
   ENDP_PRODUCT_CATEGORIES,
   ENDP_PRODUCT_SIZES,
-  ENDP_PRODUCT_COLORS
+  ENDP_PRODUCT_COLORS,
+  ENDP_ADMIN,
 };

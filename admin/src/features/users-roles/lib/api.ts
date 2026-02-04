@@ -1,4 +1,5 @@
 import httpClient from '@/shared/config/api/httpClient';
+import { ENDP_ADMIN } from '@/shared/config/api/URLs';
 
 export interface Admin {
     id: number;
@@ -19,20 +20,20 @@ export interface CreateAdminDto {
 }
 
 export const getAdmins = async (): Promise<Admin[]> => {
-    const { data } = await httpClient.get('/api/admin');
+    const { data } = await httpClient.get(ENDP_ADMIN);
     return data;
 };
 
 export const createAdmin = async (admin: CreateAdminDto): Promise<{ ok: boolean; token: string; admin: Admin }> => {
-    const { data } = await httpClient.post('/api/admin', admin);
+    const { data } = await httpClient.post(ENDP_ADMIN, admin);
     return data;
 };
 
 export const updateAdmin = async (id: number, admin: Partial<CreateAdminDto>): Promise<Admin> => {
-    const { data } = await httpClient.put(`/api/admin/${id}`, admin);
+    const { data } = await httpClient.put(`${ENDP_ADMIN}/${id}`, admin);
     return data.admin;
 };
 
 export const deleteAdmin = async (id: number): Promise<void> => {
-    await httpClient.delete(`/api/admin/${id}`);
+    await httpClient.delete(`${ENDP_ADMIN}/${id}`);
 };
