@@ -6,10 +6,15 @@ import {
     login,
     getUsers
 } from "../controllers/auth.controller.js";
+import { validate } from "../middleware/validate.middleware.js";
+import { loginSchema, registerSchema } from "../validators/auth.validator.js";
+import {
+    auth
+} from "../middleware/auth.middleware.js";
 const router = Router();
 
-router.post("/register", register);
-router.post("/login", login);
-router.get("/users", getUsers);
+router.post("/register", validate(registerSchema), register);
+router.post("/login", validate(loginSchema), login);
+router.get("/users", auth, getUsers);
 
 export default router;
