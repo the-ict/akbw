@@ -14,6 +14,7 @@ import Register from "@/widgets/register";
 import Login from "@/widgets/login";
 import Profile from "@/widgets/profile";
 import Link from "next/link";
+import { useUserStore } from "@/shared/store/user.store";
 
 const categories = [
   "Classic",
@@ -41,8 +42,8 @@ const categories = [
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [token, setToken] = useState<string | null>(null);
 
+  const { token } = useUserStore();
 
   return (
     <nav className="bg-[#D6D3CC] py-5 sticky top-0 z-50">
