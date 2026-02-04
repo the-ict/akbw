@@ -20,12 +20,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
+import { useParams } from 'next/navigation';
 import AddCategoryModal from './add-category-modal';
 import DeleteConfirmModal from '../../products/ui/delete-confirm-modal';
 import { useCategories, useDeleteCategory } from '../../products/lib/hooks';
 import { Category } from '../../products/lib/api';
 
 export default function Categories() {
+    const params = useParams();
+    const locale = (params?.locale as string) || 'uz';
+
     const [searchQuery, setSearchQuery] = useState('');
     const { data: categories = [], isLoading } = useCategories(searchQuery || undefined);
     const deleteMutation = useDeleteCategory();
@@ -98,7 +102,7 @@ export default function Categories() {
                 onClose={() => setDeletingCategory(null)}
                 onConfirm={confirmDelete}
                 title="Kategoriyani o‘chirasizmi?"
-                description={`Siz haqiqatan ham "${deletingCategory?.name}" kategoriyasini o‘chirmoqchimisiz? Bu kategoriya ostidagi mahsulotlar kategoriya-siz qolishi mumkin.`}
+                description={`Siz haqiqatan ham "${deletingCategory?.name?.[locale as keyof typeof deletingCategory.name]}" kategoriyasini o‘chirmoqchimisiz? Bu kategoriya ostidagi mahsulotlar kategoriya-siz qolishi mumkin.`}
             />
 
             {/* Filter Bar */}
@@ -140,7 +144,7 @@ export default function Categories() {
                                                 <Layers size={20} />
                                             </div>
                                             <div>
-                                                <p className='text-sm font-bold tracking-tight'>{category.name}</p>
+                                                <p className='text-sm font-bold tracking-tight'>{category.name[locale as keyof typeof category.name]}</p>
                                             </div>
                                         </div>
                                     </td>

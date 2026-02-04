@@ -6,9 +6,40 @@ import type {
 import {
     prisma
 } from "../db/client";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
-export const createRole = async (req: Request, res: Response, next: NextFunction) => {
+export const getAdmins = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const admins = await prisma.admins.findMany({
+            include: {
+                access: true
+            }
+        });
+        return res.status(200).json(admins);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getAdminById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const admin = await prisma.admins.findUnique({
+            where: { id: Number(id) },
+            include: {
+                access: true
+            }
+        });
+        if (!admin) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+        return res.status(200).json(admin);
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const allreadyExists = await prisma.admins.findUnique({
             where: {
@@ -30,10 +61,7 @@ export const createRole = async (req: Request, res: Response, next: NextFunction
                 phone: req.body.phone,
                 role: req.body.role,
                 access: {
-                    connectOrCreate: req.body.access.map((name: string) => ({
-                        where: { name },
-                        create: { name }
-                    }))
+                    connect: req.body.access.map((name: string) => ({ name }))
                 },
             }
         })
@@ -44,11 +72,56 @@ export const createRole = async (req: Request, res: Response, next: NextFunction
             { expiresIn: "1y" }
         );
 
-        return res.status(200).json({
+        return res.status(201).json({
             message: "Admin created Successfully",
             ok: true,
             token: adminToken,
+            admin: newAdmin
         })
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const updateAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const { name, lastName, phone, role, access } = req.body;
+
+        const updatedAdmin = await prisma.admins.update({
+            where: { id: Number(id) },
+            data: {
+                name,
+                lastName,
+                phone,
+                role,
+                access: access ? {
+                    set: access.map((name: string) => ({ name }))
+                } : undefined
+            },
+            include: {
+                access: true
+            }
+        });
+
+        return res.status(200).json({
+            message: "Admin updated successfully",
+            admin: updatedAdmin
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const deleteAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        await prisma.admins.delete({
+            where: { id: Number(id) }
+        });
+        return res.status(200).json({
+            message: "Admin deleted successfully"
+        });
     } catch (error) {
         next(error);
     }

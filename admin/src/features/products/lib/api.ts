@@ -6,9 +6,15 @@ import {
     ENDP_PRODUCT_COLORS
 } from '@/shared/config/api/URLs';
 
+export interface LocalizedString {
+    uz: string;
+    ru: string;
+    en: string;
+}
+
 export interface Category {
     id: number;
-    name: string;
+    name: LocalizedString;
 }
 
 export interface Size {
@@ -23,7 +29,7 @@ export interface Color {
 
 export interface Product {
     id: number;
-    name: string;
+    name: LocalizedString;
     price: number;
     product_images: string[];
     categories: Category[];
@@ -32,7 +38,7 @@ export interface Product {
 }
 
 export interface CreateProductDto {
-    name: string;
+    name: LocalizedString;
     price: number;
     product_images: string[];
     category_id: number[];
@@ -88,12 +94,12 @@ export const getCategories = async (q?: string): Promise<Category[]> => {
     return data;
 };
 
-export const createCategory = async (name: string): Promise<Category> => {
+export const createCategory = async (name: LocalizedString): Promise<Category> => {
     const { data } = await httpClient.post(ENDP_PRODUCT_CATEGORIES, { name });
     return data.category;
 };
 
-export const updateCategory = async (id: number, name: string): Promise<Category> => {
+export const updateCategory = async (id: number, name: LocalizedString): Promise<Category> => {
     const { data } = await httpClient.put(`${ENDP_PRODUCT_CATEGORIES}/${id}`, { name });
     return data.category;
 };

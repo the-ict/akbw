@@ -5,8 +5,10 @@ import { X } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/modal';
+import { cn } from '@/shared/lib/utils';
+import { LanguageRoutes } from '@/shared/config/i18n/types';
 import { useCreateCategory, useUpdateCategory } from '../../products/lib/hooks';
-import { Category } from '../../products/lib/api';
+import { Category, LocalizedString } from '../../products/lib/api';
 
 interface AddCategoryModalProps {
     isOpen: boolean;
@@ -15,25 +17,36 @@ interface AddCategoryModalProps {
     viewOnly?: boolean;
 }
 
+const LANGUAGES = [
+    { id: LanguageRoutes.UZ, label: 'O‘zbek' },
+    { id: LanguageRoutes.RU, label: 'Русский' },
+    { id: LanguageRoutes.EN, label: 'English' },
+];
+
 export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }: AddCategoryModalProps) {
-    const [name, setName] = useState('');
+    const [activeLang, setActiveLang] = useState<LanguageRoutes>(LanguageRoutes.UZ);
+    const [names, setNames] = useState<LocalizedString>({
+        uz: '',
+        ru: '',
+        en: '',
+    });
 
     const createMutation = useCreateCategory();
     const updateMutation = useUpdateCategory();
 
     useEffect(() => {
         if (category && isOpen) {
-            setName(category.name);
+            setNames(category.name);
         } else if (isOpen) {
-            setName('');
+            setNames({ uz: '', ru: '', en: '' });
         }
     }, [category, isOpen]);
 
     const handleSave = async () => {
         if (category) {
-            await updateMutation.mutateAsync({ id: category.id, name });
+            await updateMutation.mutateAsync({ id: category.id, name: names });
         } else {
-            await createMutation.mutateAsync(name);
+            await createMutation.mutateAsync(names);
         }
         onClose();
     };
@@ -59,14 +72,30 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
 
                     {/* Content */}
                     <div className='p-8 space-y-6'>
+                        {/* Language Switcher */}
+                        <div className='flex gap-1 p-1 bg-gray-100 rounded-2xl w-fit'>
+                            {LANGUAGES.map((lang) => (
+                                <button
+                                    key={lang.id}
+                                    onClick={() => setActiveLang(lang.id)}
+                                    className={cn(
+                                        'px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all',
+                                        activeLang === lang.id ? 'bg-white text-black shadow-sm' : 'text-gray-400 hover:text-gray-600'
+                                    )}
+                                >
+                                    {lang.label}
+                                </button>
+                            ))}
+                        </div>
+
                         <div className='space-y-2'>
-                            <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Nomi</label>
+                            <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Nomi ({activeLang.toUpperCase()})</label>
                             <Input
                                 disabled={viewOnly}
                                 placeholder='Kategoriya nomi...'
                                 className='h-12 border-gray-100 rounded-2xl focus-visible:ring-black/10 font-bold'
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
+                                value={names[activeLang as keyof LocalizedString]}
+                                onChange={(e) => setNames({ ...names, [activeLang as keyof LocalizedString]: e.target.value })}
                             />
                         </div>
                     </div>
@@ -83,7 +112,7 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
                         {!viewOnly && (
                             <Button
                                 onClick={handleSave}
-                                disabled={!name}
+                                disabled={!names.uz && !names.ru && !names.en}
                                 className='rounded-[20px] h-14 px-12 bg-black text-white font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-black/20 hover:scale-105 active:scale-95 transition-all cursor-pointer'
                             >
                                 Saqlash

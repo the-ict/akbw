@@ -3,10 +3,10 @@ import { prisma } from '../src/db/client.js';
 async function main() {
     await prisma.categories.createMany({
         data: [
-            { name: 'T-Shirts' },
-            { name: 'Outerwear' },
-            { name: 'Shoes' },
-            { name: 'Pants' },
+            { name: { uz: 'T-Shirts', ru: 'Футболки', en: 'T-Shirts' } },
+            { name: { uz: 'Outerwear', ru: 'Верхняя одежда', en: 'Outerwear' } },
+            { name: { uz: 'Shoes', ru: 'Обувь', en: 'Shoes' } },
+            { name: { uz: 'Pants', ru: 'Брюки', en: 'Pants' } },
         ],
     });
 
@@ -27,6 +27,16 @@ async function main() {
             { name: 'Red' },
             { name: 'Blue' },
         ],
+    });
+
+    // Create default access types
+    await prisma.access.createMany({
+        data: [
+            { name: 'ko\'rish' },
+            { name: 'yaratish' },
+            { name: 'o\'zgartirish' },
+            { name: 'o\'chirish' },
+        ]
     });
 
     console.log('Seed data created successfully!');

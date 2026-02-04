@@ -6,6 +6,7 @@ import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/m
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { toast } from 'sonner';
+import { useCreateAdmin } from '../lib/hooks';
 
 interface AddUserModalProps {
     isOpen: boolean;
@@ -13,13 +14,11 @@ interface AddUserModalProps {
     onAdd: (user: any, token: string) => void;
 }
 
-const AVAILABLE_PERMISSIONS = [
-    { id: 'dashboard', name: 'Dashboard', icon: '📊' },
-    { id: 'products', name: 'Mahsulotlar', icon: '📦' },
-    { id: 'orders', name: 'Buyurtmalar', icon: '🛍️' },
-    { id: 'customers', name: 'Mijozlar', icon: '👥' },
-    { id: 'finance', name: 'Moliya', icon: '💰' },
-    { id: 'settings', name: 'Sozlamalar', icon: '⚙️' },
+const CORE_PERMISSIONS = [
+    { id: 'view', name: 'ko\'rish', label: 'Ko‘rish', icon: '👁️' },
+    { id: 'create', name: 'yaratish', label: 'Yaratish', icon: '➕' },
+    { id: 'edit', name: 'o\'zgartirish', label: 'O‘zgartirish', icon: '✏️' },
+    { id: 'delete', name: 'o\'chirish', label: 'O‘chirish', icon: '🗑️' },
 ];
 
 export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
@@ -28,7 +27,8 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
     const [phone, setPhone] = React.useState('');
     const [role, setRole] = React.useState('Moderator');
     const [access, setAccess] = React.useState<string[]>([]);
-    const [loading, setLoading] = React.useState(false);
+
+    const createMutation = useCreateAdmin();
 
     const togglePermission = (perm: string) => {
         setAccess(prev =>
@@ -45,26 +45,17 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
             return;
         }
 
-        setLoading(true);
         try {
-            const response = await fetch('http://localhost:3000/api/admin', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name,
-                    lastName,
-                    phone,
-                    role,
-                    access
-                }),
+            const result = await createMutation.mutateAsync({
+                name,
+                lastName,
+                phone,
+                role,
+                access
             });
 
-            const data = await response.json();
-
-            if (!data.ok) {
-                throw new Error(data.message || 'Xatolik yuz berdi');
+            if (!result.ok) {
+                throw new Error('Xatolik yuz berdi');
             }
 
             onAdd({
@@ -73,9 +64,8 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
                 phone,
                 role,
                 access,
-            }, data.token);
+            }, result.token);
 
-            // Reset form
             setName('');
             setLastName('');
             setPhone('');
@@ -83,9 +73,7 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
             setAccess([]);
             toast.success('Admin muvaffaqiyatli yaratildi!');
         } catch (error: any) {
-            toast.error(error.message);
-        } finally {
-            setLoading(false);
+            toast.error(error.message || 'Xatolik yuz berdi');
         }
     };
 
@@ -169,24 +157,24 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
                             <label className='text-[10px] font-black uppercase tracking-widest text-gray-400 block'>Ruxsatnomalar (Permissions)</label>
 
                             <div className='grid grid-cols-1 gap-3 overflow-y-auto max-h-[300px] pr-2 custom-scrollbar'>
-                                {AVAILABLE_PERMISSIONS.map((perm) => (
+                                {CORE_PERMISSIONS.map((perm) => (
                                     <div
                                         key={perm.id}
                                         onClick={() => togglePermission(perm.name)}
                                         className={`group cursor-pointer p-4 rounded-2xl border-2 transition-all flex items-center justify-between ${access.includes(perm.name)
-                                            ? 'border-blue-500 bg-blue-50/50'
+                                            ? 'border-black bg-gray-50'
                                             : 'border-transparent bg-gray-50 hover:border-gray-200'
                                             }`}
                                     >
                                         <div className='flex items-center gap-3'>
                                             <span className='text-xl'>{perm.icon}</span>
-                                            <span className={`text-sm font-bold ${access.includes(perm.name) ? 'text-blue-700' : 'text-gray-700'}`}>
-                                                {perm.name}
+                                            <span className={`text-sm font-bold ${access.includes(perm.name) ? 'text-black' : 'text-gray-700'}`}>
+                                                {perm.label}
                                             </span>
                                         </div>
 
                                         {/* Premium Switch UI */}
-                                        <div className={`w-10 h-6 rounded-full p-1 transition-colors duration-300 relative ${access.includes(perm.name) ? 'bg-blue-600' : 'bg-gray-200'
+                                        <div className={`w-10 h-6 rounded-full p-1 transition-colors duration-300 relative ${access.includes(perm.name) ? 'bg-black' : 'bg-gray-200'
                                             }`}>
                                             <div className={`w-4 h-4 bg-white rounded-full transition-transform duration-300 transform ${access.includes(perm.name) ? 'translate-x-4' : 'translate-x-0'
                                                 }`} />
@@ -201,10 +189,10 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
                     <div className='p-8 border-t border-gray-50 bg-gray-50/30'>
                         <Button
                             type='submit'
-                            disabled={loading}
+                            disabled={createMutation.isPending}
                             className='w-full rounded-2xl h-14 bg-black text-white font-black uppercase tracking-widest text-xs shadow-xl shadow-black/10 hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden'
                         >
-                            {loading ? (
+                            {createMutation.isPending ? (
                                 <div className='flex items-center gap-2'>
                                     <div className='w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin' />
                                     Yaratilmoqda...
@@ -222,4 +210,3 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
         </Modal>
     );
 }
-

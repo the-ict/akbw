@@ -1,7 +1,13 @@
 import Joi from "joi";
 
+const localizedStringSchema = Joi.object({
+    uz: Joi.string().required(),
+    ru: Joi.string().required(),
+    en: Joi.string().required(),
+});
+
 const createProductSchema = Joi.object({
-    name: Joi.string().required(),
+    name: localizedStringSchema.required(),
     price: Joi.number().required(),
     product_images: Joi.array().items(Joi.string()).required(),
     category_id: Joi.array().items(Joi.number()).required(),
@@ -10,7 +16,7 @@ const createProductSchema = Joi.object({
 });
 
 const updateProductSchema = Joi.object({
-    name: Joi.string(),
+    name: localizedStringSchema,
     price: Joi.number(),
     product_images: Joi.array().items(Joi.string()),
     category_id: Joi.array().items(Joi.number()),

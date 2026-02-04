@@ -3,7 +3,6 @@
 import React from 'react';
 import {
     ShieldCheck,
-    ShieldAlert,
     Shield,
     UserPlus,
     MoreVertical,
@@ -21,64 +20,19 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
+import { cn } from '@/shared/lib/utils';
 import AddUserModal from './add-user-modal';
 import CredentialsModal from './credentials-modal';
-
-const initialRoles = [
-    {
-        id: '1',
-        name: 'Davlatbek',
-        lastName: 'Erkinov',
-        phone: '+998 90 123 45 67',
-        role: 'Admin',
-        permissions: ['Barcha huquqlar', 'Moliyaviy hisobotlar', 'Foydalanuvchi boshqaruvi'],
-        lastActive: 'Hozir faol',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Admin',
-        color: 'bg-black',
-        icon: ShieldCheck,
-    },
-    {
-        id: '2',
-        name: 'Anvar',
-        lastName: 'Toshmatov',
-        phone: '+998 91 234 56 78',
-        role: 'Manager',
-        permissions: ['Mahsulotlar', 'Buyurtmalar', 'Mijozlar'],
-        lastActive: '2 soat oldin',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Manager',
-        color: 'bg-blue-600',
-        icon: Shield,
-    },
-    {
-        id: '3',
-        name: 'Nilufar',
-        lastName: 'Rahimova',
-        phone: '+998 93 345 67 89',
-        role: 'Content',
-        permissions: ['Mahsulotlar', 'Bannerlar', 'Blog'],
-        lastActive: 'Bugun, 09:30',
-        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Content',
-        color: 'bg-purple-600',
-        icon: ShieldAlert,
-    },
-];
+import { useAdmins, useDeleteAdmin } from '../lib/hooks';
 
 export default function UsersRoles() {
-    const [users, setUsers] = React.useState(initialRoles);
+    const { data: users = [], isLoading } = useAdmins();
+    const deleteMutation = useDeleteAdmin();
+
     const [isAddModalOpen, setIsAddModalOpen] = React.useState(false);
     const [createdCredentials, setCreatedCredentials] = React.useState<{ name: string, phone: string, token: string } | null>(null);
 
     const handleAddUser = (newUser: any, token: string) => {
-        const user = {
-            id: Math.random().toString(),
-            ...newUser,
-            avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${newUser.name}`,
-            color: newUser.role === 'Admin' ? 'bg-black' : 'bg-blue-600',
-            icon: newUser.role === 'Admin' ? ShieldCheck : Shield,
-            permissions: newUser.access,
-            lastActive: 'Hozir qo‘shildi'
-        };
-        setUsers([...users, user]);
         setIsAddModalOpen(false);
         setCreatedCredentials({
             name: `${newUser.name} ${newUser.lastName}`,
@@ -87,9 +41,11 @@ export default function UsersRoles() {
         });
     };
 
-    const handleRemoveUser = (userId: string) => {
-        setUsers(users.filter(u => u.id !== userId));
+    const handleRemoveUser = async (userId: number) => {
+        await deleteMutation.mutateAsync(userId);
     };
+
+    if (isLoading) return <div className="p-8 font-black uppercase tracking-widest text-xs text-gray-400">Yuklanmoqda...</div>;
 
     return (
         <div className='space-y-8'>
@@ -110,19 +66,22 @@ export default function UsersRoles() {
             {/* Role Summary Grid */}
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
                 {users.map((user, i) => {
-                    const Icon = user.icon;
+                    const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`;
+                    const color = user.role === 'Admin' ? 'bg-black' : 'bg-blue-600';
+                    const Icon = user.role === 'Admin' ? ShieldCheck : Shield;
+
                     return (
-                        <div key={i} className='bg-white rounded-[32px] border border-gray-100 p-8 shadow-sm hover:shadow-xl hover:shadow-black/5 transition-all relative overflow-hidden group'>
-                            <div className={cn('absolute top-0 right-0 w-32 h-32 opacity-[0.03] -mr-8 -mt-8 transition-transform group-hover:scale-110', user.color)}>
+                        <div key={user.id} className='bg-white rounded-[32px] border border-gray-100 p-8 shadow-sm hover:shadow-xl hover:shadow-black/5 transition-all relative overflow-hidden group'>
+                            <div className={cn('absolute top-0 right-0 w-32 h-32 opacity-[0.03] -mr-8 -mt-8 transition-transform group-hover:scale-110', color)}>
                                 <Icon size={128} />
                             </div>
 
                             <div className='flex flex-col items-center text-center mb-8'>
                                 <div className='w-24 h-24 rounded-3xl bg-gray-50 p-1 border-2 border-gray-50 mb-4 relative'>
                                     <div className='w-full h-full rounded-2xl overflow-hidden'>
-                                        <img src={user.avatar} alt={user.name} className='w-full h-full object-cover' />
+                                        <img src={avatar} alt={user.name} className='w-full h-full object-cover' />
                                     </div>
-                                    <div className={cn('absolute -bottom-2 -right-2 p-2 rounded-xl text-white shadow-lg', user.color)}>
+                                    <div className={cn('absolute -bottom-2 -right-2 p-2 rounded-xl text-white shadow-lg', color)}>
                                         <Icon size={16} />
                                     </div>
                                 </div>
@@ -132,7 +91,7 @@ export default function UsersRoles() {
                                 <p className='text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2'>
                                     {user.phone || ''}
                                 </p>
-                                <span className={cn('text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full text-white', user.color)}>
+                                <span className={cn('text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full text-white', color)}>
                                     {user.role}
                                 </span>
                             </div>
@@ -143,9 +102,9 @@ export default function UsersRoles() {
                                     <Lock size={12} />
                                 </div>
                                 <div className='flex flex-wrap gap-2'>
-                                    {(user.permissions as string[]).map(p => (
-                                        <span key={p} className='px-3 py-1.5 bg-gray-50 rounded-xl text-[10px] font-bold text-gray-500'>
-                                            {p}
+                                    {user.access.map(a => (
+                                        <span key={a.id} className='px-3 py-1.5 bg-gray-50 rounded-xl text-[10px] font-bold text-gray-500 uppercase tracking-widest'>
+                                            {a.name}
                                         </span>
                                     ))}
                                 </div>
@@ -155,7 +114,7 @@ export default function UsersRoles() {
                             <div className='mt-8 pt-6 border-t border-gray-50 flex items-center justify-between'>
                                 <div className='flex items-center gap-2'>
                                     <Activity size={14} className='text-green-500' />
-                                    <span className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>{user.lastActive}</span>
+                                    <span className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>Hozir faol</span>
                                 </div>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
@@ -220,8 +179,4 @@ export default function UsersRoles() {
             />
         </div>
     );
-}
-
-function cn(...classes: any[]) {
-    return classes.filter(Boolean).join(' ');
 }

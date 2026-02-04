@@ -16,7 +16,7 @@ import { cn } from '@/shared/lib/utils';
 import { LanguageRoutes } from '@/shared/config/i18n/types';
 
 import { useCreateProduct, useUpdateProduct, useCategories, useSizes, useColors } from '../lib/hooks';
-import { Product } from '../lib/api';
+import { Product, LocalizedString } from '../lib/api';
 
 interface AddProductModalProps {
     isOpen: boolean;
@@ -36,10 +36,10 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
     const [activeLang, setActiveLang] = useState<LanguageRoutes>(LanguageRoutes.UZ);
 
     // Form State
-    const [names, setNames] = useState<Record<string, string>>({
-        [LanguageRoutes.UZ]: '',
-        [LanguageRoutes.RU]: '',
-        [LanguageRoutes.EN]: '',
+    const [names, setNames] = useState<LocalizedString>({
+        uz: '',
+        ru: '',
+        en: '',
     });
     const [descriptions, setDescriptions] = useState<Record<string, string>>({
         [LanguageRoutes.UZ]: '',
@@ -72,11 +72,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
     // Sync state with product prop when editing
     React.useEffect(() => {
         if (product && isOpen) {
-            setNames({
-                [LanguageRoutes.UZ]: product.name,
-                [LanguageRoutes.RU]: product.name,
-                [LanguageRoutes.EN]: product.name,
-            });
+            setNames(product.name);
             setDescriptions({
                 [LanguageRoutes.UZ]: '',
                 [LanguageRoutes.RU]: '',
@@ -91,9 +87,9 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
             setStep(1);
         } else if (isOpen) {
             setNames({
-                [LanguageRoutes.UZ]: '',
-                [LanguageRoutes.RU]: '',
-                [LanguageRoutes.EN]: '',
+                uz: '',
+                ru: '',
+                en: '',
             });
             setDescriptions({
                 [LanguageRoutes.UZ]: '',
@@ -112,7 +108,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
 
     const handleSave = async () => {
         const payload = {
-            name: names[LanguageRoutes.UZ],
+            name: names,
             price: Number(price),
             product_images: images.length > 0 ? images : ['https://via.placeholder.com/300'],
             category_id: selectedCategories,
@@ -195,8 +191,8 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                             disabled={viewOnly}
                                             placeholder='Mahsulot nomi...'
                                             className='h-12 border-gray-100 rounded-2xl focus-visible:ring-black/10 font-bold'
-                                            value={names[activeLang]}
-                                            onChange={(e) => setNames({ ...names, [activeLang]: e.target.value })}
+                                            value={names[activeLang as keyof LocalizedString]}
+                                            onChange={(e) => setNames({ ...names, [activeLang as keyof LocalizedString]: e.target.value })}
                                         />
                                     </div>
                                     <div className='space-y-2'>
@@ -217,7 +213,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                                         viewOnly && !selectedCategories.includes(cat.id) && 'opacity-50 cursor-not-allowed'
                                                     )}
                                                 >
-                                                    {cat.name}
+                                                    {cat.name[activeLang as keyof LocalizedString]}
                                                 </button>
                                             ))}
                                         </div>

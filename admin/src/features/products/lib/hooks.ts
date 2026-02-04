@@ -36,7 +36,7 @@ export const useCreateCategory = () => {
 export const useUpdateCategory = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ id, name }: { id: number, name: string }) => api.updateCategory(id, name),
+        mutationFn: ({ id, name }: { id: number, name: api.LocalizedString }) => api.updateCategory(id, name),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['categories'] });
         },

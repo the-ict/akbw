@@ -5997,7 +5997,6 @@ export namespace Prisma {
 
   export type ProductsMinAggregateOutputType = {
     id: number | null
-    name: string | null
     price: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6005,7 +6004,6 @@ export namespace Prisma {
 
   export type ProductsMaxAggregateOutputType = {
     id: number | null
-    name: string | null
     price: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -6034,7 +6032,6 @@ export namespace Prisma {
 
   export type ProductsMinAggregateInputType = {
     id?: true
-    name?: true
     price?: true
     createdAt?: true
     updatedAt?: true
@@ -6042,7 +6039,6 @@ export namespace Prisma {
 
   export type ProductsMaxAggregateInputType = {
     id?: true
-    name?: true
     price?: true
     createdAt?: true
     updatedAt?: true
@@ -6146,7 +6142,7 @@ export namespace Prisma {
 
   export type ProductsGroupByOutputType = {
     id: number
-    name: string
+    name: JsonValue
     price: number
     product_images: string[]
     createdAt: Date
@@ -6231,7 +6227,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      name: string
+      name: Prisma.JsonValue
       price: number
       product_images: string[]
       createdAt: Date
@@ -6663,7 +6659,7 @@ export namespace Prisma {
    */
   interface ProductsFieldRefs {
     readonly id: FieldRef<"Products", 'Int'>
-    readonly name: FieldRef<"Products", 'String'>
+    readonly name: FieldRef<"Products", 'Json'>
     readonly price: FieldRef<"Products", 'Int'>
     readonly product_images: FieldRef<"Products", 'String[]'>
     readonly createdAt: FieldRef<"Products", 'DateTime'>
@@ -7168,14 +7164,12 @@ export namespace Prisma {
 
   export type CategoriesMinAggregateOutputType = {
     id: number | null
-    name: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type CategoriesMaxAggregateOutputType = {
     id: number | null
-    name: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7199,14 +7193,12 @@ export namespace Prisma {
 
   export type CategoriesMinAggregateInputType = {
     id?: true
-    name?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type CategoriesMaxAggregateInputType = {
     id?: true
-    name?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7307,7 +7299,7 @@ export namespace Prisma {
 
   export type CategoriesGroupByOutputType = {
     id: number
-    name: string
+    name: JsonValue
     createdAt: Date
     updatedAt: Date
     _count: CategoriesCountAggregateOutputType | null
@@ -7376,7 +7368,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      name: string
+      name: Prisma.JsonValue
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["categories"]>
@@ -7804,7 +7796,7 @@ export namespace Prisma {
    */
   interface CategoriesFieldRefs {
     readonly id: FieldRef<"Categories", 'Int'>
-    readonly name: FieldRef<"Categories", 'String'>
+    readonly name: FieldRef<"Categories", 'Json'>
     readonly createdAt: FieldRef<"Categories", 'DateTime'>
     readonly updatedAt: FieldRef<"Categories", 'DateTime'>
   }
@@ -10530,12 +10522,28 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -10582,6 +10590,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -10842,7 +10864,7 @@ export namespace Prisma {
     OR?: ProductsWhereInput[]
     NOT?: ProductsWhereInput | ProductsWhereInput[]
     id?: IntFilter<"Products"> | number
-    name?: StringFilter<"Products"> | string
+    name?: JsonFilter<"Products">
     price?: IntFilter<"Products"> | number
     product_images?: StringNullableListFilter<"Products">
     createdAt?: DateTimeFilter<"Products"> | Date | string
@@ -10869,7 +10891,7 @@ export namespace Prisma {
     AND?: ProductsWhereInput | ProductsWhereInput[]
     OR?: ProductsWhereInput[]
     NOT?: ProductsWhereInput | ProductsWhereInput[]
-    name?: StringFilter<"Products"> | string
+    name?: JsonFilter<"Products">
     price?: IntFilter<"Products"> | number
     product_images?: StringNullableListFilter<"Products">
     createdAt?: DateTimeFilter<"Products"> | Date | string
@@ -10898,7 +10920,7 @@ export namespace Prisma {
     OR?: ProductsScalarWhereWithAggregatesInput[]
     NOT?: ProductsScalarWhereWithAggregatesInput | ProductsScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Products"> | number
-    name?: StringWithAggregatesFilter<"Products"> | string
+    name?: JsonWithAggregatesFilter<"Products">
     price?: IntWithAggregatesFilter<"Products"> | number
     product_images?: StringNullableListFilter<"Products">
     createdAt?: DateTimeWithAggregatesFilter<"Products"> | Date | string
@@ -10910,7 +10932,7 @@ export namespace Prisma {
     OR?: CategoriesWhereInput[]
     NOT?: CategoriesWhereInput | CategoriesWhereInput[]
     id?: IntFilter<"Categories"> | number
-    name?: StringFilter<"Categories"> | string
+    name?: JsonFilter<"Categories">
     createdAt?: DateTimeFilter<"Categories"> | Date | string
     updatedAt?: DateTimeFilter<"Categories"> | Date | string
     products?: ProductsListRelationFilter
@@ -10929,7 +10951,7 @@ export namespace Prisma {
     AND?: CategoriesWhereInput | CategoriesWhereInput[]
     OR?: CategoriesWhereInput[]
     NOT?: CategoriesWhereInput | CategoriesWhereInput[]
-    name?: StringFilter<"Categories"> | string
+    name?: JsonFilter<"Categories">
     createdAt?: DateTimeFilter<"Categories"> | Date | string
     updatedAt?: DateTimeFilter<"Categories"> | Date | string
     products?: ProductsListRelationFilter
@@ -10952,7 +10974,7 @@ export namespace Prisma {
     OR?: CategoriesScalarWhereWithAggregatesInput[]
     NOT?: CategoriesScalarWhereWithAggregatesInput | CategoriesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Categories"> | number
-    name?: StringWithAggregatesFilter<"Categories"> | string
+    name?: JsonWithAggregatesFilter<"Categories">
     createdAt?: DateTimeWithAggregatesFilter<"Categories"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Categories"> | Date | string
   }
@@ -11306,7 +11328,7 @@ export namespace Prisma {
   }
 
   export type ProductsCreateInput = {
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -11318,7 +11340,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedCreateInput = {
     id?: number
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -11329,7 +11351,7 @@ export namespace Prisma {
   }
 
   export type ProductsUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11341,7 +11363,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11353,7 +11375,7 @@ export namespace Prisma {
 
   export type ProductsCreateManyInput = {
     id?: number
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -11361,7 +11383,7 @@ export namespace Prisma {
   }
 
   export type ProductsUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11370,7 +11392,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11378,7 +11400,7 @@ export namespace Prisma {
   }
 
   export type CategoriesCreateInput = {
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutCategoriesInput
@@ -11386,14 +11408,14 @@ export namespace Prisma {
 
   export type CategoriesUncheckedCreateInput = {
     id?: number
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsUncheckedCreateNestedManyWithoutCategoriesInput
   }
 
   export type CategoriesUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutCategoriesNestedInput
@@ -11401,7 +11423,7 @@ export namespace Prisma {
 
   export type CategoriesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUncheckedUpdateManyWithoutCategoriesNestedInput
@@ -11409,20 +11431,20 @@ export namespace Prisma {
 
   export type CategoriesCreateManyInput = {
     id?: number
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CategoriesUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoriesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11760,6 +11782,29 @@ export namespace Prisma {
   export type AccessSumOrderByAggregateInput = {
     id?: SortOrder
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
     equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -11815,7 +11860,6 @@ export namespace Prisma {
 
   export type ProductsMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11823,7 +11867,6 @@ export namespace Prisma {
 
   export type ProductsMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -11832,6 +11875,32 @@ export namespace Prisma {
   export type ProductsSumOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type ProductsListRelationFilter = {
@@ -11857,14 +11926,12 @@ export namespace Prisma {
 
   export type CategoriesMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type CategoriesMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12353,6 +12420,29 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type AccessCreateWithoutAdminsInput = {
     name: string
@@ -12452,14 +12542,14 @@ export namespace Prisma {
   }
 
   export type CategoriesCreateWithoutProductsInput = {
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type CategoriesUncheckedCreateWithoutProductsInput = {
     id?: number
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12526,7 +12616,7 @@ export namespace Prisma {
     OR?: CategoriesScalarWhereInput[]
     NOT?: CategoriesScalarWhereInput | CategoriesScalarWhereInput[]
     id?: IntFilter<"Categories"> | number
-    name?: StringFilter<"Categories"> | string
+    name?: JsonFilter<"Categories">
     createdAt?: DateTimeFilter<"Categories"> | Date | string
     updatedAt?: DateTimeFilter<"Categories"> | Date | string
   }
@@ -12584,7 +12674,7 @@ export namespace Prisma {
   }
 
   export type ProductsCreateWithoutCategoriesInput = {
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -12595,7 +12685,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedCreateWithoutCategoriesInput = {
     id?: number
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -12630,7 +12720,7 @@ export namespace Prisma {
     OR?: ProductsScalarWhereInput[]
     NOT?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
     id?: IntFilter<"Products"> | number
-    name?: StringFilter<"Products"> | string
+    name?: JsonFilter<"Products">
     price?: IntFilter<"Products"> | number
     product_images?: StringNullableListFilter<"Products">
     createdAt?: DateTimeFilter<"Products"> | Date | string
@@ -12638,7 +12728,7 @@ export namespace Prisma {
   }
 
   export type ProductsCreateWithoutSizesInput = {
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -12649,7 +12739,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedCreateWithoutSizesInput = {
     id?: number
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -12680,7 +12770,7 @@ export namespace Prisma {
   }
 
   export type ProductsCreateWithoutColorsInput = {
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -12691,7 +12781,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedCreateWithoutColorsInput = {
     id?: number
-    name: string
+    name: JsonNullValueInput | InputJsonValue
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -12771,21 +12861,21 @@ export namespace Prisma {
   }
 
   export type CategoriesUpdateWithoutProductsInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoriesUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CategoriesUncheckedUpdateManyWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12831,7 +12921,7 @@ export namespace Prisma {
   }
 
   export type ProductsUpdateWithoutCategoriesInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12842,7 +12932,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedUpdateWithoutCategoriesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12853,7 +12943,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedUpdateManyWithoutCategoriesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12861,7 +12951,7 @@ export namespace Prisma {
   }
 
   export type ProductsUpdateWithoutSizesInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12872,7 +12962,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedUpdateWithoutSizesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12883,7 +12973,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedUpdateManyWithoutSizesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12891,7 +12981,7 @@ export namespace Prisma {
   }
 
   export type ProductsUpdateWithoutColorsInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12902,7 +12992,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedUpdateWithoutColorsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12913,7 +13003,7 @@ export namespace Prisma {
 
   export type ProductsUncheckedUpdateManyWithoutColorsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    name?: JsonNullValueInput | InputJsonValue
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

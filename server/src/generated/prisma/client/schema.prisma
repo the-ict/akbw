@@ -52,7 +52,7 @@ model Access {
 
 model Products {
   id             Int          @id @default(autoincrement())
-  name           String
+  name           Json
   price          Int
   product_images String[]
   categories     Categories[]
@@ -64,7 +64,7 @@ model Products {
 
 model Categories {
   id        Int        @id @default(autoincrement())
-  name      String
+  name      Json
   products  Products[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt

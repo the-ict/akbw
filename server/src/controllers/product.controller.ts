@@ -8,10 +8,11 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
         const where: any = {};
 
         if (q) {
-            where.name = {
-                contains: q as string,
-                mode: 'insensitive'
-            };
+            where.OR = [
+                { name: { path: ['uz'], string_contains: q as string, mode: 'insensitive' } },
+                { name: { path: ['ru'], string_contains: q as string, mode: 'insensitive' } },
+                { name: { path: ['en'], string_contains: q as string, mode: 'insensitive' } },
+            ];
         }
 
         if (category_id) {
@@ -87,7 +88,7 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
         const { name, price, product_images, category_id, size_id, color_id } = req.body;
         const product = await prisma.products.create({
             data: {
-                name,
+                name: name as any,
                 price,
                 product_images,
                 categories: {
@@ -121,7 +122,7 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
         const { name, price, product_images, category_id, size_id, color_id } = req.body;
 
         const updateData: any = {
-            name,
+            name: name as any,
             price,
             product_images,
         };
@@ -176,9 +177,9 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
 
 export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name } = req.body;
+        const { name } = req.body; // Expecting { uz, ru, en }
         const category = await prisma.categories.create({
-            data: { name }
+            data: { name: name as any }
         });
         return res.status(201).json({
             message: "Category created successfully",
@@ -195,7 +196,7 @@ export const updateCategory = async (req: Request, res: Response, next: NextFunc
         const { name } = req.body;
         const category = await prisma.categories.update({
             where: { id: Number(id) },
-            data: { name }
+            data: { name: name as any }
         });
         return res.status(200).json({
             message: "Category updated successfully",
@@ -225,10 +226,11 @@ export const getCategories = async (req: Request, res: Response, next: NextFunct
         const { q } = req.query;
         const where: any = {};
         if (q) {
-            where.name = {
-                contains: q as string,
-                mode: 'insensitive'
-            };
+            where.OR = [
+                { name: { path: ['uz'], string_contains: q as string, mode: 'insensitive' } },
+                { name: { path: ['ru'], string_contains: q as string, mode: 'insensitive' } },
+                { name: { path: ['en'], string_contains: q as string, mode: 'insensitive' } },
+            ];
         }
         const categories = await prisma.categories.findMany({ where });
         return res.status(200).json(categories);
