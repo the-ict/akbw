@@ -30,3 +30,22 @@ model Verify {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Admins {
+  id        Int      @id @default(autoincrement())
+  name      String
+  lastName  String
+  phone     String   @unique
+  role      String
+  access    Access[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Access {
+  id        Int      @id @default(autoincrement())
+  name      String
+  admins    Admins[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

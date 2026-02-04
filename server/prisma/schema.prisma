@@ -24,27 +24,28 @@ model User {
 }
 
 model Verify {
-  id        Int   @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   code      String
-  phone     String @unique
+  phone     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model Admins  {
-  id Int @id @default(autoincrement())
-  name String
-  lastName String
-  phone String
-  role String
-  access Access[]
+model Admins {
+  id        Int      @id @default(autoincrement())
+  name      String
+  lastName  String
+  phone     String   @unique
+  role      String
+  access    Access[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Access {
-  id Int @id @default(autoincrement())
-  name String
+  id        Int      @id @default(autoincrement())
+  name      String
+  admins    Admins[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

@@ -13,6 +13,7 @@ import cors from "cors";
 import authRoutes from "./routers/auth.routes.js";
 import smsRoutes from "./routers/sms.routes.js";
 import userRoutes from "./routers/user.routes.js";
+import adminRoutes from "./routers/admin.routes.js";
 
 // configure dotenv
 dotenv.config();
@@ -41,6 +42,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/sms", smsRoutes);
+app.use("/api/admin", adminRoutes);
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
