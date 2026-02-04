@@ -1,5 +1,4 @@
 import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
 import {
     Modal,
     ModalClose,
@@ -20,6 +19,8 @@ import { useMutation } from "@tanstack/react-query";
 import { sendSms, verifySms } from "@/shared/config/api/sms/sms.request";
 import { register } from "@/shared/config/api/auth/auth.request";
 import { useUserStore } from "@/shared/store/user.store";
+import { toast } from '@/shared/ui/toast';
+import { onError } from "@/shared/config/api/isAxiosError";
 
 const registerSchema = z.object({
     name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
@@ -52,18 +53,22 @@ function Register() {
         mutationKey: ["register"],
         mutationFn: register,
         onSuccess: () => {
-
-        }
+            toast.success("Ro'yhatdan o'tish muvaffaqiyatli bajarildi");
+        },
+        onError: onError
     });
 
     const sendSmsMutation = useMutation({
         mutationKey: ["send-sms"],
         mutationFn: sendSms,
         onSuccess: () => {
-            setSteps("verify");
+            if (steps !== "verify") {
+                setSteps("verify");
+            };
             setTimeLeft(60);
             setErrors({});
-        }
+        },
+        onError
     });
 
     const verifySmsMutation = useMutation({
@@ -75,7 +80,8 @@ function Register() {
             setErrors({});
 
             await registerMutation.mutateAsync({ name, lastName, phone, gender, })
-        }
+        },
+        onError,
     })
 
 
@@ -99,28 +105,26 @@ function Register() {
             setErrors(newErrors);
             return;
         };
-
-
         await sendSmsMutation.mutateAsync(phone);
     };
 
     const handleVerify = async () => {
-        if (otp.length < 6) {
-            setErrors({ otp: "Kod 6 ta raqamdan iborat bo'lishi kerak" });
+        if (otp.length < 5) {
+            setErrors({ otp: "Kod 5 ta raqamdan iborat bo'lishi kerak" });
             return;
         }
         setErrors({});
 
-
         await verifySmsMutation.mutateAsync({ phone, code: otp });
     };
 
-    const handleResendCode = () => {
+    const handleResendCode = async () => {
         setTimeLeft(60);
         setOtp("");
         console.log("Resending code to:", phone);
-    };
 
+        await sendSmsMutation.mutateAsync(phone);
+    };
 
     const renderRegisterSteps = () => {
         switch (steps) {

@@ -28,7 +28,7 @@ export default function UseAuth(phone: string, setPhone: (phone: string) => void
 
     const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.replace(/\D/g, "");
-        if (value.length <= 6) {
+        if (value.length <= 5) {
             setOtp(value);
         }
     };

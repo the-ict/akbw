@@ -22,18 +22,18 @@ export default function VerifyStep({ otp, phone, errors, timeLeft, handleOtpChan
         <>
             <div className="flex flex-col gap-1 mt-5">
                 <Input
-                    placeholder="000000"
+                    placeholder="00000"
                     value={otp}
                     onChange={handleOtpChange}
                     className={cn(
                         "text-center tracking-[1em] font-bold text-xl h-12",
                         errors.otp ? "border-red-500" : "placeholder:opacity-30 placeholder:tracking-normal"
                     )}
-                    maxLength={6}
+                    maxLength={5}
                 />
                 <div className="flex justify-between items-center mt-2">
                     <p className="text-xs text-gray-500">
-                        {phone} raqamiga yuborilgan 6 xonali kodni kiriting
+                        {phone} raqamiga yuborilgan 5 xonali kodni kiriting
                     </p>
                     {timeLeft > 0 ? (
                         <p className="text-xs font-medium text-black">
@@ -42,7 +42,7 @@ export default function VerifyStep({ otp, phone, errors, timeLeft, handleOtpChan
                     ) : (
                         <button
                             onClick={handleResendCode}
-                            className="text-xs font-bold text-black underline hover:opacity-70 transition-opacity"
+                            className="text-xs cursor-pointer font-bold text-black underline hover:opacity-70 transition-opacity"
                         >
                             Qayta kod yuborish
                         </button>

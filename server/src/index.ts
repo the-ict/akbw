@@ -21,13 +21,14 @@ dotenv.config();
 const app = express();
 
 // environment variables
-const PORT = process.env.POR || 3000;
+const PORT = process.env.PORT || 3000;
 
 // middlewares
 app.use(helmet());
 app.use(morgan("combined"));
 app.use(cors({
-    origin: "http://localhost:5000",
+    origin: ["http://localhost:3001", "http://localhost:3002"],
+    credentials: true,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
