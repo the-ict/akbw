@@ -24,75 +24,43 @@ import {
 import AddProductModal from './add-product-modal';
 import DeleteConfirmModal from './delete-confirm-modal';
 
-// Mock Data
-const initialProducts = [
-    {
-        id: '1',
-        name: 'Oversized Graphics T-Shirt',
-        category: 'T-Shirts',
-        price: 45.00,
-        stock: 124,
-        status: 'Instock',
-        image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=80',
-    },
-    {
-        id: '2',
-        name: 'Slim Fit Denim Jacket',
-        category: 'Outerwear',
-        price: 89.00,
-        stock: 42,
-        status: 'Low Stock',
-        image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80',
-    },
-    {
-        id: '3',
-        name: 'Classic White Sneakers',
-        category: 'Shoes',
-        price: 65.00,
-        stock: 0,
-        status: 'Out of Stock',
-        image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=800&q=80',
-    },
-    {
-        id: '4',
-        name: 'Casual Chino Pants',
-        category: 'Pants',
-        price: 55.00,
-        stock: 89,
-        status: 'Instock',
-        image: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=800&q=80',
-    },
-];
+import { useProducts, useDeleteProduct } from '../lib/hooks';
+import { Product } from '../lib/api';
 
 export default function Products() {
+    const { data: products = [], isLoading } = useProducts();
+    const deleteMutation = useDeleteProduct();
+
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Barcha Kategoriyalar');
     const [selectedStatus, setSelectedStatus] = useState('Barcha Statuslar');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [editingProduct, setEditingProduct] = useState<typeof initialProducts[0] | null>(null);
-    const [deletingProduct, setDeletingProduct] = useState<typeof initialProducts[0] | null>(null);
+    const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+    const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
     const [isViewOnly, setIsViewOnly] = useState(false);
 
-    const filteredProducts = initialProducts.filter(product => {
+    const filteredProducts = products.filter(product => {
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = selectedCategory === 'Barcha Kategoriyalar' || product.category === selectedCategory;
-        const matchesStatus = selectedStatus === 'Barcha Statuslar' || product.status === selectedStatus;
+        const matchesCategory = selectedCategory === 'Barcha Kategoriyalar' || product.categories.some(c => c.name === selectedCategory);
+        // Status is not explicitly in the backend yet, defaulting to Instock
+        const status = 'Instock';
+        const matchesStatus = selectedStatus === 'Barcha Statuslar' || status === selectedStatus;
         return matchesSearch && matchesCategory && matchesStatus;
     });
 
-    const handleEdit = (product: typeof initialProducts[0]) => {
+    const handleEdit = (product: Product) => {
         setEditingProduct(product);
         setIsViewOnly(false);
         setIsAddModalOpen(true);
     };
 
-    const handleView = (product: typeof initialProducts[0]) => {
+    const handleView = (product: Product) => {
         setEditingProduct(product);
         setIsViewOnly(true);
         setIsAddModalOpen(true);
     };
 
-    const handleDelete = (product: typeof initialProducts[0]) => {
+    const handleDelete = (product: Product) => {
         setDeletingProduct(product);
     };
 
@@ -102,10 +70,14 @@ export default function Products() {
         setIsViewOnly(false);
     };
 
-    const confirmDelete = () => {
-        // Logic to delete product
-        setDeletingProduct(null);
+    const confirmDelete = async () => {
+        if (deletingProduct) {
+            await deleteMutation.mutateAsync(deletingProduct.id);
+            setDeletingProduct(null);
+        }
     };
+
+    if (isLoading) return <div>Yuklanmoqda...</div>;
 
     return (
         <div className='space-y-6'>
@@ -218,44 +190,44 @@ export default function Products() {
                                         <div className='flex items-center gap-4'>
                                             <div className='w-14 h-14 rounded-2xl bg-gray-100 overflow-hidden relative border border-gray-50'>
                                                 <img
-                                                    src={product.image}
+                                                    src={product.product_images?.[0] || ''}
                                                     alt={product.name}
                                                     className='object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-110'
                                                 />
                                             </div>
                                             <div>
                                                 <p className='text-sm font-bold tracking-tight'>{product.name}</p>
-                                                <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>ID: #{product.id}2938</p>
+                                                <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>ID: #{product.id}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td className='px-6 py-4'>
-                                        <span className='text-[10px] font-black uppercase tracking-widest px-2.5 py-1 bg-gray-100 rounded-full text-gray-500'>
-                                            {product.category}
-                                        </span>
+                                        <div className='flex flex-wrap gap-1'>
+                                            {product.categories.map(cat => (
+                                                <span key={cat.id} className='text-[10px] font-black uppercase tracking-widest px-2.5 py-1 bg-gray-100 rounded-full text-gray-500'>
+                                                    {cat.name}
+                                                </span>
+                                            ))}
+                                        </div>
                                     </td>
                                     <td className='px-6 py-4 font-black text-sm'>
                                         ${product.price.toFixed(2)}
                                     </td>
                                     <td className='px-6 py-4'>
                                         <span className='text-sm font-bold text-gray-600'>
-                                            {product.stock} dona
+                                            0 dona
                                         </span>
                                     </td>
                                     <td className='px-6 py-4'>
                                         <div className={cn(
                                             'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest',
-                                            product.status === 'Instock' ? 'bg-green-50 text-green-600' :
-                                                product.status === 'Low Stock' ? 'bg-orange-50 text-orange-600' :
-                                                    'bg-red-50 text-red-600'
+                                            'bg-green-50 text-green-600'
                                         )}>
                                             <span className={cn(
                                                 'w-1.5 h-1.5 rounded-full',
-                                                product.status === 'Instock' ? 'bg-green-500' :
-                                                    product.status === 'Low Stock' ? 'bg-orange-500' :
-                                                        'bg-red-500'
+                                                'bg-green-500'
                                             )} />
-                                            {product.status}
+                                            Instock
                                         </div>
                                     </td>
                                     <td className='px-6 py-4 text-right'>

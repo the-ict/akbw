@@ -15,18 +15,13 @@ import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/m
 import { cn } from '@/shared/lib/utils';
 import { LanguageRoutes } from '@/shared/config/i18n/types';
 
+import { useCreateProduct, useUpdateProduct, useCategories, useSizes, useColors } from '../lib/hooks';
+import { Product } from '../lib/api';
+
 interface AddProductModalProps {
     isOpen: boolean;
     onClose: () => void;
-    product?: {
-        id: string;
-        name: string;
-        category: string;
-        price: number;
-        stock: number;
-        image: string;
-        status: string;
-    } | null;
+    product?: Product | null;
     viewOnly?: boolean;
 }
 
@@ -57,43 +52,42 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
     const [price, setPrice] = useState<string>('');
     const [discountPrice, setDiscountPrice] = useState<string>('');
 
-    // Categories
-    const [selectedCategories, setSelectedCategories] = useState<string[]>(['T-Shirts']);
-    const allCategories = ['T-Shirts', 'Outerwear', 'Shoes', 'Pants', 'Accessories'];
+    const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
+    const [selectedSizes, setSelectedSizes] = useState<number[]>([]);
+    const [selectedColors, setSelectedColors] = useState<number[]>([]);
 
-    const [sizes, setSizes] = useState(['XS', 'S', 'M', 'L', 'XL', '2XL']);
     const [showSizeInput, setShowSizeInput] = useState(false);
     const [newSize, setNewSize] = useState('');
-
-    const [colors, setColors] = useState([
-        { id: 1, value: 'bg-black' },
-        { id: 2, value: 'bg-white border-gray-200' },
-        { id: 3, value: 'bg-red-500' },
-        { id: 4, value: 'bg-blue-500' },
-        { id: 5, value: 'bg-gray-400' },
-    ]);
     const [showColorInput, setShowColorInput] = useState(false);
     const [newColor, setNewColor] = useState('#000000');
     const [newColorHex, setNewColorHex] = useState('');
+
+    const { data: allCategories = [] } = useCategories();
+    const { data: allSizes = [] } = useSizes();
+    const { data: allColors = [] } = useColors();
+
+    const createMutation = useCreateProduct();
+    const updateMutation = useUpdateProduct();
 
     // Sync state with product prop when editing
     React.useEffect(() => {
         if (product && isOpen) {
             setNames({
                 [LanguageRoutes.UZ]: product.name,
-                [LanguageRoutes.RU]: product.name + ' (RU)',
-                [LanguageRoutes.EN]: product.name + ' (EN)',
+                [LanguageRoutes.RU]: product.name,
+                [LanguageRoutes.EN]: product.name,
             });
             setDescriptions({
-                [LanguageRoutes.UZ]: 'Description in UZ',
-                [LanguageRoutes.RU]: 'Description in RU',
-                [LanguageRoutes.EN]: 'Description in EN',
+                [LanguageRoutes.UZ]: '',
+                [LanguageRoutes.RU]: '',
+                [LanguageRoutes.EN]: '',
             });
-            setStock(product.stock);
+            setStock(0);
             setPrice(product.price.toString());
-            setSelectedCategories([product.category]);
-            // Mocking images, sizes, colors for now
-            setImages([product.image]);
+            setSelectedCategories(product.categories.map(c => c.id));
+            setSelectedSizes(product.sizes.map(s => s.id));
+            setSelectedColors(product.colors.map(c => c.id));
+            setImages(product.product_images);
             setStep(1);
         } else if (isOpen) {
             setNames({
@@ -108,42 +102,51 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
             });
             setStock(0);
             setPrice('');
-            setSelectedCategories(['T-Shirts']);
+            setSelectedCategories([]);
+            setSelectedSizes([]);
+            setSelectedColors([]);
             setImages([]);
             setStep(1);
         }
     }, [product, isOpen]);
 
+    const handleSave = async () => {
+        const payload = {
+            name: names[LanguageRoutes.UZ],
+            price: Number(price),
+            product_images: images.length > 0 ? images : ['https://via.placeholder.com/300'],
+            category_id: selectedCategories,
+            size_id: selectedSizes,
+            color_id: selectedColors,
+        };
+
+        if (product) {
+            await updateMutation.mutateAsync({ id: product.id, ...payload });
+        } else {
+            await createMutation.mutateAsync(payload);
+        }
+        onClose();
+    };
+
     const nextStep = () => setStep(prev => Math.min(prev + 1, 3));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
-    const handleAddSize = () => {
-        if (newSize.trim() && !sizes.includes(newSize.trim().toUpperCase())) {
-            setSizes([...sizes, newSize.trim().toUpperCase()]);
-            setNewSize('');
-            setShowSizeInput(false);
-        }
-    };
-
-    const handleAddColor = () => {
-        const colorValue = newColorHex.trim() ? (newColorHex.startsWith('#') ? newColorHex : `#${newColorHex}`) : newColor;
-        setColors([...colors, { id: Date.now(), value: `style:${colorValue}` }]);
-        setNewColorHex('');
-        setShowColorInput(false);
-    };
-
-    const toggleCategory = (cat: string) => {
+    const toggleCategory = (id: number) => {
         setSelectedCategories(prev =>
-            prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]
+            prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
         );
     };
 
-    const removeSize = (sizeToRemove: string) => {
-        setSizes(sizes.filter(s => s !== sizeToRemove));
+    const toggleSize = (id: number) => {
+        setSelectedSizes(prev =>
+            prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]
+        );
     };
 
-    const removeColor = (idToRemove: number) => {
-        setColors(colors.filter(c => c.id !== idToRemove));
+    const toggleColor = (id: number) => {
+        setSelectedColors(prev =>
+            prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
+        );
     };
 
     return (
@@ -201,20 +204,20 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                         <div className='flex flex-wrap gap-2'>
                                             {allCategories.map(cat => (
                                                 <button
-                                                    key={cat}
+                                                    key={cat.id}
                                                     type="button"
                                                     disabled={viewOnly}
-                                                    onClick={() => toggleCategory(cat)}
+                                                    onClick={() => toggleCategory(cat.id)}
                                                     className={cn(
                                                         'px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all border',
-                                                        selectedCategories.includes(cat)
+                                                        selectedCategories.includes(cat.id)
                                                             ? 'bg-black text-white border-black'
                                                             : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300',
-                                                        viewOnly && selectedCategories.includes(cat) && 'opacity-100',
-                                                        viewOnly && !selectedCategories.includes(cat) && 'opacity-50 cursor-not-allowed'
+                                                        viewOnly && selectedCategories.includes(cat.id) && 'opacity-100',
+                                                        viewOnly && !selectedCategories.includes(cat.id) && 'opacity-50 cursor-not-allowed'
                                                     )}
                                                 >
-                                                    {cat}
+                                                    {cat.name}
                                                 </button>
                                             ))}
                                         </div>
@@ -327,29 +330,27 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                                 placeholder='Masalan: XXL'
                                                 value={newSize}
                                                 onChange={(e) => setNewSize(e.target.value)}
-                                                className='h-10 text-xs font-bold uppercase'
-                                                onKeyDown={(e) => e.key === 'Enter' && handleAddSize()}
+                                                className='h-10 text-xs font-bold uppercase disabled:opacity-50'
+                                                disabled
                                             />
-                                            <Button onClick={handleAddSize} className='h-10 bg-black text-white px-4 rounded-xl'>
+                                            <Button disabled className='h-10 bg-black text-white px-4 rounded-xl'>
                                                 <Plus size={16} />
                                             </Button>
                                         </div>
                                     )}
 
                                     <div className='flex flex-wrap gap-2'>
-                                        {sizes.map(size => (
-                                            <div key={size} className='group relative'>
-                                                <button className='px-6 py-3 border border-gray-100 rounded-xl text-xs font-black hover:border-black active:bg-black active:text-white transition-all'>
-                                                    {size}
+                                        {allSizes.map(size => (
+                                            <div key={size.id} className='group relative'>
+                                                <button
+                                                    onClick={() => toggleSize(size.id)}
+                                                    className={cn(
+                                                        'px-6 py-3 border border-gray-100 rounded-xl text-xs font-black transition-all',
+                                                        selectedSizes.includes(size.id) ? 'bg-black text-white border-black' : 'hover:border-black'
+                                                    )}
+                                                >
+                                                    {size.name}
                                                 </button>
-                                                {!viewOnly && (
-                                                    <button
-                                                        onClick={() => removeSize(size)}
-                                                        className='absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full items-center justify-center hidden group-hover:flex shadow-lg'
-                                                    >
-                                                        <X size={10} strokeWidth={3} />
-                                                    </button>
-                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -370,52 +371,38 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
 
                                     {showColorInput && (
                                         <div className='flex items-center gap-3 animate-in fade-in slide-in-from-top-2'>
-                                            <div className='flex items-center gap-2 p-1 bg-gray-50 rounded-xl border border-gray-100'>
+                                            <div className='flex items-center gap-2 p-1 bg-gray-50 rounded-xl border border-gray-100 opacity-50'>
                                                 <input
+                                                    disabled
                                                     type="color"
                                                     value={newColor}
-                                                    onChange={(e) => setNewColor(e.target.value)}
-                                                    className='w-10 h-10 rounded-lg border-none p-0 cursor-pointer overflow-hidden'
                                                 />
                                                 <div className='flex items-center'>
                                                     <span className='pl-2 text-[10px] font-black text-gray-400'>#</span>
                                                     <Input
+                                                        disabled
                                                         placeholder='FFFFFF'
                                                         value={newColorHex}
-                                                        onChange={(e) => setNewColorHex(e.target.value.replace('#', ''))}
-                                                        className='h-10 w-24 border-none bg-transparent text-xs font-black uppercase focus-visible:ring-0'
+                                                        className='h-10 w-24 border-none bg-transparent text-xs font-black uppercase'
                                                     />
                                                 </div>
                                             </div>
-                                            <button
-                                                onClick={handleAddColor}
-                                                className='h-12 px-6 bg-black text-white rounded-xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-black/10 transition-all hover:scale-105 active:scale-95'
-                                            >
-                                                Qo‘shish
-                                            </button>
                                         </div>
                                     )}
 
                                     <div className='flex flex-wrap gap-3'>
-                                        {colors.map((color) => (
+                                        {allColors.map((color) => (
                                             <div key={color.id} className='group relative'>
                                                 <button
+                                                    onClick={() => toggleColor(color.id)}
                                                     className={cn(
-                                                        'w-10 h-10 rounded-full shadow-sm ring-2 ring-transparent hover:ring-gray-200 p-1 transition-all',
-                                                        color.value.startsWith('bg-') ? color.value : ''
+                                                        'w-10 h-10 rounded-full shadow-sm ring-2 p-1 transition-all',
+                                                        selectedColors.includes(color.id) ? 'ring-black scale-110' : 'ring-transparent'
                                                     )}
-                                                    style={color.value.startsWith('style:') ? { backgroundColor: color.value.replace('style:', '') } : {}}
+                                                    style={{ backgroundColor: color.name }}
                                                 >
-                                                    {color.value === 'bg-white border-gray-200' && <div className='w-full h-full rounded-full border border-gray-100' />}
+                                                    {color.name.toLowerCase() === 'white' && <div className='w-full h-full rounded-full border border-gray-100' />}
                                                 </button>
-                                                {!viewOnly && (
-                                                    <button
-                                                        onClick={() => removeColor(color.id)}
-                                                        className='absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full items-center justify-center hidden group-hover:flex shadow-lg z-10'
-                                                    >
-                                                        <X size={10} strokeWidth={3} />
-                                                    </button>
-                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -435,7 +422,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                             Orqaga
                         </Button>
                         <Button
-                            onClick={step === 3 ? onClose : nextStep}
+                            onClick={step === 3 ? handleSave : nextStep}
                             className='rounded-[20px] h-14 px-12 bg-black text-white font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-black/20 hover:scale-105 active:scale-95 transition-all cursor-pointer'
                         >
                             {viewOnly ? (step === 3 ? 'Yopish' : 'Keyingi') : (step === 3 ? 'Saqlash' : 'Keyingi')}
