@@ -17,11 +17,13 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
     const [gender, setGender] = React.useState('male');
     const [login, setLogin] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [token, setToken] = React.useState('');
 
     const generateCredentials = () => {
         const randomStr = Math.random().toString(36).substring(7);
         setLogin(`admin_${randomStr.substring(0, 4)}`);
         setPassword(Math.random().toString(36).slice(-8));
+        setToken(`akbw_${Math.random().toString(36).substring(2, 10)}`);
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -31,6 +33,7 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
             gender,
             login,
             pass: password,
+            token: token,
             role: 'Moderator', // Default role
             permissions: ['Mahsulotlar', 'Buyurtmalar'],
             lastActive: 'Hozir qo‘shildi'
@@ -40,6 +43,7 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
         setGender('male');
         setLogin('');
         setPassword('');
+        setToken('');
     };
 
     return (
@@ -129,6 +133,16 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
                                             onChange={(e) => setPassword(e.target.value)}
                                             placeholder='Parol'
                                             className='pl-12 h-14 bg-gray-50 border-none rounded-2xl font-bold font-mono'
+                                        />
+                                    </div>
+                                    <div className='relative'>
+                                        <KeyRound className='absolute left-4 top-1/2 -translate-y-1/2 text-gray-400' size={18} />
+                                        <Input
+                                            required
+                                            value={token}
+                                            onChange={(e) => setToken(e.target.value)}
+                                            placeholder='Admin Token'
+                                            className='pl-12 h-14 bg-gray-50 border-none rounded-2xl font-bold font-mono text-blue-600'
                                         />
                                     </div>
                                 </div>

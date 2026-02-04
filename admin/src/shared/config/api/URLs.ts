@@ -4,7 +4,7 @@ const BASE_URL =
 const ENDP_POSTS = '/posts/';
 const ENDP_SEND_SMS = "/sms/send";
 const ENDP_VERIFY_SMS = "/sms/verify";
-const ENDP_USERS = "/auth/users";
+const ENDP_USERS = "/user";
 
 export {
   BASE_URL,

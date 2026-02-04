@@ -1,16 +1,36 @@
-import type { Metadata } from 'next';
+import type {
+  Metadata
+} from 'next';
 import '../globals.css';
-import { golosText } from '@/shared/config/fonts';
-import { ThemeProvider } from '@/shared/config/theme-provider';
-import { PRODUCT_INFO } from '@/shared/constants/data';
-import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl';
-import { routing } from '@/shared/config/i18n/routing';
-import { notFound } from 'next/navigation';
-import { ReactNode } from 'react';
-import { setRequestLocale } from 'next-intl/server';
+import {
+  golosText
+} from '@/shared/config/fonts';
+import {
+  ThemeProvider
+} from '@/shared/config/theme-provider';
+import {
+  PRODUCT_INFO
+} from '@/shared/constants/data';
+import {
+  hasLocale,
+  Locale,
+  NextIntlClientProvider
+} from 'next-intl';
+import {
+  routing
+} from '@/shared/config/i18n/routing';
+import {
+  notFound
+} from 'next/navigation';
+import {
+  ReactNode
+} from 'react';
+import {
+  setRequestLocale
+} from 'next-intl/server';
 import QueryProvider from '@/shared/config/react-query/QueryProvider';
+import AdminAuthGuard from '@/shared/components/AdminAuthGuard';
 import Script from 'next/script';
-import AdminLayout from '@/widgets/layout/ui';
 
 export const metadata: Metadata = {
   title: PRODUCT_INFO.name,
@@ -25,7 +45,7 @@ type Props = {
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
-}
+};
 
 export default async function RootLayout({ children, params }: Props) {
   const { locale } = await params;
@@ -33,7 +53,6 @@ export default async function RootLayout({ children, params }: Props) {
     notFound();
   }
 
-  // Enable static rendering
   setRequestLocale(locale);
 
   return (
@@ -47,9 +66,9 @@ export default async function RootLayout({ children, params }: Props) {
             disableTransitionOnChange
           >
             <QueryProvider>
-              <AdminLayout>
+              <AdminAuthGuard>
                 {children}
-              </AdminLayout>
+              </AdminAuthGuard>
             </QueryProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

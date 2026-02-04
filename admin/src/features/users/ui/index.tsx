@@ -9,7 +9,9 @@ import {
     ShoppingBag,
     Star,
 } from 'lucide-react';
-import { Button } from '@/shared/ui/button';
+import {
+    Button
+} from '@/shared/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -53,8 +55,8 @@ export default function Customers() {
             id: user.id,
             name: `${user.name} ${user.lastName}`,
             phone: user.phone,
-            orders: 0, // Placeholder
-            spent: '$0.00', // Placeholder
+            orders: 0,
+            spent: '$0.00',
             joined: new Date(user.createdAt).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
             status: 'Active',
         }));
@@ -98,7 +100,6 @@ export default function Customers() {
                 <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Foydalanuvchilar va ularning buyurtmalar tarixi ({stats.total} ta)</p>
             </div>
 
-            {/* Stats Summary */}
             <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
                 <div className='bg-black text-white p-6 rounded-[24px] shadow-xl shadow-black/10'>
                     <div className='flex justify-between items-start mb-4'>
@@ -119,7 +120,6 @@ export default function Customers() {
                 </div>
             </div>
 
-            {/* Filter Bar */}
             <div className='bg-white p-4 rounded-[24px] border border-gray-100 flex flex-col md:flex-row gap-4 items-center shadow-sm'>
                 <div className='relative flex-1 w-full'>
                     <Search className='absolute left-4 top-1/2 -translate-y-1/2 text-gray-400' size={18} />
@@ -146,7 +146,6 @@ export default function Customers() {
                 </DropdownMenu>
             </div>
 
-            {/* Customers List */}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
                 {filteredAndSortedCustomers.map((customer) => (
                     <div key={customer.id} className='bg-white p-6 rounded-[32px] border border-gray-100 hover:shadow-xl hover:shadow-black/5 transition-all group cursor-pointer'>

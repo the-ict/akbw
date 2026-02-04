@@ -12,6 +12,7 @@ interface CredentialsModalProps {
     credentials: {
         login: string;
         pass: string;
+        token: string;
     } | null;
 }
 
@@ -21,10 +22,10 @@ export default function CredentialsModal({ isOpen, onClose, credentials }: Crede
     if (!credentials) return null;
 
     const handleCopy = () => {
-        const text = `Login: ${credentials.login}\nParol: ${credentials.pass}`;
+        const text = `Login: ${credentials.login}\nParol: ${credentials.pass}\nToken: ${credentials.token}`;
         navigator.clipboard.writeText(text);
         setCopied(true);
-        toast.success('Login va parol nusxalandi!');
+        toast.success('Barcha ma\'lumotlar nusxalandi!');
         setTimeout(() => setCopied(false), 2000);
     };
 
@@ -50,6 +51,11 @@ export default function CredentialsModal({ isOpen, onClose, credentials }: Crede
                         <div className='flex justify-between items-center'>
                             <span className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>Parol</span>
                             <span className='text-sm font-bold font-mono'>{credentials.pass}</span>
+                        </div>
+                        <div className='h-px bg-gray-200 w-full' />
+                        <div className='flex justify-between items-center'>
+                            <span className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>Admin Token</span>
+                            <span className='text-sm font-bold font-mono text-blue-600'>{credentials.token}</span>
                         </div>
                     </div>
 

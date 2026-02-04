@@ -23,10 +23,18 @@ httpClient.interceptors.request.use(
     }
 
     config.headers['Accept-Language'] = language;
-    // const accessToken = localStorage.getItem('accessToken');
-    // if (accessToken) {
-    //   config.headers['Authorization'] = `Bearer ${accessToken}`;
-    // }
+
+    const authStorage = localStorage.getItem('admin-auth-storage');
+    if (authStorage) {
+      try {
+        const { state } = JSON.parse(authStorage);
+        if (state.adminToken) {
+          config.headers['Authorization'] = `Bearer ${state.adminToken}`;
+        }
+      } catch (e) {
+        console.error('Error parsing auth storage', e);
+      }
+    }
 
     return config;
   },
