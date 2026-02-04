@@ -52,8 +52,19 @@ function Register() {
     const registerMutation = useMutation({
         mutationKey: ["register"],
         mutationFn: register,
-        onSuccess: () => {
-            toast.success("Ro'yhatdan o'tish muvaffaqiyatli bajarildi");
+        onSuccess: (data: any) => {
+            console.log(data);
+            if (data.data.ok) {
+                toast.success("Ro'yhatdan o'tish muvaffaqiyatli bajarildi");
+                setToken(data.data.token)
+            };
+
+            setOtp("");
+            setName("");
+            setLastName("");
+            setGender("male");
+            setPhone("+998");
+            setErrors({});
         },
         onError: onError
     });
