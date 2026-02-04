@@ -11,6 +11,16 @@ import {
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const user = await prisma.user.findUnique({
+            where: {
+                phone: req.body.phone
+            }
+        });
+
+        if (user) {
+            return res.status(400).json({ message: "User allready exists", ok: false });
+        };
+
         const newUser = await prisma.user.create({
             data: {
                 name: req.body.name,
