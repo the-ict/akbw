@@ -20,6 +20,7 @@ import { useMutation } from "@tanstack/react-query";
 import { sendSms, verifySms } from "@/shared/config/api/sms/sms.request";
 import { login } from "@/shared/config/api/auth/auth.request";
 import { useUserStore } from "@/shared/store/user.store";
+import UseAuth from "@/shared/hooks/use-auth";
 
 const registerSchema = z.object({
     phone: z.string().min(12, "Telefon raqami noto'g'ri").regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "Telefon raqami noto'g'ri"),
@@ -29,11 +30,13 @@ const registerSchema = z.object({
 type Steps = "register" | "verify"
 
 function Login() {
-    const [phone, setPhone] = React.useState("+998");
-    const [otp, setOtp] = React.useState("");
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [steps, setSteps] = React.useState<Steps>("register");
     const [timeLeft, setTimeLeft] = React.useState(60);
+    const [phone, setPhone] = React.useState("+998");
+    const [otp, setOtp] = React.useState("");
+
+    const { handlePhoneChange, handleOtpChange } = UseAuth(phone, setPhone, setOtp);
 
     React.useEffect(() => {
         let timer: NodeJS.Timeout;
@@ -45,38 +48,9 @@ function Login() {
         return () => clearInterval(timer);
     }, [steps, timeLeft]);
 
-    const formatPhone = (value: string) => {
-        let cleaned = value.replace(/[^\d+]/g, "");
-        if (!cleaned.startsWith("+998")) {
-            cleaned = "+998" + cleaned.replace("+", "").replace("998", "");
-        }
-
-        let formatted = "+998";
-        let digits = cleaned.slice(4).replace(/\D/g, "");
-
-        if (digits.length > 0) formatted += " " + digits.slice(0, 2);
-        if (digits.length > 2) formatted += " " + digits.slice(2, 5);
-        if (digits.length > 5) formatted += " " + digits.slice(5, 7);
-        if (digits.length > 7) formatted += " " + digits.slice(7, 9);
-
-        return formatted;
-    };
-
-    const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const formatted = formatPhone(e.target.value);
-        if (formatted.length <= 19) {
-            setPhone(formatted);
-        }
-    };
-
-    const handleOtpChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value.replace(/\D/g, "");
-        if (value.length <= 6) {
-            setOtp(value);
-        }
-    };
-
-    const { setToken } = useUserStore();
+    const {
+        setToken
+    } = useUserStore();
 
     const loginMutation = useMutation({
         mutationKey: ["login"],
@@ -84,9 +58,8 @@ function Login() {
         onSuccess: (data: any) => {
             if (data?.token) {
                 setToken(data.token);
-                // Redirect or close modal as needed
                 console.log("Logged in successfully");
-                window.location.reload(); // Simple reload to update app state
+                window.location.reload();
             }
         }
     });

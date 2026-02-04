@@ -1,7 +1,6 @@
 import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input'
-import { UseMutationResult } from '@tanstack/react-query';
 import { ChevronDown } from 'lucide-react';
 import React from 'react'
 

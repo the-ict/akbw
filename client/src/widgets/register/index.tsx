@@ -75,7 +75,6 @@ function Register() {
             setErrors({});
 
             await registerMutation.mutateAsync({ name, lastName, phone, gender, })
-
         }
     })
 
