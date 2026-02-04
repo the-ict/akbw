@@ -29,7 +29,12 @@ export const createRole = async (req: Request, res: Response, next: NextFunction
                 lastName: req.body.lastName,
                 phone: req.body.phone,
                 role: req.body.role,
-                access: req.body.access,
+                access: {
+                    connectOrCreate: req.body.access.map((name: string) => ({
+                        where: { name },
+                        create: { name }
+                    }))
+                },
             }
         })
 

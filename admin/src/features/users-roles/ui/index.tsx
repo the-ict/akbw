@@ -27,7 +27,9 @@ import CredentialsModal from './credentials-modal';
 const initialRoles = [
     {
         id: '1',
-        name: 'Davlatbek Erkinov',
+        name: 'Davlatbek',
+        lastName: 'Erkinov',
+        phone: '+998 90 123 45 67',
         role: 'Admin',
         permissions: ['Barcha huquqlar', 'Moliyaviy hisobotlar', 'Foydalanuvchi boshqaruvi'],
         lastActive: 'Hozir faol',
@@ -37,7 +39,9 @@ const initialRoles = [
     },
     {
         id: '2',
-        name: 'Anvar Toshmatov',
+        name: 'Anvar',
+        lastName: 'Toshmatov',
+        phone: '+998 91 234 56 78',
         role: 'Manager',
         permissions: ['Mahsulotlar', 'Buyurtmalar', 'Mijozlar'],
         lastActive: '2 soat oldin',
@@ -47,7 +51,9 @@ const initialRoles = [
     },
     {
         id: '3',
-        name: 'Nilufar Rahimova',
+        name: 'Nilufar',
+        lastName: 'Rahimova',
+        phone: '+998 93 345 67 89',
         role: 'Content',
         permissions: ['Mahsulotlar', 'Bannerlar', 'Blog'],
         lastActive: 'Bugun, 09:30',
@@ -60,19 +66,25 @@ const initialRoles = [
 export default function UsersRoles() {
     const [users, setUsers] = React.useState(initialRoles);
     const [isAddModalOpen, setIsAddModalOpen] = React.useState(false);
-    const [createdCredentials, setCreatedCredentials] = React.useState<{ login: string, pass: string } | null>(null);
+    const [createdCredentials, setCreatedCredentials] = React.useState<{ name: string, phone: string, token: string } | null>(null);
 
-    const handleAddUser = (newUser: any) => {
+    const handleAddUser = (newUser: any, token: string) => {
         const user = {
             id: Math.random().toString(),
             ...newUser,
             avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${newUser.name}`,
-            color: 'bg-gray-900',
-            icon: Shield,
+            color: newUser.role === 'Admin' ? 'bg-black' : 'bg-blue-600',
+            icon: newUser.role === 'Admin' ? ShieldCheck : Shield,
+            permissions: newUser.access,
+            lastActive: 'Hozir qo‘shildi'
         };
         setUsers([...users, user]);
         setIsAddModalOpen(false);
-        setCreatedCredentials({ login: newUser.login, pass: newUser.pass });
+        setCreatedCredentials({
+            name: `${newUser.name} ${newUser.lastName}`,
+            phone: newUser.phone,
+            token: token
+        });
     };
 
     const handleRemoveUser = (userId: string) => {
@@ -114,8 +126,13 @@ export default function UsersRoles() {
                                         <Icon size={16} />
                                     </div>
                                 </div>
-                                <h3 className='font-black uppercase tracking-tight text-lg'>{user.name}</h3>
-                                <span className={cn('text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full mt-2 text-white', user.color)}>
+                                <h3 className='font-black uppercase tracking-tight text-lg'>
+                                    {user.name} {user.lastName || ''}
+                                </h3>
+                                <p className='text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2'>
+                                    {user.phone || ''}
+                                </p>
+                                <span className={cn('text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full text-white', user.color)}>
                                     {user.role}
                                 </span>
                             </div>
@@ -126,13 +143,14 @@ export default function UsersRoles() {
                                     <Lock size={12} />
                                 </div>
                                 <div className='flex flex-wrap gap-2'>
-                                    {user.permissions.map(p => (
+                                    {(user.permissions as string[]).map(p => (
                                         <span key={p} className='px-3 py-1.5 bg-gray-50 rounded-xl text-[10px] font-bold text-gray-500'>
                                             {p}
                                         </span>
                                     ))}
                                 </div>
                             </div>
+
 
                             <div className='mt-8 pt-6 border-t border-gray-50 flex items-center justify-between'>
                                 <div className='flex items-center gap-2'>

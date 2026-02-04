@@ -10,8 +10,8 @@ interface CredentialsModalProps {
     isOpen: boolean;
     onClose: () => void;
     credentials: {
-        login: string;
-        pass: string;
+        name: string;
+        phone: string;
         token: string;
     } | null;
 }
@@ -22,7 +22,7 @@ export default function CredentialsModal({ isOpen, onClose, credentials }: Crede
     if (!credentials) return null;
 
     const handleCopy = () => {
-        const text = `Login: ${credentials.login}\nParol: ${credentials.pass}\nToken: ${credentials.token}`;
+        const text = `Ism: ${credentials.name}\nTelefon: ${credentials.phone}\nToken: ${credentials.token}`;
         navigator.clipboard.writeText(text);
         setCopied(true);
         toast.success('Barcha ma\'lumotlar nusxalandi!');
@@ -39,23 +39,25 @@ export default function CredentialsModal({ isOpen, onClose, credentials }: Crede
 
                     <ModalTitle className='text-xl font-black uppercase tracking-tight mb-2'>Muvaffaqiyatli!</ModalTitle>
                     <ModalDescription className='text-xs text-gray-400 font-bold uppercase tracking-widest px-4 leading-relaxed'>
-                        Yangi foydalanuvchi yaratildi. Iltimos, quyidagi ma'lumotlarni saqlab oling.
+                        Yangi admin muvaffaqiyatli yaratildi. Quyidagi token orqali tizimga kirish mumkin.
                     </ModalDescription>
 
                     <div className='w-full bg-gray-50 rounded-2xl p-6 mt-8 border border-gray-100 space-y-4'>
                         <div className='flex justify-between items-center'>
-                            <span className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>Login</span>
-                            <span className='text-sm font-bold font-mono'>{credentials.login}</span>
+                            <span className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>Admin</span>
+                            <span className='text-sm font-bold'>{credentials.name}</span>
                         </div>
                         <div className='h-px bg-gray-200 w-full' />
                         <div className='flex justify-between items-center'>
-                            <span className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>Parol</span>
-                            <span className='text-sm font-bold font-mono'>{credentials.pass}</span>
+                            <span className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>Telefon</span>
+                            <span className='text-sm font-bold font-mono'>{credentials.phone}</span>
                         </div>
                         <div className='h-px bg-gray-200 w-full' />
-                        <div className='flex justify-between items-center'>
-                            <span className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>Admin Token</span>
-                            <span className='text-sm font-bold font-mono text-blue-600'>{credentials.token}</span>
+                        <div className='flex flex-col items-start gap-2'>
+                            <span className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>JWT Token (Xavfsiz saqlang)</span>
+                            <div className='w-full bg-white p-4 rounded-xl border border-gray-100 break-all text-[10px] font-mono font-bold text-blue-600 text-left select-all'>
+                                {credentials.token}
+                            </div>
                         </div>
                     </div>
 
