@@ -22,7 +22,7 @@ import {
 import UserHistoryModal from './user-history-modal';
 import { Input } from '@/shared/ui/input';
 import { useQuery } from '@tanstack/react-query';
-import { getUsers } from '@/shared/config/api/user.request';
+import { getUsers } from '@/shared/config/api/user/user.request';
 
 interface User {
     id: string;
