@@ -1,9 +1,6 @@
 'use client';
 
-import React,
-{
-    useState
-} from 'react';
+import React, { useState } from 'react';
 import {
     Plus,
     Search,
@@ -25,41 +22,32 @@ import {
 } from '@/shared/ui/dropdown-menu';
 import AddCategoryModal from './add-category-modal';
 import DeleteConfirmModal from '../../products/ui/delete-confirm-modal';
-
-// Mock Data
-const initialCategories = [
-    { id: '1', name: 'T-Shirts', productCount: 124, status: 'Active' },
-    { id: '2', name: 'Outerwear', productCount: 42, status: 'Active' },
-    { id: '3', name: 'Shoes', productCount: 65, status: 'Active' },
-    { id: '4', name: 'Pants', productCount: 89, status: 'Active' },
-    { id: '5', name: 'Accessories', productCount: 210, status: 'Inactive' },
-];
+import { useCategories, useDeleteCategory } from '../../products/lib/hooks';
+import { Category } from '../../products/lib/api';
 
 export default function Categories() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [categories, setCategories] = useState(initialCategories);
+    const { data: categories = [], isLoading } = useCategories(searchQuery || undefined);
+    const deleteMutation = useDeleteCategory();
+
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [editingCategory, setEditingCategory] = useState<typeof initialCategories[0] | null>(null);
-    const [deletingCategory, setDeletingCategory] = useState<typeof initialCategories[0] | null>(null);
+    const [editingCategory, setEditingCategory] = useState<Category | null>(null);
+    const [deletingCategory, setDeletingCategory] = useState<Category | null>(null);
     const [isViewOnly, setIsViewOnly] = useState(false);
 
-    const filteredCategories = categories.filter(cat =>
-        cat.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const handleEdit = (category: typeof initialCategories[0]) => {
+    const handleEdit = (category: Category) => {
         setEditingCategory(category);
         setIsViewOnly(false);
         setIsAddModalOpen(true);
     };
 
-    const handleView = (category: typeof initialCategories[0]) => {
+    const handleView = (category: Category) => {
         setEditingCategory(category);
         setIsViewOnly(true);
         setIsAddModalOpen(true);
     };
 
-    const handleDelete = (category: typeof initialCategories[0]) => {
+    const handleDelete = (category: Category) => {
         setDeletingCategory(category);
     };
 
@@ -69,10 +57,14 @@ export default function Categories() {
         setIsViewOnly(false);
     };
 
-    const confirmDelete = () => {
-        // Logic to delete category
-        setDeletingCategory(null);
+    const confirmDelete = async () => {
+        if (deletingCategory) {
+            await deleteMutation.mutateAsync(deletingCategory.id);
+            setDeletingCategory(null);
+        }
     };
+
+    if (isLoading) return <div>Yuklanmoqda...</div>;
 
     return (
         <div className='space-y-6'>
@@ -83,7 +75,10 @@ export default function Categories() {
                     <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Mahsulot kategoriyalarini boshqarish</p>
                 </div>
                 <Button
-                    onClick={() => setIsAddModalOpen(true)}
+                    onClick={() => {
+                        setIsViewOnly(false);
+                        setIsAddModalOpen(true);
+                    }}
                     className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-xs flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
                 >
                     <Plus size={18} />
@@ -129,10 +124,7 @@ export default function Categories() {
                                     Kategoriya
                                 </th>
                                 <th className='px-6 py-4 text-left text-[10px] uppercase tracking-[0.2em] font-black text-gray-400'>
-                                    Mahsulotlar soni
-                                </th>
-                                <th className='px-6 py-4 text-left text-[10px] uppercase tracking-[0.2em] font-black text-gray-400'>
-                                    Status
+                                    ID
                                 </th>
                                 <th className='px-6 py-4 text-right text-[10px] uppercase tracking-[0.2em] font-black text-gray-400'>
                                     Amallar
@@ -140,7 +132,7 @@ export default function Categories() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {filteredCategories.map((category) => (
+                            {categories.map((category) => (
                                 <tr key={category.id} className='hover:bg-gray-50/50 transition-colors group'>
                                     <td className='px-6 py-4'>
                                         <div className='flex items-center gap-4'>
@@ -149,26 +141,11 @@ export default function Categories() {
                                             </div>
                                             <div>
                                                 <p className='text-sm font-bold tracking-tight'>{category.name}</p>
-                                                <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>ID: #{category.id}00</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className='px-6 py-4'>
-                                        <span className='text-sm font-bold text-gray-600'>
-                                            {category.productCount} ta mahsulot
-                                        </span>
-                                    </td>
-                                    <td className='px-6 py-4'>
-                                        <div className={cn(
-                                            'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest',
-                                            category.status === 'Active' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'
-                                        )}>
-                                            <span className={cn(
-                                                'w-1.5 h-1.5 rounded-full',
-                                                category.status === 'Active' ? 'bg-green-500' : 'bg-red-500'
-                                            )} />
-                                            {category.status}
-                                        </div>
+                                    <td className='px-6 py-4 font-black text-xs text-gray-400 uppercase tracking-widest'>
+                                        #{category.id}
                                     </td>
                                     <td className='px-6 py-4 text-right'>
                                         <DropdownMenu>
@@ -213,9 +190,4 @@ export default function Categories() {
             </div>
         </div>
     );
-}
-
-// Utility for concatenating classes
-function cn(...classes: any[]) {
-    return classes.filter(Boolean).join(' ');
 }

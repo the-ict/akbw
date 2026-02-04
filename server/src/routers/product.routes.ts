@@ -9,6 +9,9 @@ import {
     updateProduct,
     deleteProduct,
     getCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory,
     getSizes,
     getColors
 } from "../controllers/product.controller.js";
@@ -17,6 +20,9 @@ const router = Router();
 
 router.get("/", getProducts);
 router.get("/categories", getCategories);
+router.post("/categories", createCategory);
+router.put("/categories/:id", updateCategory);
+router.delete("/categories/:id", deleteCategory);
 router.get("/sizes", getSizes);
 router.get("/colors", getColors);
 router.get("/:id", getProductById);

@@ -40,8 +40,27 @@ export interface CreateProductDto {
     color_id: number[];
 }
 
-export const getProducts = async (): Promise<Product[]> => {
-    const { data } = await httpClient.get(ENDP_PRODUCT);
+export interface ProductResponse {
+    data: Product[];
+    meta: {
+        total: number;
+        page: number;
+        limit: number;
+        totalPages: number;
+    };
+}
+
+export interface GetProductsParams {
+    q?: string;
+    category_id?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    page?: number;
+    limit?: number;
+}
+
+export const getProducts = async (params?: GetProductsParams): Promise<ProductResponse> => {
+    const { data } = await httpClient.get(ENDP_PRODUCT, { params });
     return data;
 };
 
@@ -64,9 +83,23 @@ export const deleteProduct = async (id: number): Promise<void> => {
     await httpClient.delete(`${ENDP_PRODUCT}/${id}`);
 };
 
-export const getCategories = async (): Promise<Category[]> => {
-    const { data } = await httpClient.get(ENDP_PRODUCT_CATEGORIES);
+export const getCategories = async (q?: string): Promise<Category[]> => {
+    const { data } = await httpClient.get(ENDP_PRODUCT_CATEGORIES, { params: { q } });
     return data;
+};
+
+export const createCategory = async (name: string): Promise<Category> => {
+    const { data } = await httpClient.post(ENDP_PRODUCT_CATEGORIES, { name });
+    return data.category;
+};
+
+export const updateCategory = async (id: number, name: string): Promise<Category> => {
+    const { data } = await httpClient.put(`${ENDP_PRODUCT_CATEGORIES}/${id}`, { name });
+    return data.category;
+};
+
+export const deleteCategory = async (id: number): Promise<void> => {
+    await httpClient.delete(`${ENDP_PRODUCT_CATEGORIES}/${id}`);
 };
 
 export const getSizes = async (): Promise<Size[]> => {

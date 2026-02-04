@@ -23,30 +23,38 @@ import {
 } from '@/shared/ui/dropdown-menu';
 import AddProductModal from './add-product-modal';
 import DeleteConfirmModal from './delete-confirm-modal';
+import { cn } from '@/shared/lib/utils';
 
-import { useProducts, useDeleteProduct } from '../lib/hooks';
+import { useProducts, useDeleteProduct, useCategories } from '../lib/hooks';
 import { Product } from '../lib/api';
 
 export default function Products() {
-    const { data: products = [], isLoading } = useProducts();
+    const [searchQuery, setSearchQuery] = useState('');
+    const [selectedCategoryId, setSelectedCategoryId] = useState<string>('all');
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [sortBy, setSortBy] = useState<string>('createdAt');
+    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+
+    const { data: productsData, isLoading } = useProducts({
+        q: searchQuery || undefined,
+        category_id: selectedCategoryId === 'all' ? undefined : selectedCategoryId,
+        page,
+        limit,
+        sortBy,
+        sortOrder
+    });
+
+    const products = productsData?.data || [];
+    const meta = productsData?.meta;
+
+    const { data: categories = [] } = useCategories();
     const deleteMutation = useDeleteProduct();
 
-    const [searchQuery, setSearchQuery] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('Barcha Kategoriyalar');
-    const [selectedStatus, setSelectedStatus] = useState('Barcha Statuslar');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState<Product | null>(null);
     const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
     const [isViewOnly, setIsViewOnly] = useState(false);
-
-    const filteredProducts = products.filter(product => {
-        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = selectedCategory === 'Barcha Kategoriyalar' || product.categories.some(c => c.name === selectedCategory);
-        // Status is not explicitly in the backend yet, defaulting to Instock
-        const status = 'Instock';
-        const matchesStatus = selectedStatus === 'Barcha Statuslar' || status === selectedStatus;
-        return matchesSearch && matchesCategory && matchesStatus;
-    });
 
     const handleEdit = (product: Product) => {
         setEditingProduct(product);
@@ -75,6 +83,16 @@ export default function Products() {
             await deleteMutation.mutateAsync(deletingProduct.id);
             setDeletingProduct(null);
         }
+    };
+
+    const handleSort = (field: string) => {
+        if (sortBy === field) {
+            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortBy(field);
+            setSortOrder('desc');
+        }
+        setPage(1);
     };
 
     if (isLoading) return <div>Yuklanmoqda...</div>;
@@ -121,7 +139,10 @@ export default function Products() {
                     <Input
                         placeholder='Mahsulot nomini qidiring...'
                         value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onChange={(e) => {
+                            setSearchQuery(e.target.value);
+                            setPage(1);
+                        }}
                         className='pl-12 h-12 bg-gray-50 border-none rounded-2xl text-sm focus-visible:ring-1 focus-visible:ring-black/5'
                     />
                 </div>
@@ -130,28 +151,33 @@ export default function Products() {
                         <DropdownMenuTrigger asChild>
                             <Button variant='outline' className='rounded-2xl border-gray-100 h-12 px-6 flex items-center gap-2 font-bold text-xs uppercase cursor-pointer'>
                                 <Filter size={16} />
-                                {selectedStatus === 'Barcha Statuslar' ? 'Filter' : selectedStatus}
+                                {selectedCategoryId === 'all' ? 'Barcha Kategoriyalar' : categories.find(c => c.id.toString() === selectedCategoryId)?.name}
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl min-w-[200px]'>
-                            <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Status bo'yicha</DropdownMenuLabel>
-                            <DropdownMenuItem onClick={() => setSelectedStatus('Barcha Statuslar')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Barcha Statuslar</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => setSelectedStatus('Instock')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Instock</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => setSelectedStatus('Low Stock')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Low Stock</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => setSelectedStatus('Out of Stock')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Out of Stock</DropdownMenuItem>
+                            <DropdownMenuItem
+                                onClick={() => {
+                                    setSelectedCategoryId('all');
+                                    setPage(1);
+                                }}
+                                className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'
+                            >
+                                Barcha Kategoriyalar
+                            </DropdownMenuItem>
+                            {categories.map(cat => (
+                                <DropdownMenuItem
+                                    key={cat.id}
+                                    onClick={() => {
+                                        setSelectedCategoryId(cat.id.toString());
+                                        setPage(1);
+                                    }}
+                                    className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'
+                                >
+                                    {cat.name}
+                                </DropdownMenuItem>
+                            ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <select
-                        value={selectedCategory}
-                        onChange={(e) => setSelectedCategory(e.target.value)}
-                        className='bg-gray-50 border-none rounded-2xl h-12 px-6 text-xs font-bold uppercase focus:ring-0 cursor-pointer flex-1 md:flex-none'
-                    >
-                        <option value="Barcha Kategoriyalar">Barcha Kategoriyalar</option>
-                        <option value="T-Shirts">T-Shirts</option>
-                        <option value="Outerwear">Outerwear</option>
-                        <option value="Shoes">Shoes</option>
-                        <option value="Pants">Pants</option>
-                    </select>
                 </div>
             </div>
 
@@ -168,8 +194,11 @@ export default function Products() {
                                     Kategoriya
                                 </th>
                                 <th className='px-6 py-4 text-left text-[10px] uppercase tracking-[0.2em] font-black text-gray-400'>
-                                    <div className='flex items-center gap-2 cursor-pointer hover:text-black transition-colors'>
-                                        Narx <ArrowUpDown size={12} />
+                                    <div
+                                        className='flex items-center gap-2 cursor-pointer hover:text-black transition-colors'
+                                        onClick={() => handleSort('price')}
+                                    >
+                                        Narx <ArrowUpDown size={12} className={sortBy === 'price' ? 'text-black' : 'text-gray-300'} />
                                     </div>
                                 </th>
                                 <th className='px-6 py-4 text-left text-[10px] uppercase tracking-[0.2em] font-black text-gray-400'>
@@ -184,7 +213,7 @@ export default function Products() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {filteredProducts.map((product) => (
+                            {products.map((product) => (
                                 <tr key={product.id} className='hover:bg-gray-50/50 transition-colors group'>
                                     <td className='px-6 py-4'>
                                         <div className='flex items-center gap-4'>
@@ -272,21 +301,47 @@ export default function Products() {
                 </div>
 
                 {/* Pagination */}
-                <div className='px-8 py-6 bg-gray-50/50 flex justify-between items-center border-t border-gray-100'>
-                    <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>
-                        Ko‘rsatilmoqda <span className='text-black'>1 - 10</span> gacha <span className='text-black'>45</span> tadan
-                    </p>
-                    <div className='flex items-center gap-2'>
-                        <Button variant='outline' disabled className='rounded-xl h-10 px-4 border-gray-200 font-bold text-xs uppercase'>Oldingi</Button>
-                        <Button variant='outline' className='rounded-xl h-10 px-4 border-gray-200 bg-white shadow-sm font-bold text-xs uppercase cursor-pointer'>Keyingi</Button>
+                {meta && meta.totalPages > 1 && (
+                    <div className='px-8 py-6 bg-gray-50/50 flex justify-between items-center border-t border-gray-100'>
+                        <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>
+                            Ko‘rsatilmoqda <span className='text-black'>{((page - 1) * limit) + 1} - {Math.min(page * limit, meta.total)}</span> gacha <span className='text-black'>{meta.total}</span> tadan
+                        </p>
+                        <div className='flex items-center gap-2'>
+                            <Button
+                                variant='outline'
+                                disabled={page === 1}
+                                onClick={() => setPage(page - 1)}
+                                className='rounded-xl h-10 px-4 border-gray-200 font-bold text-xs uppercase cursor-pointer disabled:opacity-50'
+                            >
+                                Oldingi
+                            </Button>
+                            <div className='flex items-center gap-1'>
+                                {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map(p => (
+                                    <Button
+                                        key={p}
+                                        variant={page === p ? 'default' : 'outline'}
+                                        onClick={() => setPage(p)}
+                                        className={cn(
+                                            'w-10 h-10 rounded-xl font-bold text-xs cursor-pointer',
+                                            page === p ? 'bg-black text-white shadow-lg' : 'bg-white border-gray-200'
+                                        )}
+                                    >
+                                        {p}
+                                    </Button>
+                                ))}
+                            </div>
+                            <Button
+                                variant='outline'
+                                disabled={page === meta.totalPages}
+                                onClick={() => setPage(page + 1)}
+                                className='rounded-xl h-10 px-4 border-gray-200 bg-white shadow-sm font-bold text-xs uppercase cursor-pointer disabled:opacity-50'
+                            >
+                                Keyingi
+                            </Button>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
         </div>
     );
-}
-
-// Utility for concatenating classes
-function cn(...classes: any[]) {
-    return classes.filter(Boolean).join(' ');
 }
