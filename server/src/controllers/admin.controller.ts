@@ -38,7 +38,11 @@ export const createRole = async (req: Request, res: Response, next: NextFunction
             }
         })
 
-        const adminToken = jwt.sign({ id: newAdmin.id }, String(process.env.JWT_SECRET), { expiresIn: "15d" });
+        const adminToken = jwt.sign(
+            { id: newAdmin.id },
+            process.env.JWT_SECRET as string,
+            { expiresIn: "1y" }
+        );
 
         return res.status(200).json({
             message: "Admin created Successfully",

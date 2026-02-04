@@ -44,7 +44,7 @@ model Admins {
 
 model Access {
   id        Int      @id @default(autoincrement())
-  name      String
+  name      String   @unique
   admins    Admins[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

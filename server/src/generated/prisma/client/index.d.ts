@@ -5812,14 +5812,14 @@ export namespace Prisma {
 
   export type AccessWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    name?: string
     AND?: AccessWhereInput | AccessWhereInput[]
     OR?: AccessWhereInput[]
     NOT?: AccessWhereInput | AccessWhereInput[]
-    name?: StringFilter<"Access"> | string
     createdAt?: DateTimeFilter<"Access"> | Date | string
     updatedAt?: DateTimeFilter<"Access"> | Date | string
     admins?: AdminsListRelationFilter
-  }, "id">
+  }, "id" | "name">
 
   export type AccessOrderByWithAggregationInput = {
     id?: SortOrder
