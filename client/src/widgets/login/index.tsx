@@ -56,8 +56,9 @@ function Login() {
         mutationKey: ["login"],
         mutationFn: login,
         onSuccess: (data: any) => {
-            if (data?.token) {
-                setToken(data.token);
+            console.log(data);
+            if (data?.data.ok) {
+                setToken(data.data.token);
                 console.log("Logged in successfully");
                 window.location.reload();
             }

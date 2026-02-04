@@ -43,6 +43,7 @@ import ProductInquiry from "./ProductInquiry";
 import FavoriteTab from "./FavoriteTab";
 import Notifications from "./Notifications";
 import ReviewTab from "./ReviewTab";
+import { useUserStore } from "@/shared/store/user.store";
 
 const profileSchema = z.object({
     name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
@@ -81,6 +82,17 @@ interface ProfileProps {
 }
 
 function Profile({ children }: ProfileProps) {
+    const [name, setName] = React.useState("Abdullox");
+    const [lastName, setLastName] = React.useState("Akbarov");
+    const [gender, setGender] = React.useState("male");
+    const [phone, setPhone] = React.useState("+998 90 123 45 67");
+    const [location, setLocation] = React.useState("");
+    const [errors, setErrors] = React.useState<Record<string, string>>({});
+    const [profileImage, setProfileImage] = React.useState<string>("");
+    const [chatMessage, setChatMessage] = React.useState("");
+    const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
+
+
     const {
         isProfileOpen,
         onOpenChange,
@@ -94,15 +106,9 @@ function Profile({ children }: ProfileProps) {
     const activeTab = activeProfileTab as TabType;
     const activeSubSection = activeProfileSubSection as SubSectionType;
 
-    const [name, setName] = React.useState("Abdullox");
-    const [lastName, setLastName] = React.useState("Akbarov");
-    const [gender, setGender] = React.useState("male");
-    const [phone, setPhone] = React.useState("+998 90 123 45 67");
-    const [location, setLocation] = React.useState("");
-    const [errors, setErrors] = React.useState<Record<string, string>>({});
-    const [profileImage, setProfileImage] = React.useState<string>("");
-    const [chatMessage, setChatMessage] = React.useState("");
-    const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
+
+
+    const { setToken } = useUserStore();
 
     const formatPhone = (value: string) => {
         let cleaned = value.replace(/[^\d+]/g, "");
@@ -270,6 +276,12 @@ function Profile({ children }: ProfileProps) {
         }
     };
 
+    const handleLogOut = () => {
+        setToken(null);
+        onOpenChange(false);
+        window.location.reload();
+    }
+
     return (
         <Modal open={isProfileOpen} onOpenChange={onOpenChange}>
             <ModalTrigger asChild>
@@ -319,7 +331,7 @@ function Profile({ children }: ProfileProps) {
 
                     {/* Only show logout button when NOT in a sub-section */}
                     {!(activeTab === "menu" && activeSubSection) && (
-                        <Button onClick={() => console.log("Logout")} className="w-full mt-6 h-11 bg-red-500 hover:bg-red-600 text-white font-semibold shadow-md hover:shadow-lg transition-all">
+                        <Button onClick={handleLogOut} className="w-full mt-6 h-11 bg-red-500 hover:bg-red-600 text-white font-semibold shadow-md hover:shadow-lg transition-all">
                             <LogOut size={18} className="mr-2" />
                             Chiqish
                         </Button>

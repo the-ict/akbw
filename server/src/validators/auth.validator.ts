@@ -9,5 +9,4 @@ export const registerSchema = Joi.object({
 
 export const loginSchema = Joi.object({
     phone: Joi.string().required(),
-    password: Joi.string().required(),
 });

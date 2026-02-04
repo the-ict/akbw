@@ -6,14 +6,14 @@ import {
 
 type BearStore = {
     token: string | null
-    setToken: (token: string) => void
+    setToken: (token: string | null) => void
 }
 
 export const useUserStore = create<BearStore>()(
     persist(
         (set, get) => ({
             token: null,
-            setToken: (token: string) => set({ token }),
+            setToken: (token: string | null) => set({ token }),
         }),
         {
             name: 'user-storage', // name of the item in the storage (must be unique)
