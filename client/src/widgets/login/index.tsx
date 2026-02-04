@@ -16,6 +16,10 @@ import {
 } from "lucide-react";
 import React from "react";
 import * as z from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { sendSms, verifySms } from "@/shared/config/api/sms/sms.request";
+import { login } from "@/shared/config/api/auth/auth.request";
+import { useUserStore } from "@/shared/store/user.store";
 
 const registerSchema = z.object({
     phone: z.string().min(12, "Telefon raqami noto'g'ri").regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "Telefon raqami noto'g'ri"),
@@ -72,7 +76,41 @@ function Login() {
         }
     };
 
-    const handleRegister = () => {
+    const { setToken } = useUserStore();
+
+    const loginMutation = useMutation({
+        mutationKey: ["login"],
+        mutationFn: login,
+        onSuccess: (data: any) => {
+            if (data?.token) {
+                setToken(data.token);
+                // Redirect or close modal as needed
+                console.log("Logged in successfully");
+                window.location.reload(); // Simple reload to update app state
+            }
+        }
+    });
+
+    const sendSmsMutation = useMutation({
+        mutationKey: ["send-sms"],
+        mutationFn: sendSms,
+        onSuccess: () => {
+            setSteps("verify");
+            setTimeLeft(60);
+            setErrors({});
+        }
+    });
+
+    const verifySmsMutation = useMutation({
+        mutationKey: ["verify-sms"],
+        mutationFn: ({ phone, code }: { phone: string, code: string }) => verifySms(phone, code),
+        onSuccess: async () => {
+            setErrors({});
+            await loginMutation.mutateAsync({ phone });
+        }
+    });
+
+    const handleRegister = async () => {
         const result = registerSchema.safeParse({ phone });
 
         if (!result.success) {
@@ -84,26 +122,22 @@ function Login() {
             return;
         }
 
-        setSteps("verify");
-        setTimeLeft(60);
-        setErrors({});
-        console.log("Success:", result.data);
+        await sendSmsMutation.mutateAsync(phone);
     };
 
-    const handleVerify = () => {
+    const handleVerify = async () => {
         if (otp.length < 6) {
             setErrors({ otp: "Kod 6 ta raqamdan iborat bo'lishi kerak" });
             return;
         }
         setErrors({});
-        console.log("Verifying with OTP:", otp);
+        await verifySmsMutation.mutateAsync({ phone, code: otp });
     };
 
-    const handleResendCode = () => {
+    const handleResendCode = async () => {
         setTimeLeft(60);
         setOtp("");
-        console.log("Resending code to:", phone);
-        // Add your resend API call here
+        await sendSmsMutation.mutateAsync(phone);
     };
 
 

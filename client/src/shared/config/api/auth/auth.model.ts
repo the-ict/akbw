@@ -1,6 +1,6 @@
 interface LoginRequest {
     phone: string;
-    password: string;
+    password?: string;
 }
 
 interface RegisterRequest {

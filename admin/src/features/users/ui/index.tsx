@@ -19,47 +19,46 @@ import {
 } from '@/shared/ui/dropdown-menu';
 import UserHistoryModal from './user-history-modal';
 import { Input } from '@/shared/ui/input';
+import { useQuery } from '@tanstack/react-query';
+import { getUsers } from '@/shared/config/api/user.request';
 
-const customers = [
-    {
-        id: '1',
-        name: 'Davlatbek Erkinov',
-        phone: '+998 90 123 45 67',
-        orders: 12,
-        spent: '$2,450.00',
-        joined: 'Jan 12, 2024',
-        status: 'Active',
-    },
-    {
-        id: '2',
-        name: 'Nilufar Rahimova',
-        phone: '+998 99 888 77 66',
-        orders: 5,
-        spent: '$890.00',
-        joined: 'Feb 01, 2024',
-        status: 'Active',
-    },
-    {
-        id: '3',
-        name: 'Omon Giyasov',
-        phone: '+998 91 555 44 33',
-        orders: 1,
-        spent: '$45.00',
-        joined: 'Mar 15, 2024',
-        status: 'Inactive',
-    },
-];
+interface User {
+    id: string;
+    name: string;
+    lastName: string;
+    phone: string;
+    gender: string;
+    createdAt: string;
+    updatedAt: string;
+}
 
 export default function Customers() {
+    const { data: users = [], isLoading } = useQuery<User[]>({
+        queryKey: ['users'],
+        queryFn: getUsers
+    });
+
     const [searchQuery, setSearchQuery] = React.useState('');
     const [sortBy, setSortBy] = React.useState('Eng so‘nggi');
-    const [selectedUser, setSelectedUser] = React.useState<typeof customers[0] | null>(null);
+    const [selectedUser, setSelectedUser] = React.useState<any | null>(null);
     const [isHistoryOpen, setIsHistoryOpen] = React.useState(false);
 
-    const handleViewHistory = (user: typeof customers[0]) => {
+    const handleViewHistory = (user: any) => {
         setSelectedUser(user);
         setIsHistoryOpen(true);
     };
+
+    const customers = React.useMemo(() => {
+        return users.map(user => ({
+            id: user.id,
+            name: `${user.name} ${user.lastName}`,
+            phone: user.phone,
+            orders: 0, // Placeholder
+            spent: '$0.00', // Placeholder
+            joined: new Date(user.createdAt).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }),
+            status: 'Active',
+        }));
+    }, [users]);
 
     const filteredAndSortedCustomers = React.useMemo(() => {
         let result = customers.filter(customer =>
@@ -71,21 +70,32 @@ export default function Customers() {
             result.sort((a, b) => a.name.localeCompare(b.name));
         } else if (sortBy === 'Xaridlar soni') {
             result.sort((a, b) => b.orders - a.orders);
-        } else if (sortBy === 'Eng ko‘p sarf') {
-            result.sort((a, b) => {
-                const spentA = parseFloat(a.spent.replace('$', '').replace(',', ''));
-                const spentB = parseFloat(b.spent.replace('$', '').replace(',', ''));
-                return spentB - spentA;
-            });
         }
 
         return result;
-    }, [searchQuery, sortBy]);
+    }, [searchQuery, sortBy, customers]);
+
+    const stats = React.useMemo(() => {
+        const thisMonth = new Date().getMonth();
+        const thisYear = new Date().getFullYear();
+        const newThisMonth = users.filter(u => {
+            const d = new Date(u.createdAt);
+            return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
+        }).length;
+
+        return {
+            total: users.length,
+            newThisMonth
+        };
+    }, [users]);
+
+    if (isLoading) return <div className="p-10 text-center">Yuklanmoqda...</div>;
+
     return (
         <div className='space-y-6'>
             <div>
                 <h1 className='text-2xl font-black uppercase tracking-tight'>Mijozlar</h1>
-                <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Foydalanuvchilar va ularning buyurtmalar tarixi</p>
+                <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Foydalanuvchilar va ularning buyurtmalar tarixi ({stats.total} ta)</p>
             </div>
 
             {/* Stats Summary */}
@@ -97,15 +107,15 @@ export default function Customers() {
                         </div>
                     </div>
                     <h3 className='text-white/40 text-[10px] font-black uppercase tracking-widest mb-1'>Sodiq Mijozlar</h3>
-                    <p className='text-2xl font-black'>145 ta</p>
+                    <p className='text-2xl font-black'>{stats.total} ta</p>
                 </div>
                 <div className='bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm'>
                     <h3 className='text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1'>O‘rtacha Chek</h3>
-                    <p className='text-2xl font-black'>$124.00</p>
+                    <p className='text-2xl font-black'>$0.00</p>
                 </div>
                 <div className='bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm'>
                     <h3 className='text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1'>Yangi Foydalanuvchilar</h3>
-                    <p className='text-2xl font-black'>+24 <span className='text-xs text-green-500 ml-2'>bu oy</span></p>
+                    <p className='text-2xl font-black'>+{stats.newThisMonth} <span className='text-xs text-green-500 ml-2'>bu oy</span></p>
                 </div>
             </div>
 
@@ -132,7 +142,6 @@ export default function Customers() {
                         <DropdownMenuItem onClick={() => setSortBy('Eng so‘nggi')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Eng so‘nggi</DropdownMenuItem>
                         <DropdownMenuItem onClick={() => setSortBy('Ism bo‘yicha (A-Z)')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Ism bo‘yicha (A-Z)</DropdownMenuItem>
                         <DropdownMenuItem onClick={() => setSortBy('Xaridlar soni')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Xaridlar soni</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSortBy('Eng ko‘p sarf')} className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'>Eng ko‘p sarf</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
