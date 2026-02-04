@@ -3,7 +3,6 @@ import type {
     Request,
     Response
 } from "express";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {
     prisma
@@ -12,15 +11,11 @@ import {
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const salt = 10;
-        const hashedPass = await bcrypt.hashSync(req.body.password, salt);
-
         const newUser = await prisma.user.create({
             data: {
                 name: req.body.name,
-                female: req.body.female,
+                lastName: req.body.lastName,
                 gender: req.body.gender,
-                password: hashedPass,
                 phone: req.body.phone
             }
         });
@@ -48,12 +43,6 @@ export const login = async (req: Request, res: Response) => {
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
-        }
-
-        const isPasswordValid = bcrypt.compareSync(req.body.password, user.password);
-
-        if (!isPasswordValid) {
-            return res.status(401).json({ error: "Invalid password" });
         }
 
         const token = jwt.sign({ id: user.id }, String(process.env.JWT_SECRET));

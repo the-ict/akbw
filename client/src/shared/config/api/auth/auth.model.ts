@@ -5,10 +5,9 @@ interface LoginRequest {
 
 interface RegisterRequest {
     phone: string;
-    password: string;
     name: string;
     gender: string;
-    female: string;
+    lastName: string;
 };
 
 export type { LoginRequest, RegisterRequest };

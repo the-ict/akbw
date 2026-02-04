@@ -9,7 +9,6 @@ generator client {
   output   = "../src/generated/prisma/client"
 }
 
-
 datasource db {
   provider = "postgresql"
 }
@@ -17,15 +16,14 @@ datasource db {
 model User {
   id        String   @id @default(uuid())
   phone     String   @unique
-  password  String
-  name      String?
-  female    String?
-  gender    String?
+  name      String
+  lastName  String
+  gender    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-model verify {
+model Verify {
   id        Int   @id @default(autoincrement())
   code      String
   phone     String @unique
