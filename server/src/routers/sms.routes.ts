@@ -44,11 +44,24 @@ router.post("/send", async (req: Request, res: Response, next: NextFunction) => 
                 return res.status(400).json({
                     message: "Please wait 1 minute before sending another code"
                 });
+            } else {
+                await prisma.verify.delete({
+                    where: {
+                        phone: req.body.phone
+                    }
+                })
             }
         };
 
-        const verifyCode = await prisma.verify.create({
-            data: {
+        const verifyCode = await prisma.verify.upsert({
+            where: {
+                phone: req.body.phone
+            },
+            update: {
+                code: String(randomDigitCode),
+                createdAt: new Date() // Reset createdAt to extend validity
+            },
+            create: {
                 code: String(randomDigitCode),
                 phone: req.body.phone
             }

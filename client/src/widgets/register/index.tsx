@@ -68,7 +68,7 @@ function Register() {
             setTimeLeft(60);
             setErrors({});
         },
-        onError
+        onError,
     });
 
     const verifySmsMutation = useMutation({
