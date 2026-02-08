@@ -157,16 +157,33 @@ exports.Prisma.AccessScalarFieldEnum = {
 
 exports.Prisma.ProductsScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   price: 'price',
   product_images: 'product_images',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  productTranslationsId: 'productTranslationsId'
+};
+
+exports.Prisma.ProductTranslationsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  lang: 'lang',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CategoriesScalarFieldEnum = {
   id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  categoryTranslationsId: 'categoryTranslationsId'
+};
+
+exports.Prisma.CategoryTranslationsScalarFieldEnum = {
+  id: 'id',
   name: 'name',
+  lang: 'lang',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -175,12 +192,30 @@ exports.Prisma.SizesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  sizeTranslationsId: 'sizeTranslationsId'
+};
+
+exports.Prisma.SizeTranslationsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  lang: 'lang',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ColorsScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  colorTranslationsId: 'colorTranslationsId'
+};
+
+exports.Prisma.ColorTranslationsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  lang: 'lang',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -190,19 +225,14 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
-};
-
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
 
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 
@@ -212,9 +242,13 @@ exports.Prisma.ModelName = {
   Admins: 'Admins',
   Access: 'Access',
   Products: 'Products',
+  ProductTranslations: 'ProductTranslations',
   Categories: 'Categories',
+  CategoryTranslations: 'CategoryTranslations',
   Sizes: 'Sizes',
-  Colors: 'Colors'
+  SizeTranslations: 'SizeTranslations',
+  Colors: 'Colors',
+  ColorTranslations: 'ColorTranslations'
 };
 
 /**

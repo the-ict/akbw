@@ -130,16 +130,33 @@ exports.Prisma.AccessScalarFieldEnum = {
 
 exports.Prisma.ProductsScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   price: 'price',
   product_images: 'product_images',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  productTranslationsId: 'productTranslationsId'
+};
+
+exports.Prisma.ProductTranslationsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  lang: 'lang',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CategoriesScalarFieldEnum = {
   id: 'id',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  categoryTranslationsId: 'categoryTranslationsId'
+};
+
+exports.Prisma.CategoryTranslationsScalarFieldEnum = {
+  id: 'id',
   name: 'name',
+  lang: 'lang',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -148,12 +165,30 @@ exports.Prisma.SizesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  sizeTranslationsId: 'sizeTranslationsId'
+};
+
+exports.Prisma.SizeTranslationsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  lang: 'lang',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ColorsScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  colorTranslationsId: 'colorTranslationsId'
+};
+
+exports.Prisma.ColorTranslationsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  lang: 'lang',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -163,19 +198,14 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
-  JsonNull: Prisma.JsonNull
-};
-
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
 
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 
@@ -185,9 +215,13 @@ exports.Prisma.ModelName = {
   Admins: 'Admins',
   Access: 'Access',
   Products: 'Products',
+  ProductTranslations: 'ProductTranslations',
   Categories: 'Categories',
+  CategoryTranslations: 'CategoryTranslations',
   Sizes: 'Sizes',
-  Colors: 'Colors'
+  SizeTranslations: 'SizeTranslations',
+  Colors: 'Colors',
+  ColorTranslations: 'ColorTranslations'
 };
 /**
  * Create the Client
@@ -197,10 +231,10 @@ const config = {
   "clientVersion": "7.3.0",
   "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  phone     String   @unique\n  name      String\n  lastName  String\n  gender    String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Verify {\n  id        Int      @id @default(autoincrement())\n  code      String\n  phone     String   @unique\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Admins {\n  id        Int      @id @default(autoincrement())\n  name      String\n  lastName  String\n  phone     String   @unique\n  role      String\n  access    Access[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Access {\n  id        Int      @id @default(autoincrement())\n  name      String   @unique\n  admins    Admins[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Products {\n  id             Int          @id @default(autoincrement())\n  name           Json\n  price          Int\n  product_images String[]\n  categories     Categories[]\n  sizes          Sizes[]\n  colors         Colors[]\n  createdAt      DateTime     @default(now())\n  updatedAt      DateTime     @updatedAt\n}\n\nmodel Categories {\n  id        Int        @id @default(autoincrement())\n  name      Json\n  products  Products[]\n  createdAt DateTime   @default(now())\n  updatedAt DateTime   @updatedAt\n}\n\nmodel Sizes {\n  id        Int        @id @default(autoincrement())\n  name      String\n  products  Products[]\n  createdAt DateTime   @default(now())\n  updatedAt DateTime   @updatedAt\n}\n\nmodel Colors {\n  id        Int        @id @default(autoincrement())\n  name      String\n  products  Products[]\n  createdAt DateTime   @default(now())\n  updatedAt DateTime   @updatedAt\n}\n"
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma/client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  phone     String   @unique\n  name      String\n  lastName  String\n  gender    String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Verify {\n  id        Int      @id @default(autoincrement())\n  code      String\n  phone     String   @unique\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Admins {\n  id        Int      @id @default(autoincrement())\n  name      String\n  lastName  String\n  phone     String   @unique\n  role      String\n  access    Access[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Access {\n  id        Int      @id @default(autoincrement())\n  name      String   @unique\n  admins    Admins[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Products {\n  id                    Int                  @id @default(autoincrement())\n  price                 Int\n  product_images        String[]\n  categories            Categories[]\n  sizes                 Sizes[]\n  colors                Colors[]\n  createdAt             DateTime             @default(now())\n  updatedAt             DateTime             @updatedAt\n  productTranslations   ProductTranslations? @relation(fields: [productTranslationsId], references: [id])\n  productTranslationsId Int?\n}\n\nmodel ProductTranslations {\n  id          Int        @id @default(autoincrement())\n  name        String\n  lang        String\n  description String\n  products    Products[]\n  createdAt   DateTime   @default(now())\n  updatedAt   DateTime   @updatedAt\n}\n\nmodel Categories {\n  id                     Int                   @id @default(autoincrement())\n  products               Products[]\n  createdAt              DateTime              @default(now())\n  updatedAt              DateTime              @updatedAt\n  categoryTranslations   CategoryTranslations? @relation(fields: [categoryTranslationsId], references: [id])\n  categoryTranslationsId Int?\n}\n\nmodel CategoryTranslations {\n  id         Int          @id @default(autoincrement())\n  name       String\n  lang       String\n  categories Categories[]\n  createdAt  DateTime     @default(now())\n  updatedAt  DateTime     @updatedAt\n}\n\nmodel Sizes {\n  id                 Int               @id @default(autoincrement())\n  name               String\n  products           Products[]\n  createdAt          DateTime          @default(now())\n  updatedAt          DateTime          @updatedAt\n  sizeTranslations   SizeTranslations? @relation(fields: [sizeTranslationsId], references: [id])\n  sizeTranslationsId Int?\n}\n\nmodel SizeTranslations {\n  id        Int      @id @default(autoincrement())\n  name      String\n  lang      String\n  sizes     Sizes[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Colors {\n  id                  Int                @id @default(autoincrement())\n  name                String\n  products            Products[]\n  createdAt           DateTime           @default(now())\n  updatedAt           DateTime           @updatedAt\n  colorTranslations   ColorTranslations? @relation(fields: [colorTranslationsId], references: [id])\n  colorTranslationsId Int?\n}\n\nmodel ColorTranslations {\n  id        Int      @id @default(autoincrement())\n  name      String\n  lang      String\n  colors    Colors[]\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gender\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Verify\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Admins\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access\",\"kind\":\"object\",\"type\":\"Access\",\"relationName\":\"AccessToAdmins\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Access\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"admins\",\"kind\":\"object\",\"type\":\"Admins\",\"relationName\":\"AccessToAdmins\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Products\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"product_images\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categories\",\"kind\":\"object\",\"type\":\"Categories\",\"relationName\":\"CategoriesToProducts\"},{\"name\":\"sizes\",\"kind\":\"object\",\"type\":\"Sizes\",\"relationName\":\"ProductsToSizes\"},{\"name\":\"colors\",\"kind\":\"object\",\"type\":\"Colors\",\"relationName\":\"ColorsToProducts\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Categories\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Products\",\"relationName\":\"CategoriesToProducts\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Sizes\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Products\",\"relationName\":\"ProductsToSizes\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Colors\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Products\",\"relationName\":\"ColorsToProducts\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"gender\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Verify\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Admins\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"access\",\"kind\":\"object\",\"type\":\"Access\",\"relationName\":\"AccessToAdmins\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Access\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"admins\",\"kind\":\"object\",\"type\":\"Admins\",\"relationName\":\"AccessToAdmins\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Products\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"price\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"product_images\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categories\",\"kind\":\"object\",\"type\":\"Categories\",\"relationName\":\"CategoriesToProducts\"},{\"name\":\"sizes\",\"kind\":\"object\",\"type\":\"Sizes\",\"relationName\":\"ProductsToSizes\"},{\"name\":\"colors\",\"kind\":\"object\",\"type\":\"Colors\",\"relationName\":\"ColorsToProducts\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"productTranslations\",\"kind\":\"object\",\"type\":\"ProductTranslations\",\"relationName\":\"ProductTranslationsToProducts\"},{\"name\":\"productTranslationsId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"ProductTranslations\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lang\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"description\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Products\",\"relationName\":\"ProductTranslationsToProducts\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Categories\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Products\",\"relationName\":\"CategoriesToProducts\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"categoryTranslations\",\"kind\":\"object\",\"type\":\"CategoryTranslations\",\"relationName\":\"CategoriesToCategoryTranslations\"},{\"name\":\"categoryTranslationsId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"CategoryTranslations\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lang\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"categories\",\"kind\":\"object\",\"type\":\"Categories\",\"relationName\":\"CategoriesToCategoryTranslations\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Sizes\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Products\",\"relationName\":\"ProductsToSizes\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"sizeTranslations\",\"kind\":\"object\",\"type\":\"SizeTranslations\",\"relationName\":\"SizeTranslationsToSizes\"},{\"name\":\"sizeTranslationsId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"SizeTranslations\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lang\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sizes\",\"kind\":\"object\",\"type\":\"Sizes\",\"relationName\":\"SizeTranslationsToSizes\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Colors\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"products\",\"kind\":\"object\",\"type\":\"Products\",\"relationName\":\"ColorsToProducts\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"colorTranslations\",\"kind\":\"object\",\"type\":\"ColorTranslations\",\"relationName\":\"ColorTranslationsToColors\"},{\"name\":\"colorTranslationsId\",\"kind\":\"scalar\",\"type\":\"Int\"}],\"dbName\":null},\"ColorTranslations\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lang\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colors\",\"kind\":\"object\",\"type\":\"Colors\",\"relationName\":\"ColorTranslationsToColors\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.compilerWasm = {
       getRuntime: async () => require('./query_compiler_fast_bg.js'),
