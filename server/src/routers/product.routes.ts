@@ -23,8 +23,11 @@ import {
     deleteCategory,
     getCategoryById,
     getSizes,
-    getColors
+    getColors,
+    createSize,
+    createColor
 } from "../controllers/product.controller.js";
+
 
 import {
     langaugeMiddleware
@@ -40,7 +43,10 @@ router.post("/categories", validate(categoriesSchema), createCategory);
 router.put("/categories/:id", langaugeMiddleware, validate(categoriesUpdateSchema), updateCategory);
 router.delete("/categories/:id", deleteCategory);
 router.get("/sizes", langaugeMiddleware, getSizes);
+router.post("/sizes", createSize);
 router.get("/colors", langaugeMiddleware, getColors);
+router.post("/colors", createColor);
+
 router.get("/:id", langaugeMiddleware, getProductById);
 router.post("/", validate(createProductSchema), createProduct);
 router.put("/:id", validate(updateProductSchema), updateProduct);

@@ -60,6 +60,14 @@ export const getSizesRequest = async (): Promise<any[]> => {
     return (await httpClient.get(ENDP_PRODUCT_SIZES)).data;
 }
 
+export const createSizeRequest = async (data: any) => {
+    return (await httpClient.post(ENDP_PRODUCT_SIZES, data)).data;
+}
+
 export const getColorsRequest = async (): Promise<any[]> => {
     return (await httpClient.get(ENDP_PRODUCT_COLORS)).data;
+}
+
+export const createColorRequest = async (data: any) => {
+    return (await httpClient.post(ENDP_PRODUCT_COLORS, data)).data;
 }

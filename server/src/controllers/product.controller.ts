@@ -13,15 +13,17 @@ const localizeCategory = (c: any, lang: string) => ({
 
 const localizeSize = (s: any, lang: string) => ({
     ...s,
-    name: s.translations?.find((t: any) => t.lang === lang)?.name || s.name,
+    name: s.translations?.find((t: any) => t.lang === lang)?.name || "",
     translations: undefined
 });
 
+
 const localizeColor = (c: any, lang: string) => ({
     ...c,
-    name: c.translations?.find((t: any) => t.lang === lang)?.name || c.name,
+    name: c.translations?.find((t: any) => t.lang === lang)?.name || "",
     translations: undefined
 });
+
 
 const localizeProduct = (p: any, lang: string) => ({
     ...p,
@@ -32,7 +34,6 @@ const localizeProduct = (p: any, lang: string) => ({
     sizes: p.sizes?.map((s: any) => localizeSize(s, lang)),
     colors: p.colors?.map((c: any) => localizeColor(c, lang)),
 });
-// -----------------------------
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -406,3 +407,54 @@ export const getColors = async (req: Request, res: Response, next: NextFunction)
     }
 };
 
+export const createSize = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { translations } = req.body;
+        const languageCode = (req as any).languageCode || 'uz';
+
+        const size = await prisma.sizes.create({
+            data: {
+                translations: {
+                    create: translations
+                }
+            },
+            include: {
+                translations: { where: { lang: languageCode } }
+            }
+        });
+
+        return res.status(201).json({
+            ok: true,
+            message: "Size created successfully",
+            size: localizeSize(size, languageCode)
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const createColor = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { translations } = req.body;
+        const languageCode = (req as any).languageCode || 'uz';
+
+        const color = await prisma.colors.create({
+            data: {
+                translations: {
+                    create: translations
+                }
+            },
+            include: {
+                translations: { where: { lang: languageCode } }
+            }
+        });
+
+        return res.status(201).json({
+            ok: true,
+            message: "Color created successfully",
+            color: localizeColor(color, languageCode)
+        });
+    } catch (error) {
+        next(error);
+    }
+};

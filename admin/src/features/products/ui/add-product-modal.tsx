@@ -17,9 +17,11 @@ import { IProduct, ICreateProduct } from '@/shared/config/api/product/product.mo
 
 import { useCategories } from '../../categories/lib/hooks';
 import { useProducts, useCreateProduct, useUpdateProduct } from '../lib/hooks';
-import { getSizesRequest, getColorsRequest } from '@/shared/config/api/product/product.request';
-import { useQuery } from '@tanstack/react-query';
+import { getSizesRequest, getColorsRequest, createSizeRequest, createColorRequest } from '@/shared/config/api/product/product.request';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { toast } from 'sonner';
+
 
 interface AddProductModalProps {
     isOpen: boolean;
@@ -60,6 +62,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
         [LanguageRoutes.EN]: { name: '', description: '' },
     });
 
+    const queryClient = useQueryClient();
     const { data: categories = [] } = useCategories();
     const { data: sizes = [] } = useQuery({ queryKey: ['sizes'], queryFn: getSizesRequest });
     const { data: colors = [] } = useQuery({ queryKey: ['colors'], queryFn: getColorsRequest });
@@ -67,17 +70,55 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
     const createMutation = useCreateProduct();
     const updateMutation = useUpdateProduct();
 
+    const createSizeMutation = useMutation({
+        mutationFn: createSizeRequest,
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['sizes'] });
+            setSelectedSizes(prev => [...prev, data.size.id]);
+            setNewSize('');
+            setShowSizeInput(false);
+            toast.success('O‘lcham muvaffaqiyatli qo‘shildi');
+        }
+    });
+
+    const createColorMutation = useMutation({
+        mutationFn: createColorRequest,
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['colors'] });
+            setSelectedColors(prev => [...prev, data.color.id]);
+            setNewColorHex('');
+            setShowColorInput(false);
+            toast.success('Rang muvaffaqiyatli qo‘shildi');
+        }
+    });
+
+    const handleAddSize = () => {
+        if (!newSize.trim()) return;
+        const translations = LANGUAGES.map(lang => ({
+            lang: lang.id,
+            name: newSize.trim()
+        }));
+        createSizeMutation.mutate({ translations });
+    };
+
+    const handleAddColor = () => {
+        const hexValue = newColorHex ? (newColorHex.startsWith('#') ? newColorHex : `#${newColorHex}`) : newColor;
+        if (!hexValue) return;
+        const translations = LANGUAGES.map(lang => ({
+            lang: lang.id,
+            name: hexValue
+        }));
+        createColorMutation.mutate({ translations });
+    };
+
+
     React.useEffect(() => {
         if (product && isOpen) {
             setPrice(product.price.toString());
-            setStock(45); // Backend doesn't have stock yet, using default
+            setStock(45);
             setSelectedCategories(product.categories?.map(c => c.id) || []);
             setSelectedSizes(product.sizes?.map(s => s.id) || []);
             setSelectedColors(product.colors?.map(c => c.id) || []);
-
-            // We need to fetch all translations for edit. 
-            // For now, if they are not in the object, we'll need an endpoint.
-            // Assuming IProduct has translations if fetched by ID (not yet implemented for product by id returning all trans)
         } else if (!product && isOpen) {
             setPrice('');
             setStock(0);
@@ -91,8 +132,6 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
             });
         }
     }, [product, isOpen]);
-
-
 
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, 3));
@@ -145,7 +184,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
             }
             onClose();
         } catch (error) {
-            // Error handled in hook
+            console.log(error);
         }
     };
 
@@ -338,14 +377,19 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                                 placeholder='Masalan: XXL'
                                                 value={newSize}
                                                 onChange={(e) => setNewSize(e.target.value)}
-                                                className='h-10 text-xs font-bold uppercase disabled:opacity-50'
-                                                disabled
+                                                className='h-10 text-xs font-bold uppercase'
                                             />
-                                            <Button disabled className='h-10 bg-black text-white px-4 rounded-xl'>
-                                                <Plus size={16} />
+                                            <Button
+                                                onClick={handleAddSize}
+                                                disabled={createSizeMutation.isPending}
+                                                className={cn('h-10 bg-black text-white px-4 rounded-xl', createSizeMutation.isPending ? 'cursor-not-allowed opacity-50' : 'cursor-pointer')}
+                                            >
+                                                {createSizeMutation.isPending ? '...' : <Plus size={16} />}
                                             </Button>
+
                                         </div>
                                     )}
+
 
                                     <div className='flex flex-wrap gap-2'>
                                         {sizes.map((size: any) => (
@@ -379,24 +423,34 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
 
                                     {showColorInput && (
                                         <div className='flex items-center gap-3 animate-in fade-in slide-in-from-top-2'>
-                                            <div className='flex items-center gap-2 p-1 bg-gray-50 rounded-xl border border-gray-100 opacity-50'>
+                                            <div className='flex items-center gap-2 p-1 bg-gray-50 rounded-xl border border-gray-100'>
                                                 <input
-                                                    disabled
                                                     type="color"
                                                     value={newColor}
+                                                    onChange={(e) => setNewColor(e.target.value)}
+                                                    className='w-8 h-8 rounded-lg cursor-pointer bg-transparent border-none p-0'
                                                 />
                                                 <div className='flex items-center'>
                                                     <span className='pl-2 text-[10px] font-black text-gray-400'>#</span>
                                                     <Input
-                                                        disabled
                                                         placeholder='FFFFFF'
                                                         value={newColorHex}
+                                                        onChange={(e) => setNewColorHex(e.target.value)}
                                                         className='h-10 w-24 border-none bg-transparent text-xs font-black uppercase'
                                                     />
                                                 </div>
                                             </div>
+                                            <Button
+                                                onClick={handleAddColor}
+                                                disabled={createColorMutation.isPending}
+                                                className={cn('h-10 bg-black text-white px-4 rounded-xl', createColorMutation.isPending ? 'cursor-not-allowed opacity-50' : 'cursor-pointer')}
+                                            >
+                                                {createColorMutation.isPending ? '...' : <Plus size={16} />}
+                                            </Button>
+
                                         </div>
                                     )}
+
 
                                     <div className='flex flex-wrap gap-3'>
                                         {colors.map((color: any) => (

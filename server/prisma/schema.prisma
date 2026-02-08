@@ -93,7 +93,6 @@ model CategoryTranslations {
 
 model Sizes {
   id           Int                @id @default(autoincrement())
-  name         String
   products     Products[]
   translations SizeTranslations[]
   createdAt    DateTime           @default(now())
@@ -112,12 +111,12 @@ model SizeTranslations {
 
 model Colors {
   id           Int                 @id @default(autoincrement())
-  name         String
   products     Products[]
   translations ColorTranslations[]
   createdAt    DateTime            @default(now())
   updatedAt    DateTime            @updatedAt
 }
+
 
 model ColorTranslations {
   id        Int      @id @default(autoincrement())

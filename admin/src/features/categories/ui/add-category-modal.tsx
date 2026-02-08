@@ -107,7 +107,6 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
         <Modal open={isOpen} onOpenChange={onClose}>
             <ModalContent className='max-w-md bg-white p-0 overflow-hidden border-none rounded-[32px] shadow-2xl'>
                 <div className='flex flex-col'>
-                    {/* Header */}
                     <div className='p-8 border-b border-gray-50 flex justify-between items-center bg-gray-50/30'>
                         <div>
                             <ModalTitle className='text-xl font-black uppercase tracking-tight'>
@@ -122,9 +121,7 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
                         </button>
                     </div>
 
-                    {/* Content */}
                     <div className='p-8 space-y-6'>
-                        {/* Language Switcher */}
                         <div className='flex gap-1 p-1 bg-gray-100 rounded-2xl w-fit'>
                             {LANGUAGES.map((lang) => (
                                 <button
@@ -152,7 +149,6 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
                         </div>
                     </div>
 
-                    {/* Footer */}
                     <div className='p-8 border-t border-gray-50 flex justify-end bg-gray-50/30 gap-4'>
                         <Button
                             variant='ghost'

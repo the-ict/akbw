@@ -10920,21 +10920,18 @@ export namespace Prisma {
 
   export type SizesMinAggregateOutputType = {
     id: number | null
-    name: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type SizesMaxAggregateOutputType = {
     id: number | null
-    name: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type SizesCountAggregateOutputType = {
     id: number
-    name: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -10951,21 +10948,18 @@ export namespace Prisma {
 
   export type SizesMinAggregateInputType = {
     id?: true
-    name?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type SizesMaxAggregateInputType = {
     id?: true
-    name?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type SizesCountAggregateInputType = {
     id?: true
-    name?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -11059,7 +11053,6 @@ export namespace Prisma {
 
   export type SizesGroupByOutputType = {
     id: number
-    name: string
     createdAt: Date
     updatedAt: Date
     _count: SizesCountAggregateOutputType | null
@@ -11085,7 +11078,6 @@ export namespace Prisma {
 
   export type SizesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     products?: boolean | Sizes$productsArgs<ExtArgs>
@@ -11095,26 +11087,23 @@ export namespace Prisma {
 
   export type SizesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["sizes"]>
 
   export type SizesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["sizes"]>
 
   export type SizesSelectScalar = {
     id?: boolean
-    name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SizesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["sizes"]>
+  export type SizesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt", ExtArgs["result"]["sizes"]>
   export type SizesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Sizes$productsArgs<ExtArgs>
     translations?: boolean | Sizes$translationsArgs<ExtArgs>
@@ -11131,7 +11120,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      name: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sizes"]>
@@ -11560,7 +11548,6 @@ export namespace Prisma {
    */
   interface SizesFieldRefs {
     readonly id: FieldRef<"Sizes", 'Int'>
-    readonly name: FieldRef<"Sizes", 'String'>
     readonly createdAt: FieldRef<"Sizes", 'DateTime'>
     readonly updatedAt: FieldRef<"Sizes", 'DateTime'>
   }
@@ -13148,21 +13135,18 @@ export namespace Prisma {
 
   export type ColorsMinAggregateOutputType = {
     id: number | null
-    name: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type ColorsMaxAggregateOutputType = {
     id: number | null
-    name: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
 
   export type ColorsCountAggregateOutputType = {
     id: number
-    name: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -13179,21 +13163,18 @@ export namespace Prisma {
 
   export type ColorsMinAggregateInputType = {
     id?: true
-    name?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type ColorsMaxAggregateInputType = {
     id?: true
-    name?: true
     createdAt?: true
     updatedAt?: true
   }
 
   export type ColorsCountAggregateInputType = {
     id?: true
-    name?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -13287,7 +13268,6 @@ export namespace Prisma {
 
   export type ColorsGroupByOutputType = {
     id: number
-    name: string
     createdAt: Date
     updatedAt: Date
     _count: ColorsCountAggregateOutputType | null
@@ -13313,7 +13293,6 @@ export namespace Prisma {
 
   export type ColorsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     products?: boolean | Colors$productsArgs<ExtArgs>
@@ -13323,26 +13302,23 @@ export namespace Prisma {
 
   export type ColorsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["colors"]>
 
   export type ColorsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["colors"]>
 
   export type ColorsSelectScalar = {
     id?: boolean
-    name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ColorsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["colors"]>
+  export type ColorsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt", ExtArgs["result"]["colors"]>
   export type ColorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Colors$productsArgs<ExtArgs>
     translations?: boolean | Colors$translationsArgs<ExtArgs>
@@ -13359,7 +13335,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      name: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["colors"]>
@@ -13788,7 +13763,6 @@ export namespace Prisma {
    */
   interface ColorsFieldRefs {
     readonly id: FieldRef<"Colors", 'Int'>
-    readonly name: FieldRef<"Colors", 'String'>
     readonly createdAt: FieldRef<"Colors", 'DateTime'>
     readonly updatedAt: FieldRef<"Colors", 'DateTime'>
   }
@@ -15462,7 +15436,6 @@ export namespace Prisma {
 
   export const SizesScalarFieldEnum: {
     id: 'id',
-    name: 'name',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15484,7 +15457,6 @@ export namespace Prisma {
 
   export const ColorsScalarFieldEnum: {
     id: 'id',
-    name: 'name',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -16069,7 +16041,6 @@ export namespace Prisma {
     OR?: SizesWhereInput[]
     NOT?: SizesWhereInput | SizesWhereInput[]
     id?: IntFilter<"Sizes"> | number
-    name?: StringFilter<"Sizes"> | string
     createdAt?: DateTimeFilter<"Sizes"> | Date | string
     updatedAt?: DateTimeFilter<"Sizes"> | Date | string
     products?: ProductsListRelationFilter
@@ -16078,7 +16049,6 @@ export namespace Prisma {
 
   export type SizesOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     products?: ProductsOrderByRelationAggregateInput
@@ -16090,7 +16060,6 @@ export namespace Prisma {
     AND?: SizesWhereInput | SizesWhereInput[]
     OR?: SizesWhereInput[]
     NOT?: SizesWhereInput | SizesWhereInput[]
-    name?: StringFilter<"Sizes"> | string
     createdAt?: DateTimeFilter<"Sizes"> | Date | string
     updatedAt?: DateTimeFilter<"Sizes"> | Date | string
     products?: ProductsListRelationFilter
@@ -16099,7 +16068,6 @@ export namespace Prisma {
 
   export type SizesOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SizesCountOrderByAggregateInput
@@ -16114,7 +16082,6 @@ export namespace Prisma {
     OR?: SizesScalarWhereWithAggregatesInput[]
     NOT?: SizesScalarWhereWithAggregatesInput | SizesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Sizes"> | number
-    name?: StringWithAggregatesFilter<"Sizes"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Sizes"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Sizes"> | Date | string
   }
@@ -16186,7 +16153,6 @@ export namespace Prisma {
     OR?: ColorsWhereInput[]
     NOT?: ColorsWhereInput | ColorsWhereInput[]
     id?: IntFilter<"Colors"> | number
-    name?: StringFilter<"Colors"> | string
     createdAt?: DateTimeFilter<"Colors"> | Date | string
     updatedAt?: DateTimeFilter<"Colors"> | Date | string
     products?: ProductsListRelationFilter
@@ -16195,7 +16161,6 @@ export namespace Prisma {
 
   export type ColorsOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     products?: ProductsOrderByRelationAggregateInput
@@ -16207,7 +16172,6 @@ export namespace Prisma {
     AND?: ColorsWhereInput | ColorsWhereInput[]
     OR?: ColorsWhereInput[]
     NOT?: ColorsWhereInput | ColorsWhereInput[]
-    name?: StringFilter<"Colors"> | string
     createdAt?: DateTimeFilter<"Colors"> | Date | string
     updatedAt?: DateTimeFilter<"Colors"> | Date | string
     products?: ProductsListRelationFilter
@@ -16216,7 +16180,6 @@ export namespace Prisma {
 
   export type ColorsOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ColorsCountOrderByAggregateInput
@@ -16231,7 +16194,6 @@ export namespace Prisma {
     OR?: ColorsScalarWhereWithAggregatesInput[]
     NOT?: ColorsScalarWhereWithAggregatesInput | ColorsScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Colors"> | number
-    name?: StringWithAggregatesFilter<"Colors"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Colors"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Colors"> | Date | string
   }
@@ -16784,7 +16746,6 @@ export namespace Prisma {
   }
 
   export type SizesCreateInput = {
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutSizesInput
@@ -16793,7 +16754,6 @@ export namespace Prisma {
 
   export type SizesUncheckedCreateInput = {
     id?: number
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsUncheckedCreateNestedManyWithoutSizesInput
@@ -16801,7 +16761,6 @@ export namespace Prisma {
   }
 
   export type SizesUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutSizesNestedInput
@@ -16810,7 +16769,6 @@ export namespace Prisma {
 
   export type SizesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUncheckedUpdateManyWithoutSizesNestedInput
@@ -16819,20 +16777,17 @@ export namespace Prisma {
 
   export type SizesCreateManyInput = {
     id?: number
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type SizesUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SizesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16897,7 +16852,6 @@ export namespace Prisma {
   }
 
   export type ColorsCreateInput = {
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutColorsInput
@@ -16906,7 +16860,6 @@ export namespace Prisma {
 
   export type ColorsUncheckedCreateInput = {
     id?: number
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsUncheckedCreateNestedManyWithoutColorsInput
@@ -16914,7 +16867,6 @@ export namespace Prisma {
   }
 
   export type ColorsUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutColorsNestedInput
@@ -16923,7 +16875,6 @@ export namespace Prisma {
 
   export type ColorsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUncheckedUpdateManyWithoutColorsNestedInput
@@ -16932,20 +16883,17 @@ export namespace Prisma {
 
   export type ColorsCreateManyInput = {
     id?: number
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ColorsUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ColorsUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17468,7 +17416,6 @@ export namespace Prisma {
 
   export type SizesCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17479,14 +17426,12 @@ export namespace Prisma {
 
   export type SizesMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type SizesMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17549,7 +17494,6 @@ export namespace Prisma {
 
   export type ColorsCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17560,14 +17504,12 @@ export namespace Prisma {
 
   export type ColorsMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ColorsMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18381,7 +18323,6 @@ export namespace Prisma {
   }
 
   export type SizesCreateWithoutProductsInput = {
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     translations?: SizeTranslationsCreateNestedManyWithoutSizeInput
@@ -18389,7 +18330,6 @@ export namespace Prisma {
 
   export type SizesUncheckedCreateWithoutProductsInput = {
     id?: number
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     translations?: SizeTranslationsUncheckedCreateNestedManyWithoutSizeInput
@@ -18401,7 +18341,6 @@ export namespace Prisma {
   }
 
   export type ColorsCreateWithoutProductsInput = {
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     translations?: ColorTranslationsCreateNestedManyWithoutColorInput
@@ -18409,7 +18348,6 @@ export namespace Prisma {
 
   export type ColorsUncheckedCreateWithoutProductsInput = {
     id?: number
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     translations?: ColorTranslationsUncheckedCreateNestedManyWithoutColorInput
@@ -18493,7 +18431,6 @@ export namespace Prisma {
     OR?: SizesScalarWhereInput[]
     NOT?: SizesScalarWhereInput | SizesScalarWhereInput[]
     id?: IntFilter<"Sizes"> | number
-    name?: StringFilter<"Sizes"> | string
     createdAt?: DateTimeFilter<"Sizes"> | Date | string
     updatedAt?: DateTimeFilter<"Sizes"> | Date | string
   }
@@ -18519,7 +18456,6 @@ export namespace Prisma {
     OR?: ColorsScalarWhereInput[]
     NOT?: ColorsScalarWhereInput | ColorsScalarWhereInput[]
     id?: IntFilter<"Colors"> | number
-    name?: StringFilter<"Colors"> | string
     createdAt?: DateTimeFilter<"Colors"> | Date | string
     updatedAt?: DateTimeFilter<"Colors"> | Date | string
   }
@@ -18855,7 +18791,6 @@ export namespace Prisma {
   }
 
   export type SizesCreateWithoutTranslationsInput = {
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutSizesInput
@@ -18863,7 +18798,6 @@ export namespace Prisma {
 
   export type SizesUncheckedCreateWithoutTranslationsInput = {
     id?: number
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsUncheckedCreateNestedManyWithoutSizesInput
@@ -18886,7 +18820,6 @@ export namespace Prisma {
   }
 
   export type SizesUpdateWithoutTranslationsInput = {
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutSizesNestedInput
@@ -18894,7 +18827,6 @@ export namespace Prisma {
 
   export type SizesUncheckedUpdateWithoutTranslationsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUncheckedUpdateManyWithoutSizesNestedInput
@@ -18996,7 +18928,6 @@ export namespace Prisma {
   }
 
   export type ColorsCreateWithoutTranslationsInput = {
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutColorsInput
@@ -19004,7 +18935,6 @@ export namespace Prisma {
 
   export type ColorsUncheckedCreateWithoutTranslationsInput = {
     id?: number
-    name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsUncheckedCreateNestedManyWithoutColorsInput
@@ -19027,7 +18957,6 @@ export namespace Prisma {
   }
 
   export type ColorsUpdateWithoutTranslationsInput = {
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutColorsNestedInput
@@ -19035,7 +18964,6 @@ export namespace Prisma {
 
   export type ColorsUncheckedUpdateWithoutTranslationsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUncheckedUpdateManyWithoutColorsNestedInput
@@ -19119,7 +19047,6 @@ export namespace Prisma {
   }
 
   export type SizesUpdateWithoutProductsInput = {
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     translations?: SizeTranslationsUpdateManyWithoutSizeNestedInput
@@ -19127,7 +19054,6 @@ export namespace Prisma {
 
   export type SizesUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     translations?: SizeTranslationsUncheckedUpdateManyWithoutSizeNestedInput
@@ -19135,13 +19061,11 @@ export namespace Prisma {
 
   export type SizesUncheckedUpdateManyWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ColorsUpdateWithoutProductsInput = {
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     translations?: ColorTranslationsUpdateManyWithoutColorNestedInput
@@ -19149,7 +19073,6 @@ export namespace Prisma {
 
   export type ColorsUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     translations?: ColorTranslationsUncheckedUpdateManyWithoutColorNestedInput
@@ -19157,7 +19080,6 @@ export namespace Prisma {
 
   export type ColorsUncheckedUpdateManyWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

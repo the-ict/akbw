@@ -190,7 +190,6 @@ exports.Prisma.CategoryTranslationsScalarFieldEnum = {
 
 exports.Prisma.SizesScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -206,7 +205,6 @@ exports.Prisma.SizeTranslationsScalarFieldEnum = {
 
 exports.Prisma.ColorsScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
