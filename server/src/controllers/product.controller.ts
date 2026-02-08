@@ -86,32 +86,6 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name, price, product_images, category_id, size_id, color_id } = req.body;
-        const product = await prisma.products.create({
-            data: {
-                name: name as any,
-                price,
-                product_images,
-                categories: {
-                    connect: category_id.map((id: number) => ({ id }))
-                },
-                sizes: {
-                    connect: size_id.map((id: number) => ({ id }))
-                },
-                colors: {
-                    connect: color_id.map((id: number) => ({ id }))
-                },
-            },
-            include: {
-                categories: true,
-                sizes: true,
-                colors: true,
-            }
-        });
-        return res.status(201).json({
-            message: "Product created successfully",
-            product,
-        });
     } catch (error) {
         next(error);
     }
@@ -119,44 +93,6 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { id } = req.params;
-        const { name, price, product_images, category_id, size_id, color_id } = req.body;
-
-        const updateData: any = {
-            name: name as any,
-            price,
-            product_images,
-        };
-
-        if (category_id) {
-            updateData.categories = {
-                set: category_id.map((id: number) => ({ id }))
-            };
-        }
-        if (size_id) {
-            updateData.sizes = {
-                set: size_id.map((id: number) => ({ id }))
-            };
-        }
-        if (color_id) {
-            updateData.colors = {
-                set: color_id.map((id: number) => ({ id }))
-            };
-        }
-
-        const product = await prisma.products.update({
-            where: { id: Number(id) },
-            data: updateData,
-            include: {
-                categories: true,
-                sizes: true,
-                colors: true,
-            }
-        });
-        return res.status(200).json({
-            message: "Product updated successfully",
-            product,
-        });
     } catch (error) {
         next(error);
     }
@@ -178,11 +114,18 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
 
 export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { name } = req.body; // Expecting { uz, ru, en }
+        const { translations } = req.body;
+
         const category = await prisma.categories.create({
-            data: { name: name as any }
+            data: {
+                categoryTranslations: {
+                    create: translations
+                }
+            }
         });
+
         return res.status(201).json({
+            ok: true,
             message: "Category created successfully",
             category
         });
@@ -194,12 +137,21 @@ export const createCategory = async (req: Request, res: Response, next: NextFunc
 export const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const { name } = req.body;
+        const { translations } = req.body;
+
         const category = await prisma.categories.update({
-            where: { id: Number(id) },
-            data: { name: name as any }
+            where: {
+                id: Number(id)
+            },
+            data: {
+                categoryTranslations: {
+                    update: translations
+                }
+            }
         });
+
         return res.status(200).json({
+            ok: true,
             message: "Category updated successfully",
             category
         });

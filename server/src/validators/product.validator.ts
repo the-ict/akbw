@@ -34,7 +34,6 @@ const categoriesSchema = Joi.object({
 });
 
 const categoriesUpdateSchema = Joi.object({
-    id: Joi.number(),
     translations: Joi.array().items(Joi.object({
         name: Joi.string(),
         lang: Joi.string(),

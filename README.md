@@ -14,3 +14,10 @@
 
 # akbw - enviroment o'zgaruvchilar
 * NEXT_PUBLIC_API_URL - server uchun path
+
+# akbw - qo'llab quvvatlaydigan tillar
+* O'zbek tili
+* Rus tili
+* Ingliz tili
+
+admin panel yordamida shu 3ta tilda narsalarni boshqarsa bo'ladi!
