@@ -41,9 +41,43 @@ const categoriesUpdateSchema = Joi.object({
     })).required(),
 });
 
+const sizesSchema = Joi.object({
+    translations: Joi.array().items(Joi.object({
+        name: Joi.string().required(),
+        lang: Joi.string().required(),
+    })).required(),
+});
+
+const sizesUpdateSchema = Joi.object({
+    id: Joi.number(),
+    translations: Joi.array().items(Joi.object({
+        name: Joi.string(),
+        lang: Joi.string(),
+    })).required(),
+});
+
+const colorsSchema = Joi.object({
+    translations: Joi.array().items(Joi.object({
+        name: Joi.string().required(),
+        lang: Joi.string().required(),
+    })).required(),
+});
+
+const colorsUpdateSchema = Joi.object({
+    id: Joi.number(),
+    translations: Joi.array().items(Joi.object({
+        name: Joi.string(),
+        lang: Joi.string(),
+    })).required(),
+});
+
 export {
     createProductSchema,
     updateProductSchema,
     categoriesSchema,
-    categoriesUpdateSchema
+    categoriesUpdateSchema,
+    sizesSchema,
+    sizesUpdateSchema,
+    colorsSchema,
+    colorsUpdateSchema
 };
