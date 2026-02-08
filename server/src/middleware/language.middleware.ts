@@ -5,11 +5,11 @@ export const langaugeMiddleware = async (req: Request, res: Response, next: Next
         const acceptLanguage = req.headers["accept-language"];
         console.log("accept-language: ", acceptLanguage);
 
-        // Normalize and validate language code
-        let languageCode: 'uz' | 'ru' | 'en' = 'uz'; // Default
+        let languageCode: 'uz' | 'ru' | 'en' = 'uz';
 
         if (acceptLanguage) {
             const code = acceptLanguage.split(',')[0].split('-')[0].toLowerCase();
+            console.log(code, 'language code');
             if (['uz', 'ru', 'en'].includes(code)) {
                 languageCode = code as 'uz' | 'ru' | 'en';
             }
