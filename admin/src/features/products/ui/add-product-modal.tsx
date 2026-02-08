@@ -215,7 +215,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                                     disabled={viewOnly}
                                                     onClick={() => toggleCategory(cat.id)}
                                                     className={cn(
-                                                        'px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all border',
+                                                        'px-3 py-1.5 cursor-pointer rounded-xl text-[10px] font-bold uppercase tracking-wider transition-all border',
                                                         selectedCategories.includes(cat.id)
                                                             ? 'bg-black text-white border-black'
                                                             : 'bg-white text-gray-400 border-gray-100 hover:border-gray-300',
