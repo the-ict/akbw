@@ -5,11 +5,11 @@ import {
     getUsers
 } from "../controllers/user.controller.js";
 import {
-    auth
-} from "../middleware/auth.middleware";
+    checkAdmins
+} from "../middleware/admin.middleware.js";
 
 const router = Router();
 
-router.get("/", auth, getUsers);
+router.get("/", checkAdmins, getUsers);
 
 export default router;
