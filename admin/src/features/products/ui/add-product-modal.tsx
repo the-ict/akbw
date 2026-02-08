@@ -16,7 +16,7 @@ import { LanguageRoutes } from '@/shared/config/i18n/types';
 import { IProduct, ICreateProduct } from '@/shared/config/api/product/product.modal';
 
 import { useCategories } from '../../categories/lib/hooks';
-import { useProducts, useCreateProduct, useUpdateProduct } from '../lib/hooks';
+import { useCreateProduct, useUpdateProduct } from '../lib/hooks';
 import { getSizesRequest, getColorsRequest, createSizeRequest, createColorRequest } from '@/shared/config/api/product/product.request';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
