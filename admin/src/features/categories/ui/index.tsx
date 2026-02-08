@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Plus,
     Search,
@@ -21,54 +21,11 @@ import {
     DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
 import { useParams } from 'next/navigation';
-import AddCategoryModal from './add-category-modal';
 import DeleteConfirmModal from '../../products/ui/delete-confirm-modal';
-import { useCategories, useDeleteCategory } from '../../products/lib/hooks';
-import { Category } from '../../products/lib/api';
+import AddCategoryModal from './add-category-modal';
 
 export default function Categories() {
     const params = useParams();
-    const locale = (params?.locale as string) || 'uz';
-
-    const [searchQuery, setSearchQuery] = useState('');
-    const { data: categories = [], isLoading } = useCategories(searchQuery || undefined);
-    const deleteMutation = useDeleteCategory();
-
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [editingCategory, setEditingCategory] = useState<Category | null>(null);
-    const [deletingCategory, setDeletingCategory] = useState<Category | null>(null);
-    const [isViewOnly, setIsViewOnly] = useState(false);
-
-    const handleEdit = (category: Category) => {
-        setEditingCategory(category);
-        setIsViewOnly(false);
-        setIsAddModalOpen(true);
-    };
-
-    const handleView = (category: Category) => {
-        setEditingCategory(category);
-        setIsViewOnly(true);
-        setIsAddModalOpen(true);
-    };
-
-    const handleDelete = (category: Category) => {
-        setDeletingCategory(category);
-    };
-
-    const handleCloseModal = () => {
-        setIsAddModalOpen(false);
-        setEditingCategory(null);
-        setIsViewOnly(false);
-    };
-
-    const confirmDelete = async () => {
-        if (deletingCategory) {
-            await deleteMutation.mutateAsync(deletingCategory.id);
-            setDeletingCategory(null);
-        }
-    };
-
-    if (isLoading) return <div>Yuklanmoqda...</div>;
 
     return (
         <div className='space-y-6'>
@@ -80,8 +37,6 @@ export default function Categories() {
                 </div>
                 <Button
                     onClick={() => {
-                        setIsViewOnly(false);
-                        setIsAddModalOpen(true);
                     }}
                     className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-xs flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
                 >
@@ -91,18 +46,18 @@ export default function Categories() {
             </div>
 
             <AddCategoryModal
-                isOpen={isAddModalOpen}
-                category={editingCategory}
-                viewOnly={isViewOnly}
-                onClose={handleCloseModal}
+                isOpen={false}
+                category={""}
+                viewOnly={false}
+                onClose={() => { }}
             />
 
             <DeleteConfirmModal
-                isOpen={!!deletingCategory}
-                onClose={() => setDeletingCategory(null)}
-                onConfirm={confirmDelete}
+                isOpen={false}
+                onClose={() => { }}
+                onConfirm={() => { }}
                 title="Kategoriyani o‘chirasizmi?"
-                description={`Siz haqiqatan ham "${deletingCategory?.name?.[locale as keyof typeof deletingCategory.name]}" kategoriyasini o‘chirmoqchimisiz? Bu kategoriya ostidagi mahsulotlar kategoriya-siz qolishi mumkin.`}
+                description={`Siz haqiqatan ham ${""} kategoriyasini o‘chirmoqchimisiz? Bu kategoriya ostidagi mahsulotlar kategoriya-siz qolishi mumkin.`}
             />
 
             {/* Filter Bar */}
@@ -111,8 +66,8 @@ export default function Categories() {
                     <Search className='absolute left-4 top-1/2 -translate-y-1/2 text-gray-400' size={18} />
                     <Input
                         placeholder='Kategoriya nomini qidiring...'
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
+                        value={""}
+                        onChange={(e) => { }}
                         className='pl-12 h-12 bg-gray-50 border-none rounded-2xl text-sm focus-visible:ring-1 focus-visible:ring-black/5'
                     />
                 </div>
@@ -136,7 +91,7 @@ export default function Categories() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {categories.map((category) => (
+                            {[].map((category: any) => (
                                 <tr key={category.id} className='hover:bg-gray-50/50 transition-colors group'>
                                     <td className='px-6 py-4'>
                                         <div className='flex items-center gap-4'>
@@ -144,12 +99,12 @@ export default function Categories() {
                                                 <Layers size={20} />
                                             </div>
                                             <div>
-                                                <p className='text-sm font-bold tracking-tight'>{category.name[locale as keyof typeof category.name]}</p>
+                                                <p className='text-sm font-bold tracking-tight'>{""}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td className='px-6 py-4 font-black text-xs text-gray-400 uppercase tracking-widest'>
-                                        #{category.id}
+                                        #{""}
                                     </td>
                                     <td className='px-6 py-4 text-right'>
                                         <DropdownMenu>
@@ -162,14 +117,14 @@ export default function Categories() {
                                             <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
                                                 <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Amallar</DropdownMenuLabel>
                                                 <DropdownMenuItem
-                                                    onClick={() => handleView(category)}
+                                                    onClick={() => { }}
                                                     className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
                                                 >
                                                     <Eye size={16} className='text-gray-400' />
                                                     <span className='text-xs font-bold uppercase tracking-wider'>Ko‘rish</span>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem
-                                                    onClick={() => handleEdit(category)}
+                                                    onClick={() => { }}
                                                     className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
                                                 >
                                                     <Pencil size={16} className='text-gray-400' />
@@ -177,7 +132,7 @@ export default function Categories() {
                                                 </DropdownMenuItem>
                                                 <DropdownMenuSeparator className='bg-gray-50' />
                                                 <DropdownMenuItem
-                                                    onClick={() => handleDelete(category)}
+                                                    onClick={() => { }}
                                                     className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'
                                                 >
                                                     <Trash2 size={16} />
