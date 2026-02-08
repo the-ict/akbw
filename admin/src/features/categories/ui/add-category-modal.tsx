@@ -18,7 +18,7 @@ import {
 } from '@/shared/config/i18n/types';
 
 import {
-    ICategory, ICreateCategoryTranslation
+    ICategory,
 } from '@/shared/config/api/product/product.modal';
 import { useCreateCategory, useUpdateCategory, useCategory } from '../lib/hooks';
 import { toast } from 'sonner';
