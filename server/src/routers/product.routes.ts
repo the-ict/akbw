@@ -1,7 +1,10 @@
 import { Router } from "express";
 // @ts-ignore
 import { validate } from "../middleware/validate.middleware.js";
-import { createProductSchema, updateProductSchema } from "../validators/product.validator.js";
+import {
+    createProductSchema,
+    updateProductSchema
+} from "../validators/product.validator.js";
 import {
     getProducts,
     getProductById,
@@ -15,17 +18,18 @@ import {
     getSizes,
     getColors
 } from "../controllers/product.controller.js";
+import { langaugeMiddleware } from "../middleware/language.middleware.js";
 
 const router = Router();
 
-router.get("/", getProducts);
-router.get("/categories", getCategories);
+router.get("/", langaugeMiddleware, getProducts);
+router.get("/categories", langaugeMiddleware, getCategories);
 router.post("/categories", createCategory);
-router.put("/categories/:id", updateCategory);
+router.put("/categories/:id", langaugeMiddleware, updateCategory);
 router.delete("/categories/:id", deleteCategory);
-router.get("/sizes", getSizes);
-router.get("/colors", getColors);
-router.get("/:id", getProductById);
+router.get("/sizes", langaugeMiddleware, getSizes);
+router.get("/colors", langaugeMiddleware, getColors);
+router.get("/:id", langaugeMiddleware, getProductById);
 router.post("/", validate(createProductSchema), createProduct);
 router.put("/:id", validate(updateProductSchema), updateProduct);
 router.delete("/:id", deleteProduct);

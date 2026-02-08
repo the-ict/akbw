@@ -69,7 +69,6 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
     const createMutation = useCreateProduct();
     const updateMutation = useUpdateProduct();
 
-    // Sync state with product prop when editing
     React.useEffect(() => {
         if (product && isOpen) {
             setNames(product.name);
@@ -231,7 +230,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                 </div>
                                 <div className='grid grid-cols-2 gap-6'>
                                     <div className='space-y-2'>
-                                        <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Narx ($)</label>
+                                        <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Narx (UZS)</label>
                                         <Input
                                             disabled={viewOnly}
                                             type='number'
@@ -242,7 +241,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                         />
                                     </div>
                                     <div className='space-y-2'>
-                                        <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Chegirma Narxi ($)</label>
+                                        <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Chegirma Narxi (UZS)</label>
                                         <Input
                                             disabled={viewOnly}
                                             type='number'

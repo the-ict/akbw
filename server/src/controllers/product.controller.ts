@@ -6,6 +6,7 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
         const { q, category_id, sortBy, sortOrder, page = 1, limit = 10 } = req.query;
 
         const where: any = {};
+        console.log(q, "what is q");
 
         if (q) {
             where.OR = [
