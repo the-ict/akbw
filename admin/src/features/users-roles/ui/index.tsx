@@ -21,32 +21,8 @@ import {
 import { cn } from '@/shared/lib/utils';
 import AddUserModal from './add-user-modal';
 import CredentialsModal from './credentials-modal';
-import {
-    useAdmins,
-    useDeleteAdmin
-} from '../lib/hooks';
 
 export default function UsersRoles() {
-    const { data: users = [], isLoading } = useAdmins();
-    const deleteMutation = useDeleteAdmin();
-
-    const [isAddModalOpen, setIsAddModalOpen] = React.useState(false);
-    const [createdCredentials, setCreatedCredentials] = React.useState<{ name: string, phone: string, token: string } | null>(null);
-
-    const handleAddUser = (newUser: any, token: string) => {
-        setIsAddModalOpen(false);
-        setCreatedCredentials({
-            name: `${newUser.name} ${newUser.lastName}`,
-            phone: newUser.phone,
-            token: token
-        });
-    };
-
-    const handleRemoveUser = async (userId: number) => {
-        await deleteMutation.mutateAsync(userId);
-    };
-
-    if (isLoading) return <div className="p-8 font-black uppercase tracking-widest text-xs text-gray-400">Yuklanmoqda...</div>;
 
     return (
         <div className='space-y-8'>
@@ -56,7 +32,7 @@ export default function UsersRoles() {
                     <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Admin panelga kirish huquqlarini boshqarish</p>
                 </div>
                 <Button
-                    onClick={() => setIsAddModalOpen(true)}
+                    onClick={() => false}
                     className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
                 >
                     <UserPlus size={18} />
@@ -66,7 +42,7 @@ export default function UsersRoles() {
 
             {/* Role Summary Grid */}
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                {users.map((user, i) => {
+                {[].map((user: any, i: number) => {
                     const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`;
                     const color = user.role === 'Admin' ? 'bg-black' : 'bg-blue-600';
                     const Icon = user.role === 'Admin' ? ShieldCheck : Shield;
@@ -103,7 +79,7 @@ export default function UsersRoles() {
                                     <Lock size={12} />
                                 </div>
                                 <div className='flex flex-wrap gap-2'>
-                                    {user.access.map(a => (
+                                    {user.access.map((a: any) => (
                                         <span key={a.id} className='px-3 py-1.5 bg-gray-50 rounded-xl text-[10px] font-bold text-gray-500 uppercase tracking-widest'>
                                             {a.name}
                                         </span>
@@ -125,7 +101,7 @@ export default function UsersRoles() {
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
                                         <DropdownMenuItem
-                                            onClick={() => handleRemoveUser(user.id)}
+                                            onClick={() => false}
                                             className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'
                                         >
                                             <Trash2 size={16} />
@@ -168,15 +144,15 @@ export default function UsersRoles() {
             </div>
 
             <AddUserModal
-                isOpen={isAddModalOpen}
-                onClose={() => setIsAddModalOpen(false)}
-                onAdd={handleAddUser}
+                isOpen={false}
+                onClose={() => false}
+                onAdd={() => { }}
             />
 
             <CredentialsModal
-                isOpen={!!createdCredentials}
-                onClose={() => setCreatedCredentials(null)}
-                credentials={createdCredentials}
+                isOpen={!!false}
+                onClose={() => false}
+                credentials={null}
             />
         </div>
     );
