@@ -48,6 +48,7 @@ app.use("/api/product", productRoutes);
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error("Global Error Handler:", err);
     res.status(500).json({
         message: err.message,
     });

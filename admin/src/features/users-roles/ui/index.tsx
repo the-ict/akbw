@@ -16,14 +16,15 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
 import { cn } from '@/shared/lib/utils';
 import AddUserModal from './add-user-modal';
 import CredentialsModal from './credentials-modal';
-import { useAdmins, useDeleteAdmin } from '../lib/hooks';
+import {
+    useAdmins,
+    useDeleteAdmin
+} from '../lib/hooks';
 
 export default function UsersRoles() {
     const { data: users = [], isLoading } = useAdmins();

@@ -12,7 +12,10 @@ export const useAdminAuthStore = create<AuthState>()(
         (set) => ({
             adminToken: null,
             setAdminToken: (token: string | null) => set({ adminToken: token }),
-            logout: () => set({ adminToken: null }),
+            logout: () => {
+                set({ adminToken: null })
+                window.location.replace("/login")
+            },
         }),
         {
             name: 'admin-auth-storage',

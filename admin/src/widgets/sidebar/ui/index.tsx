@@ -20,6 +20,7 @@ import {
     ChevronRight,
     Layers,
 } from 'lucide-react';
+import { useAdminAuthStore } from '@/shared/store/auth.store';
 
 const sidebarItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
@@ -50,6 +51,7 @@ export default function Sidebar() {
     };
 
     const currentPath = getPathWithoutLocale(pathname);
+    const { logout } = useAdminAuthStore();
 
     return (
         <aside
@@ -116,7 +118,7 @@ export default function Sidebar() {
                     {!isCollapsed && <span className='text-sm font-medium'>Collapse</span>}
                 </button>
 
-                <button className='w-full flex items-center gap-4 px-4 py-3 text-red-500 hover:bg-red-50 transition-all rounded-xl cursor-pointer'>
+                <button onClick={logout} className='w-full flex items-center gap-4 px-4 py-3 text-red-500 hover:bg-red-50 transition-all rounded-xl cursor-pointer'>
                     <LogOut size={20} />
                     {!isCollapsed && <span className='text-sm font-bold uppercase tracking-wider'>Logout</span>}
                 </button>

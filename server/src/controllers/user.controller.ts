@@ -18,6 +18,7 @@ export const getUsers = async (req: Request, res: Response, next: NextFunction) 
 
         return res.status(200).json(users);
     } catch (error) {
+        console.error("Error in getUsers controller:", error);
         next(error);
     }
 };

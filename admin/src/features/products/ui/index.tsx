@@ -26,9 +26,11 @@ import DeleteConfirmModal from './delete-confirm-modal';
 import { cn } from '@/shared/lib/utils';
 
 import { useProducts, useDeleteProduct, useCategories } from '../lib/hooks';
-import { Product } from '../lib/api';
+import { Product, LocalizedString } from '../lib/api';
+import { useLocale } from 'next-intl';
 
 export default function Products() {
+    const locale = useLocale();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>('all');
     const [page, setPage] = useState(1);
@@ -129,7 +131,7 @@ export default function Products() {
                 onClose={() => setDeletingProduct(null)}
                 onConfirm={confirmDelete}
                 title="Mahsulotni o‘chirasizmi?"
-                description={`Siz haqiqatan ham "${deletingProduct?.name}" mahsulotini o‘chirmoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
+                description={`Siz haqiqatan ham "${deletingProduct?.name[locale as keyof LocalizedString]}" mahsulotini o‘chirmoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
             />
 
             {/* Filter Bar */}
@@ -151,7 +153,7 @@ export default function Products() {
                         <DropdownMenuTrigger asChild>
                             <Button variant='outline' className='rounded-2xl border-gray-100 h-12 px-6 flex items-center gap-2 font-bold text-xs uppercase cursor-pointer'>
                                 <Filter size={16} />
-                                {selectedCategoryId === 'all' ? 'Barcha Kategoriyalar' : categories.find(c => c.id.toString() === selectedCategoryId)?.name}
+                                {selectedCategoryId === 'all' ? 'Barcha Kategoriyalar' : categories.find(c => c.id.toString() === selectedCategoryId)?.name[locale as keyof LocalizedString]}
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl min-w-[200px]'>
@@ -173,7 +175,7 @@ export default function Products() {
                                     }}
                                     className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'
                                 >
-                                    {cat.name}
+                                    {cat.name[locale as keyof LocalizedString]}
                                 </DropdownMenuItem>
                             ))}
                         </DropdownMenuContent>
@@ -220,12 +222,12 @@ export default function Products() {
                                             <div className='w-14 h-14 rounded-2xl bg-gray-100 overflow-hidden relative border border-gray-50'>
                                                 <img
                                                     src={product.product_images?.[0] || ''}
-                                                    alt={product.name}
+                                                    alt={product.name[locale as keyof LocalizedString]}
                                                     className='object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-110'
                                                 />
                                             </div>
                                             <div>
-                                                <p className='text-sm font-bold tracking-tight'>{product.name}</p>
+                                                <p className='text-sm font-bold tracking-tight'>{product.name[locale as keyof LocalizedString]}</p>
                                                 <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>ID: #{product.id}</p>
                                             </div>
                                         </div>
@@ -234,7 +236,7 @@ export default function Products() {
                                         <div className='flex flex-wrap gap-1'>
                                             {product.categories.map(cat => (
                                                 <span key={cat.id} className='text-[10px] font-black uppercase tracking-widest px-2.5 py-1 bg-gray-100 rounded-full text-gray-500'>
-                                                    {cat.name}
+                                                    {cat.name[locale as keyof LocalizedString]}
                                                 </span>
                                             ))}
                                         </div>
