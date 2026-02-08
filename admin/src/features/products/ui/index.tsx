@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, {
+    useState
+} from 'react';
 import {
     Plus,
     Search,
@@ -24,9 +26,6 @@ import {
 import AddProductModal from './add-product-modal';
 import DeleteConfirmModal from './delete-confirm-modal';
 import { cn } from '@/shared/lib/utils';
-
-import { useProducts, useDeleteProduct, useCategories } from '../lib/hooks';
-import { Product, LocalizedString } from '../lib/api';
 import { useLocale } from 'next-intl';
 
 export default function Products() {
@@ -38,66 +37,7 @@ export default function Products() {
     const [sortBy, setSortBy] = useState<string>('createdAt');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
-    const { data: productsData, isLoading } = useProducts({
-        q: searchQuery || undefined,
-        category_id: selectedCategoryId === 'all' ? undefined : selectedCategoryId,
-        page,
-        limit,
-        sortBy,
-        sortOrder
-    });
 
-    const products = productsData?.data || [];
-    const meta = productsData?.meta;
-
-    const { data: categories = [] } = useCategories();
-    const deleteMutation = useDeleteProduct();
-
-    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-    const [deletingProduct, setDeletingProduct] = useState<Product | null>(null);
-    const [isViewOnly, setIsViewOnly] = useState(false);
-
-    const handleEdit = (product: Product) => {
-        setEditingProduct(product);
-        setIsViewOnly(false);
-        setIsAddModalOpen(true);
-    };
-
-    const handleView = (product: Product) => {
-        setEditingProduct(product);
-        setIsViewOnly(true);
-        setIsAddModalOpen(true);
-    };
-
-    const handleDelete = (product: Product) => {
-        setDeletingProduct(product);
-    };
-
-    const handleCloseAddModal = () => {
-        setIsAddModalOpen(false);
-        setEditingProduct(null);
-        setIsViewOnly(false);
-    };
-
-    const confirmDelete = async () => {
-        if (deletingProduct) {
-            await deleteMutation.mutateAsync(deletingProduct.id);
-            setDeletingProduct(null);
-        }
-    };
-
-    const handleSort = (field: string) => {
-        if (sortBy === field) {
-            setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-        } else {
-            setSortBy(field);
-            setSortOrder('desc');
-        }
-        setPage(1);
-    };
-
-    if (isLoading) return <div>Yuklanmoqda...</div>;
 
     return (
         <div className='space-y-6'>
@@ -109,8 +49,6 @@ export default function Products() {
                 </div>
                 <Button
                     onClick={() => {
-                        setIsViewOnly(false);
-                        setIsAddModalOpen(true);
                     }}
                     className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-xs flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
                 >
@@ -120,18 +58,18 @@ export default function Products() {
             </div>
 
             <AddProductModal
-                isOpen={isAddModalOpen}
-                product={editingProduct}
-                viewOnly={isViewOnly}
-                onClose={handleCloseAddModal}
+                isOpen={false}
+                product={null}
+                viewOnly={false}
+                onClose={() => { }}
             />
 
             <DeleteConfirmModal
-                isOpen={!!deletingProduct}
-                onClose={() => setDeletingProduct(null)}
-                onConfirm={confirmDelete}
+                isOpen={false}
+                onClose={() => { }}
+                onConfirm={() => { }}
                 title="Mahsulotni o‘chirasizmi?"
-                description={`Siz haqiqatan ham "${deletingProduct?.name[locale as keyof LocalizedString]}" mahsulotini o‘chirmoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
+                description={`Siz haqiqatan ham "${""}" mahsulotini o‘chirmoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
             />
 
             {/* Filter Bar */}
@@ -153,7 +91,7 @@ export default function Products() {
                         <DropdownMenuTrigger asChild>
                             <Button variant='outline' className='rounded-2xl border-gray-100 h-12 px-6 flex items-center gap-2 font-bold text-xs uppercase cursor-pointer'>
                                 <Filter size={16} />
-                                {selectedCategoryId === 'all' ? 'Barcha Kategoriyalar' : categories.find(c => c.id.toString() === selectedCategoryId)?.name[locale as keyof LocalizedString]}
+                                {selectedCategoryId === 'all' ? 'Barcha Kategoriyalar' : []?.find((c: any) => c.id.toString() === selectedCategoryId)}
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl min-w-[200px]'>
@@ -166,7 +104,7 @@ export default function Products() {
                             >
                                 Barcha Kategoriyalar
                             </DropdownMenuItem>
-                            {categories.map(cat => (
+                            {[].map((cat: any) => (
                                 <DropdownMenuItem
                                     key={cat.id}
                                     onClick={() => {
@@ -175,7 +113,7 @@ export default function Products() {
                                     }}
                                     className='rounded-xl px-3 py-2 cursor-pointer text-xs font-bold uppercase'
                                 >
-                                    {cat.name[locale as keyof LocalizedString]}
+                                    {cat.name}
                                 </DropdownMenuItem>
                             ))}
                         </DropdownMenuContent>
@@ -198,7 +136,7 @@ export default function Products() {
                                 <th className='px-6 py-4 text-left text-[10px] uppercase tracking-[0.2em] font-black text-gray-400'>
                                     <div
                                         className='flex items-center gap-2 cursor-pointer hover:text-black transition-colors'
-                                        onClick={() => handleSort('price')}
+                                        onClick={() => { }}
                                     >
                                         Narx <ArrowUpDown size={12} className={sortBy === 'price' ? 'text-black' : 'text-gray-300'} />
                                     </div>
@@ -215,28 +153,28 @@ export default function Products() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {products.map((product) => (
+                            {[].map((product: any) => (
                                 <tr key={product.id} className='hover:bg-gray-50/50 transition-colors group'>
                                     <td className='px-6 py-4'>
                                         <div className='flex items-center gap-4'>
                                             <div className='w-14 h-14 rounded-2xl bg-gray-100 overflow-hidden relative border border-gray-50'>
                                                 <img
                                                     src={product.product_images?.[0] || ''}
-                                                    alt={product.name[locale as keyof LocalizedString]}
+                                                    alt={product.name}
                                                     className='object-cover w-full h-full transform transition-transform duration-500 group-hover:scale-110'
                                                 />
                                             </div>
                                             <div>
-                                                <p className='text-sm font-bold tracking-tight'>{product.name[locale as keyof LocalizedString]}</p>
+                                                <p className='text-sm font-bold tracking-tight'>{product.name}</p>
                                                 <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>ID: #{product.id}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td className='px-6 py-4'>
                                         <div className='flex flex-wrap gap-1'>
-                                            {product.categories.map(cat => (
+                                            {product.categories.map((cat: any) => (
                                                 <span key={cat.id} className='text-[10px] font-black uppercase tracking-widest px-2.5 py-1 bg-gray-100 rounded-full text-gray-500'>
-                                                    {cat.name[locale as keyof LocalizedString]}
+                                                    {cat.name}
                                                 </span>
                                             ))}
                                         </div>
@@ -272,14 +210,14 @@ export default function Products() {
                                             <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
                                                 <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Amallar</DropdownMenuLabel>
                                                 <DropdownMenuItem
-                                                    onClick={() => handleView(product)}
+                                                    onClick={() => { }}
                                                     className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
                                                 >
                                                     <Eye size={16} className='text-gray-400' />
                                                     <span className='text-xs font-bold uppercase tracking-wider'>Ko‘rish</span>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem
-                                                    onClick={() => handleEdit(product)}
+                                                    onClick={() => { }}
                                                     className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
                                                 >
                                                     <Pencil size={16} className='text-gray-400' />
@@ -287,7 +225,7 @@ export default function Products() {
                                                 </DropdownMenuItem>
                                                 <DropdownMenuSeparator className='bg-gray-50' />
                                                 <DropdownMenuItem
-                                                    onClick={() => handleDelete(product)}
+                                                    onClick={() => { }}
                                                     className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'
                                                 >
                                                     <Trash2 size={16} />
@@ -303,10 +241,10 @@ export default function Products() {
                 </div>
 
                 {/* Pagination */}
-                {meta && meta.totalPages > 1 && (
+                {true && (
                     <div className='px-8 py-6 bg-gray-50/50 flex justify-between items-center border-t border-gray-100'>
                         <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>
-                            Ko‘rsatilmoqda <span className='text-black'>{((page - 1) * limit) + 1} - {Math.min(page * limit, meta.total)}</span> gacha <span className='text-black'>{meta.total}</span> tadan
+                            Ko‘rsatilmoqda <span className='text-black'>{((page - 1) * limit) + 1} - {Math.min(page * limit, 5)}</span> gacha <span className='text-black'>{5}</span> tadan
                         </p>
                         <div className='flex items-center gap-2'>
                             <Button
@@ -318,7 +256,7 @@ export default function Products() {
                                 Oldingi
                             </Button>
                             <div className='flex items-center gap-1'>
-                                {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map(p => (
+                                {Array.from({ length: 5 }, (_, i) => i + 1).map(p => (
                                     <Button
                                         key={p}
                                         variant={page === p ? 'default' : 'outline'}
@@ -334,7 +272,7 @@ export default function Products() {
                             </div>
                             <Button
                                 variant='outline'
-                                disabled={page === meta.totalPages}
+                                disabled={false}
                                 onClick={() => setPage(page + 1)}
                                 className='rounded-xl h-10 px-4 border-gray-200 bg-white shadow-sm font-bold text-xs uppercase cursor-pointer disabled:opacity-50'
                             >

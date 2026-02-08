@@ -15,13 +15,10 @@ import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/m
 import { cn } from '@/shared/lib/utils';
 import { LanguageRoutes } from '@/shared/config/i18n/types';
 
-import { useCreateProduct, useUpdateProduct, useCategories, useSizes, useColors } from '../lib/hooks';
-import { Product, LocalizedString } from '../lib/api';
-
 interface AddProductModalProps {
     isOpen: boolean;
     onClose: () => void;
-    product?: Product | null;
+    product?: string | null;
     viewOnly?: boolean;
 }
 
@@ -34,18 +31,6 @@ const LANGUAGES = [
 export default function AddProductModal({ isOpen, onClose, product, viewOnly }: AddProductModalProps) {
     const [step, setStep] = useState(1);
     const [activeLang, setActiveLang] = useState<LanguageRoutes>(LanguageRoutes.UZ);
-
-    // Form State
-    const [names, setNames] = useState<LocalizedString>({
-        uz: '',
-        ru: '',
-        en: '',
-    });
-    const [descriptions, setDescriptions] = useState<Record<string, string>>({
-        [LanguageRoutes.UZ]: '',
-        [LanguageRoutes.RU]: '',
-        [LanguageRoutes.EN]: '',
-    });
 
     const [images, setImages] = useState<string[]>([]);
     const [stock, setStock] = useState(45);
@@ -62,66 +47,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
     const [newColor, setNewColor] = useState('#000000');
     const [newColorHex, setNewColorHex] = useState('');
 
-    const { data: allCategories = [] } = useCategories();
-    const { data: allSizes = [] } = useSizes();
-    const { data: allColors = [] } = useColors();
 
-    const createMutation = useCreateProduct();
-    const updateMutation = useUpdateProduct();
-
-    React.useEffect(() => {
-        if (product && isOpen) {
-            setNames(product.name);
-            setDescriptions({
-                [LanguageRoutes.UZ]: '',
-                [LanguageRoutes.RU]: '',
-                [LanguageRoutes.EN]: '',
-            });
-            setStock(0);
-            setPrice(product.price.toString());
-            setSelectedCategories(product.categories.map(c => c.id));
-            setSelectedSizes(product.sizes.map(s => s.id));
-            setSelectedColors(product.colors.map(c => c.id));
-            setImages(product.product_images);
-            setStep(1);
-        } else if (isOpen) {
-            setNames({
-                uz: '',
-                ru: '',
-                en: '',
-            });
-            setDescriptions({
-                [LanguageRoutes.UZ]: '',
-                [LanguageRoutes.RU]: '',
-                [LanguageRoutes.EN]: '',
-            });
-            setStock(0);
-            setPrice('');
-            setSelectedCategories([]);
-            setSelectedSizes([]);
-            setSelectedColors([]);
-            setImages([]);
-            setStep(1);
-        }
-    }, [product, isOpen]);
-
-    const handleSave = async () => {
-        const payload = {
-            name: names,
-            price: Number(price),
-            product_images: images.length > 0 ? images : ['https://via.placeholder.com/300'],
-            category_id: selectedCategories,
-            size_id: selectedSizes,
-            color_id: selectedColors,
-        };
-
-        if (product) {
-            await updateMutation.mutateAsync({ id: product.id, ...payload });
-        } else {
-            await createMutation.mutateAsync(payload);
-        }
-        onClose();
-    };
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, 3));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
@@ -190,14 +116,14 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                             disabled={viewOnly}
                                             placeholder='Mahsulot nomi...'
                                             className='h-12 border-gray-100 rounded-2xl focus-visible:ring-black/10 font-bold'
-                                            value={names[activeLang as keyof LocalizedString]}
-                                            onChange={(e) => setNames({ ...names, [activeLang as keyof LocalizedString]: e.target.value })}
+                                            value={""}
+                                            onChange={() => { }}
                                         />
                                     </div>
                                     <div className='space-y-2'>
                                         <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Kategoriyalar</label>
                                         <div className='flex flex-wrap gap-2'>
-                                            {allCategories.map(cat => (
+                                            {[].map((cat: any) => (
                                                 <button
                                                     key={cat.id}
                                                     type="button"
@@ -212,7 +138,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                                         viewOnly && !selectedCategories.includes(cat.id) && 'opacity-50 cursor-not-allowed'
                                                     )}
                                                 >
-                                                    {cat.name[activeLang as keyof LocalizedString]}
+                                                    {cat.name}
                                                 </button>
                                             ))}
                                         </div>
@@ -224,8 +150,8 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                         disabled={viewOnly}
                                         placeholder='Mahsulot haqida batafsil...'
                                         className='w-full h-32 bg-white border border-gray-100 rounded-2xl p-4 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-black/10 transition-all resize-none'
-                                        value={descriptions[activeLang]}
-                                        onChange={(e) => setDescriptions({ ...descriptions, [activeLang]: e.target.value })}
+                                        value={""}
+                                        onChange={() => { }}
                                     />
                                 </div>
                                 <div className='grid grid-cols-2 gap-6'>
@@ -335,7 +261,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                     )}
 
                                     <div className='flex flex-wrap gap-2'>
-                                        {allSizes.map(size => (
+                                        {[].map((size: any) => (
                                             <div key={size.id} className='group relative'>
                                                 <button
                                                     onClick={() => toggleSize(size.id)}
@@ -386,7 +312,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                     )}
 
                                     <div className='flex flex-wrap gap-3'>
-                                        {allColors.map((color) => (
+                                        {[].map((color: any) => (
                                             <div key={color.id} className='group relative'>
                                                 <button
                                                     onClick={() => toggleColor(color.id)}
@@ -417,7 +343,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                             Orqaga
                         </Button>
                         <Button
-                            onClick={step === 3 ? handleSave : nextStep}
+                            onClick={step === 3 ? () => { } : nextStep}
                             className='rounded-[20px] h-14 px-12 bg-black text-white font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-black/20 hover:scale-105 active:scale-95 transition-all cursor-pointer'
                         >
                             {viewOnly ? (step === 3 ? 'Yopish' : 'Keyingi') : (step === 3 ? 'Saqlash' : 'Keyingi')}
