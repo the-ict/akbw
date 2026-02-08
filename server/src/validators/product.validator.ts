@@ -7,21 +7,29 @@ const localizedStringSchema = Joi.object({
 });
 
 const createProductSchema = Joi.object({
-    name: localizedStringSchema.required(),
     price: Joi.number().required(),
     product_images: Joi.array().items(Joi.string()).required(),
-    category_id: Joi.array().items(Joi.number()).required(),
-    size_id: Joi.array().items(Joi.number()).required(),
-    color_id: Joi.array().items(Joi.number()).required(),
+    categories: Joi.array().items(Joi.number()).required(),
+    sizes: Joi.array().items(Joi.number()).required(),
+    colors: Joi.array().items(Joi.number()).required(),
+    translations: Joi.array().items(Joi.object({
+        name: Joi.string().required(),
+        description: Joi.string().required(),
+        lang: Joi.string().required(),
+    })).required(),
 });
 
 const updateProductSchema = Joi.object({
-    name: localizedStringSchema,
     price: Joi.number(),
     product_images: Joi.array().items(Joi.string()),
-    category_id: Joi.array().items(Joi.number()),
-    size_id: Joi.array().items(Joi.number()),
-    color_id: Joi.array().items(Joi.number()),
+    categories: Joi.array().items(Joi.number()),
+    sizes: Joi.array().items(Joi.number()),
+    colors: Joi.array().items(Joi.number()),
+    translations: Joi.array().items(Joi.object({
+        name: Joi.string(),
+        description: Joi.string(),
+        lang: Joi.string(),
+    })),
 });
 
 export { createProductSchema, updateProductSchema };
