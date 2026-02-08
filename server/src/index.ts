@@ -15,6 +15,9 @@ import smsRoutes from "./routers/sms.routes.js";
 import userRoutes from "./routers/user.routes.js";
 import adminRoutes from "./routers/admin.routes.js";
 import productRoutes from "./routers/product.routes.js";
+import uploadRoutes from "./routers/upload.routes.js";
+import path from "path";
+
 
 // configure dotenv
 dotenv.config();
@@ -34,6 +37,8 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+
 
 // routes
 app.get("/", (req: Request, res: Response) => {
@@ -45,6 +50,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/sms", smsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/product", productRoutes);
+app.use("/api/upload", uploadRoutes);
+
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

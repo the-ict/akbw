@@ -4,8 +4,10 @@ import {
     ENDP_PRODUCT_CREATE,
     ENDP_PRODUCT,
     ENDP_PRODUCT_SIZES,
-    ENDP_PRODUCT_COLORS
+    ENDP_PRODUCT_COLORS,
+    ENDP_UPLOAD
 } from "../URLs"
+
 
 
 import {
@@ -70,4 +72,14 @@ export const getColorsRequest = async (): Promise<any[]> => {
 
 export const createColorRequest = async (data: any) => {
     return (await httpClient.post(ENDP_PRODUCT_COLORS, data)).data;
+}
+
+export const uploadImageRequest = async (file: File) => {
+    const formData = new FormData();
+    formData.append("image", file);
+    return (await httpClient.post(ENDP_UPLOAD, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })).data;
 }

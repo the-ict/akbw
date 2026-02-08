@@ -17,8 +17,9 @@ import { IProduct, ICreateProduct } from '@/shared/config/api/product/product.mo
 
 import { useCategories } from '../../categories/lib/hooks';
 import { useCreateProduct, useUpdateProduct } from '../lib/hooks';
-import { getSizesRequest, getColorsRequest, createSizeRequest, createColorRequest } from '@/shared/config/api/product/product.request';
+import { getSizesRequest, getColorsRequest, createSizeRequest, createColorRequest, uploadImageRequest } from '@/shared/config/api/product/product.request';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
 
 import { toast } from 'sonner';
 
@@ -38,7 +39,9 @@ const LANGUAGES = [
 ];
 
 export default function AddProductModal({ isOpen, onClose, product, viewOnly }: AddProductModalProps) {
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
     const [step, setStep] = useState(1);
+
     const [activeLang, setActiveLang] = useState<LanguageRoutes>(LanguageRoutes.UZ);
 
     const [images, setImages] = useState<string[]>([]);
@@ -91,6 +94,25 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
             toast.success('Rang muvaffaqiyatli qo‘shildi');
         }
     });
+
+    const uploadMutation = useMutation({
+        mutationFn: uploadImageRequest,
+        onSuccess: (data) => {
+            setImages(prev => [...prev, data.url]);
+            toast.success('Rasm muvaffaqiyatli yuklandi');
+        },
+        onError: () => {
+            toast.error('Rasm yuklashda xatolik yuz berdi');
+        }
+    });
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            uploadMutation.mutate(file);
+        }
+    };
+
 
     const handleAddSize = () => {
         if (!newSize.trim()) return;
@@ -312,11 +334,33 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                     <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Mahsulot Rasmlari</label>
                                     <div className='grid grid-cols-4 gap-4'>
                                         {!viewOnly && (
-                                            <div className='aspect-square rounded-[24px] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center gap-2 text-gray-400 hover:border-black hover:text-black transition-all cursor-pointer bg-gray-50/50'>
-                                                <Upload size={24} />
-                                                <span className='text-[10px] font-black uppercase tracking-widest'>Yuklash</span>
-                                            </div>
+                                            <>
+                                                <input
+                                                    type="file"
+                                                    ref={fileInputRef}
+                                                    className="hidden"
+                                                    accept="image/*"
+                                                    onChange={handleFileChange}
+                                                />
+                                                <div
+                                                    onClick={() => !uploadMutation.isPending && fileInputRef.current?.click()}
+                                                    className={cn(
+                                                        'aspect-square rounded-[24px] border-2 border-dashed border-gray-100 flex flex-col items-center justify-center gap-2 text-gray-400 hover:border-black hover:text-black transition-all cursor-pointer bg-gray-50/50',
+                                                        uploadMutation.isPending && 'opacity-50 cursor-not-allowed'
+                                                    )}
+                                                >
+                                                    {uploadMutation.isPending ? (
+                                                        <span className='text-[10px] font-black uppercase tracking-widest animate-pulse'>Yuklanmoqda...</span>
+                                                    ) : (
+                                                        <>
+                                                            <Upload size={24} />
+                                                            <span className='text-[10px] font-black uppercase tracking-widest'>Yuklash</span>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            </>
                                         )}
+
                                         {images.map((img, i) => (
                                             <div key={i} className='aspect-square rounded-[24px] bg-gray-100 relative group overflow-hidden'>
                                                 {!viewOnly && (
