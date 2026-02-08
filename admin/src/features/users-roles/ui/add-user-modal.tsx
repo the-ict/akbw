@@ -6,7 +6,7 @@ import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/m
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { toast } from 'sonner';
-import { useCreateAdmin } from '../lib/hooks';
+import Loading from '@/widgets/loading/ui';
 
 interface AddUserModalProps {
     isOpen: boolean;
@@ -28,8 +28,6 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
     const [role, setRole] = React.useState('Moderator');
     const [access, setAccess] = React.useState<string[]>([]);
 
-    const createMutation = useCreateAdmin();
-
     const togglePermission = (perm: string) => {
         setAccess(prev =>
             prev.includes(perm)
@@ -46,26 +44,6 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
         }
 
         try {
-            const result = await createMutation.mutateAsync({
-                name,
-                lastName,
-                phone,
-                role,
-                access
-            });
-
-            if (!result.ok) {
-                throw new Error('Xatolik yuz berdi');
-            }
-
-            onAdd({
-                name,
-                lastName,
-                phone,
-                role,
-                access,
-            }, result.token);
-
             setName('');
             setLastName('');
             setPhone('');
@@ -189,14 +167,11 @@ export default function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalPro
                     <div className='p-8 border-t border-gray-50 bg-gray-50/30'>
                         <Button
                             type='submit'
-                            disabled={createMutation.isPending}
+                            disabled={false}
                             className='w-full rounded-2xl h-14 bg-black text-white font-black uppercase tracking-widest text-xs shadow-xl shadow-black/10 hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden'
                         >
-                            {createMutation.isPending ? (
-                                <div className='flex items-center gap-2'>
-                                    <div className='w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin' />
-                                    Yaratilmoqda...
-                                </div>
+                            {false ? (
+                                <Loading />
                             ) : (
                                 <div className='flex items-center gap-2'>
                                     <CheckCircle2 size={18} />
