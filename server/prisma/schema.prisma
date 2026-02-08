@@ -74,25 +74,57 @@ model ProductTranslations {
 }
 
 model Categories {
-  id        Int        @id @default(autoincrement())
-  name      Json
-  products  Products[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id                     Int                   @id @default(autoincrement())
+  products               Products[]
+  createdAt              DateTime              @default(now())
+  updatedAt              DateTime              @updatedAt
+  categoryTranslations   CategoryTranslations? @relation(fields: [categoryTranslationsId], references: [id])
+  categoryTranslationsId Int?
+}
+
+model CategoryTranslations {
+  id         Int          @id @default(autoincrement())
+  name       String
+  lang       String
+  categories Categories[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
 }
 
 model Sizes {
-  id        Int        @id @default(autoincrement())
+  id                 Int               @id @default(autoincrement())
+  name               String
+  products           Products[]
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  sizeTranslations   SizeTranslations? @relation(fields: [sizeTranslationsId], references: [id])
+  sizeTranslationsId Int?
+}
+
+model SizeTranslations {
+  id        Int      @id @default(autoincrement())
   name      String
-  products  Products[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  lang      String
+  sizes     Sizes[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Colors {
-  id        Int        @id @default(autoincrement())
+  id                  Int                @id @default(autoincrement())
+  name                String
+  products            Products[]
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  colorTranslations   ColorTranslations? @relation(fields: [colorTranslationsId], references: [id])
+  colorTranslationsId Int?
+}
+
+model ColorTranslations {
+  id        Int      @id @default(autoincrement())
   name      String
-  products  Products[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  lang      String
+  colors    Colors[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

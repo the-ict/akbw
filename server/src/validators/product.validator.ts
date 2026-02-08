@@ -1,11 +1,5 @@
 import Joi from "joi";
 
-const localizedStringSchema = Joi.object({
-    uz: Joi.string().required(),
-    ru: Joi.string().required(),
-    en: Joi.string().required(),
-});
-
 const createProductSchema = Joi.object({
     price: Joi.number().required(),
     product_images: Joi.array().items(Joi.string()).required(),
