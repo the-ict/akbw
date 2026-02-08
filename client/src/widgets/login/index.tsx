@@ -1,5 +1,9 @@
-import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
+import {
+    Button
+} from "@/shared/ui/button";
+import {
+    Input
+} from "@/shared/ui/input";
 import {
     Modal,
     ModalClose,
@@ -25,7 +29,6 @@ import UseAuth from "@/shared/hooks/use-auth";
 const registerSchema = z.object({
     phone: z.string().min(12, "Telefon raqami noto'g'ri").regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "Telefon raqami noto'g'ri"),
 });
-
 
 type Steps = "register" | "verify"
 

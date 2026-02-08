@@ -2,7 +2,9 @@ import {
     Star
 } from "lucide-react";
 import Image from "next/image";
-import { IProduct } from "@/shared/config/api/product/product.model";
+import {
+    IProduct
+} from "@/shared/config/api/product/product.model";
 
 interface ProductProps {
     product?: IProduct;
@@ -14,7 +16,7 @@ export default function Product({ product }: ProductProps) {
     }
 
     const firstImage = product.product_images?.[0] || '/assets/product.png';
-    const discountPrice = product.price * 0.8; // Example: 20% discount
+    const discountPrice = product.price * 0.8;
 
     return (
         <div className="cursor-pointer flex flex-col gap-3 group" onClick={() => {

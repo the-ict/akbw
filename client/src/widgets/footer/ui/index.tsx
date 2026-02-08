@@ -2,7 +2,13 @@
 
 import Link from 'next/link';
 import { PRODUCT_INFO } from '@/shared/constants/data';
-import { Instagram, Facebook, Youtube, Send, Globe2Icon } from 'lucide-react';
+import {
+  Instagram,
+  Facebook,
+  Youtube,
+  Send,
+  Globe2Icon
+} from 'lucide-react';
 import { useUIStore } from '@/shared/model/use-ui-store';
 
 const Footer = () => {
