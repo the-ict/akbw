@@ -51,80 +51,80 @@ model Access {
 }
 
 model Products {
-  id                    Int                  @id @default(autoincrement())
-  price                 Int
-  product_images        String[]
-  categories            Categories[]
-  sizes                 Sizes[]
-  colors                Colors[]
-  createdAt             DateTime             @default(now())
-  updatedAt             DateTime             @updatedAt
-  productTranslations   ProductTranslations? @relation(fields: [productTranslationsId], references: [id])
-  productTranslationsId Int?
+  id             Int                   @id @default(autoincrement())
+  price          Int
+  product_images String[]
+  categories     Categories[]
+  sizes          Sizes[]
+  colors         Colors[]
+  translations   ProductTranslations[]
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
 }
 
 model ProductTranslations {
-  id          Int        @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   lang        String
   description String
-  products    Products[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  productId   Int
+  product     Products @relation(fields: [productId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Categories {
-  id                     Int                   @id @default(autoincrement())
-  products               Products[]
-  createdAt              DateTime              @default(now())
-  updatedAt              DateTime              @updatedAt
-  categoryTranslations   CategoryTranslations? @relation(fields: [categoryTranslationsId], references: [id])
-  categoryTranslationsId Int?
+  id           Int                    @id @default(autoincrement())
+  products     Products[]
+  translations CategoryTranslations[]
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
 }
 
 model CategoryTranslations {
-  id         Int          @id @default(autoincrement())
+  id         Int        @id @default(autoincrement())
   name       String
   lang       String
-  categories Categories[]
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  categoryId Int
+  category   Categories @relation(fields: [categoryId], references: [id])
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 }
 
 model Sizes {
-  id                 Int               @id @default(autoincrement())
-  name               String
-  products           Products[]
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
-  sizeTranslations   SizeTranslations? @relation(fields: [sizeTranslationsId], references: [id])
-  sizeTranslationsId Int?
+  id           Int                @id @default(autoincrement())
+  name         String
+  products     Products[]
+  translations SizeTranslations[]
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
 }
 
 model SizeTranslations {
   id        Int      @id @default(autoincrement())
   name      String
   lang      String
-  sizes     Sizes[]
+  sizeId    Int
+  size      Sizes    @relation(fields: [sizeId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Colors {
-  id                  Int                @id @default(autoincrement())
-  name                String
-  products            Products[]
-  createdAt           DateTime           @default(now())
-  updatedAt           DateTime           @updatedAt
-  colorTranslations   ColorTranslations? @relation(fields: [colorTranslationsId], references: [id])
-  colorTranslationsId Int?
+  id           Int                 @id @default(autoincrement())
+  name         String
+  products     Products[]
+  translations ColorTranslations[]
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
 }
 
 model ColorTranslations {
   id        Int      @id @default(autoincrement())
   name      String
   lang      String
-  colors    Colors[]
+  colorId   Int
+  color     Colors   @relation(fields: [colorId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

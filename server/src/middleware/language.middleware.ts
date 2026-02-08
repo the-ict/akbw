@@ -2,23 +2,26 @@ import type { NextFunction, Request, Response } from "express";
 
 export const langaugeMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const langaugeCode = req.headers["accept-language"];
-        console.log("language-code: ", langaugeCode);
-        if (langaugeCode && langaugeCode?.length > 1) {
-            (req as any).languageCode = langaugeCode;
-            next()
-        } else {
-            return res.status(500).json({
-                langaugeCode,
-                message: "Language code is not valid",
-                ok: false,
-            })
+        const acceptLanguage = req.headers["accept-language"];
+        console.log("accept-language: ", acceptLanguage);
+
+        // Normalize and validate language code
+        let languageCode: 'uz' | 'ru' | 'en' = 'uz'; // Default
+
+        if (acceptLanguage) {
+            const code = acceptLanguage.split(',')[0].split('-')[0].toLowerCase();
+            if (['uz', 'ru', 'en'].includes(code)) {
+                languageCode = code as 'uz' | 'ru' | 'en';
+            }
         }
+
+        (req as any).languageCode = languageCode;
+        next();
     } catch (error) {
         return res.status(500).json({
             error,
-            message: "Langauge Middleware failed",
+            message: "Language Middleware failed",
             ok: false,
-        })
+        });
     }
-}
+};

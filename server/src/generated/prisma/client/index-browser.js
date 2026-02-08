@@ -160,8 +160,7 @@ exports.Prisma.ProductsScalarFieldEnum = {
   price: 'price',
   product_images: 'product_images',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  productTranslationsId: 'productTranslationsId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ProductTranslationsScalarFieldEnum = {
@@ -169,6 +168,7 @@ exports.Prisma.ProductTranslationsScalarFieldEnum = {
   name: 'name',
   lang: 'lang',
   description: 'description',
+  productId: 'productId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -176,14 +176,14 @@ exports.Prisma.ProductTranslationsScalarFieldEnum = {
 exports.Prisma.CategoriesScalarFieldEnum = {
   id: 'id',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  categoryTranslationsId: 'categoryTranslationsId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.CategoryTranslationsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   lang: 'lang',
+  categoryId: 'categoryId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -192,14 +192,14 @@ exports.Prisma.SizesScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  sizeTranslationsId: 'sizeTranslationsId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SizeTranslationsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   lang: 'lang',
+  sizeId: 'sizeId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -208,14 +208,14 @@ exports.Prisma.ColorsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  colorTranslationsId: 'colorTranslationsId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ColorTranslationsScalarFieldEnum = {
   id: 'id',
   name: 'name',
   lang: 'lang',
+  colorId: 'colorId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -228,11 +228,6 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
-};
-
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
 };
 
 

@@ -1,19 +1,52 @@
-import type { NextFunction, Request, Response } from "express";
+import type {
+    NextFunction,
+    Request,
+    Response
+} from "express";
 import { prisma } from "../db/client.js";
+
+const localizeCategory = (c: any, lang: string) => ({
+    ...c,
+    name: c.translations?.find((t: any) => t.lang === lang)?.name || "",
+    translations: undefined
+});
+
+const localizeSize = (s: any, lang: string) => ({
+    ...s,
+    name: s.translations?.find((t: any) => t.lang === lang)?.name || s.name,
+    translations: undefined
+});
+
+const localizeColor = (c: any, lang: string) => ({
+    ...c,
+    name: c.translations?.find((t: any) => t.lang === lang)?.name || c.name,
+    translations: undefined
+});
+
+const localizeProduct = (p: any, lang: string) => ({
+    ...p,
+    name: p.translations?.find((t: any) => t.lang === lang)?.name || "",
+    description: p.translations?.find((t: any) => t.lang === lang)?.description || "",
+    translations: undefined,
+    categories: p.categories?.map((c: any) => localizeCategory(c, lang)),
+    sizes: p.sizes?.map((s: any) => localizeSize(s, lang)),
+    colors: p.colors?.map((c: any) => localizeColor(c, lang)),
+});
+// -----------------------------
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { q, category_id, sortBy, sortOrder, page = 1, limit = 10 } = req.query;
+        const languageCode = (req as any).languageCode || 'uz';
 
         const where: any = {};
-        console.log(q, "what is q");
 
         if (q) {
-            where.OR = [
-                { name: { path: ['uz'], string_contains: q as string, mode: 'insensitive' } },
-                { name: { path: ['ru'], string_contains: q as string, mode: 'insensitive' } },
-                { name: { path: ['en'], string_contains: q as string, mode: 'insensitive' } },
-            ];
+            where.translations = {
+                some: {
+                    name: { contains: q as string, mode: 'insensitive' }
+                }
+            };
         }
 
         if (category_id) {
@@ -23,7 +56,7 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
                     id: { in: categoryIds }
                 }
             };
-        }
+        };
 
         const skip = (Number(page) - 1) * Number(limit);
         const take = Number(limit);
@@ -39,9 +72,22 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
             prisma.products.findMany({
                 where,
                 include: {
-                    categories: true,
-                    sizes: true,
-                    colors: true,
+                    categories: {
+                        include: {
+                            translations: { where: { lang: languageCode } }
+                        }
+                    },
+                    sizes: {
+                        include: {
+                            translations: { where: { lang: languageCode } }
+                        }
+                    },
+                    colors: {
+                        include: {
+                            translations: { where: { lang: languageCode } }
+                        }
+                    },
+                    translations: { where: { lang: languageCode } }
                 },
                 orderBy,
                 skip,
@@ -51,7 +97,7 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
         ]);
 
         return res.status(200).json({
-            data: products,
+            data: products.map(p => localizeProduct(p, languageCode)),
             meta: {
                 total,
                 page: Number(page),
@@ -67,18 +113,34 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
 export const getProductById = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
+        const languageCode = (req as any).languageCode || 'uz';
+
         const product = await prisma.products.findUnique({
             where: { id: Number(id) },
             include: {
-                categories: true,
-                sizes: true,
-                colors: true,
+                categories: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                sizes: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                colors: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                translations: { where: { lang: languageCode } }
             }
         });
+
         if (!product) {
             return res.status(404).json({ message: "Product not found" });
         }
-        return res.status(200).json(product);
+        return res.status(200).json(localizeProduct(product, languageCode));
     } catch (error) {
         next(error);
     }
@@ -86,6 +148,51 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const { price, product_images, categories, sizes, colors, translations } = req.body;
+        const languageCode = (req as any).languageCode || 'uz';
+
+        const product = await prisma.products.create({
+            data: {
+                price,
+                product_images,
+                categories: {
+                    connect: categories.map((id: number) => ({ id }))
+                },
+                sizes: {
+                    connect: sizes.map((id: number) => ({ id }))
+                },
+                colors: {
+                    connect: colors.map((id: number) => ({ id }))
+                },
+                translations: {
+                    create: translations
+                }
+            },
+            include: {
+                categories: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                sizes: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                colors: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                translations: { where: { lang: languageCode } }
+            }
+        });
+
+        return res.status(201).json({
+            ok: true,
+            message: "Product created successfully",
+            product: localizeProduct(product, languageCode),
+        });
     } catch (error) {
         next(error);
     }
@@ -93,6 +200,58 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const { id } = req.params;
+        const { price, product_images, categories, sizes, colors, translations } = req.body;
+        const languageCode = (req as any).languageCode || 'uz';
+
+        const data: any = {};
+        if (price !== undefined) data.price = price;
+        if (product_images !== undefined) data.product_images = product_images;
+
+        if (categories) {
+            data.categories = { set: categories.map((id: number) => ({ id })) };
+        }
+        if (sizes) {
+            data.sizes = { set: sizes.map((id: number) => ({ id })) };
+        }
+        if (colors) {
+            data.colors = { set: colors.map((id: number) => ({ id })) };
+        }
+        if (translations) {
+            data.translations = {
+                deleteMany: {},
+                create: translations
+            };
+        }
+
+        const product = await prisma.products.update({
+            where: { id: Number(id) },
+            data,
+            include: {
+                categories: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                sizes: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                colors: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                },
+                translations: { where: { lang: languageCode } }
+            }
+        });
+
+        return res.status(200).json({
+            ok: true,
+            message: "Product updated successfully",
+            product: localizeProduct(product, languageCode),
+        });
     } catch (error) {
         next(error);
     }
@@ -101,12 +260,10 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
 export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        await prisma.products.delete({
-            where: { id: Number(id) }
-        });
-        return res.status(200).json({
-            message: "Product deleted successfully"
-        });
+        // Delete translations first if not handled by cascade
+        await prisma.productTranslations.deleteMany({ where: { productId: Number(id) } });
+        await prisma.products.delete({ where: { id: Number(id) } });
+        return res.status(200).json({ message: "Product deleted successfully" });
     } catch (error) {
         next(error);
     }
@@ -115,19 +272,23 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
 export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { translations } = req.body;
+        const languageCode = (req as any).languageCode || 'uz';
 
         const category = await prisma.categories.create({
             data: {
-                categoryTranslations: {
+                translations: {
                     create: translations
                 }
+            },
+            include: {
+                translations: { where: { lang: languageCode } }
             }
         });
 
         return res.status(201).json({
             ok: true,
             message: "Category created successfully",
-            category
+            category: localizeCategory(category, languageCode)
         });
     } catch (error) {
         next(error);
@@ -138,22 +299,25 @@ export const updateCategory = async (req: Request, res: Response, next: NextFunc
     try {
         const { id } = req.params;
         const { translations } = req.body;
+        const languageCode = (req as any).languageCode || 'uz';
 
         const category = await prisma.categories.update({
-            where: {
-                id: Number(id)
-            },
+            where: { id: Number(id) },
             data: {
-                categoryTranslations: {
-                    update: translations
+                translations: {
+                    deleteMany: {},
+                    create: translations
                 }
+            },
+            include: {
+                translations: { where: { lang: languageCode } }
             }
         });
 
         return res.status(200).json({
             ok: true,
             message: "Category updated successfully",
-            category
+            category: localizeCategory(category, languageCode)
         });
     } catch (error) {
         next(error);
@@ -163,12 +327,9 @@ export const updateCategory = async (req: Request, res: Response, next: NextFunc
 export const deleteCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        await prisma.categories.delete({
-            where: { id: Number(id) }
-        });
-        return res.status(200).json({
-            message: "Category deleted successfully"
-        });
+        await prisma.categoryTranslations.deleteMany({ where: { categoryId: Number(id) } });
+        await prisma.categories.delete({ where: { id: Number(id) } });
+        return res.status(200).json({ message: "Category deleted successfully" });
     } catch (error) {
         next(error);
     }
@@ -177,16 +338,22 @@ export const deleteCategory = async (req: Request, res: Response, next: NextFunc
 export const getCategories = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { q } = req.query;
+        const languageCode = (req as any).languageCode || 'uz';
         const where: any = {};
         if (q) {
-            where.OR = [
-                { name: { path: ['uz'], string_contains: q as string, mode: 'insensitive' } },
-                { name: { path: ['ru'], string_contains: q as string, mode: 'insensitive' } },
-                { name: { path: ['en'], string_contains: q as string, mode: 'insensitive' } },
-            ];
+            where.translations = {
+                some: {
+                    name: { contains: q as string, mode: 'insensitive' }
+                }
+            };
         }
-        const categories = await prisma.categories.findMany({ where });
-        return res.status(200).json(categories);
+        const categories = await prisma.categories.findMany({
+            where,
+            include: {
+                translations: { where: { lang: languageCode } }
+            }
+        });
+        return res.status(200).json(categories.map(c => localizeCategory(c, languageCode)));
     } catch (error) {
         next(error);
     }
@@ -194,8 +361,13 @@ export const getCategories = async (req: Request, res: Response, next: NextFunct
 
 export const getSizes = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const sizes = await prisma.sizes.findMany();
-        return res.status(200).json(sizes);
+        const languageCode = (req as any).languageCode || 'uz';
+        const sizes = await prisma.sizes.findMany({
+            include: {
+                translations: { where: { lang: languageCode } }
+            }
+        });
+        return res.status(200).json(sizes.map(s => localizeSize(s, languageCode)));
     } catch (error) {
         next(error);
     }
@@ -203,9 +375,15 @@ export const getSizes = async (req: Request, res: Response, next: NextFunction) 
 
 export const getColors = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const colors = await prisma.colors.findMany();
-        return res.status(200).json(colors);
+        const languageCode = (req as any).languageCode || 'uz';
+        const colors = await prisma.colors.findMany({
+            include: {
+                translations: { where: { lang: languageCode } }
+            }
+        });
+        return res.status(200).json(colors.map(c => localizeColor(c, languageCode)));
     } catch (error) {
         next(error);
     }
 };
+

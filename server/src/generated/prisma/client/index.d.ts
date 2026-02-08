@@ -1928,12 +1928,14 @@ export namespace Prisma {
     categories: number
     sizes: number
     colors: number
+    translations: number
   }
 
   export type ProductsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categories?: boolean | ProductsCountOutputTypeCountCategoriesArgs
     sizes?: boolean | ProductsCountOutputTypeCountSizesArgs
     colors?: boolean | ProductsCountOutputTypeCountColorsArgs
+    translations?: boolean | ProductsCountOutputTypeCountTranslationsArgs
   }
 
   // Custom InputTypes
@@ -1968,35 +1970,11 @@ export namespace Prisma {
     where?: ColorsWhereInput
   }
 
-
   /**
-   * Count Type ProductTranslationsCountOutputType
+   * ProductsCountOutputType without action
    */
-
-  export type ProductTranslationsCountOutputType = {
-    products: number
-  }
-
-  export type ProductTranslationsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    products?: boolean | ProductTranslationsCountOutputTypeCountProductsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ProductTranslationsCountOutputType without action
-   */
-  export type ProductTranslationsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ProductTranslationsCountOutputType
-     */
-    select?: ProductTranslationsCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ProductTranslationsCountOutputType without action
-   */
-  export type ProductTranslationsCountOutputTypeCountProductsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ProductsWhereInput
+  export type ProductsCountOutputTypeCountTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProductTranslationsWhereInput
   }
 
 
@@ -2006,10 +1984,12 @@ export namespace Prisma {
 
   export type CategoriesCountOutputType = {
     products: number
+    translations: number
   }
 
   export type CategoriesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | CategoriesCountOutputTypeCountProductsArgs
+    translations?: boolean | CategoriesCountOutputTypeCountTranslationsArgs
   }
 
   // Custom InputTypes
@@ -2030,35 +2010,11 @@ export namespace Prisma {
     where?: ProductsWhereInput
   }
 
-
   /**
-   * Count Type CategoryTranslationsCountOutputType
+   * CategoriesCountOutputType without action
    */
-
-  export type CategoryTranslationsCountOutputType = {
-    categories: number
-  }
-
-  export type CategoryTranslationsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    categories?: boolean | CategoryTranslationsCountOutputTypeCountCategoriesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * CategoryTranslationsCountOutputType without action
-   */
-  export type CategoryTranslationsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CategoryTranslationsCountOutputType
-     */
-    select?: CategoryTranslationsCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * CategoryTranslationsCountOutputType without action
-   */
-  export type CategoryTranslationsCountOutputTypeCountCategoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CategoriesWhereInput
+  export type CategoriesCountOutputTypeCountTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CategoryTranslationsWhereInput
   }
 
 
@@ -2068,10 +2024,12 @@ export namespace Prisma {
 
   export type SizesCountOutputType = {
     products: number
+    translations: number
   }
 
   export type SizesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | SizesCountOutputTypeCountProductsArgs
+    translations?: boolean | SizesCountOutputTypeCountTranslationsArgs
   }
 
   // Custom InputTypes
@@ -2092,35 +2050,11 @@ export namespace Prisma {
     where?: ProductsWhereInput
   }
 
-
   /**
-   * Count Type SizeTranslationsCountOutputType
+   * SizesCountOutputType without action
    */
-
-  export type SizeTranslationsCountOutputType = {
-    sizes: number
-  }
-
-  export type SizeTranslationsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sizes?: boolean | SizeTranslationsCountOutputTypeCountSizesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * SizeTranslationsCountOutputType without action
-   */
-  export type SizeTranslationsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SizeTranslationsCountOutputType
-     */
-    select?: SizeTranslationsCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * SizeTranslationsCountOutputType without action
-   */
-  export type SizeTranslationsCountOutputTypeCountSizesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SizesWhereInput
+  export type SizesCountOutputTypeCountTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SizeTranslationsWhereInput
   }
 
 
@@ -2130,10 +2064,12 @@ export namespace Prisma {
 
   export type ColorsCountOutputType = {
     products: number
+    translations: number
   }
 
   export type ColorsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | ColorsCountOutputTypeCountProductsArgs
+    translations?: boolean | ColorsCountOutputTypeCountTranslationsArgs
   }
 
   // Custom InputTypes
@@ -2154,35 +2090,11 @@ export namespace Prisma {
     where?: ProductsWhereInput
   }
 
-
   /**
-   * Count Type ColorTranslationsCountOutputType
+   * ColorsCountOutputType without action
    */
-
-  export type ColorTranslationsCountOutputType = {
-    colors: number
-  }
-
-  export type ColorTranslationsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    colors?: boolean | ColorTranslationsCountOutputTypeCountColorsArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ColorTranslationsCountOutputType without action
-   */
-  export type ColorTranslationsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ColorTranslationsCountOutputType
-     */
-    select?: ColorTranslationsCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ColorTranslationsCountOutputType without action
-   */
-  export type ColorTranslationsCountOutputTypeCountColorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ColorsWhereInput
+  export type ColorsCountOutputTypeCountTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ColorTranslationsWhereInput
   }
 
 
@@ -6476,13 +6388,11 @@ export namespace Prisma {
   export type ProductsAvgAggregateOutputType = {
     id: number | null
     price: number | null
-    productTranslationsId: number | null
   }
 
   export type ProductsSumAggregateOutputType = {
     id: number | null
     price: number | null
-    productTranslationsId: number | null
   }
 
   export type ProductsMinAggregateOutputType = {
@@ -6490,7 +6400,6 @@ export namespace Prisma {
     price: number | null
     createdAt: Date | null
     updatedAt: Date | null
-    productTranslationsId: number | null
   }
 
   export type ProductsMaxAggregateOutputType = {
@@ -6498,7 +6407,6 @@ export namespace Prisma {
     price: number | null
     createdAt: Date | null
     updatedAt: Date | null
-    productTranslationsId: number | null
   }
 
   export type ProductsCountAggregateOutputType = {
@@ -6507,7 +6415,6 @@ export namespace Prisma {
     product_images: number
     createdAt: number
     updatedAt: number
-    productTranslationsId: number
     _all: number
   }
 
@@ -6515,13 +6422,11 @@ export namespace Prisma {
   export type ProductsAvgAggregateInputType = {
     id?: true
     price?: true
-    productTranslationsId?: true
   }
 
   export type ProductsSumAggregateInputType = {
     id?: true
     price?: true
-    productTranslationsId?: true
   }
 
   export type ProductsMinAggregateInputType = {
@@ -6529,7 +6434,6 @@ export namespace Prisma {
     price?: true
     createdAt?: true
     updatedAt?: true
-    productTranslationsId?: true
   }
 
   export type ProductsMaxAggregateInputType = {
@@ -6537,7 +6441,6 @@ export namespace Prisma {
     price?: true
     createdAt?: true
     updatedAt?: true
-    productTranslationsId?: true
   }
 
   export type ProductsCountAggregateInputType = {
@@ -6546,7 +6449,6 @@ export namespace Prisma {
     product_images?: true
     createdAt?: true
     updatedAt?: true
-    productTranslationsId?: true
     _all?: true
   }
 
@@ -6642,7 +6544,6 @@ export namespace Prisma {
     product_images: string[]
     createdAt: Date
     updatedAt: Date
-    productTranslationsId: number | null
     _count: ProductsCountAggregateOutputType | null
     _avg: ProductsAvgAggregateOutputType | null
     _sum: ProductsSumAggregateOutputType | null
@@ -6670,11 +6571,10 @@ export namespace Prisma {
     product_images?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    productTranslationsId?: boolean
     categories?: boolean | Products$categoriesArgs<ExtArgs>
     sizes?: boolean | Products$sizesArgs<ExtArgs>
     colors?: boolean | Products$colorsArgs<ExtArgs>
-    productTranslations?: boolean | Products$productTranslationsArgs<ExtArgs>
+    translations?: boolean | Products$translationsArgs<ExtArgs>
     _count?: boolean | ProductsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["products"]>
 
@@ -6684,8 +6584,6 @@ export namespace Prisma {
     product_images?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    productTranslationsId?: boolean
-    productTranslations?: boolean | Products$productTranslationsArgs<ExtArgs>
   }, ExtArgs["result"]["products"]>
 
   export type ProductsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6694,8 +6592,6 @@ export namespace Prisma {
     product_images?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    productTranslationsId?: boolean
-    productTranslations?: boolean | Products$productTranslationsArgs<ExtArgs>
   }, ExtArgs["result"]["products"]>
 
   export type ProductsSelectScalar = {
@@ -6704,23 +6600,18 @@ export namespace Prisma {
     product_images?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    productTranslationsId?: boolean
   }
 
-  export type ProductsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "price" | "product_images" | "createdAt" | "updatedAt" | "productTranslationsId", ExtArgs["result"]["products"]>
+  export type ProductsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "price" | "product_images" | "createdAt" | "updatedAt", ExtArgs["result"]["products"]>
   export type ProductsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     categories?: boolean | Products$categoriesArgs<ExtArgs>
     sizes?: boolean | Products$sizesArgs<ExtArgs>
     colors?: boolean | Products$colorsArgs<ExtArgs>
-    productTranslations?: boolean | Products$productTranslationsArgs<ExtArgs>
+    translations?: boolean | Products$translationsArgs<ExtArgs>
     _count?: boolean | ProductsCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ProductsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    productTranslations?: boolean | Products$productTranslationsArgs<ExtArgs>
-  }
-  export type ProductsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    productTranslations?: boolean | Products$productTranslationsArgs<ExtArgs>
-  }
+  export type ProductsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ProductsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $ProductsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Products"
@@ -6728,7 +6619,7 @@ export namespace Prisma {
       categories: Prisma.$CategoriesPayload<ExtArgs>[]
       sizes: Prisma.$SizesPayload<ExtArgs>[]
       colors: Prisma.$ColorsPayload<ExtArgs>[]
-      productTranslations: Prisma.$ProductTranslationsPayload<ExtArgs> | null
+      translations: Prisma.$ProductTranslationsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -6736,7 +6627,6 @@ export namespace Prisma {
       product_images: string[]
       createdAt: Date
       updatedAt: Date
-      productTranslationsId: number | null
     }, ExtArgs["result"]["products"]>
     composites: {}
   }
@@ -7134,7 +7024,7 @@ export namespace Prisma {
     categories<T extends Products$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, Products$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sizes<T extends Products$sizesArgs<ExtArgs> = {}>(args?: Subset<T, Products$sizesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SizesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     colors<T extends Products$colorsArgs<ExtArgs> = {}>(args?: Subset<T, Products$colorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    productTranslations<T extends Products$productTranslationsArgs<ExtArgs> = {}>(args?: Subset<T, Products$productTranslationsArgs<ExtArgs>>): Prisma__ProductTranslationsClient<$Result.GetResult<Prisma.$ProductTranslationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    translations<T extends Products$translationsArgs<ExtArgs> = {}>(args?: Subset<T, Products$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductTranslationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7169,7 +7059,6 @@ export namespace Prisma {
     readonly product_images: FieldRef<"Products", 'String[]'>
     readonly createdAt: FieldRef<"Products", 'DateTime'>
     readonly updatedAt: FieldRef<"Products", 'DateTime'>
-    readonly productTranslationsId: FieldRef<"Products", 'Int'>
   }
     
 
@@ -7419,10 +7308,6 @@ export namespace Prisma {
      */
     data: ProductsCreateManyInput | ProductsCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProductsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7493,10 +7378,6 @@ export namespace Prisma {
      * Limit how many Products to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProductsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7638,9 +7519,9 @@ export namespace Prisma {
   }
 
   /**
-   * Products.productTranslations
+   * Products.translations
    */
-  export type Products$productTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Products$translationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ProductTranslations
      */
@@ -7654,6 +7535,11 @@ export namespace Prisma {
      */
     include?: ProductTranslationsInclude<ExtArgs> | null
     where?: ProductTranslationsWhereInput
+    orderBy?: ProductTranslationsOrderByWithRelationInput | ProductTranslationsOrderByWithRelationInput[]
+    cursor?: ProductTranslationsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ProductTranslationsScalarFieldEnum | ProductTranslationsScalarFieldEnum[]
   }
 
   /**
@@ -7689,10 +7575,12 @@ export namespace Prisma {
 
   export type ProductTranslationsAvgAggregateOutputType = {
     id: number | null
+    productId: number | null
   }
 
   export type ProductTranslationsSumAggregateOutputType = {
     id: number | null
+    productId: number | null
   }
 
   export type ProductTranslationsMinAggregateOutputType = {
@@ -7700,6 +7588,7 @@ export namespace Prisma {
     name: string | null
     lang: string | null
     description: string | null
+    productId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7709,6 +7598,7 @@ export namespace Prisma {
     name: string | null
     lang: string | null
     description: string | null
+    productId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -7718,6 +7608,7 @@ export namespace Prisma {
     name: number
     lang: number
     description: number
+    productId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -7726,10 +7617,12 @@ export namespace Prisma {
 
   export type ProductTranslationsAvgAggregateInputType = {
     id?: true
+    productId?: true
   }
 
   export type ProductTranslationsSumAggregateInputType = {
     id?: true
+    productId?: true
   }
 
   export type ProductTranslationsMinAggregateInputType = {
@@ -7737,6 +7630,7 @@ export namespace Prisma {
     name?: true
     lang?: true
     description?: true
+    productId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7746,6 +7640,7 @@ export namespace Prisma {
     name?: true
     lang?: true
     description?: true
+    productId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -7755,6 +7650,7 @@ export namespace Prisma {
     name?: true
     lang?: true
     description?: true
+    productId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -7851,6 +7747,7 @@ export namespace Prisma {
     name: string
     lang: string
     description: string
+    productId: number
     createdAt: Date
     updatedAt: Date
     _count: ProductTranslationsCountAggregateOutputType | null
@@ -7879,10 +7776,10 @@ export namespace Prisma {
     name?: boolean
     lang?: boolean
     description?: boolean
+    productId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    products?: boolean | ProductTranslations$productsArgs<ExtArgs>
-    _count?: boolean | ProductTranslationsCountOutputTypeDefaultArgs<ExtArgs>
+    product?: boolean | ProductsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productTranslations"]>
 
   export type ProductTranslationsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7890,8 +7787,10 @@ export namespace Prisma {
     name?: boolean
     lang?: boolean
     description?: boolean
+    productId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    product?: boolean | ProductsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productTranslations"]>
 
   export type ProductTranslationsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7899,8 +7798,10 @@ export namespace Prisma {
     name?: boolean
     lang?: boolean
     description?: boolean
+    productId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    product?: boolean | ProductsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productTranslations"]>
 
   export type ProductTranslationsSelectScalar = {
@@ -7908,28 +7809,33 @@ export namespace Prisma {
     name?: boolean
     lang?: boolean
     description?: boolean
+    productId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ProductTranslationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lang" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["productTranslations"]>
+  export type ProductTranslationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lang" | "description" | "productId" | "createdAt" | "updatedAt", ExtArgs["result"]["productTranslations"]>
   export type ProductTranslationsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    products?: boolean | ProductTranslations$productsArgs<ExtArgs>
-    _count?: boolean | ProductTranslationsCountOutputTypeDefaultArgs<ExtArgs>
+    product?: boolean | ProductsDefaultArgs<ExtArgs>
   }
-  export type ProductTranslationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ProductTranslationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ProductTranslationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductsDefaultArgs<ExtArgs>
+  }
+  export type ProductTranslationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    product?: boolean | ProductsDefaultArgs<ExtArgs>
+  }
 
   export type $ProductTranslationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ProductTranslations"
     objects: {
-      products: Prisma.$ProductsPayload<ExtArgs>[]
+      product: Prisma.$ProductsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       lang: string
       description: string
+      productId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["productTranslations"]>
@@ -8326,7 +8232,7 @@ export namespace Prisma {
    */
   export interface Prisma__ProductTranslationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    products<T extends ProductTranslations$productsArgs<ExtArgs> = {}>(args?: Subset<T, ProductTranslations$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    product<T extends ProductsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProductsDefaultArgs<ExtArgs>>): Prisma__ProductsClient<$Result.GetResult<Prisma.$ProductsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8360,6 +8266,7 @@ export namespace Prisma {
     readonly name: FieldRef<"ProductTranslations", 'String'>
     readonly lang: FieldRef<"ProductTranslations", 'String'>
     readonly description: FieldRef<"ProductTranslations", 'String'>
+    readonly productId: FieldRef<"ProductTranslations", 'Int'>
     readonly createdAt: FieldRef<"ProductTranslations", 'DateTime'>
     readonly updatedAt: FieldRef<"ProductTranslations", 'DateTime'>
   }
@@ -8611,6 +8518,10 @@ export namespace Prisma {
      */
     data: ProductTranslationsCreateManyInput | ProductTranslationsCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductTranslationsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8681,6 +8592,10 @@ export namespace Prisma {
      * Limit how many ProductTranslations to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProductTranslationsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -8750,30 +8665,6 @@ export namespace Prisma {
   }
 
   /**
-   * ProductTranslations.products
-   */
-  export type ProductTranslations$productsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Products
-     */
-    select?: ProductsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Products
-     */
-    omit?: ProductsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ProductsInclude<ExtArgs> | null
-    where?: ProductsWhereInput
-    orderBy?: ProductsOrderByWithRelationInput | ProductsOrderByWithRelationInput[]
-    cursor?: ProductsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ProductsScalarFieldEnum | ProductsScalarFieldEnum[]
-  }
-
-  /**
    * ProductTranslations without action
    */
   export type ProductTranslationsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8806,66 +8697,56 @@ export namespace Prisma {
 
   export type CategoriesAvgAggregateOutputType = {
     id: number | null
-    categoryTranslationsId: number | null
   }
 
   export type CategoriesSumAggregateOutputType = {
     id: number | null
-    categoryTranslationsId: number | null
   }
 
   export type CategoriesMinAggregateOutputType = {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
-    categoryTranslationsId: number | null
   }
 
   export type CategoriesMaxAggregateOutputType = {
     id: number | null
     createdAt: Date | null
     updatedAt: Date | null
-    categoryTranslationsId: number | null
   }
 
   export type CategoriesCountAggregateOutputType = {
     id: number
     createdAt: number
     updatedAt: number
-    categoryTranslationsId: number
     _all: number
   }
 
 
   export type CategoriesAvgAggregateInputType = {
     id?: true
-    categoryTranslationsId?: true
   }
 
   export type CategoriesSumAggregateInputType = {
     id?: true
-    categoryTranslationsId?: true
   }
 
   export type CategoriesMinAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
-    categoryTranslationsId?: true
   }
 
   export type CategoriesMaxAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
-    categoryTranslationsId?: true
   }
 
   export type CategoriesCountAggregateInputType = {
     id?: true
     createdAt?: true
     updatedAt?: true
-    categoryTranslationsId?: true
     _all?: true
   }
 
@@ -8959,7 +8840,6 @@ export namespace Prisma {
     id: number
     createdAt: Date
     updatedAt: Date
-    categoryTranslationsId: number | null
     _count: CategoriesCountAggregateOutputType | null
     _avg: CategoriesAvgAggregateOutputType | null
     _sum: CategoriesSumAggregateOutputType | null
@@ -8985,9 +8865,8 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    categoryTranslationsId?: boolean
     products?: boolean | Categories$productsArgs<ExtArgs>
-    categoryTranslations?: boolean | Categories$categoryTranslationsArgs<ExtArgs>
+    translations?: boolean | Categories$translationsArgs<ExtArgs>
     _count?: boolean | CategoriesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["categories"]>
 
@@ -8995,49 +8874,39 @@ export namespace Prisma {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    categoryTranslationsId?: boolean
-    categoryTranslations?: boolean | Categories$categoryTranslationsArgs<ExtArgs>
   }, ExtArgs["result"]["categories"]>
 
   export type CategoriesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    categoryTranslationsId?: boolean
-    categoryTranslations?: boolean | Categories$categoryTranslationsArgs<ExtArgs>
   }, ExtArgs["result"]["categories"]>
 
   export type CategoriesSelectScalar = {
     id?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    categoryTranslationsId?: boolean
   }
 
-  export type CategoriesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt" | "categoryTranslationsId", ExtArgs["result"]["categories"]>
+  export type CategoriesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAt", ExtArgs["result"]["categories"]>
   export type CategoriesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Categories$productsArgs<ExtArgs>
-    categoryTranslations?: boolean | Categories$categoryTranslationsArgs<ExtArgs>
+    translations?: boolean | Categories$translationsArgs<ExtArgs>
     _count?: boolean | CategoriesCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type CategoriesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    categoryTranslations?: boolean | Categories$categoryTranslationsArgs<ExtArgs>
-  }
-  export type CategoriesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    categoryTranslations?: boolean | Categories$categoryTranslationsArgs<ExtArgs>
-  }
+  export type CategoriesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoriesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $CategoriesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Categories"
     objects: {
       products: Prisma.$ProductsPayload<ExtArgs>[]
-      categoryTranslations: Prisma.$CategoryTranslationsPayload<ExtArgs> | null
+      translations: Prisma.$CategoryTranslationsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
       updatedAt: Date
-      categoryTranslationsId: number | null
     }, ExtArgs["result"]["categories"]>
     composites: {}
   }
@@ -9433,7 +9302,7 @@ export namespace Prisma {
   export interface Prisma__CategoriesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     products<T extends Categories$productsArgs<ExtArgs> = {}>(args?: Subset<T, Categories$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    categoryTranslations<T extends Categories$categoryTranslationsArgs<ExtArgs> = {}>(args?: Subset<T, Categories$categoryTranslationsArgs<ExtArgs>>): Prisma__CategoryTranslationsClient<$Result.GetResult<Prisma.$CategoryTranslationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    translations<T extends Categories$translationsArgs<ExtArgs> = {}>(args?: Subset<T, Categories$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryTranslationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9466,7 +9335,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Categories", 'Int'>
     readonly createdAt: FieldRef<"Categories", 'DateTime'>
     readonly updatedAt: FieldRef<"Categories", 'DateTime'>
-    readonly categoryTranslationsId: FieldRef<"Categories", 'Int'>
   }
     
 
@@ -9716,10 +9584,6 @@ export namespace Prisma {
      */
     data: CategoriesCreateManyInput | CategoriesCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CategoriesIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9790,10 +9654,6 @@ export namespace Prisma {
      * Limit how many Categories to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CategoriesIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -9887,9 +9747,9 @@ export namespace Prisma {
   }
 
   /**
-   * Categories.categoryTranslations
+   * Categories.translations
    */
-  export type Categories$categoryTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Categories$translationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the CategoryTranslations
      */
@@ -9903,6 +9763,11 @@ export namespace Prisma {
      */
     include?: CategoryTranslationsInclude<ExtArgs> | null
     where?: CategoryTranslationsWhereInput
+    orderBy?: CategoryTranslationsOrderByWithRelationInput | CategoryTranslationsOrderByWithRelationInput[]
+    cursor?: CategoryTranslationsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CategoryTranslationsScalarFieldEnum | CategoryTranslationsScalarFieldEnum[]
   }
 
   /**
@@ -9938,16 +9803,19 @@ export namespace Prisma {
 
   export type CategoryTranslationsAvgAggregateOutputType = {
     id: number | null
+    categoryId: number | null
   }
 
   export type CategoryTranslationsSumAggregateOutputType = {
     id: number | null
+    categoryId: number | null
   }
 
   export type CategoryTranslationsMinAggregateOutputType = {
     id: number | null
     name: string | null
     lang: string | null
+    categoryId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9956,6 +9824,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     lang: string | null
+    categoryId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -9964,6 +9833,7 @@ export namespace Prisma {
     id: number
     name: number
     lang: number
+    categoryId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -9972,16 +9842,19 @@ export namespace Prisma {
 
   export type CategoryTranslationsAvgAggregateInputType = {
     id?: true
+    categoryId?: true
   }
 
   export type CategoryTranslationsSumAggregateInputType = {
     id?: true
+    categoryId?: true
   }
 
   export type CategoryTranslationsMinAggregateInputType = {
     id?: true
     name?: true
     lang?: true
+    categoryId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9990,6 +9863,7 @@ export namespace Prisma {
     id?: true
     name?: true
     lang?: true
+    categoryId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -9998,6 +9872,7 @@ export namespace Prisma {
     id?: true
     name?: true
     lang?: true
+    categoryId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -10093,6 +9968,7 @@ export namespace Prisma {
     id: number
     name: string
     lang: string
+    categoryId: number
     createdAt: Date
     updatedAt: Date
     _count: CategoryTranslationsCountAggregateOutputType | null
@@ -10120,53 +9996,62 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     lang?: boolean
+    categoryId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    categories?: boolean | CategoryTranslations$categoriesArgs<ExtArgs>
-    _count?: boolean | CategoryTranslationsCountOutputTypeDefaultArgs<ExtArgs>
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["categoryTranslations"]>
 
   export type CategoryTranslationsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     lang?: boolean
+    categoryId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["categoryTranslations"]>
 
   export type CategoryTranslationsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     lang?: boolean
+    categoryId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["categoryTranslations"]>
 
   export type CategoryTranslationsSelectScalar = {
     id?: boolean
     name?: boolean
     lang?: boolean
+    categoryId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CategoryTranslationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lang" | "createdAt" | "updatedAt", ExtArgs["result"]["categoryTranslations"]>
+  export type CategoryTranslationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lang" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["categoryTranslations"]>
   export type CategoryTranslationsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    categories?: boolean | CategoryTranslations$categoriesArgs<ExtArgs>
-    _count?: boolean | CategoryTranslationsCountOutputTypeDefaultArgs<ExtArgs>
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
   }
-  export type CategoryTranslationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type CategoryTranslationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type CategoryTranslationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
+  }
+  export type CategoryTranslationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
+  }
 
   export type $CategoryTranslationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "CategoryTranslations"
     objects: {
-      categories: Prisma.$CategoriesPayload<ExtArgs>[]
+      category: Prisma.$CategoriesPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       lang: string
+      categoryId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["categoryTranslations"]>
@@ -10563,7 +10448,7 @@ export namespace Prisma {
    */
   export interface Prisma__CategoryTranslationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    categories<T extends CategoryTranslations$categoriesArgs<ExtArgs> = {}>(args?: Subset<T, CategoryTranslations$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoriesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    category<T extends CategoriesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoriesDefaultArgs<ExtArgs>>): Prisma__CategoriesClient<$Result.GetResult<Prisma.$CategoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10596,6 +10481,7 @@ export namespace Prisma {
     readonly id: FieldRef<"CategoryTranslations", 'Int'>
     readonly name: FieldRef<"CategoryTranslations", 'String'>
     readonly lang: FieldRef<"CategoryTranslations", 'String'>
+    readonly categoryId: FieldRef<"CategoryTranslations", 'Int'>
     readonly createdAt: FieldRef<"CategoryTranslations", 'DateTime'>
     readonly updatedAt: FieldRef<"CategoryTranslations", 'DateTime'>
   }
@@ -10847,6 +10733,10 @@ export namespace Prisma {
      */
     data: CategoryTranslationsCreateManyInput | CategoryTranslationsCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryTranslationsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10917,6 +10807,10 @@ export namespace Prisma {
      * Limit how many CategoryTranslations to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CategoryTranslationsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -10986,30 +10880,6 @@ export namespace Prisma {
   }
 
   /**
-   * CategoryTranslations.categories
-   */
-  export type CategoryTranslations$categoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Categories
-     */
-    select?: CategoriesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Categories
-     */
-    omit?: CategoriesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: CategoriesInclude<ExtArgs> | null
-    where?: CategoriesWhereInput
-    orderBy?: CategoriesOrderByWithRelationInput | CategoriesOrderByWithRelationInput[]
-    cursor?: CategoriesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CategoriesScalarFieldEnum | CategoriesScalarFieldEnum[]
-  }
-
-  /**
    * CategoryTranslations without action
    */
   export type CategoryTranslationsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11042,12 +10912,10 @@ export namespace Prisma {
 
   export type SizesAvgAggregateOutputType = {
     id: number | null
-    sizeTranslationsId: number | null
   }
 
   export type SizesSumAggregateOutputType = {
     id: number | null
-    sizeTranslationsId: number | null
   }
 
   export type SizesMinAggregateOutputType = {
@@ -11055,7 +10923,6 @@ export namespace Prisma {
     name: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    sizeTranslationsId: number | null
   }
 
   export type SizesMaxAggregateOutputType = {
@@ -11063,7 +10930,6 @@ export namespace Prisma {
     name: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    sizeTranslationsId: number | null
   }
 
   export type SizesCountAggregateOutputType = {
@@ -11071,19 +10937,16 @@ export namespace Prisma {
     name: number
     createdAt: number
     updatedAt: number
-    sizeTranslationsId: number
     _all: number
   }
 
 
   export type SizesAvgAggregateInputType = {
     id?: true
-    sizeTranslationsId?: true
   }
 
   export type SizesSumAggregateInputType = {
     id?: true
-    sizeTranslationsId?: true
   }
 
   export type SizesMinAggregateInputType = {
@@ -11091,7 +10954,6 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     updatedAt?: true
-    sizeTranslationsId?: true
   }
 
   export type SizesMaxAggregateInputType = {
@@ -11099,7 +10961,6 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     updatedAt?: true
-    sizeTranslationsId?: true
   }
 
   export type SizesCountAggregateInputType = {
@@ -11107,7 +10968,6 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     updatedAt?: true
-    sizeTranslationsId?: true
     _all?: true
   }
 
@@ -11202,7 +11062,6 @@ export namespace Prisma {
     name: string
     createdAt: Date
     updatedAt: Date
-    sizeTranslationsId: number | null
     _count: SizesCountAggregateOutputType | null
     _avg: SizesAvgAggregateOutputType | null
     _sum: SizesSumAggregateOutputType | null
@@ -11229,9 +11088,8 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    sizeTranslationsId?: boolean
     products?: boolean | Sizes$productsArgs<ExtArgs>
-    sizeTranslations?: boolean | Sizes$sizeTranslationsArgs<ExtArgs>
+    translations?: boolean | Sizes$translationsArgs<ExtArgs>
     _count?: boolean | SizesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sizes"]>
 
@@ -11240,8 +11098,6 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    sizeTranslationsId?: boolean
-    sizeTranslations?: boolean | Sizes$sizeTranslationsArgs<ExtArgs>
   }, ExtArgs["result"]["sizes"]>
 
   export type SizesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -11249,8 +11105,6 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    sizeTranslationsId?: boolean
-    sizeTranslations?: boolean | Sizes$sizeTranslationsArgs<ExtArgs>
   }, ExtArgs["result"]["sizes"]>
 
   export type SizesSelectScalar = {
@@ -11258,34 +11112,28 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    sizeTranslationsId?: boolean
   }
 
-  export type SizesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "sizeTranslationsId", ExtArgs["result"]["sizes"]>
+  export type SizesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["sizes"]>
   export type SizesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Sizes$productsArgs<ExtArgs>
-    sizeTranslations?: boolean | Sizes$sizeTranslationsArgs<ExtArgs>
+    translations?: boolean | Sizes$translationsArgs<ExtArgs>
     _count?: boolean | SizesCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type SizesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sizeTranslations?: boolean | Sizes$sizeTranslationsArgs<ExtArgs>
-  }
-  export type SizesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sizeTranslations?: boolean | Sizes$sizeTranslationsArgs<ExtArgs>
-  }
+  export type SizesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SizesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $SizesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Sizes"
     objects: {
       products: Prisma.$ProductsPayload<ExtArgs>[]
-      sizeTranslations: Prisma.$SizeTranslationsPayload<ExtArgs> | null
+      translations: Prisma.$SizeTranslationsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       createdAt: Date
       updatedAt: Date
-      sizeTranslationsId: number | null
     }, ExtArgs["result"]["sizes"]>
     composites: {}
   }
@@ -11681,7 +11529,7 @@ export namespace Prisma {
   export interface Prisma__SizesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     products<T extends Sizes$productsArgs<ExtArgs> = {}>(args?: Subset<T, Sizes$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    sizeTranslations<T extends Sizes$sizeTranslationsArgs<ExtArgs> = {}>(args?: Subset<T, Sizes$sizeTranslationsArgs<ExtArgs>>): Prisma__SizeTranslationsClient<$Result.GetResult<Prisma.$SizeTranslationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    translations<T extends Sizes$translationsArgs<ExtArgs> = {}>(args?: Subset<T, Sizes$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SizeTranslationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11715,7 +11563,6 @@ export namespace Prisma {
     readonly name: FieldRef<"Sizes", 'String'>
     readonly createdAt: FieldRef<"Sizes", 'DateTime'>
     readonly updatedAt: FieldRef<"Sizes", 'DateTime'>
-    readonly sizeTranslationsId: FieldRef<"Sizes", 'Int'>
   }
     
 
@@ -11965,10 +11812,6 @@ export namespace Prisma {
      */
     data: SizesCreateManyInput | SizesCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SizesIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -12039,10 +11882,6 @@ export namespace Prisma {
      * Limit how many Sizes to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SizesIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -12136,9 +11975,9 @@ export namespace Prisma {
   }
 
   /**
-   * Sizes.sizeTranslations
+   * Sizes.translations
    */
-  export type Sizes$sizeTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Sizes$translationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the SizeTranslations
      */
@@ -12152,6 +11991,11 @@ export namespace Prisma {
      */
     include?: SizeTranslationsInclude<ExtArgs> | null
     where?: SizeTranslationsWhereInput
+    orderBy?: SizeTranslationsOrderByWithRelationInput | SizeTranslationsOrderByWithRelationInput[]
+    cursor?: SizeTranslationsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SizeTranslationsScalarFieldEnum | SizeTranslationsScalarFieldEnum[]
   }
 
   /**
@@ -12187,16 +12031,19 @@ export namespace Prisma {
 
   export type SizeTranslationsAvgAggregateOutputType = {
     id: number | null
+    sizeId: number | null
   }
 
   export type SizeTranslationsSumAggregateOutputType = {
     id: number | null
+    sizeId: number | null
   }
 
   export type SizeTranslationsMinAggregateOutputType = {
     id: number | null
     name: string | null
     lang: string | null
+    sizeId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12205,6 +12052,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     lang: string | null
+    sizeId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -12213,6 +12061,7 @@ export namespace Prisma {
     id: number
     name: number
     lang: number
+    sizeId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -12221,16 +12070,19 @@ export namespace Prisma {
 
   export type SizeTranslationsAvgAggregateInputType = {
     id?: true
+    sizeId?: true
   }
 
   export type SizeTranslationsSumAggregateInputType = {
     id?: true
+    sizeId?: true
   }
 
   export type SizeTranslationsMinAggregateInputType = {
     id?: true
     name?: true
     lang?: true
+    sizeId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12239,6 +12091,7 @@ export namespace Prisma {
     id?: true
     name?: true
     lang?: true
+    sizeId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -12247,6 +12100,7 @@ export namespace Prisma {
     id?: true
     name?: true
     lang?: true
+    sizeId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -12342,6 +12196,7 @@ export namespace Prisma {
     id: number
     name: string
     lang: string
+    sizeId: number
     createdAt: Date
     updatedAt: Date
     _count: SizeTranslationsCountAggregateOutputType | null
@@ -12369,53 +12224,62 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     lang?: boolean
+    sizeId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    sizes?: boolean | SizeTranslations$sizesArgs<ExtArgs>
-    _count?: boolean | SizeTranslationsCountOutputTypeDefaultArgs<ExtArgs>
+    size?: boolean | SizesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sizeTranslations"]>
 
   export type SizeTranslationsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     lang?: boolean
+    sizeId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    size?: boolean | SizesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sizeTranslations"]>
 
   export type SizeTranslationsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     lang?: boolean
+    sizeId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    size?: boolean | SizesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sizeTranslations"]>
 
   export type SizeTranslationsSelectScalar = {
     id?: boolean
     name?: boolean
     lang?: boolean
+    sizeId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SizeTranslationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lang" | "createdAt" | "updatedAt", ExtArgs["result"]["sizeTranslations"]>
+  export type SizeTranslationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lang" | "sizeId" | "createdAt" | "updatedAt", ExtArgs["result"]["sizeTranslations"]>
   export type SizeTranslationsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    sizes?: boolean | SizeTranslations$sizesArgs<ExtArgs>
-    _count?: boolean | SizeTranslationsCountOutputTypeDefaultArgs<ExtArgs>
+    size?: boolean | SizesDefaultArgs<ExtArgs>
   }
-  export type SizeTranslationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type SizeTranslationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type SizeTranslationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    size?: boolean | SizesDefaultArgs<ExtArgs>
+  }
+  export type SizeTranslationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    size?: boolean | SizesDefaultArgs<ExtArgs>
+  }
 
   export type $SizeTranslationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SizeTranslations"
     objects: {
-      sizes: Prisma.$SizesPayload<ExtArgs>[]
+      size: Prisma.$SizesPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       lang: string
+      sizeId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sizeTranslations"]>
@@ -12812,7 +12676,7 @@ export namespace Prisma {
    */
   export interface Prisma__SizeTranslationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    sizes<T extends SizeTranslations$sizesArgs<ExtArgs> = {}>(args?: Subset<T, SizeTranslations$sizesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SizesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    size<T extends SizesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SizesDefaultArgs<ExtArgs>>): Prisma__SizesClient<$Result.GetResult<Prisma.$SizesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12845,6 +12709,7 @@ export namespace Prisma {
     readonly id: FieldRef<"SizeTranslations", 'Int'>
     readonly name: FieldRef<"SizeTranslations", 'String'>
     readonly lang: FieldRef<"SizeTranslations", 'String'>
+    readonly sizeId: FieldRef<"SizeTranslations", 'Int'>
     readonly createdAt: FieldRef<"SizeTranslations", 'DateTime'>
     readonly updatedAt: FieldRef<"SizeTranslations", 'DateTime'>
   }
@@ -13096,6 +12961,10 @@ export namespace Prisma {
      */
     data: SizeTranslationsCreateManyInput | SizeTranslationsCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeTranslationsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13166,6 +13035,10 @@ export namespace Prisma {
      * Limit how many SizeTranslations to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SizeTranslationsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -13235,30 +13108,6 @@ export namespace Prisma {
   }
 
   /**
-   * SizeTranslations.sizes
-   */
-  export type SizeTranslations$sizesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Sizes
-     */
-    select?: SizesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Sizes
-     */
-    omit?: SizesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SizesInclude<ExtArgs> | null
-    where?: SizesWhereInput
-    orderBy?: SizesOrderByWithRelationInput | SizesOrderByWithRelationInput[]
-    cursor?: SizesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SizesScalarFieldEnum | SizesScalarFieldEnum[]
-  }
-
-  /**
    * SizeTranslations without action
    */
   export type SizeTranslationsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -13291,12 +13140,10 @@ export namespace Prisma {
 
   export type ColorsAvgAggregateOutputType = {
     id: number | null
-    colorTranslationsId: number | null
   }
 
   export type ColorsSumAggregateOutputType = {
     id: number | null
-    colorTranslationsId: number | null
   }
 
   export type ColorsMinAggregateOutputType = {
@@ -13304,7 +13151,6 @@ export namespace Prisma {
     name: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    colorTranslationsId: number | null
   }
 
   export type ColorsMaxAggregateOutputType = {
@@ -13312,7 +13158,6 @@ export namespace Prisma {
     name: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    colorTranslationsId: number | null
   }
 
   export type ColorsCountAggregateOutputType = {
@@ -13320,19 +13165,16 @@ export namespace Prisma {
     name: number
     createdAt: number
     updatedAt: number
-    colorTranslationsId: number
     _all: number
   }
 
 
   export type ColorsAvgAggregateInputType = {
     id?: true
-    colorTranslationsId?: true
   }
 
   export type ColorsSumAggregateInputType = {
     id?: true
-    colorTranslationsId?: true
   }
 
   export type ColorsMinAggregateInputType = {
@@ -13340,7 +13182,6 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     updatedAt?: true
-    colorTranslationsId?: true
   }
 
   export type ColorsMaxAggregateInputType = {
@@ -13348,7 +13189,6 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     updatedAt?: true
-    colorTranslationsId?: true
   }
 
   export type ColorsCountAggregateInputType = {
@@ -13356,7 +13196,6 @@ export namespace Prisma {
     name?: true
     createdAt?: true
     updatedAt?: true
-    colorTranslationsId?: true
     _all?: true
   }
 
@@ -13451,7 +13290,6 @@ export namespace Prisma {
     name: string
     createdAt: Date
     updatedAt: Date
-    colorTranslationsId: number | null
     _count: ColorsCountAggregateOutputType | null
     _avg: ColorsAvgAggregateOutputType | null
     _sum: ColorsSumAggregateOutputType | null
@@ -13478,9 +13316,8 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    colorTranslationsId?: boolean
     products?: boolean | Colors$productsArgs<ExtArgs>
-    colorTranslations?: boolean | Colors$colorTranslationsArgs<ExtArgs>
+    translations?: boolean | Colors$translationsArgs<ExtArgs>
     _count?: boolean | ColorsCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["colors"]>
 
@@ -13489,8 +13326,6 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    colorTranslationsId?: boolean
-    colorTranslations?: boolean | Colors$colorTranslationsArgs<ExtArgs>
   }, ExtArgs["result"]["colors"]>
 
   export type ColorsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -13498,8 +13333,6 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    colorTranslationsId?: boolean
-    colorTranslations?: boolean | Colors$colorTranslationsArgs<ExtArgs>
   }, ExtArgs["result"]["colors"]>
 
   export type ColorsSelectScalar = {
@@ -13507,34 +13340,28 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    colorTranslationsId?: boolean
   }
 
-  export type ColorsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt" | "colorTranslationsId", ExtArgs["result"]["colors"]>
+  export type ColorsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["colors"]>
   export type ColorsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Colors$productsArgs<ExtArgs>
-    colorTranslations?: boolean | Colors$colorTranslationsArgs<ExtArgs>
+    translations?: boolean | Colors$translationsArgs<ExtArgs>
     _count?: boolean | ColorsCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ColorsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    colorTranslations?: boolean | Colors$colorTranslationsArgs<ExtArgs>
-  }
-  export type ColorsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    colorTranslations?: boolean | Colors$colorTranslationsArgs<ExtArgs>
-  }
+  export type ColorsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ColorsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $ColorsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Colors"
     objects: {
       products: Prisma.$ProductsPayload<ExtArgs>[]
-      colorTranslations: Prisma.$ColorTranslationsPayload<ExtArgs> | null
+      translations: Prisma.$ColorTranslationsPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       createdAt: Date
       updatedAt: Date
-      colorTranslationsId: number | null
     }, ExtArgs["result"]["colors"]>
     composites: {}
   }
@@ -13930,7 +13757,7 @@ export namespace Prisma {
   export interface Prisma__ColorsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     products<T extends Colors$productsArgs<ExtArgs> = {}>(args?: Subset<T, Colors$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    colorTranslations<T extends Colors$colorTranslationsArgs<ExtArgs> = {}>(args?: Subset<T, Colors$colorTranslationsArgs<ExtArgs>>): Prisma__ColorTranslationsClient<$Result.GetResult<Prisma.$ColorTranslationsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    translations<T extends Colors$translationsArgs<ExtArgs> = {}>(args?: Subset<T, Colors$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorTranslationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -13964,7 +13791,6 @@ export namespace Prisma {
     readonly name: FieldRef<"Colors", 'String'>
     readonly createdAt: FieldRef<"Colors", 'DateTime'>
     readonly updatedAt: FieldRef<"Colors", 'DateTime'>
-    readonly colorTranslationsId: FieldRef<"Colors", 'Int'>
   }
     
 
@@ -14214,10 +14040,6 @@ export namespace Prisma {
      */
     data: ColorsCreateManyInput | ColorsCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ColorsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -14288,10 +14110,6 @@ export namespace Prisma {
      * Limit how many Colors to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ColorsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -14385,9 +14203,9 @@ export namespace Prisma {
   }
 
   /**
-   * Colors.colorTranslations
+   * Colors.translations
    */
-  export type Colors$colorTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Colors$translationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ColorTranslations
      */
@@ -14401,6 +14219,11 @@ export namespace Prisma {
      */
     include?: ColorTranslationsInclude<ExtArgs> | null
     where?: ColorTranslationsWhereInput
+    orderBy?: ColorTranslationsOrderByWithRelationInput | ColorTranslationsOrderByWithRelationInput[]
+    cursor?: ColorTranslationsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ColorTranslationsScalarFieldEnum | ColorTranslationsScalarFieldEnum[]
   }
 
   /**
@@ -14436,16 +14259,19 @@ export namespace Prisma {
 
   export type ColorTranslationsAvgAggregateOutputType = {
     id: number | null
+    colorId: number | null
   }
 
   export type ColorTranslationsSumAggregateOutputType = {
     id: number | null
+    colorId: number | null
   }
 
   export type ColorTranslationsMinAggregateOutputType = {
     id: number | null
     name: string | null
     lang: string | null
+    colorId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14454,6 +14280,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     lang: string | null
+    colorId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14462,6 +14289,7 @@ export namespace Prisma {
     id: number
     name: number
     lang: number
+    colorId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -14470,16 +14298,19 @@ export namespace Prisma {
 
   export type ColorTranslationsAvgAggregateInputType = {
     id?: true
+    colorId?: true
   }
 
   export type ColorTranslationsSumAggregateInputType = {
     id?: true
+    colorId?: true
   }
 
   export type ColorTranslationsMinAggregateInputType = {
     id?: true
     name?: true
     lang?: true
+    colorId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14488,6 +14319,7 @@ export namespace Prisma {
     id?: true
     name?: true
     lang?: true
+    colorId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14496,6 +14328,7 @@ export namespace Prisma {
     id?: true
     name?: true
     lang?: true
+    colorId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -14591,6 +14424,7 @@ export namespace Prisma {
     id: number
     name: string
     lang: string
+    colorId: number
     createdAt: Date
     updatedAt: Date
     _count: ColorTranslationsCountAggregateOutputType | null
@@ -14618,53 +14452,62 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     lang?: boolean
+    colorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    colors?: boolean | ColorTranslations$colorsArgs<ExtArgs>
-    _count?: boolean | ColorTranslationsCountOutputTypeDefaultArgs<ExtArgs>
+    color?: boolean | ColorsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["colorTranslations"]>
 
   export type ColorTranslationsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     lang?: boolean
+    colorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    color?: boolean | ColorsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["colorTranslations"]>
 
   export type ColorTranslationsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
     lang?: boolean
+    colorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    color?: boolean | ColorsDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["colorTranslations"]>
 
   export type ColorTranslationsSelectScalar = {
     id?: boolean
     name?: boolean
     lang?: boolean
+    colorId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ColorTranslationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lang" | "createdAt" | "updatedAt", ExtArgs["result"]["colorTranslations"]>
+  export type ColorTranslationsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "lang" | "colorId" | "createdAt" | "updatedAt", ExtArgs["result"]["colorTranslations"]>
   export type ColorTranslationsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    colors?: boolean | ColorTranslations$colorsArgs<ExtArgs>
-    _count?: boolean | ColorTranslationsCountOutputTypeDefaultArgs<ExtArgs>
+    color?: boolean | ColorsDefaultArgs<ExtArgs>
   }
-  export type ColorTranslationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ColorTranslationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ColorTranslationsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    color?: boolean | ColorsDefaultArgs<ExtArgs>
+  }
+  export type ColorTranslationsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    color?: boolean | ColorsDefaultArgs<ExtArgs>
+  }
 
   export type $ColorTranslationsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ColorTranslations"
     objects: {
-      colors: Prisma.$ColorsPayload<ExtArgs>[]
+      color: Prisma.$ColorsPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
       lang: string
+      colorId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["colorTranslations"]>
@@ -15061,7 +14904,7 @@ export namespace Prisma {
    */
   export interface Prisma__ColorTranslationsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    colors<T extends ColorTranslations$colorsArgs<ExtArgs> = {}>(args?: Subset<T, ColorTranslations$colorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ColorsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    color<T extends ColorsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ColorsDefaultArgs<ExtArgs>>): Prisma__ColorsClient<$Result.GetResult<Prisma.$ColorsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15094,6 +14937,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ColorTranslations", 'Int'>
     readonly name: FieldRef<"ColorTranslations", 'String'>
     readonly lang: FieldRef<"ColorTranslations", 'String'>
+    readonly colorId: FieldRef<"ColorTranslations", 'Int'>
     readonly createdAt: FieldRef<"ColorTranslations", 'DateTime'>
     readonly updatedAt: FieldRef<"ColorTranslations", 'DateTime'>
   }
@@ -15345,6 +15189,10 @@ export namespace Prisma {
      */
     data: ColorTranslationsCreateManyInput | ColorTranslationsCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorTranslationsIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -15415,6 +15263,10 @@ export namespace Prisma {
      * Limit how many ColorTranslations to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ColorTranslationsIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -15481,30 +15333,6 @@ export namespace Prisma {
      * Limit how many ColorTranslations to delete.
      */
     limit?: number
-  }
-
-  /**
-   * ColorTranslations.colors
-   */
-  export type ColorTranslations$colorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Colors
-     */
-    select?: ColorsSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Colors
-     */
-    omit?: ColorsOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: ColorsInclude<ExtArgs> | null
-    where?: ColorsWhereInput
-    orderBy?: ColorsOrderByWithRelationInput | ColorsOrderByWithRelationInput[]
-    cursor?: ColorsWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: ColorsScalarFieldEnum | ColorsScalarFieldEnum[]
   }
 
   /**
@@ -15592,8 +15420,7 @@ export namespace Prisma {
     price: 'price',
     product_images: 'product_images',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    productTranslationsId: 'productTranslationsId'
+    updatedAt: 'updatedAt'
   };
 
   export type ProductsScalarFieldEnum = (typeof ProductsScalarFieldEnum)[keyof typeof ProductsScalarFieldEnum]
@@ -15604,6 +15431,7 @@ export namespace Prisma {
     name: 'name',
     lang: 'lang',
     description: 'description',
+    productId: 'productId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15614,8 +15442,7 @@ export namespace Prisma {
   export const CategoriesScalarFieldEnum: {
     id: 'id',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    categoryTranslationsId: 'categoryTranslationsId'
+    updatedAt: 'updatedAt'
   };
 
   export type CategoriesScalarFieldEnum = (typeof CategoriesScalarFieldEnum)[keyof typeof CategoriesScalarFieldEnum]
@@ -15625,6 +15452,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     lang: 'lang',
+    categoryId: 'categoryId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15636,8 +15464,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    sizeTranslationsId: 'sizeTranslationsId'
+    updatedAt: 'updatedAt'
   };
 
   export type SizesScalarFieldEnum = (typeof SizesScalarFieldEnum)[keyof typeof SizesScalarFieldEnum]
@@ -15647,6 +15474,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     lang: 'lang',
+    sizeId: 'sizeId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15658,8 +15486,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-    colorTranslationsId: 'colorTranslationsId'
+    updatedAt: 'updatedAt'
   };
 
   export type ColorsScalarFieldEnum = (typeof ColorsScalarFieldEnum)[keyof typeof ColorsScalarFieldEnum]
@@ -15669,6 +15496,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     lang: 'lang',
+    colorId: 'colorId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -15690,14 +15518,6 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
-  };
-
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -16008,11 +15828,10 @@ export namespace Prisma {
     product_images?: StringNullableListFilter<"Products">
     createdAt?: DateTimeFilter<"Products"> | Date | string
     updatedAt?: DateTimeFilter<"Products"> | Date | string
-    productTranslationsId?: IntNullableFilter<"Products"> | number | null
     categories?: CategoriesListRelationFilter
     sizes?: SizesListRelationFilter
     colors?: ColorsListRelationFilter
-    productTranslations?: XOR<ProductTranslationsNullableScalarRelationFilter, ProductTranslationsWhereInput> | null
+    translations?: ProductTranslationsListRelationFilter
   }
 
   export type ProductsOrderByWithRelationInput = {
@@ -16021,11 +15840,10 @@ export namespace Prisma {
     product_images?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    productTranslationsId?: SortOrderInput | SortOrder
     categories?: CategoriesOrderByRelationAggregateInput
     sizes?: SizesOrderByRelationAggregateInput
     colors?: ColorsOrderByRelationAggregateInput
-    productTranslations?: ProductTranslationsOrderByWithRelationInput
+    translations?: ProductTranslationsOrderByRelationAggregateInput
   }
 
   export type ProductsWhereUniqueInput = Prisma.AtLeast<{
@@ -16037,11 +15855,10 @@ export namespace Prisma {
     product_images?: StringNullableListFilter<"Products">
     createdAt?: DateTimeFilter<"Products"> | Date | string
     updatedAt?: DateTimeFilter<"Products"> | Date | string
-    productTranslationsId?: IntNullableFilter<"Products"> | number | null
     categories?: CategoriesListRelationFilter
     sizes?: SizesListRelationFilter
     colors?: ColorsListRelationFilter
-    productTranslations?: XOR<ProductTranslationsNullableScalarRelationFilter, ProductTranslationsWhereInput> | null
+    translations?: ProductTranslationsListRelationFilter
   }, "id">
 
   export type ProductsOrderByWithAggregationInput = {
@@ -16050,7 +15867,6 @@ export namespace Prisma {
     product_images?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    productTranslationsId?: SortOrderInput | SortOrder
     _count?: ProductsCountOrderByAggregateInput
     _avg?: ProductsAvgOrderByAggregateInput
     _max?: ProductsMaxOrderByAggregateInput
@@ -16067,7 +15883,6 @@ export namespace Prisma {
     product_images?: StringNullableListFilter<"Products">
     createdAt?: DateTimeWithAggregatesFilter<"Products"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Products"> | Date | string
-    productTranslationsId?: IntNullableWithAggregatesFilter<"Products"> | number | null
   }
 
   export type ProductTranslationsWhereInput = {
@@ -16078,9 +15893,10 @@ export namespace Prisma {
     name?: StringFilter<"ProductTranslations"> | string
     lang?: StringFilter<"ProductTranslations"> | string
     description?: StringFilter<"ProductTranslations"> | string
+    productId?: IntFilter<"ProductTranslations"> | number
     createdAt?: DateTimeFilter<"ProductTranslations"> | Date | string
     updatedAt?: DateTimeFilter<"ProductTranslations"> | Date | string
-    products?: ProductsListRelationFilter
+    product?: XOR<ProductsScalarRelationFilter, ProductsWhereInput>
   }
 
   export type ProductTranslationsOrderByWithRelationInput = {
@@ -16088,9 +15904,10 @@ export namespace Prisma {
     name?: SortOrder
     lang?: SortOrder
     description?: SortOrder
+    productId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    products?: ProductsOrderByRelationAggregateInput
+    product?: ProductsOrderByWithRelationInput
   }
 
   export type ProductTranslationsWhereUniqueInput = Prisma.AtLeast<{
@@ -16101,9 +15918,10 @@ export namespace Prisma {
     name?: StringFilter<"ProductTranslations"> | string
     lang?: StringFilter<"ProductTranslations"> | string
     description?: StringFilter<"ProductTranslations"> | string
+    productId?: IntFilter<"ProductTranslations"> | number
     createdAt?: DateTimeFilter<"ProductTranslations"> | Date | string
     updatedAt?: DateTimeFilter<"ProductTranslations"> | Date | string
-    products?: ProductsListRelationFilter
+    product?: XOR<ProductsScalarRelationFilter, ProductsWhereInput>
   }, "id">
 
   export type ProductTranslationsOrderByWithAggregationInput = {
@@ -16111,6 +15929,7 @@ export namespace Prisma {
     name?: SortOrder
     lang?: SortOrder
     description?: SortOrder
+    productId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ProductTranslationsCountOrderByAggregateInput
@@ -16128,6 +15947,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"ProductTranslations"> | string
     lang?: StringWithAggregatesFilter<"ProductTranslations"> | string
     description?: StringWithAggregatesFilter<"ProductTranslations"> | string
+    productId?: IntWithAggregatesFilter<"ProductTranslations"> | number
     createdAt?: DateTimeWithAggregatesFilter<"ProductTranslations"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ProductTranslations"> | Date | string
   }
@@ -16139,18 +15959,16 @@ export namespace Prisma {
     id?: IntFilter<"Categories"> | number
     createdAt?: DateTimeFilter<"Categories"> | Date | string
     updatedAt?: DateTimeFilter<"Categories"> | Date | string
-    categoryTranslationsId?: IntNullableFilter<"Categories"> | number | null
     products?: ProductsListRelationFilter
-    categoryTranslations?: XOR<CategoryTranslationsNullableScalarRelationFilter, CategoryTranslationsWhereInput> | null
+    translations?: CategoryTranslationsListRelationFilter
   }
 
   export type CategoriesOrderByWithRelationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    categoryTranslationsId?: SortOrderInput | SortOrder
     products?: ProductsOrderByRelationAggregateInput
-    categoryTranslations?: CategoryTranslationsOrderByWithRelationInput
+    translations?: CategoryTranslationsOrderByRelationAggregateInput
   }
 
   export type CategoriesWhereUniqueInput = Prisma.AtLeast<{
@@ -16160,16 +15978,14 @@ export namespace Prisma {
     NOT?: CategoriesWhereInput | CategoriesWhereInput[]
     createdAt?: DateTimeFilter<"Categories"> | Date | string
     updatedAt?: DateTimeFilter<"Categories"> | Date | string
-    categoryTranslationsId?: IntNullableFilter<"Categories"> | number | null
     products?: ProductsListRelationFilter
-    categoryTranslations?: XOR<CategoryTranslationsNullableScalarRelationFilter, CategoryTranslationsWhereInput> | null
+    translations?: CategoryTranslationsListRelationFilter
   }, "id">
 
   export type CategoriesOrderByWithAggregationInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    categoryTranslationsId?: SortOrderInput | SortOrder
     _count?: CategoriesCountOrderByAggregateInput
     _avg?: CategoriesAvgOrderByAggregateInput
     _max?: CategoriesMaxOrderByAggregateInput
@@ -16184,7 +16000,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Categories"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Categories"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Categories"> | Date | string
-    categoryTranslationsId?: IntNullableWithAggregatesFilter<"Categories"> | number | null
   }
 
   export type CategoryTranslationsWhereInput = {
@@ -16194,18 +16009,20 @@ export namespace Prisma {
     id?: IntFilter<"CategoryTranslations"> | number
     name?: StringFilter<"CategoryTranslations"> | string
     lang?: StringFilter<"CategoryTranslations"> | string
+    categoryId?: IntFilter<"CategoryTranslations"> | number
     createdAt?: DateTimeFilter<"CategoryTranslations"> | Date | string
     updatedAt?: DateTimeFilter<"CategoryTranslations"> | Date | string
-    categories?: CategoriesListRelationFilter
+    category?: XOR<CategoriesScalarRelationFilter, CategoriesWhereInput>
   }
 
   export type CategoryTranslationsOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    categoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    categories?: CategoriesOrderByRelationAggregateInput
+    category?: CategoriesOrderByWithRelationInput
   }
 
   export type CategoryTranslationsWhereUniqueInput = Prisma.AtLeast<{
@@ -16215,15 +16032,17 @@ export namespace Prisma {
     NOT?: CategoryTranslationsWhereInput | CategoryTranslationsWhereInput[]
     name?: StringFilter<"CategoryTranslations"> | string
     lang?: StringFilter<"CategoryTranslations"> | string
+    categoryId?: IntFilter<"CategoryTranslations"> | number
     createdAt?: DateTimeFilter<"CategoryTranslations"> | Date | string
     updatedAt?: DateTimeFilter<"CategoryTranslations"> | Date | string
-    categories?: CategoriesListRelationFilter
+    category?: XOR<CategoriesScalarRelationFilter, CategoriesWhereInput>
   }, "id">
 
   export type CategoryTranslationsOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    categoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CategoryTranslationsCountOrderByAggregateInput
@@ -16240,6 +16059,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"CategoryTranslations"> | number
     name?: StringWithAggregatesFilter<"CategoryTranslations"> | string
     lang?: StringWithAggregatesFilter<"CategoryTranslations"> | string
+    categoryId?: IntWithAggregatesFilter<"CategoryTranslations"> | number
     createdAt?: DateTimeWithAggregatesFilter<"CategoryTranslations"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CategoryTranslations"> | Date | string
   }
@@ -16252,9 +16072,8 @@ export namespace Prisma {
     name?: StringFilter<"Sizes"> | string
     createdAt?: DateTimeFilter<"Sizes"> | Date | string
     updatedAt?: DateTimeFilter<"Sizes"> | Date | string
-    sizeTranslationsId?: IntNullableFilter<"Sizes"> | number | null
     products?: ProductsListRelationFilter
-    sizeTranslations?: XOR<SizeTranslationsNullableScalarRelationFilter, SizeTranslationsWhereInput> | null
+    translations?: SizeTranslationsListRelationFilter
   }
 
   export type SizesOrderByWithRelationInput = {
@@ -16262,9 +16081,8 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sizeTranslationsId?: SortOrderInput | SortOrder
     products?: ProductsOrderByRelationAggregateInput
-    sizeTranslations?: SizeTranslationsOrderByWithRelationInput
+    translations?: SizeTranslationsOrderByRelationAggregateInput
   }
 
   export type SizesWhereUniqueInput = Prisma.AtLeast<{
@@ -16275,9 +16093,8 @@ export namespace Prisma {
     name?: StringFilter<"Sizes"> | string
     createdAt?: DateTimeFilter<"Sizes"> | Date | string
     updatedAt?: DateTimeFilter<"Sizes"> | Date | string
-    sizeTranslationsId?: IntNullableFilter<"Sizes"> | number | null
     products?: ProductsListRelationFilter
-    sizeTranslations?: XOR<SizeTranslationsNullableScalarRelationFilter, SizeTranslationsWhereInput> | null
+    translations?: SizeTranslationsListRelationFilter
   }, "id">
 
   export type SizesOrderByWithAggregationInput = {
@@ -16285,7 +16102,6 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sizeTranslationsId?: SortOrderInput | SortOrder
     _count?: SizesCountOrderByAggregateInput
     _avg?: SizesAvgOrderByAggregateInput
     _max?: SizesMaxOrderByAggregateInput
@@ -16301,7 +16117,6 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Sizes"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Sizes"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Sizes"> | Date | string
-    sizeTranslationsId?: IntNullableWithAggregatesFilter<"Sizes"> | number | null
   }
 
   export type SizeTranslationsWhereInput = {
@@ -16311,18 +16126,20 @@ export namespace Prisma {
     id?: IntFilter<"SizeTranslations"> | number
     name?: StringFilter<"SizeTranslations"> | string
     lang?: StringFilter<"SizeTranslations"> | string
+    sizeId?: IntFilter<"SizeTranslations"> | number
     createdAt?: DateTimeFilter<"SizeTranslations"> | Date | string
     updatedAt?: DateTimeFilter<"SizeTranslations"> | Date | string
-    sizes?: SizesListRelationFilter
+    size?: XOR<SizesScalarRelationFilter, SizesWhereInput>
   }
 
   export type SizeTranslationsOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    sizeId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sizes?: SizesOrderByRelationAggregateInput
+    size?: SizesOrderByWithRelationInput
   }
 
   export type SizeTranslationsWhereUniqueInput = Prisma.AtLeast<{
@@ -16332,15 +16149,17 @@ export namespace Prisma {
     NOT?: SizeTranslationsWhereInput | SizeTranslationsWhereInput[]
     name?: StringFilter<"SizeTranslations"> | string
     lang?: StringFilter<"SizeTranslations"> | string
+    sizeId?: IntFilter<"SizeTranslations"> | number
     createdAt?: DateTimeFilter<"SizeTranslations"> | Date | string
     updatedAt?: DateTimeFilter<"SizeTranslations"> | Date | string
-    sizes?: SizesListRelationFilter
+    size?: XOR<SizesScalarRelationFilter, SizesWhereInput>
   }, "id">
 
   export type SizeTranslationsOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    sizeId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SizeTranslationsCountOrderByAggregateInput
@@ -16357,6 +16176,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"SizeTranslations"> | number
     name?: StringWithAggregatesFilter<"SizeTranslations"> | string
     lang?: StringWithAggregatesFilter<"SizeTranslations"> | string
+    sizeId?: IntWithAggregatesFilter<"SizeTranslations"> | number
     createdAt?: DateTimeWithAggregatesFilter<"SizeTranslations"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SizeTranslations"> | Date | string
   }
@@ -16369,9 +16189,8 @@ export namespace Prisma {
     name?: StringFilter<"Colors"> | string
     createdAt?: DateTimeFilter<"Colors"> | Date | string
     updatedAt?: DateTimeFilter<"Colors"> | Date | string
-    colorTranslationsId?: IntNullableFilter<"Colors"> | number | null
     products?: ProductsListRelationFilter
-    colorTranslations?: XOR<ColorTranslationsNullableScalarRelationFilter, ColorTranslationsWhereInput> | null
+    translations?: ColorTranslationsListRelationFilter
   }
 
   export type ColorsOrderByWithRelationInput = {
@@ -16379,9 +16198,8 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    colorTranslationsId?: SortOrderInput | SortOrder
     products?: ProductsOrderByRelationAggregateInput
-    colorTranslations?: ColorTranslationsOrderByWithRelationInput
+    translations?: ColorTranslationsOrderByRelationAggregateInput
   }
 
   export type ColorsWhereUniqueInput = Prisma.AtLeast<{
@@ -16392,9 +16210,8 @@ export namespace Prisma {
     name?: StringFilter<"Colors"> | string
     createdAt?: DateTimeFilter<"Colors"> | Date | string
     updatedAt?: DateTimeFilter<"Colors"> | Date | string
-    colorTranslationsId?: IntNullableFilter<"Colors"> | number | null
     products?: ProductsListRelationFilter
-    colorTranslations?: XOR<ColorTranslationsNullableScalarRelationFilter, ColorTranslationsWhereInput> | null
+    translations?: ColorTranslationsListRelationFilter
   }, "id">
 
   export type ColorsOrderByWithAggregationInput = {
@@ -16402,7 +16219,6 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    colorTranslationsId?: SortOrderInput | SortOrder
     _count?: ColorsCountOrderByAggregateInput
     _avg?: ColorsAvgOrderByAggregateInput
     _max?: ColorsMaxOrderByAggregateInput
@@ -16418,7 +16234,6 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Colors"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Colors"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Colors"> | Date | string
-    colorTranslationsId?: IntNullableWithAggregatesFilter<"Colors"> | number | null
   }
 
   export type ColorTranslationsWhereInput = {
@@ -16428,18 +16243,20 @@ export namespace Prisma {
     id?: IntFilter<"ColorTranslations"> | number
     name?: StringFilter<"ColorTranslations"> | string
     lang?: StringFilter<"ColorTranslations"> | string
+    colorId?: IntFilter<"ColorTranslations"> | number
     createdAt?: DateTimeFilter<"ColorTranslations"> | Date | string
     updatedAt?: DateTimeFilter<"ColorTranslations"> | Date | string
-    colors?: ColorsListRelationFilter
+    color?: XOR<ColorsScalarRelationFilter, ColorsWhereInput>
   }
 
   export type ColorTranslationsOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    colorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    colors?: ColorsOrderByRelationAggregateInput
+    color?: ColorsOrderByWithRelationInput
   }
 
   export type ColorTranslationsWhereUniqueInput = Prisma.AtLeast<{
@@ -16449,15 +16266,17 @@ export namespace Prisma {
     NOT?: ColorTranslationsWhereInput | ColorTranslationsWhereInput[]
     name?: StringFilter<"ColorTranslations"> | string
     lang?: StringFilter<"ColorTranslations"> | string
+    colorId?: IntFilter<"ColorTranslations"> | number
     createdAt?: DateTimeFilter<"ColorTranslations"> | Date | string
     updatedAt?: DateTimeFilter<"ColorTranslations"> | Date | string
-    colors?: ColorsListRelationFilter
+    color?: XOR<ColorsScalarRelationFilter, ColorsWhereInput>
   }, "id">
 
   export type ColorTranslationsOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    colorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ColorTranslationsCountOrderByAggregateInput
@@ -16474,6 +16293,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"ColorTranslations"> | number
     name?: StringWithAggregatesFilter<"ColorTranslations"> | string
     lang?: StringWithAggregatesFilter<"ColorTranslations"> | string
+    colorId?: IntWithAggregatesFilter<"ColorTranslations"> | number
     createdAt?: DateTimeWithAggregatesFilter<"ColorTranslations"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"ColorTranslations"> | Date | string
   }
@@ -16730,7 +16550,7 @@ export namespace Prisma {
     categories?: CategoriesCreateNestedManyWithoutProductsInput
     sizes?: SizesCreateNestedManyWithoutProductsInput
     colors?: ColorsCreateNestedManyWithoutProductsInput
-    productTranslations?: ProductTranslationsCreateNestedOneWithoutProductsInput
+    translations?: ProductTranslationsCreateNestedManyWithoutProductInput
   }
 
   export type ProductsUncheckedCreateInput = {
@@ -16739,10 +16559,10 @@ export namespace Prisma {
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    productTranslationsId?: number | null
     categories?: CategoriesUncheckedCreateNestedManyWithoutProductsInput
     sizes?: SizesUncheckedCreateNestedManyWithoutProductsInput
     colors?: ColorsUncheckedCreateNestedManyWithoutProductsInput
+    translations?: ProductTranslationsUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductsUpdateInput = {
@@ -16753,7 +16573,7 @@ export namespace Prisma {
     categories?: CategoriesUpdateManyWithoutProductsNestedInput
     sizes?: SizesUpdateManyWithoutProductsNestedInput
     colors?: ColorsUpdateManyWithoutProductsNestedInput
-    productTranslations?: ProductTranslationsUpdateOneWithoutProductsNestedInput
+    translations?: ProductTranslationsUpdateManyWithoutProductNestedInput
   }
 
   export type ProductsUncheckedUpdateInput = {
@@ -16762,10 +16582,10 @@ export namespace Prisma {
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    productTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
     categories?: CategoriesUncheckedUpdateManyWithoutProductsNestedInput
     sizes?: SizesUncheckedUpdateManyWithoutProductsNestedInput
     colors?: ColorsUncheckedUpdateManyWithoutProductsNestedInput
+    translations?: ProductTranslationsUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductsCreateManyInput = {
@@ -16774,7 +16594,6 @@ export namespace Prisma {
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    productTranslationsId?: number | null
   }
 
   export type ProductsUpdateManyMutationInput = {
@@ -16790,7 +16609,6 @@ export namespace Prisma {
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    productTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ProductTranslationsCreateInput = {
@@ -16799,7 +16617,7 @@ export namespace Prisma {
     description: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    products?: ProductsCreateNestedManyWithoutProductTranslationsInput
+    product: ProductsCreateNestedOneWithoutTranslationsInput
   }
 
   export type ProductTranslationsUncheckedCreateInput = {
@@ -16807,9 +16625,9 @@ export namespace Prisma {
     name: string
     lang: string
     description: string
+    productId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    products?: ProductsUncheckedCreateNestedManyWithoutProductTranslationsInput
   }
 
   export type ProductTranslationsUpdateInput = {
@@ -16818,7 +16636,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductsUpdateManyWithoutProductTranslationsNestedInput
+    product?: ProductsUpdateOneRequiredWithoutTranslationsNestedInput
   }
 
   export type ProductTranslationsUncheckedUpdateInput = {
@@ -16826,9 +16644,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    productId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductsUncheckedUpdateManyWithoutProductTranslationsNestedInput
   }
 
   export type ProductTranslationsCreateManyInput = {
@@ -16836,6 +16654,7 @@ export namespace Prisma {
     name: string
     lang: string
     description: string
+    productId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16853,6 +16672,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    productId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16861,37 +16681,36 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutCategoriesInput
-    categoryTranslations?: CategoryTranslationsCreateNestedOneWithoutCategoriesInput
+    translations?: CategoryTranslationsCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesUncheckedCreateInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    categoryTranslationsId?: number | null
     products?: ProductsUncheckedCreateNestedManyWithoutCategoriesInput
+    translations?: CategoryTranslationsUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutCategoriesNestedInput
-    categoryTranslations?: CategoryTranslationsUpdateOneWithoutCategoriesNestedInput
+    translations?: CategoryTranslationsUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
     products?: ProductsUncheckedUpdateManyWithoutCategoriesNestedInput
+    translations?: CategoryTranslationsUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesCreateManyInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    categoryTranslationsId?: number | null
   }
 
   export type CategoriesUpdateManyMutationInput = {
@@ -16903,7 +16722,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CategoryTranslationsCreateInput = {
@@ -16911,16 +16729,16 @@ export namespace Prisma {
     lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    categories?: CategoriesCreateNestedManyWithoutCategoryTranslationsInput
+    category: CategoriesCreateNestedOneWithoutTranslationsInput
   }
 
   export type CategoryTranslationsUncheckedCreateInput = {
     id?: number
     name: string
     lang: string
+    categoryId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    categories?: CategoriesUncheckedCreateNestedManyWithoutCategoryTranslationsInput
   }
 
   export type CategoryTranslationsUpdateInput = {
@@ -16928,22 +16746,23 @@ export namespace Prisma {
     lang?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories?: CategoriesUpdateManyWithoutCategoryTranslationsNestedInput
+    category?: CategoriesUpdateOneRequiredWithoutTranslationsNestedInput
   }
 
   export type CategoryTranslationsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories?: CategoriesUncheckedUpdateManyWithoutCategoryTranslationsNestedInput
   }
 
   export type CategoryTranslationsCreateManyInput = {
     id?: number
     name: string
     lang: string
+    categoryId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16959,6 +16778,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16968,7 +16788,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutSizesInput
-    sizeTranslations?: SizeTranslationsCreateNestedOneWithoutSizesInput
+    translations?: SizeTranslationsCreateNestedManyWithoutSizeInput
   }
 
   export type SizesUncheckedCreateInput = {
@@ -16976,8 +16796,8 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sizeTranslationsId?: number | null
     products?: ProductsUncheckedCreateNestedManyWithoutSizesInput
+    translations?: SizeTranslationsUncheckedCreateNestedManyWithoutSizeInput
   }
 
   export type SizesUpdateInput = {
@@ -16985,7 +16805,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutSizesNestedInput
-    sizeTranslations?: SizeTranslationsUpdateOneWithoutSizesNestedInput
+    translations?: SizeTranslationsUpdateManyWithoutSizeNestedInput
   }
 
   export type SizesUncheckedUpdateInput = {
@@ -16993,8 +16813,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sizeTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
     products?: ProductsUncheckedUpdateManyWithoutSizesNestedInput
+    translations?: SizeTranslationsUncheckedUpdateManyWithoutSizeNestedInput
   }
 
   export type SizesCreateManyInput = {
@@ -17002,7 +16822,6 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sizeTranslationsId?: number | null
   }
 
   export type SizesUpdateManyMutationInput = {
@@ -17016,7 +16835,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sizeTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type SizeTranslationsCreateInput = {
@@ -17024,16 +16842,16 @@ export namespace Prisma {
     lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sizes?: SizesCreateNestedManyWithoutSizeTranslationsInput
+    size: SizesCreateNestedOneWithoutTranslationsInput
   }
 
   export type SizeTranslationsUncheckedCreateInput = {
     id?: number
     name: string
     lang: string
+    sizeId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    sizes?: SizesUncheckedCreateNestedManyWithoutSizeTranslationsInput
   }
 
   export type SizeTranslationsUpdateInput = {
@@ -17041,22 +16859,23 @@ export namespace Prisma {
     lang?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sizes?: SizesUpdateManyWithoutSizeTranslationsNestedInput
+    size?: SizesUpdateOneRequiredWithoutTranslationsNestedInput
   }
 
   export type SizeTranslationsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
+    sizeId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sizes?: SizesUncheckedUpdateManyWithoutSizeTranslationsNestedInput
   }
 
   export type SizeTranslationsCreateManyInput = {
     id?: number
     name: string
     lang: string
+    sizeId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17072,6 +16891,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
+    sizeId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17081,7 +16901,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutColorsInput
-    colorTranslations?: ColorTranslationsCreateNestedOneWithoutColorsInput
+    translations?: ColorTranslationsCreateNestedManyWithoutColorInput
   }
 
   export type ColorsUncheckedCreateInput = {
@@ -17089,8 +16909,8 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    colorTranslationsId?: number | null
     products?: ProductsUncheckedCreateNestedManyWithoutColorsInput
+    translations?: ColorTranslationsUncheckedCreateNestedManyWithoutColorInput
   }
 
   export type ColorsUpdateInput = {
@@ -17098,7 +16918,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutColorsNestedInput
-    colorTranslations?: ColorTranslationsUpdateOneWithoutColorsNestedInput
+    translations?: ColorTranslationsUpdateManyWithoutColorNestedInput
   }
 
   export type ColorsUncheckedUpdateInput = {
@@ -17106,8 +16926,8 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    colorTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
     products?: ProductsUncheckedUpdateManyWithoutColorsNestedInput
+    translations?: ColorTranslationsUncheckedUpdateManyWithoutColorNestedInput
   }
 
   export type ColorsCreateManyInput = {
@@ -17115,7 +16935,6 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    colorTranslationsId?: number | null
   }
 
   export type ColorsUpdateManyMutationInput = {
@@ -17129,7 +16948,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    colorTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ColorTranslationsCreateInput = {
@@ -17137,16 +16955,16 @@ export namespace Prisma {
     lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    colors?: ColorsCreateNestedManyWithoutColorTranslationsInput
+    color: ColorsCreateNestedOneWithoutTranslationsInput
   }
 
   export type ColorTranslationsUncheckedCreateInput = {
     id?: number
     name: string
     lang: string
+    colorId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    colors?: ColorsUncheckedCreateNestedManyWithoutColorTranslationsInput
   }
 
   export type ColorTranslationsUpdateInput = {
@@ -17154,22 +16972,23 @@ export namespace Prisma {
     lang?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    colors?: ColorsUpdateManyWithoutColorTranslationsNestedInput
+    color?: ColorsUpdateOneRequiredWithoutTranslationsNestedInput
   }
 
   export type ColorTranslationsUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
+    colorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    colors?: ColorsUncheckedUpdateManyWithoutColorTranslationsNestedInput
   }
 
   export type ColorTranslationsCreateManyInput = {
     id?: number
     name: string
     lang: string
+    colorId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17185,6 +17004,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
+    colorId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17431,17 +17251,6 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type CategoriesListRelationFilter = {
     every?: CategoriesWhereInput
     some?: CategoriesWhereInput
@@ -17460,14 +17269,10 @@ export namespace Prisma {
     none?: ColorsWhereInput
   }
 
-  export type ProductTranslationsNullableScalarRelationFilter = {
-    is?: ProductTranslationsWhereInput | null
-    isNot?: ProductTranslationsWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type ProductTranslationsListRelationFilter = {
+    every?: ProductTranslationsWhereInput
+    some?: ProductTranslationsWhereInput
+    none?: ProductTranslationsWhereInput
   }
 
   export type CategoriesOrderByRelationAggregateInput = {
@@ -17482,19 +17287,21 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ProductTranslationsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type ProductsCountOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
     product_images?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    productTranslationsId?: SortOrder
   }
 
   export type ProductsAvgOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
-    productTranslationsId?: SortOrder
   }
 
   export type ProductsMaxOrderByAggregateInput = {
@@ -17502,7 +17309,6 @@ export namespace Prisma {
     price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    productTranslationsId?: SortOrder
   }
 
   export type ProductsMinOrderByAggregateInput = {
@@ -17510,39 +17316,16 @@ export namespace Prisma {
     price?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    productTranslationsId?: SortOrder
   }
 
   export type ProductsSumOrderByAggregateInput = {
     id?: SortOrder
     price?: SortOrder
-    productTranslationsId?: SortOrder
   }
 
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type ProductsListRelationFilter = {
-    every?: ProductsWhereInput
-    some?: ProductsWhereInput
-    none?: ProductsWhereInput
-  }
-
-  export type ProductsOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type ProductsScalarRelationFilter = {
+    is?: ProductsWhereInput
+    isNot?: ProductsWhereInput
   }
 
   export type ProductTranslationsCountOrderByAggregateInput = {
@@ -17550,12 +17333,14 @@ export namespace Prisma {
     name?: SortOrder
     lang?: SortOrder
     description?: SortOrder
+    productId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ProductTranslationsAvgOrderByAggregateInput = {
     id?: SortOrder
+    productId?: SortOrder
   }
 
   export type ProductTranslationsMaxOrderByAggregateInput = {
@@ -17563,6 +17348,7 @@ export namespace Prisma {
     name?: SortOrder
     lang?: SortOrder
     description?: SortOrder
+    productId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17572,66 +17358,86 @@ export namespace Prisma {
     name?: SortOrder
     lang?: SortOrder
     description?: SortOrder
+    productId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ProductTranslationsSumOrderByAggregateInput = {
     id?: SortOrder
+    productId?: SortOrder
   }
 
-  export type CategoryTranslationsNullableScalarRelationFilter = {
-    is?: CategoryTranslationsWhereInput | null
-    isNot?: CategoryTranslationsWhereInput | null
+  export type ProductsListRelationFilter = {
+    every?: ProductsWhereInput
+    some?: ProductsWhereInput
+    none?: ProductsWhereInput
+  }
+
+  export type CategoryTranslationsListRelationFilter = {
+    every?: CategoryTranslationsWhereInput
+    some?: CategoryTranslationsWhereInput
+    none?: CategoryTranslationsWhereInput
+  }
+
+  export type ProductsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CategoryTranslationsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type CategoriesCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    categoryTranslationsId?: SortOrder
   }
 
   export type CategoriesAvgOrderByAggregateInput = {
     id?: SortOrder
-    categoryTranslationsId?: SortOrder
   }
 
   export type CategoriesMaxOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    categoryTranslationsId?: SortOrder
   }
 
   export type CategoriesMinOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    categoryTranslationsId?: SortOrder
   }
 
   export type CategoriesSumOrderByAggregateInput = {
     id?: SortOrder
-    categoryTranslationsId?: SortOrder
+  }
+
+  export type CategoriesScalarRelationFilter = {
+    is?: CategoriesWhereInput
+    isNot?: CategoriesWhereInput
   }
 
   export type CategoryTranslationsCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    categoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type CategoryTranslationsAvgOrderByAggregateInput = {
     id?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type CategoryTranslationsMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    categoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17640,17 +17446,24 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    categoryId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type CategoryTranslationsSumOrderByAggregateInput = {
     id?: SortOrder
+    categoryId?: SortOrder
   }
 
-  export type SizeTranslationsNullableScalarRelationFilter = {
-    is?: SizeTranslationsWhereInput | null
-    isNot?: SizeTranslationsWhereInput | null
+  export type SizeTranslationsListRelationFilter = {
+    every?: SizeTranslationsWhereInput
+    some?: SizeTranslationsWhereInput
+    none?: SizeTranslationsWhereInput
+  }
+
+  export type SizeTranslationsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type SizesCountOrderByAggregateInput = {
@@ -17658,12 +17471,10 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sizeTranslationsId?: SortOrder
   }
 
   export type SizesAvgOrderByAggregateInput = {
     id?: SortOrder
-    sizeTranslationsId?: SortOrder
   }
 
   export type SizesMaxOrderByAggregateInput = {
@@ -17671,7 +17482,6 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sizeTranslationsId?: SortOrder
   }
 
   export type SizesMinOrderByAggregateInput = {
@@ -17679,30 +17489,36 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    sizeTranslationsId?: SortOrder
   }
 
   export type SizesSumOrderByAggregateInput = {
     id?: SortOrder
-    sizeTranslationsId?: SortOrder
+  }
+
+  export type SizesScalarRelationFilter = {
+    is?: SizesWhereInput
+    isNot?: SizesWhereInput
   }
 
   export type SizeTranslationsCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    sizeId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type SizeTranslationsAvgOrderByAggregateInput = {
     id?: SortOrder
+    sizeId?: SortOrder
   }
 
   export type SizeTranslationsMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    sizeId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17711,17 +17527,24 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    sizeId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type SizeTranslationsSumOrderByAggregateInput = {
     id?: SortOrder
+    sizeId?: SortOrder
   }
 
-  export type ColorTranslationsNullableScalarRelationFilter = {
-    is?: ColorTranslationsWhereInput | null
-    isNot?: ColorTranslationsWhereInput | null
+  export type ColorTranslationsListRelationFilter = {
+    every?: ColorTranslationsWhereInput
+    some?: ColorTranslationsWhereInput
+    none?: ColorTranslationsWhereInput
+  }
+
+  export type ColorTranslationsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type ColorsCountOrderByAggregateInput = {
@@ -17729,12 +17552,10 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    colorTranslationsId?: SortOrder
   }
 
   export type ColorsAvgOrderByAggregateInput = {
     id?: SortOrder
-    colorTranslationsId?: SortOrder
   }
 
   export type ColorsMaxOrderByAggregateInput = {
@@ -17742,7 +17563,6 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    colorTranslationsId?: SortOrder
   }
 
   export type ColorsMinOrderByAggregateInput = {
@@ -17750,30 +17570,36 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    colorTranslationsId?: SortOrder
   }
 
   export type ColorsSumOrderByAggregateInput = {
     id?: SortOrder
-    colorTranslationsId?: SortOrder
+  }
+
+  export type ColorsScalarRelationFilter = {
+    is?: ColorsWhereInput
+    isNot?: ColorsWhereInput
   }
 
   export type ColorTranslationsCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    colorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ColorTranslationsAvgOrderByAggregateInput = {
     id?: SortOrder
+    colorId?: SortOrder
   }
 
   export type ColorTranslationsMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    colorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -17782,12 +17608,14 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     lang?: SortOrder
+    colorId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type ColorTranslationsSumOrderByAggregateInput = {
     id?: SortOrder
+    colorId?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -17904,10 +17732,11 @@ export namespace Prisma {
     connect?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
   }
 
-  export type ProductTranslationsCreateNestedOneWithoutProductsInput = {
-    create?: XOR<ProductTranslationsCreateWithoutProductsInput, ProductTranslationsUncheckedCreateWithoutProductsInput>
-    connectOrCreate?: ProductTranslationsCreateOrConnectWithoutProductsInput
-    connect?: ProductTranslationsWhereUniqueInput
+  export type ProductTranslationsCreateNestedManyWithoutProductInput = {
+    create?: XOR<ProductTranslationsCreateWithoutProductInput, ProductTranslationsUncheckedCreateWithoutProductInput> | ProductTranslationsCreateWithoutProductInput[] | ProductTranslationsUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductTranslationsCreateOrConnectWithoutProductInput | ProductTranslationsCreateOrConnectWithoutProductInput[]
+    createMany?: ProductTranslationsCreateManyProductInputEnvelope
+    connect?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
   }
 
   export type CategoriesUncheckedCreateNestedManyWithoutProductsInput = {
@@ -17926,6 +17755,13 @@ export namespace Prisma {
     create?: XOR<ColorsCreateWithoutProductsInput, ColorsUncheckedCreateWithoutProductsInput> | ColorsCreateWithoutProductsInput[] | ColorsUncheckedCreateWithoutProductsInput[]
     connectOrCreate?: ColorsCreateOrConnectWithoutProductsInput | ColorsCreateOrConnectWithoutProductsInput[]
     connect?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
+  }
+
+  export type ProductTranslationsUncheckedCreateNestedManyWithoutProductInput = {
+    create?: XOR<ProductTranslationsCreateWithoutProductInput, ProductTranslationsUncheckedCreateWithoutProductInput> | ProductTranslationsCreateWithoutProductInput[] | ProductTranslationsUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductTranslationsCreateOrConnectWithoutProductInput | ProductTranslationsCreateOrConnectWithoutProductInput[]
+    createMany?: ProductTranslationsCreateManyProductInputEnvelope
+    connect?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
   }
 
   export type ProductsUpdateproduct_imagesInput = {
@@ -17972,22 +17808,18 @@ export namespace Prisma {
     deleteMany?: ColorsScalarWhereInput | ColorsScalarWhereInput[]
   }
 
-  export type ProductTranslationsUpdateOneWithoutProductsNestedInput = {
-    create?: XOR<ProductTranslationsCreateWithoutProductsInput, ProductTranslationsUncheckedCreateWithoutProductsInput>
-    connectOrCreate?: ProductTranslationsCreateOrConnectWithoutProductsInput
-    upsert?: ProductTranslationsUpsertWithoutProductsInput
-    disconnect?: ProductTranslationsWhereInput | boolean
-    delete?: ProductTranslationsWhereInput | boolean
-    connect?: ProductTranslationsWhereUniqueInput
-    update?: XOR<XOR<ProductTranslationsUpdateToOneWithWhereWithoutProductsInput, ProductTranslationsUpdateWithoutProductsInput>, ProductTranslationsUncheckedUpdateWithoutProductsInput>
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
+  export type ProductTranslationsUpdateManyWithoutProductNestedInput = {
+    create?: XOR<ProductTranslationsCreateWithoutProductInput, ProductTranslationsUncheckedCreateWithoutProductInput> | ProductTranslationsCreateWithoutProductInput[] | ProductTranslationsUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductTranslationsCreateOrConnectWithoutProductInput | ProductTranslationsCreateOrConnectWithoutProductInput[]
+    upsert?: ProductTranslationsUpsertWithWhereUniqueWithoutProductInput | ProductTranslationsUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: ProductTranslationsCreateManyProductInputEnvelope
+    set?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
+    disconnect?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
+    delete?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
+    connect?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
+    update?: ProductTranslationsUpdateWithWhereUniqueWithoutProductInput | ProductTranslationsUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: ProductTranslationsUpdateManyWithWhereWithoutProductInput | ProductTranslationsUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: ProductTranslationsScalarWhereInput | ProductTranslationsScalarWhereInput[]
   }
 
   export type CategoriesUncheckedUpdateManyWithoutProductsNestedInput = {
@@ -18029,46 +17861,32 @@ export namespace Prisma {
     deleteMany?: ColorsScalarWhereInput | ColorsScalarWhereInput[]
   }
 
-  export type ProductsCreateNestedManyWithoutProductTranslationsInput = {
-    create?: XOR<ProductsCreateWithoutProductTranslationsInput, ProductsUncheckedCreateWithoutProductTranslationsInput> | ProductsCreateWithoutProductTranslationsInput[] | ProductsUncheckedCreateWithoutProductTranslationsInput[]
-    connectOrCreate?: ProductsCreateOrConnectWithoutProductTranslationsInput | ProductsCreateOrConnectWithoutProductTranslationsInput[]
-    createMany?: ProductsCreateManyProductTranslationsInputEnvelope
-    connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
+  export type ProductTranslationsUncheckedUpdateManyWithoutProductNestedInput = {
+    create?: XOR<ProductTranslationsCreateWithoutProductInput, ProductTranslationsUncheckedCreateWithoutProductInput> | ProductTranslationsCreateWithoutProductInput[] | ProductTranslationsUncheckedCreateWithoutProductInput[]
+    connectOrCreate?: ProductTranslationsCreateOrConnectWithoutProductInput | ProductTranslationsCreateOrConnectWithoutProductInput[]
+    upsert?: ProductTranslationsUpsertWithWhereUniqueWithoutProductInput | ProductTranslationsUpsertWithWhereUniqueWithoutProductInput[]
+    createMany?: ProductTranslationsCreateManyProductInputEnvelope
+    set?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
+    disconnect?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
+    delete?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
+    connect?: ProductTranslationsWhereUniqueInput | ProductTranslationsWhereUniqueInput[]
+    update?: ProductTranslationsUpdateWithWhereUniqueWithoutProductInput | ProductTranslationsUpdateWithWhereUniqueWithoutProductInput[]
+    updateMany?: ProductTranslationsUpdateManyWithWhereWithoutProductInput | ProductTranslationsUpdateManyWithWhereWithoutProductInput[]
+    deleteMany?: ProductTranslationsScalarWhereInput | ProductTranslationsScalarWhereInput[]
   }
 
-  export type ProductsUncheckedCreateNestedManyWithoutProductTranslationsInput = {
-    create?: XOR<ProductsCreateWithoutProductTranslationsInput, ProductsUncheckedCreateWithoutProductTranslationsInput> | ProductsCreateWithoutProductTranslationsInput[] | ProductsUncheckedCreateWithoutProductTranslationsInput[]
-    connectOrCreate?: ProductsCreateOrConnectWithoutProductTranslationsInput | ProductsCreateOrConnectWithoutProductTranslationsInput[]
-    createMany?: ProductsCreateManyProductTranslationsInputEnvelope
-    connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
+  export type ProductsCreateNestedOneWithoutTranslationsInput = {
+    create?: XOR<ProductsCreateWithoutTranslationsInput, ProductsUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: ProductsCreateOrConnectWithoutTranslationsInput
+    connect?: ProductsWhereUniqueInput
   }
 
-  export type ProductsUpdateManyWithoutProductTranslationsNestedInput = {
-    create?: XOR<ProductsCreateWithoutProductTranslationsInput, ProductsUncheckedCreateWithoutProductTranslationsInput> | ProductsCreateWithoutProductTranslationsInput[] | ProductsUncheckedCreateWithoutProductTranslationsInput[]
-    connectOrCreate?: ProductsCreateOrConnectWithoutProductTranslationsInput | ProductsCreateOrConnectWithoutProductTranslationsInput[]
-    upsert?: ProductsUpsertWithWhereUniqueWithoutProductTranslationsInput | ProductsUpsertWithWhereUniqueWithoutProductTranslationsInput[]
-    createMany?: ProductsCreateManyProductTranslationsInputEnvelope
-    set?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
-    disconnect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
-    delete?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
-    connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
-    update?: ProductsUpdateWithWhereUniqueWithoutProductTranslationsInput | ProductsUpdateWithWhereUniqueWithoutProductTranslationsInput[]
-    updateMany?: ProductsUpdateManyWithWhereWithoutProductTranslationsInput | ProductsUpdateManyWithWhereWithoutProductTranslationsInput[]
-    deleteMany?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
-  }
-
-  export type ProductsUncheckedUpdateManyWithoutProductTranslationsNestedInput = {
-    create?: XOR<ProductsCreateWithoutProductTranslationsInput, ProductsUncheckedCreateWithoutProductTranslationsInput> | ProductsCreateWithoutProductTranslationsInput[] | ProductsUncheckedCreateWithoutProductTranslationsInput[]
-    connectOrCreate?: ProductsCreateOrConnectWithoutProductTranslationsInput | ProductsCreateOrConnectWithoutProductTranslationsInput[]
-    upsert?: ProductsUpsertWithWhereUniqueWithoutProductTranslationsInput | ProductsUpsertWithWhereUniqueWithoutProductTranslationsInput[]
-    createMany?: ProductsCreateManyProductTranslationsInputEnvelope
-    set?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
-    disconnect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
-    delete?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
-    connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
-    update?: ProductsUpdateWithWhereUniqueWithoutProductTranslationsInput | ProductsUpdateWithWhereUniqueWithoutProductTranslationsInput[]
-    updateMany?: ProductsUpdateManyWithWhereWithoutProductTranslationsInput | ProductsUpdateManyWithWhereWithoutProductTranslationsInput[]
-    deleteMany?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
+  export type ProductsUpdateOneRequiredWithoutTranslationsNestedInput = {
+    create?: XOR<ProductsCreateWithoutTranslationsInput, ProductsUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: ProductsCreateOrConnectWithoutTranslationsInput
+    upsert?: ProductsUpsertWithoutTranslationsInput
+    connect?: ProductsWhereUniqueInput
+    update?: XOR<XOR<ProductsUpdateToOneWithWhereWithoutTranslationsInput, ProductsUpdateWithoutTranslationsInput>, ProductsUncheckedUpdateWithoutTranslationsInput>
   }
 
   export type ProductsCreateNestedManyWithoutCategoriesInput = {
@@ -18077,16 +17895,24 @@ export namespace Prisma {
     connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
   }
 
-  export type CategoryTranslationsCreateNestedOneWithoutCategoriesInput = {
-    create?: XOR<CategoryTranslationsCreateWithoutCategoriesInput, CategoryTranslationsUncheckedCreateWithoutCategoriesInput>
-    connectOrCreate?: CategoryTranslationsCreateOrConnectWithoutCategoriesInput
-    connect?: CategoryTranslationsWhereUniqueInput
+  export type CategoryTranslationsCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<CategoryTranslationsCreateWithoutCategoryInput, CategoryTranslationsUncheckedCreateWithoutCategoryInput> | CategoryTranslationsCreateWithoutCategoryInput[] | CategoryTranslationsUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CategoryTranslationsCreateOrConnectWithoutCategoryInput | CategoryTranslationsCreateOrConnectWithoutCategoryInput[]
+    createMany?: CategoryTranslationsCreateManyCategoryInputEnvelope
+    connect?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
   }
 
   export type ProductsUncheckedCreateNestedManyWithoutCategoriesInput = {
     create?: XOR<ProductsCreateWithoutCategoriesInput, ProductsUncheckedCreateWithoutCategoriesInput> | ProductsCreateWithoutCategoriesInput[] | ProductsUncheckedCreateWithoutCategoriesInput[]
     connectOrCreate?: ProductsCreateOrConnectWithoutCategoriesInput | ProductsCreateOrConnectWithoutCategoriesInput[]
     connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
+  }
+
+  export type CategoryTranslationsUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<CategoryTranslationsCreateWithoutCategoryInput, CategoryTranslationsUncheckedCreateWithoutCategoryInput> | CategoryTranslationsCreateWithoutCategoryInput[] | CategoryTranslationsUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CategoryTranslationsCreateOrConnectWithoutCategoryInput | CategoryTranslationsCreateOrConnectWithoutCategoryInput[]
+    createMany?: CategoryTranslationsCreateManyCategoryInputEnvelope
+    connect?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
   }
 
   export type ProductsUpdateManyWithoutCategoriesNestedInput = {
@@ -18102,14 +17928,18 @@ export namespace Prisma {
     deleteMany?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
   }
 
-  export type CategoryTranslationsUpdateOneWithoutCategoriesNestedInput = {
-    create?: XOR<CategoryTranslationsCreateWithoutCategoriesInput, CategoryTranslationsUncheckedCreateWithoutCategoriesInput>
-    connectOrCreate?: CategoryTranslationsCreateOrConnectWithoutCategoriesInput
-    upsert?: CategoryTranslationsUpsertWithoutCategoriesInput
-    disconnect?: CategoryTranslationsWhereInput | boolean
-    delete?: CategoryTranslationsWhereInput | boolean
-    connect?: CategoryTranslationsWhereUniqueInput
-    update?: XOR<XOR<CategoryTranslationsUpdateToOneWithWhereWithoutCategoriesInput, CategoryTranslationsUpdateWithoutCategoriesInput>, CategoryTranslationsUncheckedUpdateWithoutCategoriesInput>
+  export type CategoryTranslationsUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<CategoryTranslationsCreateWithoutCategoryInput, CategoryTranslationsUncheckedCreateWithoutCategoryInput> | CategoryTranslationsCreateWithoutCategoryInput[] | CategoryTranslationsUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CategoryTranslationsCreateOrConnectWithoutCategoryInput | CategoryTranslationsCreateOrConnectWithoutCategoryInput[]
+    upsert?: CategoryTranslationsUpsertWithWhereUniqueWithoutCategoryInput | CategoryTranslationsUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: CategoryTranslationsCreateManyCategoryInputEnvelope
+    set?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+    disconnect?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+    delete?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+    connect?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+    update?: CategoryTranslationsUpdateWithWhereUniqueWithoutCategoryInput | CategoryTranslationsUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: CategoryTranslationsUpdateManyWithWhereWithoutCategoryInput | CategoryTranslationsUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: CategoryTranslationsScalarWhereInput | CategoryTranslationsScalarWhereInput[]
   }
 
   export type ProductsUncheckedUpdateManyWithoutCategoriesNestedInput = {
@@ -18125,46 +17955,32 @@ export namespace Prisma {
     deleteMany?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
   }
 
-  export type CategoriesCreateNestedManyWithoutCategoryTranslationsInput = {
-    create?: XOR<CategoriesCreateWithoutCategoryTranslationsInput, CategoriesUncheckedCreateWithoutCategoryTranslationsInput> | CategoriesCreateWithoutCategoryTranslationsInput[] | CategoriesUncheckedCreateWithoutCategoryTranslationsInput[]
-    connectOrCreate?: CategoriesCreateOrConnectWithoutCategoryTranslationsInput | CategoriesCreateOrConnectWithoutCategoryTranslationsInput[]
-    createMany?: CategoriesCreateManyCategoryTranslationsInputEnvelope
-    connect?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
+  export type CategoryTranslationsUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<CategoryTranslationsCreateWithoutCategoryInput, CategoryTranslationsUncheckedCreateWithoutCategoryInput> | CategoryTranslationsCreateWithoutCategoryInput[] | CategoryTranslationsUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: CategoryTranslationsCreateOrConnectWithoutCategoryInput | CategoryTranslationsCreateOrConnectWithoutCategoryInput[]
+    upsert?: CategoryTranslationsUpsertWithWhereUniqueWithoutCategoryInput | CategoryTranslationsUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: CategoryTranslationsCreateManyCategoryInputEnvelope
+    set?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+    disconnect?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+    delete?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+    connect?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+    update?: CategoryTranslationsUpdateWithWhereUniqueWithoutCategoryInput | CategoryTranslationsUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: CategoryTranslationsUpdateManyWithWhereWithoutCategoryInput | CategoryTranslationsUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: CategoryTranslationsScalarWhereInput | CategoryTranslationsScalarWhereInput[]
   }
 
-  export type CategoriesUncheckedCreateNestedManyWithoutCategoryTranslationsInput = {
-    create?: XOR<CategoriesCreateWithoutCategoryTranslationsInput, CategoriesUncheckedCreateWithoutCategoryTranslationsInput> | CategoriesCreateWithoutCategoryTranslationsInput[] | CategoriesUncheckedCreateWithoutCategoryTranslationsInput[]
-    connectOrCreate?: CategoriesCreateOrConnectWithoutCategoryTranslationsInput | CategoriesCreateOrConnectWithoutCategoryTranslationsInput[]
-    createMany?: CategoriesCreateManyCategoryTranslationsInputEnvelope
-    connect?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
+  export type CategoriesCreateNestedOneWithoutTranslationsInput = {
+    create?: XOR<CategoriesCreateWithoutTranslationsInput, CategoriesUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: CategoriesCreateOrConnectWithoutTranslationsInput
+    connect?: CategoriesWhereUniqueInput
   }
 
-  export type CategoriesUpdateManyWithoutCategoryTranslationsNestedInput = {
-    create?: XOR<CategoriesCreateWithoutCategoryTranslationsInput, CategoriesUncheckedCreateWithoutCategoryTranslationsInput> | CategoriesCreateWithoutCategoryTranslationsInput[] | CategoriesUncheckedCreateWithoutCategoryTranslationsInput[]
-    connectOrCreate?: CategoriesCreateOrConnectWithoutCategoryTranslationsInput | CategoriesCreateOrConnectWithoutCategoryTranslationsInput[]
-    upsert?: CategoriesUpsertWithWhereUniqueWithoutCategoryTranslationsInput | CategoriesUpsertWithWhereUniqueWithoutCategoryTranslationsInput[]
-    createMany?: CategoriesCreateManyCategoryTranslationsInputEnvelope
-    set?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
-    disconnect?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
-    delete?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
-    connect?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
-    update?: CategoriesUpdateWithWhereUniqueWithoutCategoryTranslationsInput | CategoriesUpdateWithWhereUniqueWithoutCategoryTranslationsInput[]
-    updateMany?: CategoriesUpdateManyWithWhereWithoutCategoryTranslationsInput | CategoriesUpdateManyWithWhereWithoutCategoryTranslationsInput[]
-    deleteMany?: CategoriesScalarWhereInput | CategoriesScalarWhereInput[]
-  }
-
-  export type CategoriesUncheckedUpdateManyWithoutCategoryTranslationsNestedInput = {
-    create?: XOR<CategoriesCreateWithoutCategoryTranslationsInput, CategoriesUncheckedCreateWithoutCategoryTranslationsInput> | CategoriesCreateWithoutCategoryTranslationsInput[] | CategoriesUncheckedCreateWithoutCategoryTranslationsInput[]
-    connectOrCreate?: CategoriesCreateOrConnectWithoutCategoryTranslationsInput | CategoriesCreateOrConnectWithoutCategoryTranslationsInput[]
-    upsert?: CategoriesUpsertWithWhereUniqueWithoutCategoryTranslationsInput | CategoriesUpsertWithWhereUniqueWithoutCategoryTranslationsInput[]
-    createMany?: CategoriesCreateManyCategoryTranslationsInputEnvelope
-    set?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
-    disconnect?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
-    delete?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
-    connect?: CategoriesWhereUniqueInput | CategoriesWhereUniqueInput[]
-    update?: CategoriesUpdateWithWhereUniqueWithoutCategoryTranslationsInput | CategoriesUpdateWithWhereUniqueWithoutCategoryTranslationsInput[]
-    updateMany?: CategoriesUpdateManyWithWhereWithoutCategoryTranslationsInput | CategoriesUpdateManyWithWhereWithoutCategoryTranslationsInput[]
-    deleteMany?: CategoriesScalarWhereInput | CategoriesScalarWhereInput[]
+  export type CategoriesUpdateOneRequiredWithoutTranslationsNestedInput = {
+    create?: XOR<CategoriesCreateWithoutTranslationsInput, CategoriesUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: CategoriesCreateOrConnectWithoutTranslationsInput
+    upsert?: CategoriesUpsertWithoutTranslationsInput
+    connect?: CategoriesWhereUniqueInput
+    update?: XOR<XOR<CategoriesUpdateToOneWithWhereWithoutTranslationsInput, CategoriesUpdateWithoutTranslationsInput>, CategoriesUncheckedUpdateWithoutTranslationsInput>
   }
 
   export type ProductsCreateNestedManyWithoutSizesInput = {
@@ -18173,16 +17989,24 @@ export namespace Prisma {
     connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
   }
 
-  export type SizeTranslationsCreateNestedOneWithoutSizesInput = {
-    create?: XOR<SizeTranslationsCreateWithoutSizesInput, SizeTranslationsUncheckedCreateWithoutSizesInput>
-    connectOrCreate?: SizeTranslationsCreateOrConnectWithoutSizesInput
-    connect?: SizeTranslationsWhereUniqueInput
+  export type SizeTranslationsCreateNestedManyWithoutSizeInput = {
+    create?: XOR<SizeTranslationsCreateWithoutSizeInput, SizeTranslationsUncheckedCreateWithoutSizeInput> | SizeTranslationsCreateWithoutSizeInput[] | SizeTranslationsUncheckedCreateWithoutSizeInput[]
+    connectOrCreate?: SizeTranslationsCreateOrConnectWithoutSizeInput | SizeTranslationsCreateOrConnectWithoutSizeInput[]
+    createMany?: SizeTranslationsCreateManySizeInputEnvelope
+    connect?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
   }
 
   export type ProductsUncheckedCreateNestedManyWithoutSizesInput = {
     create?: XOR<ProductsCreateWithoutSizesInput, ProductsUncheckedCreateWithoutSizesInput> | ProductsCreateWithoutSizesInput[] | ProductsUncheckedCreateWithoutSizesInput[]
     connectOrCreate?: ProductsCreateOrConnectWithoutSizesInput | ProductsCreateOrConnectWithoutSizesInput[]
     connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
+  }
+
+  export type SizeTranslationsUncheckedCreateNestedManyWithoutSizeInput = {
+    create?: XOR<SizeTranslationsCreateWithoutSizeInput, SizeTranslationsUncheckedCreateWithoutSizeInput> | SizeTranslationsCreateWithoutSizeInput[] | SizeTranslationsUncheckedCreateWithoutSizeInput[]
+    connectOrCreate?: SizeTranslationsCreateOrConnectWithoutSizeInput | SizeTranslationsCreateOrConnectWithoutSizeInput[]
+    createMany?: SizeTranslationsCreateManySizeInputEnvelope
+    connect?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
   }
 
   export type ProductsUpdateManyWithoutSizesNestedInput = {
@@ -18198,14 +18022,18 @@ export namespace Prisma {
     deleteMany?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
   }
 
-  export type SizeTranslationsUpdateOneWithoutSizesNestedInput = {
-    create?: XOR<SizeTranslationsCreateWithoutSizesInput, SizeTranslationsUncheckedCreateWithoutSizesInput>
-    connectOrCreate?: SizeTranslationsCreateOrConnectWithoutSizesInput
-    upsert?: SizeTranslationsUpsertWithoutSizesInput
-    disconnect?: SizeTranslationsWhereInput | boolean
-    delete?: SizeTranslationsWhereInput | boolean
-    connect?: SizeTranslationsWhereUniqueInput
-    update?: XOR<XOR<SizeTranslationsUpdateToOneWithWhereWithoutSizesInput, SizeTranslationsUpdateWithoutSizesInput>, SizeTranslationsUncheckedUpdateWithoutSizesInput>
+  export type SizeTranslationsUpdateManyWithoutSizeNestedInput = {
+    create?: XOR<SizeTranslationsCreateWithoutSizeInput, SizeTranslationsUncheckedCreateWithoutSizeInput> | SizeTranslationsCreateWithoutSizeInput[] | SizeTranslationsUncheckedCreateWithoutSizeInput[]
+    connectOrCreate?: SizeTranslationsCreateOrConnectWithoutSizeInput | SizeTranslationsCreateOrConnectWithoutSizeInput[]
+    upsert?: SizeTranslationsUpsertWithWhereUniqueWithoutSizeInput | SizeTranslationsUpsertWithWhereUniqueWithoutSizeInput[]
+    createMany?: SizeTranslationsCreateManySizeInputEnvelope
+    set?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
+    disconnect?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
+    delete?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
+    connect?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
+    update?: SizeTranslationsUpdateWithWhereUniqueWithoutSizeInput | SizeTranslationsUpdateWithWhereUniqueWithoutSizeInput[]
+    updateMany?: SizeTranslationsUpdateManyWithWhereWithoutSizeInput | SizeTranslationsUpdateManyWithWhereWithoutSizeInput[]
+    deleteMany?: SizeTranslationsScalarWhereInput | SizeTranslationsScalarWhereInput[]
   }
 
   export type ProductsUncheckedUpdateManyWithoutSizesNestedInput = {
@@ -18221,46 +18049,32 @@ export namespace Prisma {
     deleteMany?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
   }
 
-  export type SizesCreateNestedManyWithoutSizeTranslationsInput = {
-    create?: XOR<SizesCreateWithoutSizeTranslationsInput, SizesUncheckedCreateWithoutSizeTranslationsInput> | SizesCreateWithoutSizeTranslationsInput[] | SizesUncheckedCreateWithoutSizeTranslationsInput[]
-    connectOrCreate?: SizesCreateOrConnectWithoutSizeTranslationsInput | SizesCreateOrConnectWithoutSizeTranslationsInput[]
-    createMany?: SizesCreateManySizeTranslationsInputEnvelope
-    connect?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
+  export type SizeTranslationsUncheckedUpdateManyWithoutSizeNestedInput = {
+    create?: XOR<SizeTranslationsCreateWithoutSizeInput, SizeTranslationsUncheckedCreateWithoutSizeInput> | SizeTranslationsCreateWithoutSizeInput[] | SizeTranslationsUncheckedCreateWithoutSizeInput[]
+    connectOrCreate?: SizeTranslationsCreateOrConnectWithoutSizeInput | SizeTranslationsCreateOrConnectWithoutSizeInput[]
+    upsert?: SizeTranslationsUpsertWithWhereUniqueWithoutSizeInput | SizeTranslationsUpsertWithWhereUniqueWithoutSizeInput[]
+    createMany?: SizeTranslationsCreateManySizeInputEnvelope
+    set?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
+    disconnect?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
+    delete?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
+    connect?: SizeTranslationsWhereUniqueInput | SizeTranslationsWhereUniqueInput[]
+    update?: SizeTranslationsUpdateWithWhereUniqueWithoutSizeInput | SizeTranslationsUpdateWithWhereUniqueWithoutSizeInput[]
+    updateMany?: SizeTranslationsUpdateManyWithWhereWithoutSizeInput | SizeTranslationsUpdateManyWithWhereWithoutSizeInput[]
+    deleteMany?: SizeTranslationsScalarWhereInput | SizeTranslationsScalarWhereInput[]
   }
 
-  export type SizesUncheckedCreateNestedManyWithoutSizeTranslationsInput = {
-    create?: XOR<SizesCreateWithoutSizeTranslationsInput, SizesUncheckedCreateWithoutSizeTranslationsInput> | SizesCreateWithoutSizeTranslationsInput[] | SizesUncheckedCreateWithoutSizeTranslationsInput[]
-    connectOrCreate?: SizesCreateOrConnectWithoutSizeTranslationsInput | SizesCreateOrConnectWithoutSizeTranslationsInput[]
-    createMany?: SizesCreateManySizeTranslationsInputEnvelope
-    connect?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
+  export type SizesCreateNestedOneWithoutTranslationsInput = {
+    create?: XOR<SizesCreateWithoutTranslationsInput, SizesUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: SizesCreateOrConnectWithoutTranslationsInput
+    connect?: SizesWhereUniqueInput
   }
 
-  export type SizesUpdateManyWithoutSizeTranslationsNestedInput = {
-    create?: XOR<SizesCreateWithoutSizeTranslationsInput, SizesUncheckedCreateWithoutSizeTranslationsInput> | SizesCreateWithoutSizeTranslationsInput[] | SizesUncheckedCreateWithoutSizeTranslationsInput[]
-    connectOrCreate?: SizesCreateOrConnectWithoutSizeTranslationsInput | SizesCreateOrConnectWithoutSizeTranslationsInput[]
-    upsert?: SizesUpsertWithWhereUniqueWithoutSizeTranslationsInput | SizesUpsertWithWhereUniqueWithoutSizeTranslationsInput[]
-    createMany?: SizesCreateManySizeTranslationsInputEnvelope
-    set?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
-    disconnect?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
-    delete?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
-    connect?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
-    update?: SizesUpdateWithWhereUniqueWithoutSizeTranslationsInput | SizesUpdateWithWhereUniqueWithoutSizeTranslationsInput[]
-    updateMany?: SizesUpdateManyWithWhereWithoutSizeTranslationsInput | SizesUpdateManyWithWhereWithoutSizeTranslationsInput[]
-    deleteMany?: SizesScalarWhereInput | SizesScalarWhereInput[]
-  }
-
-  export type SizesUncheckedUpdateManyWithoutSizeTranslationsNestedInput = {
-    create?: XOR<SizesCreateWithoutSizeTranslationsInput, SizesUncheckedCreateWithoutSizeTranslationsInput> | SizesCreateWithoutSizeTranslationsInput[] | SizesUncheckedCreateWithoutSizeTranslationsInput[]
-    connectOrCreate?: SizesCreateOrConnectWithoutSizeTranslationsInput | SizesCreateOrConnectWithoutSizeTranslationsInput[]
-    upsert?: SizesUpsertWithWhereUniqueWithoutSizeTranslationsInput | SizesUpsertWithWhereUniqueWithoutSizeTranslationsInput[]
-    createMany?: SizesCreateManySizeTranslationsInputEnvelope
-    set?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
-    disconnect?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
-    delete?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
-    connect?: SizesWhereUniqueInput | SizesWhereUniqueInput[]
-    update?: SizesUpdateWithWhereUniqueWithoutSizeTranslationsInput | SizesUpdateWithWhereUniqueWithoutSizeTranslationsInput[]
-    updateMany?: SizesUpdateManyWithWhereWithoutSizeTranslationsInput | SizesUpdateManyWithWhereWithoutSizeTranslationsInput[]
-    deleteMany?: SizesScalarWhereInput | SizesScalarWhereInput[]
+  export type SizesUpdateOneRequiredWithoutTranslationsNestedInput = {
+    create?: XOR<SizesCreateWithoutTranslationsInput, SizesUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: SizesCreateOrConnectWithoutTranslationsInput
+    upsert?: SizesUpsertWithoutTranslationsInput
+    connect?: SizesWhereUniqueInput
+    update?: XOR<XOR<SizesUpdateToOneWithWhereWithoutTranslationsInput, SizesUpdateWithoutTranslationsInput>, SizesUncheckedUpdateWithoutTranslationsInput>
   }
 
   export type ProductsCreateNestedManyWithoutColorsInput = {
@@ -18269,16 +18083,24 @@ export namespace Prisma {
     connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
   }
 
-  export type ColorTranslationsCreateNestedOneWithoutColorsInput = {
-    create?: XOR<ColorTranslationsCreateWithoutColorsInput, ColorTranslationsUncheckedCreateWithoutColorsInput>
-    connectOrCreate?: ColorTranslationsCreateOrConnectWithoutColorsInput
-    connect?: ColorTranslationsWhereUniqueInput
+  export type ColorTranslationsCreateNestedManyWithoutColorInput = {
+    create?: XOR<ColorTranslationsCreateWithoutColorInput, ColorTranslationsUncheckedCreateWithoutColorInput> | ColorTranslationsCreateWithoutColorInput[] | ColorTranslationsUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: ColorTranslationsCreateOrConnectWithoutColorInput | ColorTranslationsCreateOrConnectWithoutColorInput[]
+    createMany?: ColorTranslationsCreateManyColorInputEnvelope
+    connect?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
   }
 
   export type ProductsUncheckedCreateNestedManyWithoutColorsInput = {
     create?: XOR<ProductsCreateWithoutColorsInput, ProductsUncheckedCreateWithoutColorsInput> | ProductsCreateWithoutColorsInput[] | ProductsUncheckedCreateWithoutColorsInput[]
     connectOrCreate?: ProductsCreateOrConnectWithoutColorsInput | ProductsCreateOrConnectWithoutColorsInput[]
     connect?: ProductsWhereUniqueInput | ProductsWhereUniqueInput[]
+  }
+
+  export type ColorTranslationsUncheckedCreateNestedManyWithoutColorInput = {
+    create?: XOR<ColorTranslationsCreateWithoutColorInput, ColorTranslationsUncheckedCreateWithoutColorInput> | ColorTranslationsCreateWithoutColorInput[] | ColorTranslationsUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: ColorTranslationsCreateOrConnectWithoutColorInput | ColorTranslationsCreateOrConnectWithoutColorInput[]
+    createMany?: ColorTranslationsCreateManyColorInputEnvelope
+    connect?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
   }
 
   export type ProductsUpdateManyWithoutColorsNestedInput = {
@@ -18294,14 +18116,18 @@ export namespace Prisma {
     deleteMany?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
   }
 
-  export type ColorTranslationsUpdateOneWithoutColorsNestedInput = {
-    create?: XOR<ColorTranslationsCreateWithoutColorsInput, ColorTranslationsUncheckedCreateWithoutColorsInput>
-    connectOrCreate?: ColorTranslationsCreateOrConnectWithoutColorsInput
-    upsert?: ColorTranslationsUpsertWithoutColorsInput
-    disconnect?: ColorTranslationsWhereInput | boolean
-    delete?: ColorTranslationsWhereInput | boolean
-    connect?: ColorTranslationsWhereUniqueInput
-    update?: XOR<XOR<ColorTranslationsUpdateToOneWithWhereWithoutColorsInput, ColorTranslationsUpdateWithoutColorsInput>, ColorTranslationsUncheckedUpdateWithoutColorsInput>
+  export type ColorTranslationsUpdateManyWithoutColorNestedInput = {
+    create?: XOR<ColorTranslationsCreateWithoutColorInput, ColorTranslationsUncheckedCreateWithoutColorInput> | ColorTranslationsCreateWithoutColorInput[] | ColorTranslationsUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: ColorTranslationsCreateOrConnectWithoutColorInput | ColorTranslationsCreateOrConnectWithoutColorInput[]
+    upsert?: ColorTranslationsUpsertWithWhereUniqueWithoutColorInput | ColorTranslationsUpsertWithWhereUniqueWithoutColorInput[]
+    createMany?: ColorTranslationsCreateManyColorInputEnvelope
+    set?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
+    disconnect?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
+    delete?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
+    connect?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
+    update?: ColorTranslationsUpdateWithWhereUniqueWithoutColorInput | ColorTranslationsUpdateWithWhereUniqueWithoutColorInput[]
+    updateMany?: ColorTranslationsUpdateManyWithWhereWithoutColorInput | ColorTranslationsUpdateManyWithWhereWithoutColorInput[]
+    deleteMany?: ColorTranslationsScalarWhereInput | ColorTranslationsScalarWhereInput[]
   }
 
   export type ProductsUncheckedUpdateManyWithoutColorsNestedInput = {
@@ -18317,46 +18143,32 @@ export namespace Prisma {
     deleteMany?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
   }
 
-  export type ColorsCreateNestedManyWithoutColorTranslationsInput = {
-    create?: XOR<ColorsCreateWithoutColorTranslationsInput, ColorsUncheckedCreateWithoutColorTranslationsInput> | ColorsCreateWithoutColorTranslationsInput[] | ColorsUncheckedCreateWithoutColorTranslationsInput[]
-    connectOrCreate?: ColorsCreateOrConnectWithoutColorTranslationsInput | ColorsCreateOrConnectWithoutColorTranslationsInput[]
-    createMany?: ColorsCreateManyColorTranslationsInputEnvelope
-    connect?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
+  export type ColorTranslationsUncheckedUpdateManyWithoutColorNestedInput = {
+    create?: XOR<ColorTranslationsCreateWithoutColorInput, ColorTranslationsUncheckedCreateWithoutColorInput> | ColorTranslationsCreateWithoutColorInput[] | ColorTranslationsUncheckedCreateWithoutColorInput[]
+    connectOrCreate?: ColorTranslationsCreateOrConnectWithoutColorInput | ColorTranslationsCreateOrConnectWithoutColorInput[]
+    upsert?: ColorTranslationsUpsertWithWhereUniqueWithoutColorInput | ColorTranslationsUpsertWithWhereUniqueWithoutColorInput[]
+    createMany?: ColorTranslationsCreateManyColorInputEnvelope
+    set?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
+    disconnect?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
+    delete?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
+    connect?: ColorTranslationsWhereUniqueInput | ColorTranslationsWhereUniqueInput[]
+    update?: ColorTranslationsUpdateWithWhereUniqueWithoutColorInput | ColorTranslationsUpdateWithWhereUniqueWithoutColorInput[]
+    updateMany?: ColorTranslationsUpdateManyWithWhereWithoutColorInput | ColorTranslationsUpdateManyWithWhereWithoutColorInput[]
+    deleteMany?: ColorTranslationsScalarWhereInput | ColorTranslationsScalarWhereInput[]
   }
 
-  export type ColorsUncheckedCreateNestedManyWithoutColorTranslationsInput = {
-    create?: XOR<ColorsCreateWithoutColorTranslationsInput, ColorsUncheckedCreateWithoutColorTranslationsInput> | ColorsCreateWithoutColorTranslationsInput[] | ColorsUncheckedCreateWithoutColorTranslationsInput[]
-    connectOrCreate?: ColorsCreateOrConnectWithoutColorTranslationsInput | ColorsCreateOrConnectWithoutColorTranslationsInput[]
-    createMany?: ColorsCreateManyColorTranslationsInputEnvelope
-    connect?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
+  export type ColorsCreateNestedOneWithoutTranslationsInput = {
+    create?: XOR<ColorsCreateWithoutTranslationsInput, ColorsUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: ColorsCreateOrConnectWithoutTranslationsInput
+    connect?: ColorsWhereUniqueInput
   }
 
-  export type ColorsUpdateManyWithoutColorTranslationsNestedInput = {
-    create?: XOR<ColorsCreateWithoutColorTranslationsInput, ColorsUncheckedCreateWithoutColorTranslationsInput> | ColorsCreateWithoutColorTranslationsInput[] | ColorsUncheckedCreateWithoutColorTranslationsInput[]
-    connectOrCreate?: ColorsCreateOrConnectWithoutColorTranslationsInput | ColorsCreateOrConnectWithoutColorTranslationsInput[]
-    upsert?: ColorsUpsertWithWhereUniqueWithoutColorTranslationsInput | ColorsUpsertWithWhereUniqueWithoutColorTranslationsInput[]
-    createMany?: ColorsCreateManyColorTranslationsInputEnvelope
-    set?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
-    disconnect?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
-    delete?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
-    connect?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
-    update?: ColorsUpdateWithWhereUniqueWithoutColorTranslationsInput | ColorsUpdateWithWhereUniqueWithoutColorTranslationsInput[]
-    updateMany?: ColorsUpdateManyWithWhereWithoutColorTranslationsInput | ColorsUpdateManyWithWhereWithoutColorTranslationsInput[]
-    deleteMany?: ColorsScalarWhereInput | ColorsScalarWhereInput[]
-  }
-
-  export type ColorsUncheckedUpdateManyWithoutColorTranslationsNestedInput = {
-    create?: XOR<ColorsCreateWithoutColorTranslationsInput, ColorsUncheckedCreateWithoutColorTranslationsInput> | ColorsCreateWithoutColorTranslationsInput[] | ColorsUncheckedCreateWithoutColorTranslationsInput[]
-    connectOrCreate?: ColorsCreateOrConnectWithoutColorTranslationsInput | ColorsCreateOrConnectWithoutColorTranslationsInput[]
-    upsert?: ColorsUpsertWithWhereUniqueWithoutColorTranslationsInput | ColorsUpsertWithWhereUniqueWithoutColorTranslationsInput[]
-    createMany?: ColorsCreateManyColorTranslationsInputEnvelope
-    set?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
-    disconnect?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
-    delete?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
-    connect?: ColorsWhereUniqueInput | ColorsWhereUniqueInput[]
-    update?: ColorsUpdateWithWhereUniqueWithoutColorTranslationsInput | ColorsUpdateWithWhereUniqueWithoutColorTranslationsInput[]
-    updateMany?: ColorsUpdateManyWithWhereWithoutColorTranslationsInput | ColorsUpdateManyWithWhereWithoutColorTranslationsInput[]
-    deleteMany?: ColorsScalarWhereInput | ColorsScalarWhereInput[]
+  export type ColorsUpdateOneRequiredWithoutTranslationsNestedInput = {
+    create?: XOR<ColorsCreateWithoutTranslationsInput, ColorsUncheckedCreateWithoutTranslationsInput>
+    connectOrCreate?: ColorsCreateOrConnectWithoutTranslationsInput
+    upsert?: ColorsUpsertWithoutTranslationsInput
+    connect?: ColorsWhereUniqueInput
+    update?: XOR<XOR<ColorsUpdateToOneWithWhereWithoutTranslationsInput, ColorsUpdateWithoutTranslationsInput>, ColorsUncheckedUpdateWithoutTranslationsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -18451,44 +18263,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type AccessCreateWithoutAdminsInput = {
@@ -18591,14 +18365,14 @@ export namespace Prisma {
   export type CategoriesCreateWithoutProductsInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    categoryTranslations?: CategoryTranslationsCreateNestedOneWithoutCategoriesInput
+    translations?: CategoryTranslationsCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesUncheckedCreateWithoutProductsInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    categoryTranslationsId?: number | null
+    translations?: CategoryTranslationsUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesCreateOrConnectWithoutProductsInput = {
@@ -18610,7 +18384,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sizeTranslations?: SizeTranslationsCreateNestedOneWithoutSizesInput
+    translations?: SizeTranslationsCreateNestedManyWithoutSizeInput
   }
 
   export type SizesUncheckedCreateWithoutProductsInput = {
@@ -18618,7 +18392,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    sizeTranslationsId?: number | null
+    translations?: SizeTranslationsUncheckedCreateNestedManyWithoutSizeInput
   }
 
   export type SizesCreateOrConnectWithoutProductsInput = {
@@ -18630,7 +18404,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    colorTranslations?: ColorTranslationsCreateNestedOneWithoutColorsInput
+    translations?: ColorTranslationsCreateNestedManyWithoutColorInput
   }
 
   export type ColorsUncheckedCreateWithoutProductsInput = {
@@ -18638,7 +18412,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    colorTranslationsId?: number | null
+    translations?: ColorTranslationsUncheckedCreateNestedManyWithoutColorInput
   }
 
   export type ColorsCreateOrConnectWithoutProductsInput = {
@@ -18646,7 +18420,7 @@ export namespace Prisma {
     create: XOR<ColorsCreateWithoutProductsInput, ColorsUncheckedCreateWithoutProductsInput>
   }
 
-  export type ProductTranslationsCreateWithoutProductsInput = {
+  export type ProductTranslationsCreateWithoutProductInput = {
     name: string
     lang: string
     description: string
@@ -18654,7 +18428,7 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ProductTranslationsUncheckedCreateWithoutProductsInput = {
+  export type ProductTranslationsUncheckedCreateWithoutProductInput = {
     id?: number
     name: string
     lang: string
@@ -18663,9 +18437,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ProductTranslationsCreateOrConnectWithoutProductsInput = {
+  export type ProductTranslationsCreateOrConnectWithoutProductInput = {
     where: ProductTranslationsWhereUniqueInput
-    create: XOR<ProductTranslationsCreateWithoutProductsInput, ProductTranslationsUncheckedCreateWithoutProductsInput>
+    create: XOR<ProductTranslationsCreateWithoutProductInput, ProductTranslationsUncheckedCreateWithoutProductInput>
+  }
+
+  export type ProductTranslationsCreateManyProductInputEnvelope = {
+    data: ProductTranslationsCreateManyProductInput | ProductTranslationsCreateManyProductInput[]
+    skipDuplicates?: boolean
   }
 
   export type CategoriesUpsertWithWhereUniqueWithoutProductsInput = {
@@ -18691,7 +18470,6 @@ export namespace Prisma {
     id?: IntFilter<"Categories"> | number
     createdAt?: DateTimeFilter<"Categories"> | Date | string
     updatedAt?: DateTimeFilter<"Categories"> | Date | string
-    categoryTranslationsId?: IntNullableFilter<"Categories"> | number | null
   }
 
   export type SizesUpsertWithWhereUniqueWithoutProductsInput = {
@@ -18718,7 +18496,6 @@ export namespace Prisma {
     name?: StringFilter<"Sizes"> | string
     createdAt?: DateTimeFilter<"Sizes"> | Date | string
     updatedAt?: DateTimeFilter<"Sizes"> | Date | string
-    sizeTranslationsId?: IntNullableFilter<"Sizes"> | number | null
   }
 
   export type ColorsUpsertWithWhereUniqueWithoutProductsInput = {
@@ -18745,38 +18522,38 @@ export namespace Prisma {
     name?: StringFilter<"Colors"> | string
     createdAt?: DateTimeFilter<"Colors"> | Date | string
     updatedAt?: DateTimeFilter<"Colors"> | Date | string
-    colorTranslationsId?: IntNullableFilter<"Colors"> | number | null
   }
 
-  export type ProductTranslationsUpsertWithoutProductsInput = {
-    update: XOR<ProductTranslationsUpdateWithoutProductsInput, ProductTranslationsUncheckedUpdateWithoutProductsInput>
-    create: XOR<ProductTranslationsCreateWithoutProductsInput, ProductTranslationsUncheckedCreateWithoutProductsInput>
-    where?: ProductTranslationsWhereInput
+  export type ProductTranslationsUpsertWithWhereUniqueWithoutProductInput = {
+    where: ProductTranslationsWhereUniqueInput
+    update: XOR<ProductTranslationsUpdateWithoutProductInput, ProductTranslationsUncheckedUpdateWithoutProductInput>
+    create: XOR<ProductTranslationsCreateWithoutProductInput, ProductTranslationsUncheckedCreateWithoutProductInput>
   }
 
-  export type ProductTranslationsUpdateToOneWithWhereWithoutProductsInput = {
-    where?: ProductTranslationsWhereInput
-    data: XOR<ProductTranslationsUpdateWithoutProductsInput, ProductTranslationsUncheckedUpdateWithoutProductsInput>
+  export type ProductTranslationsUpdateWithWhereUniqueWithoutProductInput = {
+    where: ProductTranslationsWhereUniqueInput
+    data: XOR<ProductTranslationsUpdateWithoutProductInput, ProductTranslationsUncheckedUpdateWithoutProductInput>
   }
 
-  export type ProductTranslationsUpdateWithoutProductsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    lang?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ProductTranslationsUpdateManyWithWhereWithoutProductInput = {
+    where: ProductTranslationsScalarWhereInput
+    data: XOR<ProductTranslationsUpdateManyMutationInput, ProductTranslationsUncheckedUpdateManyWithoutProductInput>
   }
 
-  export type ProductTranslationsUncheckedUpdateWithoutProductsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    lang?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ProductTranslationsScalarWhereInput = {
+    AND?: ProductTranslationsScalarWhereInput | ProductTranslationsScalarWhereInput[]
+    OR?: ProductTranslationsScalarWhereInput[]
+    NOT?: ProductTranslationsScalarWhereInput | ProductTranslationsScalarWhereInput[]
+    id?: IntFilter<"ProductTranslations"> | number
+    name?: StringFilter<"ProductTranslations"> | string
+    lang?: StringFilter<"ProductTranslations"> | string
+    description?: StringFilter<"ProductTranslations"> | string
+    productId?: IntFilter<"ProductTranslations"> | number
+    createdAt?: DateTimeFilter<"ProductTranslations"> | Date | string
+    updatedAt?: DateTimeFilter<"ProductTranslations"> | Date | string
   }
 
-  export type ProductsCreateWithoutProductTranslationsInput = {
+  export type ProductsCreateWithoutTranslationsInput = {
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
@@ -18786,7 +18563,7 @@ export namespace Prisma {
     colors?: ColorsCreateNestedManyWithoutProductsInput
   }
 
-  export type ProductsUncheckedCreateWithoutProductTranslationsInput = {
+  export type ProductsUncheckedCreateWithoutTranslationsInput = {
     id?: number
     price: number
     product_images?: ProductsCreateproduct_imagesInput | string[]
@@ -18797,42 +18574,41 @@ export namespace Prisma {
     colors?: ColorsUncheckedCreateNestedManyWithoutProductsInput
   }
 
-  export type ProductsCreateOrConnectWithoutProductTranslationsInput = {
+  export type ProductsCreateOrConnectWithoutTranslationsInput = {
     where: ProductsWhereUniqueInput
-    create: XOR<ProductsCreateWithoutProductTranslationsInput, ProductsUncheckedCreateWithoutProductTranslationsInput>
+    create: XOR<ProductsCreateWithoutTranslationsInput, ProductsUncheckedCreateWithoutTranslationsInput>
   }
 
-  export type ProductsCreateManyProductTranslationsInputEnvelope = {
-    data: ProductsCreateManyProductTranslationsInput | ProductsCreateManyProductTranslationsInput[]
-    skipDuplicates?: boolean
+  export type ProductsUpsertWithoutTranslationsInput = {
+    update: XOR<ProductsUpdateWithoutTranslationsInput, ProductsUncheckedUpdateWithoutTranslationsInput>
+    create: XOR<ProductsCreateWithoutTranslationsInput, ProductsUncheckedCreateWithoutTranslationsInput>
+    where?: ProductsWhereInput
   }
 
-  export type ProductsUpsertWithWhereUniqueWithoutProductTranslationsInput = {
-    where: ProductsWhereUniqueInput
-    update: XOR<ProductsUpdateWithoutProductTranslationsInput, ProductsUncheckedUpdateWithoutProductTranslationsInput>
-    create: XOR<ProductsCreateWithoutProductTranslationsInput, ProductsUncheckedCreateWithoutProductTranslationsInput>
+  export type ProductsUpdateToOneWithWhereWithoutTranslationsInput = {
+    where?: ProductsWhereInput
+    data: XOR<ProductsUpdateWithoutTranslationsInput, ProductsUncheckedUpdateWithoutTranslationsInput>
   }
 
-  export type ProductsUpdateWithWhereUniqueWithoutProductTranslationsInput = {
-    where: ProductsWhereUniqueInput
-    data: XOR<ProductsUpdateWithoutProductTranslationsInput, ProductsUncheckedUpdateWithoutProductTranslationsInput>
+  export type ProductsUpdateWithoutTranslationsInput = {
+    price?: IntFieldUpdateOperationsInput | number
+    product_images?: ProductsUpdateproduct_imagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: CategoriesUpdateManyWithoutProductsNestedInput
+    sizes?: SizesUpdateManyWithoutProductsNestedInput
+    colors?: ColorsUpdateManyWithoutProductsNestedInput
   }
 
-  export type ProductsUpdateManyWithWhereWithoutProductTranslationsInput = {
-    where: ProductsScalarWhereInput
-    data: XOR<ProductsUpdateManyMutationInput, ProductsUncheckedUpdateManyWithoutProductTranslationsInput>
-  }
-
-  export type ProductsScalarWhereInput = {
-    AND?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
-    OR?: ProductsScalarWhereInput[]
-    NOT?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
-    id?: IntFilter<"Products"> | number
-    price?: IntFilter<"Products"> | number
-    product_images?: StringNullableListFilter<"Products">
-    createdAt?: DateTimeFilter<"Products"> | Date | string
-    updatedAt?: DateTimeFilter<"Products"> | Date | string
-    productTranslationsId?: IntNullableFilter<"Products"> | number | null
+  export type ProductsUncheckedUpdateWithoutTranslationsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    price?: IntFieldUpdateOperationsInput | number
+    product_images?: ProductsUpdateproduct_imagesInput | string[]
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    categories?: CategoriesUncheckedUpdateManyWithoutProductsNestedInput
+    sizes?: SizesUncheckedUpdateManyWithoutProductsNestedInput
+    colors?: ColorsUncheckedUpdateManyWithoutProductsNestedInput
   }
 
   export type ProductsCreateWithoutCategoriesInput = {
@@ -18842,7 +18618,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sizes?: SizesCreateNestedManyWithoutProductsInput
     colors?: ColorsCreateNestedManyWithoutProductsInput
-    productTranslations?: ProductTranslationsCreateNestedOneWithoutProductsInput
+    translations?: ProductTranslationsCreateNestedManyWithoutProductInput
   }
 
   export type ProductsUncheckedCreateWithoutCategoriesInput = {
@@ -18851,9 +18627,9 @@ export namespace Prisma {
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    productTranslationsId?: number | null
     sizes?: SizesUncheckedCreateNestedManyWithoutProductsInput
     colors?: ColorsUncheckedCreateNestedManyWithoutProductsInput
+    translations?: ProductTranslationsUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductsCreateOrConnectWithoutCategoriesInput = {
@@ -18861,14 +18637,14 @@ export namespace Prisma {
     create: XOR<ProductsCreateWithoutCategoriesInput, ProductsUncheckedCreateWithoutCategoriesInput>
   }
 
-  export type CategoryTranslationsCreateWithoutCategoriesInput = {
+  export type CategoryTranslationsCreateWithoutCategoryInput = {
     name: string
     lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type CategoryTranslationsUncheckedCreateWithoutCategoriesInput = {
+  export type CategoryTranslationsUncheckedCreateWithoutCategoryInput = {
     id?: number
     name: string
     lang: string
@@ -18876,9 +18652,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type CategoryTranslationsCreateOrConnectWithoutCategoriesInput = {
+  export type CategoryTranslationsCreateOrConnectWithoutCategoryInput = {
     where: CategoryTranslationsWhereUniqueInput
-    create: XOR<CategoryTranslationsCreateWithoutCategoriesInput, CategoryTranslationsUncheckedCreateWithoutCategoriesInput>
+    create: XOR<CategoryTranslationsCreateWithoutCategoryInput, CategoryTranslationsUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type CategoryTranslationsCreateManyCategoryInputEnvelope = {
+    data: CategoryTranslationsCreateManyCategoryInput | CategoryTranslationsCreateManyCategoryInput[]
+    skipDuplicates?: boolean
   }
 
   export type ProductsUpsertWithWhereUniqueWithoutCategoriesInput = {
@@ -18897,69 +18678,85 @@ export namespace Prisma {
     data: XOR<ProductsUpdateManyMutationInput, ProductsUncheckedUpdateManyWithoutCategoriesInput>
   }
 
-  export type CategoryTranslationsUpsertWithoutCategoriesInput = {
-    update: XOR<CategoryTranslationsUpdateWithoutCategoriesInput, CategoryTranslationsUncheckedUpdateWithoutCategoriesInput>
-    create: XOR<CategoryTranslationsCreateWithoutCategoriesInput, CategoryTranslationsUncheckedCreateWithoutCategoriesInput>
-    where?: CategoryTranslationsWhereInput
+  export type ProductsScalarWhereInput = {
+    AND?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
+    OR?: ProductsScalarWhereInput[]
+    NOT?: ProductsScalarWhereInput | ProductsScalarWhereInput[]
+    id?: IntFilter<"Products"> | number
+    price?: IntFilter<"Products"> | number
+    product_images?: StringNullableListFilter<"Products">
+    createdAt?: DateTimeFilter<"Products"> | Date | string
+    updatedAt?: DateTimeFilter<"Products"> | Date | string
   }
 
-  export type CategoryTranslationsUpdateToOneWithWhereWithoutCategoriesInput = {
-    where?: CategoryTranslationsWhereInput
-    data: XOR<CategoryTranslationsUpdateWithoutCategoriesInput, CategoryTranslationsUncheckedUpdateWithoutCategoriesInput>
+  export type CategoryTranslationsUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: CategoryTranslationsWhereUniqueInput
+    update: XOR<CategoryTranslationsUpdateWithoutCategoryInput, CategoryTranslationsUncheckedUpdateWithoutCategoryInput>
+    create: XOR<CategoryTranslationsCreateWithoutCategoryInput, CategoryTranslationsUncheckedCreateWithoutCategoryInput>
   }
 
-  export type CategoryTranslationsUpdateWithoutCategoriesInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    lang?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type CategoryTranslationsUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: CategoryTranslationsWhereUniqueInput
+    data: XOR<CategoryTranslationsUpdateWithoutCategoryInput, CategoryTranslationsUncheckedUpdateWithoutCategoryInput>
   }
 
-  export type CategoryTranslationsUncheckedUpdateWithoutCategoriesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    lang?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type CategoryTranslationsUpdateManyWithWhereWithoutCategoryInput = {
+    where: CategoryTranslationsScalarWhereInput
+    data: XOR<CategoryTranslationsUpdateManyMutationInput, CategoryTranslationsUncheckedUpdateManyWithoutCategoryInput>
   }
 
-  export type CategoriesCreateWithoutCategoryTranslationsInput = {
+  export type CategoryTranslationsScalarWhereInput = {
+    AND?: CategoryTranslationsScalarWhereInput | CategoryTranslationsScalarWhereInput[]
+    OR?: CategoryTranslationsScalarWhereInput[]
+    NOT?: CategoryTranslationsScalarWhereInput | CategoryTranslationsScalarWhereInput[]
+    id?: IntFilter<"CategoryTranslations"> | number
+    name?: StringFilter<"CategoryTranslations"> | string
+    lang?: StringFilter<"CategoryTranslations"> | string
+    categoryId?: IntFilter<"CategoryTranslations"> | number
+    createdAt?: DateTimeFilter<"CategoryTranslations"> | Date | string
+    updatedAt?: DateTimeFilter<"CategoryTranslations"> | Date | string
+  }
+
+  export type CategoriesCreateWithoutTranslationsInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutCategoriesInput
   }
 
-  export type CategoriesUncheckedCreateWithoutCategoryTranslationsInput = {
+  export type CategoriesUncheckedCreateWithoutTranslationsInput = {
     id?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsUncheckedCreateNestedManyWithoutCategoriesInput
   }
 
-  export type CategoriesCreateOrConnectWithoutCategoryTranslationsInput = {
+  export type CategoriesCreateOrConnectWithoutTranslationsInput = {
     where: CategoriesWhereUniqueInput
-    create: XOR<CategoriesCreateWithoutCategoryTranslationsInput, CategoriesUncheckedCreateWithoutCategoryTranslationsInput>
+    create: XOR<CategoriesCreateWithoutTranslationsInput, CategoriesUncheckedCreateWithoutTranslationsInput>
   }
 
-  export type CategoriesCreateManyCategoryTranslationsInputEnvelope = {
-    data: CategoriesCreateManyCategoryTranslationsInput | CategoriesCreateManyCategoryTranslationsInput[]
-    skipDuplicates?: boolean
+  export type CategoriesUpsertWithoutTranslationsInput = {
+    update: XOR<CategoriesUpdateWithoutTranslationsInput, CategoriesUncheckedUpdateWithoutTranslationsInput>
+    create: XOR<CategoriesCreateWithoutTranslationsInput, CategoriesUncheckedCreateWithoutTranslationsInput>
+    where?: CategoriesWhereInput
   }
 
-  export type CategoriesUpsertWithWhereUniqueWithoutCategoryTranslationsInput = {
-    where: CategoriesWhereUniqueInput
-    update: XOR<CategoriesUpdateWithoutCategoryTranslationsInput, CategoriesUncheckedUpdateWithoutCategoryTranslationsInput>
-    create: XOR<CategoriesCreateWithoutCategoryTranslationsInput, CategoriesUncheckedCreateWithoutCategoryTranslationsInput>
+  export type CategoriesUpdateToOneWithWhereWithoutTranslationsInput = {
+    where?: CategoriesWhereInput
+    data: XOR<CategoriesUpdateWithoutTranslationsInput, CategoriesUncheckedUpdateWithoutTranslationsInput>
   }
 
-  export type CategoriesUpdateWithWhereUniqueWithoutCategoryTranslationsInput = {
-    where: CategoriesWhereUniqueInput
-    data: XOR<CategoriesUpdateWithoutCategoryTranslationsInput, CategoriesUncheckedUpdateWithoutCategoryTranslationsInput>
+  export type CategoriesUpdateWithoutTranslationsInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductsUpdateManyWithoutCategoriesNestedInput
   }
 
-  export type CategoriesUpdateManyWithWhereWithoutCategoryTranslationsInput = {
-    where: CategoriesScalarWhereInput
-    data: XOR<CategoriesUpdateManyMutationInput, CategoriesUncheckedUpdateManyWithoutCategoryTranslationsInput>
+  export type CategoriesUncheckedUpdateWithoutTranslationsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductsUncheckedUpdateManyWithoutCategoriesNestedInput
   }
 
   export type ProductsCreateWithoutSizesInput = {
@@ -18969,7 +18766,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     categories?: CategoriesCreateNestedManyWithoutProductsInput
     colors?: ColorsCreateNestedManyWithoutProductsInput
-    productTranslations?: ProductTranslationsCreateNestedOneWithoutProductsInput
+    translations?: ProductTranslationsCreateNestedManyWithoutProductInput
   }
 
   export type ProductsUncheckedCreateWithoutSizesInput = {
@@ -18978,9 +18775,9 @@ export namespace Prisma {
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    productTranslationsId?: number | null
     categories?: CategoriesUncheckedCreateNestedManyWithoutProductsInput
     colors?: ColorsUncheckedCreateNestedManyWithoutProductsInput
+    translations?: ProductTranslationsUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductsCreateOrConnectWithoutSizesInput = {
@@ -18988,14 +18785,14 @@ export namespace Prisma {
     create: XOR<ProductsCreateWithoutSizesInput, ProductsUncheckedCreateWithoutSizesInput>
   }
 
-  export type SizeTranslationsCreateWithoutSizesInput = {
+  export type SizeTranslationsCreateWithoutSizeInput = {
     name: string
     lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type SizeTranslationsUncheckedCreateWithoutSizesInput = {
+  export type SizeTranslationsUncheckedCreateWithoutSizeInput = {
     id?: number
     name: string
     lang: string
@@ -19003,9 +18800,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type SizeTranslationsCreateOrConnectWithoutSizesInput = {
+  export type SizeTranslationsCreateOrConnectWithoutSizeInput = {
     where: SizeTranslationsWhereUniqueInput
-    create: XOR<SizeTranslationsCreateWithoutSizesInput, SizeTranslationsUncheckedCreateWithoutSizesInput>
+    create: XOR<SizeTranslationsCreateWithoutSizeInput, SizeTranslationsUncheckedCreateWithoutSizeInput>
+  }
+
+  export type SizeTranslationsCreateManySizeInputEnvelope = {
+    data: SizeTranslationsCreateManySizeInput | SizeTranslationsCreateManySizeInput[]
+    skipDuplicates?: boolean
   }
 
   export type ProductsUpsertWithWhereUniqueWithoutSizesInput = {
@@ -19024,40 +18826,42 @@ export namespace Prisma {
     data: XOR<ProductsUpdateManyMutationInput, ProductsUncheckedUpdateManyWithoutSizesInput>
   }
 
-  export type SizeTranslationsUpsertWithoutSizesInput = {
-    update: XOR<SizeTranslationsUpdateWithoutSizesInput, SizeTranslationsUncheckedUpdateWithoutSizesInput>
-    create: XOR<SizeTranslationsCreateWithoutSizesInput, SizeTranslationsUncheckedCreateWithoutSizesInput>
-    where?: SizeTranslationsWhereInput
+  export type SizeTranslationsUpsertWithWhereUniqueWithoutSizeInput = {
+    where: SizeTranslationsWhereUniqueInput
+    update: XOR<SizeTranslationsUpdateWithoutSizeInput, SizeTranslationsUncheckedUpdateWithoutSizeInput>
+    create: XOR<SizeTranslationsCreateWithoutSizeInput, SizeTranslationsUncheckedCreateWithoutSizeInput>
   }
 
-  export type SizeTranslationsUpdateToOneWithWhereWithoutSizesInput = {
-    where?: SizeTranslationsWhereInput
-    data: XOR<SizeTranslationsUpdateWithoutSizesInput, SizeTranslationsUncheckedUpdateWithoutSizesInput>
+  export type SizeTranslationsUpdateWithWhereUniqueWithoutSizeInput = {
+    where: SizeTranslationsWhereUniqueInput
+    data: XOR<SizeTranslationsUpdateWithoutSizeInput, SizeTranslationsUncheckedUpdateWithoutSizeInput>
   }
 
-  export type SizeTranslationsUpdateWithoutSizesInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    lang?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type SizeTranslationsUpdateManyWithWhereWithoutSizeInput = {
+    where: SizeTranslationsScalarWhereInput
+    data: XOR<SizeTranslationsUpdateManyMutationInput, SizeTranslationsUncheckedUpdateManyWithoutSizeInput>
   }
 
-  export type SizeTranslationsUncheckedUpdateWithoutSizesInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    lang?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type SizeTranslationsScalarWhereInput = {
+    AND?: SizeTranslationsScalarWhereInput | SizeTranslationsScalarWhereInput[]
+    OR?: SizeTranslationsScalarWhereInput[]
+    NOT?: SizeTranslationsScalarWhereInput | SizeTranslationsScalarWhereInput[]
+    id?: IntFilter<"SizeTranslations"> | number
+    name?: StringFilter<"SizeTranslations"> | string
+    lang?: StringFilter<"SizeTranslations"> | string
+    sizeId?: IntFilter<"SizeTranslations"> | number
+    createdAt?: DateTimeFilter<"SizeTranslations"> | Date | string
+    updatedAt?: DateTimeFilter<"SizeTranslations"> | Date | string
   }
 
-  export type SizesCreateWithoutSizeTranslationsInput = {
+  export type SizesCreateWithoutTranslationsInput = {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutSizesInput
   }
 
-  export type SizesUncheckedCreateWithoutSizeTranslationsInput = {
+  export type SizesUncheckedCreateWithoutTranslationsInput = {
     id?: number
     name: string
     createdAt?: Date | string
@@ -19065,30 +18869,35 @@ export namespace Prisma {
     products?: ProductsUncheckedCreateNestedManyWithoutSizesInput
   }
 
-  export type SizesCreateOrConnectWithoutSizeTranslationsInput = {
+  export type SizesCreateOrConnectWithoutTranslationsInput = {
     where: SizesWhereUniqueInput
-    create: XOR<SizesCreateWithoutSizeTranslationsInput, SizesUncheckedCreateWithoutSizeTranslationsInput>
+    create: XOR<SizesCreateWithoutTranslationsInput, SizesUncheckedCreateWithoutTranslationsInput>
   }
 
-  export type SizesCreateManySizeTranslationsInputEnvelope = {
-    data: SizesCreateManySizeTranslationsInput | SizesCreateManySizeTranslationsInput[]
-    skipDuplicates?: boolean
+  export type SizesUpsertWithoutTranslationsInput = {
+    update: XOR<SizesUpdateWithoutTranslationsInput, SizesUncheckedUpdateWithoutTranslationsInput>
+    create: XOR<SizesCreateWithoutTranslationsInput, SizesUncheckedCreateWithoutTranslationsInput>
+    where?: SizesWhereInput
   }
 
-  export type SizesUpsertWithWhereUniqueWithoutSizeTranslationsInput = {
-    where: SizesWhereUniqueInput
-    update: XOR<SizesUpdateWithoutSizeTranslationsInput, SizesUncheckedUpdateWithoutSizeTranslationsInput>
-    create: XOR<SizesCreateWithoutSizeTranslationsInput, SizesUncheckedCreateWithoutSizeTranslationsInput>
+  export type SizesUpdateToOneWithWhereWithoutTranslationsInput = {
+    where?: SizesWhereInput
+    data: XOR<SizesUpdateWithoutTranslationsInput, SizesUncheckedUpdateWithoutTranslationsInput>
   }
 
-  export type SizesUpdateWithWhereUniqueWithoutSizeTranslationsInput = {
-    where: SizesWhereUniqueInput
-    data: XOR<SizesUpdateWithoutSizeTranslationsInput, SizesUncheckedUpdateWithoutSizeTranslationsInput>
+  export type SizesUpdateWithoutTranslationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductsUpdateManyWithoutSizesNestedInput
   }
 
-  export type SizesUpdateManyWithWhereWithoutSizeTranslationsInput = {
-    where: SizesScalarWhereInput
-    data: XOR<SizesUpdateManyMutationInput, SizesUncheckedUpdateManyWithoutSizeTranslationsInput>
+  export type SizesUncheckedUpdateWithoutTranslationsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductsUncheckedUpdateManyWithoutSizesNestedInput
   }
 
   export type ProductsCreateWithoutColorsInput = {
@@ -19098,7 +18907,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     categories?: CategoriesCreateNestedManyWithoutProductsInput
     sizes?: SizesCreateNestedManyWithoutProductsInput
-    productTranslations?: ProductTranslationsCreateNestedOneWithoutProductsInput
+    translations?: ProductTranslationsCreateNestedManyWithoutProductInput
   }
 
   export type ProductsUncheckedCreateWithoutColorsInput = {
@@ -19107,9 +18916,9 @@ export namespace Prisma {
     product_images?: ProductsCreateproduct_imagesInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    productTranslationsId?: number | null
     categories?: CategoriesUncheckedCreateNestedManyWithoutProductsInput
     sizes?: SizesUncheckedCreateNestedManyWithoutProductsInput
+    translations?: ProductTranslationsUncheckedCreateNestedManyWithoutProductInput
   }
 
   export type ProductsCreateOrConnectWithoutColorsInput = {
@@ -19117,14 +18926,14 @@ export namespace Prisma {
     create: XOR<ProductsCreateWithoutColorsInput, ProductsUncheckedCreateWithoutColorsInput>
   }
 
-  export type ColorTranslationsCreateWithoutColorsInput = {
+  export type ColorTranslationsCreateWithoutColorInput = {
     name: string
     lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type ColorTranslationsUncheckedCreateWithoutColorsInput = {
+  export type ColorTranslationsUncheckedCreateWithoutColorInput = {
     id?: number
     name: string
     lang: string
@@ -19132,9 +18941,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ColorTranslationsCreateOrConnectWithoutColorsInput = {
+  export type ColorTranslationsCreateOrConnectWithoutColorInput = {
     where: ColorTranslationsWhereUniqueInput
-    create: XOR<ColorTranslationsCreateWithoutColorsInput, ColorTranslationsUncheckedCreateWithoutColorsInput>
+    create: XOR<ColorTranslationsCreateWithoutColorInput, ColorTranslationsUncheckedCreateWithoutColorInput>
+  }
+
+  export type ColorTranslationsCreateManyColorInputEnvelope = {
+    data: ColorTranslationsCreateManyColorInput | ColorTranslationsCreateManyColorInput[]
+    skipDuplicates?: boolean
   }
 
   export type ProductsUpsertWithWhereUniqueWithoutColorsInput = {
@@ -19153,40 +18967,42 @@ export namespace Prisma {
     data: XOR<ProductsUpdateManyMutationInput, ProductsUncheckedUpdateManyWithoutColorsInput>
   }
 
-  export type ColorTranslationsUpsertWithoutColorsInput = {
-    update: XOR<ColorTranslationsUpdateWithoutColorsInput, ColorTranslationsUncheckedUpdateWithoutColorsInput>
-    create: XOR<ColorTranslationsCreateWithoutColorsInput, ColorTranslationsUncheckedCreateWithoutColorsInput>
-    where?: ColorTranslationsWhereInput
+  export type ColorTranslationsUpsertWithWhereUniqueWithoutColorInput = {
+    where: ColorTranslationsWhereUniqueInput
+    update: XOR<ColorTranslationsUpdateWithoutColorInput, ColorTranslationsUncheckedUpdateWithoutColorInput>
+    create: XOR<ColorTranslationsCreateWithoutColorInput, ColorTranslationsUncheckedCreateWithoutColorInput>
   }
 
-  export type ColorTranslationsUpdateToOneWithWhereWithoutColorsInput = {
-    where?: ColorTranslationsWhereInput
-    data: XOR<ColorTranslationsUpdateWithoutColorsInput, ColorTranslationsUncheckedUpdateWithoutColorsInput>
+  export type ColorTranslationsUpdateWithWhereUniqueWithoutColorInput = {
+    where: ColorTranslationsWhereUniqueInput
+    data: XOR<ColorTranslationsUpdateWithoutColorInput, ColorTranslationsUncheckedUpdateWithoutColorInput>
   }
 
-  export type ColorTranslationsUpdateWithoutColorsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    lang?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ColorTranslationsUpdateManyWithWhereWithoutColorInput = {
+    where: ColorTranslationsScalarWhereInput
+    data: XOR<ColorTranslationsUpdateManyMutationInput, ColorTranslationsUncheckedUpdateManyWithoutColorInput>
   }
 
-  export type ColorTranslationsUncheckedUpdateWithoutColorsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    lang?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ColorTranslationsScalarWhereInput = {
+    AND?: ColorTranslationsScalarWhereInput | ColorTranslationsScalarWhereInput[]
+    OR?: ColorTranslationsScalarWhereInput[]
+    NOT?: ColorTranslationsScalarWhereInput | ColorTranslationsScalarWhereInput[]
+    id?: IntFilter<"ColorTranslations"> | number
+    name?: StringFilter<"ColorTranslations"> | string
+    lang?: StringFilter<"ColorTranslations"> | string
+    colorId?: IntFilter<"ColorTranslations"> | number
+    createdAt?: DateTimeFilter<"ColorTranslations"> | Date | string
+    updatedAt?: DateTimeFilter<"ColorTranslations"> | Date | string
   }
 
-  export type ColorsCreateWithoutColorTranslationsInput = {
+  export type ColorsCreateWithoutTranslationsInput = {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutColorsInput
   }
 
-  export type ColorsUncheckedCreateWithoutColorTranslationsInput = {
+  export type ColorsUncheckedCreateWithoutTranslationsInput = {
     id?: number
     name: string
     createdAt?: Date | string
@@ -19194,30 +19010,35 @@ export namespace Prisma {
     products?: ProductsUncheckedCreateNestedManyWithoutColorsInput
   }
 
-  export type ColorsCreateOrConnectWithoutColorTranslationsInput = {
+  export type ColorsCreateOrConnectWithoutTranslationsInput = {
     where: ColorsWhereUniqueInput
-    create: XOR<ColorsCreateWithoutColorTranslationsInput, ColorsUncheckedCreateWithoutColorTranslationsInput>
+    create: XOR<ColorsCreateWithoutTranslationsInput, ColorsUncheckedCreateWithoutTranslationsInput>
   }
 
-  export type ColorsCreateManyColorTranslationsInputEnvelope = {
-    data: ColorsCreateManyColorTranslationsInput | ColorsCreateManyColorTranslationsInput[]
-    skipDuplicates?: boolean
+  export type ColorsUpsertWithoutTranslationsInput = {
+    update: XOR<ColorsUpdateWithoutTranslationsInput, ColorsUncheckedUpdateWithoutTranslationsInput>
+    create: XOR<ColorsCreateWithoutTranslationsInput, ColorsUncheckedCreateWithoutTranslationsInput>
+    where?: ColorsWhereInput
   }
 
-  export type ColorsUpsertWithWhereUniqueWithoutColorTranslationsInput = {
-    where: ColorsWhereUniqueInput
-    update: XOR<ColorsUpdateWithoutColorTranslationsInput, ColorsUncheckedUpdateWithoutColorTranslationsInput>
-    create: XOR<ColorsCreateWithoutColorTranslationsInput, ColorsUncheckedCreateWithoutColorTranslationsInput>
+  export type ColorsUpdateToOneWithWhereWithoutTranslationsInput = {
+    where?: ColorsWhereInput
+    data: XOR<ColorsUpdateWithoutTranslationsInput, ColorsUncheckedUpdateWithoutTranslationsInput>
   }
 
-  export type ColorsUpdateWithWhereUniqueWithoutColorTranslationsInput = {
-    where: ColorsWhereUniqueInput
-    data: XOR<ColorsUpdateWithoutColorTranslationsInput, ColorsUncheckedUpdateWithoutColorTranslationsInput>
+  export type ColorsUpdateWithoutTranslationsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductsUpdateManyWithoutColorsNestedInput
   }
 
-  export type ColorsUpdateManyWithWhereWithoutColorTranslationsInput = {
-    where: ColorsScalarWhereInput
-    data: XOR<ColorsUpdateManyMutationInput, ColorsUncheckedUpdateManyWithoutColorTranslationsInput>
+  export type ColorsUncheckedUpdateWithoutTranslationsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductsUncheckedUpdateManyWithoutColorsNestedInput
   }
 
   export type AccessUpdateWithoutAdminsInput = {
@@ -19269,31 +19090,39 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ProductTranslationsCreateManyProductInput = {
+    id?: number
+    name: string
+    lang: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type CategoriesUpdateWithoutProductsInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryTranslations?: CategoryTranslationsUpdateOneWithoutCategoriesNestedInput
+    translations?: CategoryTranslationsUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesUncheckedUpdateWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
+    translations?: CategoryTranslationsUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesUncheckedUpdateManyWithoutProductsInput = {
     id?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categoryTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type SizesUpdateWithoutProductsInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sizeTranslations?: SizeTranslationsUpdateOneWithoutSizesNestedInput
+    translations?: SizeTranslationsUpdateManyWithoutSizeNestedInput
   }
 
   export type SizesUncheckedUpdateWithoutProductsInput = {
@@ -19301,7 +19130,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sizeTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
+    translations?: SizeTranslationsUncheckedUpdateManyWithoutSizeNestedInput
   }
 
   export type SizesUncheckedUpdateManyWithoutProductsInput = {
@@ -19309,14 +19138,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    sizeTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ColorsUpdateWithoutProductsInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    colorTranslations?: ColorTranslationsUpdateOneWithoutColorsNestedInput
+    translations?: ColorTranslationsUpdateManyWithoutColorNestedInput
   }
 
   export type ColorsUncheckedUpdateWithoutProductsInput = {
@@ -19324,7 +19152,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    colorTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
+    translations?: ColorTranslationsUncheckedUpdateManyWithoutColorNestedInput
   }
 
   export type ColorsUncheckedUpdateManyWithoutProductsInput = {
@@ -19332,44 +19160,40 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    colorTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type ProductsCreateManyProductTranslationsInput = {
+  export type ProductTranslationsUpdateWithoutProductInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductTranslationsUncheckedUpdateWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProductTranslationsUncheckedUpdateManyWithoutProductInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryTranslationsCreateManyCategoryInput = {
     id?: number
-    price: number
-    product_images?: ProductsCreateproduct_imagesInput | string[]
+    name: string
+    lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type ProductsUpdateWithoutProductTranslationsInput = {
-    price?: IntFieldUpdateOperationsInput | number
-    product_images?: ProductsUpdateproduct_imagesInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories?: CategoriesUpdateManyWithoutProductsNestedInput
-    sizes?: SizesUpdateManyWithoutProductsNestedInput
-    colors?: ColorsUpdateManyWithoutProductsNestedInput
-  }
-
-  export type ProductsUncheckedUpdateWithoutProductTranslationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    product_images?: ProductsUpdateproduct_imagesInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    categories?: CategoriesUncheckedUpdateManyWithoutProductsNestedInput
-    sizes?: SizesUncheckedUpdateManyWithoutProductsNestedInput
-    colors?: ColorsUncheckedUpdateManyWithoutProductsNestedInput
-  }
-
-  export type ProductsUncheckedUpdateManyWithoutProductTranslationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    price?: IntFieldUpdateOperationsInput | number
-    product_images?: ProductsUpdateproduct_imagesInput | string[]
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductsUpdateWithoutCategoriesInput = {
@@ -19379,7 +19203,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sizes?: SizesUpdateManyWithoutProductsNestedInput
     colors?: ColorsUpdateManyWithoutProductsNestedInput
-    productTranslations?: ProductTranslationsUpdateOneWithoutProductsNestedInput
+    translations?: ProductTranslationsUpdateManyWithoutProductNestedInput
   }
 
   export type ProductsUncheckedUpdateWithoutCategoriesInput = {
@@ -19388,9 +19212,9 @@ export namespace Prisma {
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    productTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
     sizes?: SizesUncheckedUpdateManyWithoutProductsNestedInput
     colors?: ColorsUncheckedUpdateManyWithoutProductsNestedInput
+    translations?: ProductTranslationsUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductsUncheckedUpdateManyWithoutCategoriesInput = {
@@ -19399,32 +19223,37 @@ export namespace Prisma {
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    productTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type CategoriesCreateManyCategoryTranslationsInput = {
+  export type CategoryTranslationsUpdateWithoutCategoryInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryTranslationsUncheckedUpdateWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CategoryTranslationsUncheckedUpdateManyWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SizeTranslationsCreateManySizeInput = {
     id?: number
+    name: string
+    lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type CategoriesUpdateWithoutCategoryTranslationsInput = {
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductsUpdateManyWithoutCategoriesNestedInput
-  }
-
-  export type CategoriesUncheckedUpdateWithoutCategoryTranslationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductsUncheckedUpdateManyWithoutCategoriesNestedInput
-  }
-
-  export type CategoriesUncheckedUpdateManyWithoutCategoryTranslationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductsUpdateWithoutSizesInput = {
@@ -19434,7 +19263,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categories?: CategoriesUpdateManyWithoutProductsNestedInput
     colors?: ColorsUpdateManyWithoutProductsNestedInput
-    productTranslations?: ProductTranslationsUpdateOneWithoutProductsNestedInput
+    translations?: ProductTranslationsUpdateManyWithoutProductNestedInput
   }
 
   export type ProductsUncheckedUpdateWithoutSizesInput = {
@@ -19443,9 +19272,9 @@ export namespace Prisma {
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    productTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
     categories?: CategoriesUncheckedUpdateManyWithoutProductsNestedInput
     colors?: ColorsUncheckedUpdateManyWithoutProductsNestedInput
+    translations?: ProductTranslationsUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductsUncheckedUpdateManyWithoutSizesInput = {
@@ -19454,36 +19283,37 @@ export namespace Prisma {
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    productTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type SizesCreateManySizeTranslationsInput = {
+  export type SizeTranslationsUpdateWithoutSizeInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SizeTranslationsUncheckedUpdateWithoutSizeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SizeTranslationsUncheckedUpdateManyWithoutSizeInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ColorTranslationsCreateManyColorInput = {
     id?: number
     name: string
+    lang: string
     createdAt?: Date | string
     updatedAt?: Date | string
-  }
-
-  export type SizesUpdateWithoutSizeTranslationsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductsUpdateManyWithoutSizesNestedInput
-  }
-
-  export type SizesUncheckedUpdateWithoutSizeTranslationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductsUncheckedUpdateManyWithoutSizesNestedInput
-  }
-
-  export type SizesUncheckedUpdateManyWithoutSizeTranslationsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ProductsUpdateWithoutColorsInput = {
@@ -19493,7 +19323,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     categories?: CategoriesUpdateManyWithoutProductsNestedInput
     sizes?: SizesUpdateManyWithoutProductsNestedInput
-    productTranslations?: ProductTranslationsUpdateOneWithoutProductsNestedInput
+    translations?: ProductTranslationsUpdateManyWithoutProductNestedInput
   }
 
   export type ProductsUncheckedUpdateWithoutColorsInput = {
@@ -19502,9 +19332,9 @@ export namespace Prisma {
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    productTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
     categories?: CategoriesUncheckedUpdateManyWithoutProductsNestedInput
     sizes?: SizesUncheckedUpdateManyWithoutProductsNestedInput
+    translations?: ProductTranslationsUncheckedUpdateManyWithoutProductNestedInput
   }
 
   export type ProductsUncheckedUpdateManyWithoutColorsInput = {
@@ -19513,34 +19343,27 @@ export namespace Prisma {
     product_images?: ProductsUpdateproduct_imagesInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    productTranslationsId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type ColorsCreateManyColorTranslationsInput = {
-    id?: number
-    name: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ColorsUpdateWithoutColorTranslationsInput = {
+  export type ColorTranslationsUpdateWithoutColorInput = {
     name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductsUpdateManyWithoutColorsNestedInput
   }
 
-  export type ColorsUncheckedUpdateWithoutColorTranslationsInput = {
+  export type ColorTranslationsUncheckedUpdateWithoutColorInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    products?: ProductsUncheckedUpdateManyWithoutColorsNestedInput
   }
 
-  export type ColorsUncheckedUpdateManyWithoutColorTranslationsInput = {
+  export type ColorTranslationsUncheckedUpdateManyWithoutColorInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
