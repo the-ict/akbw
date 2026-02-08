@@ -9,6 +9,7 @@ import { monsterrat } from '@/shared/fonts';
 import ProductCard from '@/widgets/product';
 import { useProduct } from '@/features/products/lib/hooks';
 import { useProducts } from '@/features/products/lib/hooks';
+import { useProductReviews, useCreateReview } from '@/features/reviews/lib/hooks';
 
 interface ProductProps {
     id: string;
@@ -22,6 +23,13 @@ export default function Product({ id }: ProductProps) {
     const [selectedSize, setSelectedSize] = useState<number | null>(null);
     const [activeImage, setActiveImage] = useState(0);
     const [activeTab, setActiveTab] = useState('reviews');
+    const [userRating, setUserRating] = useState(0);
+    const [reviewText, setReviewText] = useState('');
+    const [reviewerName, setReviewerName] = useState('');
+
+    // Fetch reviews for this product
+    const { data: reviewsData, isLoading: reviewsLoading } = useProductReviews(parseInt(id));
+    const createReviewMutation = useCreateReview();
 
     // Set default selections when product loads
     React.useEffect(() => {
@@ -59,14 +67,30 @@ export default function Product({ id }: ProductProps) {
 
     const productImages = product.product_images?.length > 0 ? product.product_images : ['/assets/product.png'];
 
-    const reviews = [
-        { name: "Samantha D.", date: "August 14, 2023", text: "I absolutely love this t-shirt! The design is unique and the fabric feels so high quality. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt.", verified: true, rating: 5 },
-        { name: "Alex M.", date: "August 15, 2023", text: "The fit is perfect and the color is exactly as shown in the pictures. I've received so many compliments since I started wearing it. Highly recommend for anyone looking for style and comfort.", verified: true, rating: 5 },
-        { name: "Ethan R.", date: "August 16, 2023", text: "Quality is top-notch. I've washed it a few times and the graphic still looks brand new. The material is very breathable, which is great for the current weather.", verified: true, rating: 4 },
-        { name: "Olivia P.", date: "August 17, 2023", text: "Fast shipping and great customer service. The sizing is accurate, but I would suggest sizing up if you want a more oversized look. Definitely worth the price.", verified: true, rating: 5 },
-        { name: "Liam K.", date: "August 18, 2023", text: "Been looking for a simple but stylish graphic tee for a while and this one hits the spot. The minimal design goes well with almost anything in my wardrobe.", verified: true, rating: 4 },
-        { name: "Ava H.", date: "August 19, 2023", text: "Such a vibe! AKBW never misses with their graphic designs. I'm already eyeing my next purchase. Keep up the great work guys!", verified: true, rating: 5 }
-    ];
+    const handleSubmitReview = async () => {
+        if (!userRating || !reviewText.trim() || !reviewerName.trim()) {
+            alert('Please fill in all fields and select a rating');
+            return;
+        }
+
+        try {
+            await createReviewMutation.mutateAsync({
+                rating: userRating,
+                comment: reviewText,
+                userName: reviewerName,
+                productId: parseInt(id),
+            });
+
+            // Reset form
+            setUserRating(0);
+            setReviewText('');
+            setReviewerName('');
+            alert('Review submitted successfully!');
+        } catch (error) {
+            console.error('Error submitting review:', error);
+            alert('Failed to submit review. Please try again.');
+        }
+    };
 
     return (
         <div className='min-h-screen bg-white'>
@@ -223,54 +247,134 @@ export default function Product({ id }: ProductProps) {
                 <div className='mb-20'>
                     {activeTab === 'reviews' && (
                         <div className='max-w-4xl mx-auto'>
+                            <div className='mb-10 p-8 border border-gray-100 rounded-[32px] bg-white shadow-sm'>
+                                <h3 className='text-xl font-bold mb-6'>Write a Review</h3>
+
+                                <div className='mb-6'>
+                                    <p className='text-sm text-gray-500 mb-3'>Rate this product</p>
+                                    <div className='flex gap-2'>
+                                        {[1, 2, 3, 4, 5].map((star) => (
+                                            <button
+                                                key={star}
+                                                onClick={() => setUserRating(star)}
+                                                className='hover:scale-110 transition-transform cursor-pointer'
+                                            >
+                                                <Star
+                                                    size={28}
+                                                    className={cn(
+                                                        'transition-colors',
+                                                        star <= userRating ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
+                                                    )}
+                                                    fill={star <= userRating ? 'currentColor' : 'none'}
+                                                />
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className='mb-4'>
+                                    <input
+                                        type='text'
+                                        placeholder='Your name'
+                                        value={reviewerName}
+                                        onChange={(e) => setReviewerName(e.target.value)}
+                                        className='w-full p-4 border border-gray-200 rounded-[20px] focus:outline-none focus:border-black transition-all text-sm'
+                                        maxLength={100}
+                                    />
+                                </div>
+
+                                <div className='relative'>
+                                    <textarea
+                                        placeholder='Share your thoughts about this product...'
+                                        value={reviewText}
+                                        onChange={(e) => setReviewText(e.target.value)}
+                                        className='w-full p-4 pr-24 border border-gray-200 rounded-[20px] resize-none focus:outline-none focus:border-black transition-all min-h-[100px] text-sm'
+                                        maxLength={500}
+                                    />
+
+                                    <div className='flex items-center justify-between mt-3'>
+                                        <span className='text-xs text-gray-400'>{reviewText.length}/500</span>
+
+                                        <Button
+                                            onClick={handleSubmitReview}
+                                            disabled={createReviewMutation.isPending}
+                                            className='rounded-full px-8 py-2 h-auto bg-black hover:bg-black/90 font-semibold text-sm cursor-pointer'
+                                        >
+                                            {createReviewMutation.isPending ? 'Posting...' : 'Post'}
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className='flex items-center justify-between mb-8'>
                                 <div className='flex items-center gap-2'>
-                                    <h2 className='text-2xl font-bold'>All Reviews</h2>
-                                    <span className='text-gray-400 font-normal'>(0)</span>
+                                    <h2 className='text-2xl font-bold'>Reviews</h2>
+                                    <span className='text-gray-400 font-normal'>({reviewsData?.meta.total || 0})</span>
                                 </div>
-                                <div className='flex gap-3'>
-                                    <button className='p-3 bg-gray-100 rounded-full hover:bg-black hover:text-white transition-all'>
-                                        <SlidersHorizontal size={20} />
-                                    </button>
-                                    <button className={cn('hidden md:flex items-center gap-2 bg-gray-100 px-6 py-3 rounded-full font-bold group hover:bg-black hover:text-white transition-all')}>
-                                        Latest <ChevronDown size={18} className='group-hover:rotate-180 transition-transform' />
-                                    </button>
-                                    <Button className='rounded-full px-8 py-6 font-bold'>Write a Review</Button>
-                                </div>
+                                <button className={cn('flex items-center gap-2 bg-gray-100 px-6 py-3 rounded-full font-bold group hover:bg-black hover:text-white transition-all cursor-pointer')}>
+                                    Latest <ChevronDown size={18} className='group-hover:rotate-180 transition-transform' />
+                                </button>
                             </div>
 
-                            <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
-                                {reviews.map((review, idx) => (
-                                    <div key={idx} className='p-8 border border-gray-100 rounded-[32px] bg-white hover:shadow-xl hover:translate-y-[-4px] transition-all duration-300'>
-                                        <div className='flex items-center justify-between mb-4'>
-                                            <div className='flex gap-1'>
-                                                {[1, 2, 3, 4, 5].map((s) => (
-                                                    <Star
-                                                        key={s}
-                                                        size={18}
-                                                        className={cn(s <= review.rating ? 'text-yellow-400' : 'text-gray-200')}
-                                                        fill={s <= review.rating ? 'currentColor' : 'none'}
-                                                    />
-                                                ))}
+                            {reviewsLoading ? (
+                                <div className='text-center py-10'>
+                                    <p className='text-gray-500'>Loading reviews...</p>
+                                </div>
+                            ) : (
+                                <div className='space-y-6'>
+                                    {reviewsData?.data.map((review) => (
+                                        <div key={review.id} className='p-6 border-b border-gray-100 last:border-0'>
+                                            <div className='flex items-start gap-4'>
+                                                {/* Avatar */}
+                                                <div className='w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold shrink-0'>
+                                                    {review.userName.charAt(0)}
+                                                </div>
+
+                                                {/* Review Content */}
+                                                <div className='flex-1'>
+                                                    <div className='flex items-center gap-2 mb-2'>
+                                                        <h4 className='font-bold text-base'>{review.userName}</h4>
+                                                        <span className='text-gray-400 text-sm'>• {new Date(review.createdAt).toLocaleDateString()}</span>
+                                                    </div>
+
+                                                    {/* Star Rating */}
+                                                    <div className='flex gap-1 mb-3'>
+                                                        {[1, 2, 3, 4, 5].map((s) => (
+                                                            <Star
+                                                                key={s}
+                                                                size={14}
+                                                                className={cn(s <= review.rating ? 'text-yellow-400' : 'text-gray-200')}
+                                                                fill={s <= review.rating ? 'currentColor' : 'none'}
+                                                            />
+                                                        ))}
+                                                    </div>
+
+                                                    {/* Review Text */}
+                                                    <p className='text-gray-700 leading-relaxed text-sm'>{review.comment}</p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className='flex items-center gap-2 mb-3'>
-                                            <h4 className='font-bold text-lg'>{review.name}</h4>
-                                            {review.verified && (
-                                                <MapPinCheckInside size={19} className='text-[#01AB31]' />
-                                            )}
-                                        </div>
-                                        <p className='text-gray-500 leading-relaxed mb-6 italic'>"{review.text}"</p>
-                                        <p className='text-gray-400 text-sm font-medium'>Posted on {review.date}</p>
-                                    </div>
-                                ))}
-                            </div>
+                                    ))}
+                                </div>
+                            )}
 
-                            <div className='mt-10 flex justify-center'>
-                                <Button variant="outline" className='rounded-full px-10 py-6 font-bold border-gray-200 hover:bg-black hover:text-white transition-all'>
-                                    Load More Reviews
-                                </Button>
-                            </div>
+                            {!reviewsLoading && (!reviewsData?.data || reviewsData.data.length === 0) && (
+                                <div className='text-center py-20'>
+                                    <div className='w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4'>
+                                        <Star size={32} className='text-gray-300' />
+                                    </div>
+                                    <h3 className='text-xl font-bold mb-2'>No reviews yet</h3>
+                                    <p className='text-gray-500'>Be the first to share your thoughts!</p>
+                                </div>
+                            )}
+
+                            {!reviewsLoading && reviewsData && reviewsData.data.length > 0 && reviewsData.meta.totalPages > 1 && (
+                                <div className='mt-10 flex justify-center'>
+                                    <Button variant="outline" className='rounded-full px-10 py-6 font-bold border-gray-200 hover:bg-black hover:text-white transition-all cursor-pointer'>
+                                        Load More Reviews
+                                    </Button>
+                                </div>
+                            )}
                         </div>
                     )}
 

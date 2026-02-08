@@ -11,6 +11,7 @@ const ENDP_PRODUCT = "/product";
 const ENDP_PRODUCT_CATEGORIES = "/product/categories";
 const ENDP_PRODUCT_SIZES = "/product/sizes";
 const ENDP_PRODUCT_COLORS = "/product/colors";
+const ENDP_REVIEW = "/review";
 
 
 export {
@@ -23,6 +24,8 @@ export {
   ENDP_PRODUCT,
   ENDP_PRODUCT_CATEGORIES,
   ENDP_PRODUCT_SIZES,
-  ENDP_PRODUCT_COLORS
+  ENDP_PRODUCT_COLORS,
+  ENDP_REVIEW
 };
+
 

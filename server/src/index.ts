@@ -16,6 +16,7 @@ import userRoutes from "./routers/user.routes.js";
 import adminRoutes from "./routers/admin.routes.js";
 import productRoutes from "./routers/product.routes.js";
 import uploadRoutes from "./routers/upload.routes.js";
+import reviewRoutes from "./routers/review.routes.js";
 import path from "path";
 
 
@@ -54,6 +55,7 @@ app.use("/api/sms", smsRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api/review", reviewRoutes);
 
 
 // error handler

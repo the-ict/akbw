@@ -218,6 +218,16 @@ exports.Prisma.ColorTranslationsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ReviewsScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  comment: 'comment',
+  userName: 'userName',
+  productId: 'productId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -241,7 +251,8 @@ exports.Prisma.ModelName = {
   Sizes: 'Sizes',
   SizeTranslations: 'SizeTranslations',
   Colors: 'Colors',
-  ColorTranslations: 'ColorTranslations'
+  ColorTranslations: 'ColorTranslations',
+  Reviews: 'Reviews'
 };
 
 /**
