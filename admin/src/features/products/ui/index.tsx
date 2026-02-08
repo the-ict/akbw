@@ -28,7 +28,14 @@ import DeleteConfirmModal from './delete-confirm-modal';
 import { cn } from '@/shared/lib/utils';
 import { useLocale } from 'next-intl';
 
+import { useProducts, useDeleteProduct } from '../lib/hooks';
+import { useCategories } from '../../categories/lib/hooks';
+import { IProduct } from '@/shared/config/api/product/product.modal';
+import Loading from '@/widgets/loading/ui';
+
+
 export default function Products() {
+
     const locale = useLocale();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>('all');
@@ -37,7 +44,53 @@ export default function Products() {
     const [sortBy, setSortBy] = useState<string>('createdAt');
     const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
 
+    const { data: productsData, isLoading: isLoadingProducts } = useProducts({
+        page,
+        limit,
+        q: searchQuery || undefined,
+        categoryId: selectedCategoryId === 'all' ? undefined : selectedCategoryId,
+        sortBy,
+        sortOrder
+    });
 
+    const { data: categories = [] } = useCategories();
+    const deleteMutation = useDeleteProduct();
+
+    const [open, setOpen] = useState(false);
+    const [editingProduct, setEditingProduct] = useState<IProduct | null>(null);
+    const [deletingProduct, setDeletingProduct] = useState<IProduct | null>(null);
+    const [viewOnly, setViewOnly] = useState(false);
+
+    const handleEdit = (product: IProduct) => {
+        setEditingProduct(product);
+        setViewOnly(false);
+        setOpen(true);
+    };
+
+    const handleView = (product: IProduct) => {
+        setEditingProduct(product);
+        setViewOnly(true);
+        setOpen(true);
+    };
+
+    const handleDelete = (product: IProduct) => {
+        setDeletingProduct(product);
+    };
+
+    const confirmDelete = async () => {
+        if (deletingProduct) {
+            await deleteMutation.mutateAsync(deletingProduct.id);
+            setDeletingProduct(null);
+        }
+    };
+
+
+
+
+    if (isLoadingProducts) return <div className='flex items-center justify-center p-20'><Loading /></div>;
+
+    const products = productsData?.data || [];
+    const meta = productsData?.meta;
 
     return (
         <div className='space-y-6'>
@@ -49,6 +102,9 @@ export default function Products() {
                 </div>
                 <Button
                     onClick={() => {
+                        setEditingProduct(null);
+                        setViewOnly(false);
+                        setOpen(true);
                     }}
                     className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-xs flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
                 >
@@ -58,18 +114,21 @@ export default function Products() {
             </div>
 
             <AddProductModal
-                isOpen={false}
-                product={null}
-                viewOnly={false}
-                onClose={() => { }}
+                isOpen={open}
+                product={editingProduct}
+                viewOnly={viewOnly}
+                onClose={() => {
+                    setOpen(false);
+                    setEditingProduct(null);
+                }}
             />
 
             <DeleteConfirmModal
-                isOpen={false}
-                onClose={() => { }}
-                onConfirm={() => { }}
+                isOpen={!!deletingProduct}
+                onClose={() => setDeletingProduct(null)}
+                onConfirm={confirmDelete}
                 title="Mahsulotni o‘chirasizmi?"
-                description={`Siz haqiqatan ham "${""}" mahsulotini o‘chirmoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
+                description={`Siz haqiqatan ham "${deletingProduct?.name}" mahsulotini o‘chirmoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
             />
 
             {/* Filter Bar */}
@@ -91,7 +150,7 @@ export default function Products() {
                         <DropdownMenuTrigger asChild>
                             <Button variant='outline' className='rounded-2xl border-gray-100 h-12 px-6 flex items-center gap-2 font-bold text-xs uppercase cursor-pointer'>
                                 <Filter size={16} />
-                                {selectedCategoryId === 'all' ? 'Barcha Kategoriyalar' : []?.find((c: any) => c.id.toString() === selectedCategoryId)}
+                                {selectedCategoryId === 'all' ? 'Barcha Kategoriyalar' : categories.find((c: any) => c.id.toString() === selectedCategoryId)?.name || 'Barcha Kategoriyalar'}
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl min-w-[200px]'>
@@ -104,7 +163,7 @@ export default function Products() {
                             >
                                 Barcha Kategoriyalar
                             </DropdownMenuItem>
-                            {[].map((cat: any) => (
+                            {categories.map((cat: any) => (
                                 <DropdownMenuItem
                                     key={cat.id}
                                     onClick={() => {
@@ -136,7 +195,9 @@ export default function Products() {
                                 <th className='px-6 py-4 text-left text-[10px] uppercase tracking-[0.2em] font-black text-gray-400'>
                                     <div
                                         className='flex items-center gap-2 cursor-pointer hover:text-black transition-colors'
-                                        onClick={() => { }}
+                                        onClick={() => {
+                                            setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+                                        }}
                                     >
                                         Narx <ArrowUpDown size={12} className={sortBy === 'price' ? 'text-black' : 'text-gray-300'} />
                                     </div>
@@ -153,7 +214,7 @@ export default function Products() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {[].map((product: any) => (
+                            {products.map((product) => (
                                 <tr key={product.id} className='hover:bg-gray-50/50 transition-colors group'>
                                     <td className='px-6 py-4'>
                                         <div className='flex items-center gap-4'>
@@ -180,7 +241,7 @@ export default function Products() {
                                         </div>
                                     </td>
                                     <td className='px-6 py-4 font-black text-sm'>
-                                        ${product.price.toFixed(2)}
+                                        {new Intl.NumberFormat('uz-UZ', { style: 'currency', currency: 'UZS' }).format(product.price)}
                                     </td>
                                     <td className='px-6 py-4'>
                                         <span className='text-sm font-bold text-gray-600'>
@@ -196,7 +257,7 @@ export default function Products() {
                                                 'w-1.5 h-1.5 rounded-full',
                                                 'bg-green-500'
                                             )} />
-                                            Instock
+                                            Sotuvda
                                         </div>
                                     </td>
                                     <td className='px-6 py-4 text-right'>
@@ -210,14 +271,14 @@ export default function Products() {
                                             <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
                                                 <DropdownMenuLabel className='text-[10px] uppercase tracking-widest font-black text-gray-400 px-3 py-2'>Amallar</DropdownMenuLabel>
                                                 <DropdownMenuItem
-                                                    onClick={() => { }}
+                                                    onClick={() => handleView(product)}
                                                     className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
                                                 >
                                                     <Eye size={16} className='text-gray-400' />
                                                     <span className='text-xs font-bold uppercase tracking-wider'>Ko‘rish</span>
                                                 </DropdownMenuItem>
                                                 <DropdownMenuItem
-                                                    onClick={() => { }}
+                                                    onClick={() => handleEdit(product)}
                                                     className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
                                                 >
                                                     <Pencil size={16} className='text-gray-400' />
@@ -225,7 +286,7 @@ export default function Products() {
                                                 </DropdownMenuItem>
                                                 <DropdownMenuSeparator className='bg-gray-50' />
                                                 <DropdownMenuItem
-                                                    onClick={() => { }}
+                                                    onClick={() => handleDelete(product)}
                                                     className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'
                                                 >
                                                     <Trash2 size={16} />
@@ -241,10 +302,10 @@ export default function Products() {
                 </div>
 
                 {/* Pagination */}
-                {true && (
+                {meta && meta.totalPages > 1 && (
                     <div className='px-8 py-6 bg-gray-50/50 flex justify-between items-center border-t border-gray-100'>
                         <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>
-                            Ko‘rsatilmoqda <span className='text-black'>{((page - 1) * limit) + 1} - {Math.min(page * limit, 5)}</span> gacha <span className='text-black'>{5}</span> tadan
+                            Ko‘rsatilmoqda <span className='text-black'>{((page - 1) * limit) + 1} - {Math.min(page * limit, meta.total)}</span> gacha <span className='text-black'>{meta.total}</span> tadan
                         </p>
                         <div className='flex items-center gap-2'>
                             <Button
@@ -256,7 +317,7 @@ export default function Products() {
                                 Oldingi
                             </Button>
                             <div className='flex items-center gap-1'>
-                                {Array.from({ length: 5 }, (_, i) => i + 1).map(p => (
+                                {Array.from({ length: meta.totalPages }, (_, i) => i + 1).map(p => (
                                     <Button
                                         key={p}
                                         variant={page === p ? 'default' : 'outline'}
@@ -272,7 +333,7 @@ export default function Products() {
                             </div>
                             <Button
                                 variant='outline'
-                                disabled={false}
+                                disabled={page === meta.totalPages}
                                 onClick={() => setPage(page + 1)}
                                 className='rounded-xl h-10 px-4 border-gray-200 bg-white shadow-sm font-bold text-xs uppercase cursor-pointer disabled:opacity-50'
                             >
@@ -285,3 +346,4 @@ export default function Products() {
         </div>
     );
 }
+

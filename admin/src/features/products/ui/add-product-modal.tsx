@@ -15,12 +15,21 @@ import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/m
 import { cn } from '@/shared/lib/utils';
 import { LanguageRoutes } from '@/shared/config/i18n/types';
 
+import { IProduct, ICreateProduct } from '@/shared/config/api/product/product.modal';
+
+import { useCategories } from '../../categories/lib/hooks';
+import { useProducts, useCreateProduct, useUpdateProduct } from '../lib/hooks';
+import { getSizesRequest, getColorsRequest } from '@/shared/config/api/product/product.request';
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'sonner';
+
 interface AddProductModalProps {
     isOpen: boolean;
     onClose: () => void;
-    product?: string | null;
+    product?: IProduct | null;
     viewOnly?: boolean;
 }
+
 
 const LANGUAGES = [
     { id: LanguageRoutes.UZ, label: 'O‘zbek' },
@@ -47,6 +56,45 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
     const [newColor, setNewColor] = useState('#000000');
     const [newColorHex, setNewColorHex] = useState('');
 
+    const [translations, setTranslations] = useState<Record<string, { name: string, description: string }>>({
+        [LanguageRoutes.UZ]: { name: '', description: '' },
+        [LanguageRoutes.RU]: { name: '', description: '' },
+        [LanguageRoutes.EN]: { name: '', description: '' },
+    });
+
+    const { data: categories = [] } = useCategories();
+    const { data: sizes = [] } = useQuery({ queryKey: ['sizes'], queryFn: getSizesRequest });
+    const { data: colors = [] } = useQuery({ queryKey: ['colors'], queryFn: getColorsRequest });
+
+    const createMutation = useCreateProduct();
+    const updateMutation = useUpdateProduct();
+
+    React.useEffect(() => {
+        if (product && isOpen) {
+            setPrice(product.price.toString());
+            setStock(45); // Backend doesn't have stock yet, using default
+            setSelectedCategories(product.categories?.map(c => c.id) || []);
+            setSelectedSizes(product.sizes?.map(s => s.id) || []);
+            setSelectedColors(product.colors?.map(c => c.id) || []);
+
+            // We need to fetch all translations for edit. 
+            // For now, if they are not in the object, we'll need an endpoint.
+            // Assuming IProduct has translations if fetched by ID (not yet implemented for product by id returning all trans)
+        } else if (!product && isOpen) {
+            setPrice('');
+            setStock(0);
+            setSelectedCategories([]);
+            setSelectedSizes([]);
+            setSelectedColors([]);
+            setTranslations({
+                [LanguageRoutes.UZ]: { name: '', description: '' },
+                [LanguageRoutes.RU]: { name: '', description: '' },
+                [LanguageRoutes.EN]: { name: '', description: '' },
+            });
+        }
+    }, [product, isOpen]);
+
+
 
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, 3));
@@ -69,6 +117,40 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
             prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
         );
     };
+
+    const handleSave = async () => {
+        const payload: ICreateProduct = {
+            price: Number(price),
+            product_images: images.length > 0 ? images : ["https://images.unsplash.com/photo-1542291026-7eec264c27ff"],
+            categories: selectedCategories,
+            sizes: selectedSizes,
+            colors: selectedColors,
+            translations: Object.entries(translations)
+                .filter(([_, data]) => data.name.trim() !== '')
+                .map(([lang, data]) => ({
+                    lang,
+                    name: data.name,
+                    description: data.description
+                }))
+        };
+
+        if (payload.translations.length === 0) {
+            toast.error('Kamida bitta tilda nom kiritish majburiy');
+            return;
+        }
+
+        try {
+            if (product) {
+                await updateMutation.mutateAsync({ id: product.id, ...payload });
+            } else {
+                await createMutation.mutateAsync(payload);
+            }
+            onClose();
+        } catch (error) {
+            // Error handled in hook
+        }
+    };
+
 
     return (
         <Modal open={isOpen} onOpenChange={onClose}>
@@ -116,14 +198,17 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                             disabled={viewOnly}
                                             placeholder='Mahsulot nomi...'
                                             className='h-12 border-gray-100 rounded-2xl focus-visible:ring-black/10 font-bold'
-                                            value={""}
-                                            onChange={() => { }}
+                                            value={translations[activeLang]?.name || ''}
+                                            onChange={(e) => setTranslations(prev => ({
+                                                ...prev,
+                                                [activeLang]: { ...prev[activeLang], name: e.target.value }
+                                            }))}
                                         />
                                     </div>
                                     <div className='space-y-2'>
                                         <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Kategoriyalar</label>
                                         <div className='flex flex-wrap gap-2'>
-                                            {[].map((cat: any) => (
+                                            {categories.map((cat: any) => (
                                                 <button
                                                     key={cat.id}
                                                     type="button"
@@ -150,8 +235,11 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                         disabled={viewOnly}
                                         placeholder='Mahsulot haqida batafsil...'
                                         className='w-full h-32 bg-white border border-gray-100 rounded-2xl p-4 text-sm font-medium focus:outline-none focus:ring-1 focus:ring-black/10 transition-all resize-none'
-                                        value={""}
-                                        onChange={() => { }}
+                                        value={translations[activeLang]?.description || ''}
+                                        onChange={(e) => setTranslations(prev => ({
+                                            ...prev,
+                                            [activeLang]: { ...prev[activeLang], description: e.target.value }
+                                        }))}
                                     />
                                 </div>
                                 <div className='grid grid-cols-2 gap-6'>
@@ -192,18 +280,19 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                                 <span className='text-[10px] font-black uppercase tracking-widest'>Yuklash</span>
                                             </div>
                                         )}
-                                        {[1, 2].map(i => (
+                                        {images.map((img, i) => (
                                             <div key={i} className='aspect-square rounded-[24px] bg-gray-100 relative group overflow-hidden'>
                                                 {!viewOnly && (
                                                     <div className='absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center'>
-                                                        <button className='p-2 bg-red-500 text-white rounded-full'>
+                                                        <button
+                                                            onClick={() => setImages(prev => prev.filter((_, idx) => idx !== i))}
+                                                            className='p-2 bg-red-500 text-white rounded-full'
+                                                        >
                                                             <Trash2 size={16} />
                                                         </button>
                                                     </div>
                                                 )}
-                                                <div className='w-full h-full flex items-center justify-center text-gray-300'>
-                                                    <ImageIcon size={32} />
-                                                </div>
+                                                <img src={img} alt="Product" className='w-full h-full object-cover' />
                                             </div>
                                         ))}
                                     </div>
@@ -215,13 +304,13 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                             <button
                                                 disabled={viewOnly}
                                                 onClick={() => setStock(Math.max(0, stock - 1))}
-                                                className='w-10 h-10 bg-white rounded-xl shadow-sm font-black'
+                                                className='w-10 h-10 bg-white rounded-xl shadow-sm font-black cursor-pointer'
                                             >-</button>
                                             <span className='w-12 text-center text-lg font-black'>{stock}</span>
                                             <button
                                                 disabled={viewOnly}
                                                 onClick={() => setStock(stock + 1)}
-                                                className='w-10 h-10 bg-black text-white rounded-xl shadow-lg font-black'
+                                                className='w-10 h-10 bg-black text-white rounded-xl shadow-lg font-black cursor-pointer'
                                             >+</button>
                                         </div>
                                         <p className='text-[10px] font-bold text-gray-400 uppercase tracking-widest'>Dona mahsulot mavjud</p>
@@ -238,7 +327,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                         {!viewOnly && (
                                             <button
                                                 onClick={() => setShowSizeInput(!showSizeInput)}
-                                                className='text-[10px] font-black uppercase tracking-widest text-blue-500'
+                                                className='text-[10px] font-black uppercase tracking-widest text-blue-500 cursor-pointer'
                                             >
                                                 {showSizeInput ? 'Yopish' : '+ qo‘shish'}
                                             </button>
@@ -261,12 +350,12 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                     )}
 
                                     <div className='flex flex-wrap gap-2'>
-                                        {[].map((size: any) => (
+                                        {sizes.map((size: any) => (
                                             <div key={size.id} className='group relative'>
                                                 <button
                                                     onClick={() => toggleSize(size.id)}
                                                     className={cn(
-                                                        'px-6 py-3 border border-gray-100 rounded-xl text-xs font-black transition-all',
+                                                        'px-6 py-3 border border-gray-100 rounded-xl text-xs font-black transition-all cursor-pointer',
                                                         selectedSizes.includes(size.id) ? 'bg-black text-white border-black' : 'hover:border-black'
                                                     )}
                                                 >
@@ -283,7 +372,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                         {!viewOnly && (
                                             <button
                                                 onClick={() => setShowColorInput(!showColorInput)}
-                                                className='text-[10px] font-black uppercase tracking-widest text-blue-500'
+                                                className='text-[10px] font-black uppercase tracking-widest text-blue-500 cursor-pointer'
                                             >
                                                 {showColorInput ? 'Yopish' : '+ qo‘shish'}
                                             </button>
@@ -312,12 +401,12 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                     )}
 
                                     <div className='flex flex-wrap gap-3'>
-                                        {[].map((color: any) => (
+                                        {colors.map((color: any) => (
                                             <div key={color.id} className='group relative'>
                                                 <button
                                                     onClick={() => toggleColor(color.id)}
                                                     className={cn(
-                                                        'w-10 h-10 rounded-full shadow-sm ring-2 p-1 transition-all',
+                                                        'w-10 h-10 rounded-full shadow-sm ring-2 p-1 transition-all cursor-pointer',
                                                         selectedColors.includes(color.id) ? 'ring-black scale-110' : 'ring-transparent'
                                                     )}
                                                     style={{ backgroundColor: color.name }}
@@ -343,10 +432,11 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                             Orqaga
                         </Button>
                         <Button
-                            onClick={step === 3 ? () => { } : nextStep}
+                            onClick={step === 3 && !viewOnly ? handleSave : nextStep}
+                            disabled={createMutation.isPending || updateMutation.isPending}
                             className='rounded-[20px] h-14 px-12 bg-black text-white font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-black/20 hover:scale-105 active:scale-95 transition-all cursor-pointer'
                         >
-                            {viewOnly ? (step === 3 ? 'Yopish' : 'Keyingi') : (step === 3 ? 'Saqlash' : 'Keyingi')}
+                            {createMutation.isPending || updateMutation.isPending ? 'Saqlanmoqda...' : viewOnly ? (step === 3 ? 'Yopish' : 'Keyingi') : (step === 3 ? 'Saqlash' : 'Keyingi')}
                         </Button>
                     </div>
                 </div>
@@ -354,3 +444,4 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
         </Modal>
     );
 }
+

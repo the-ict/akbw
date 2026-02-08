@@ -17,10 +17,16 @@ import {
     LanguageRoutes
 } from '@/shared/config/i18n/types';
 
+import {
+    ICategory, ICreateCategoryTranslation
+} from '@/shared/config/api/product/product.modal';
+import { useCreateCategory, useUpdateCategory, useCategory } from '../lib/hooks';
+import { toast } from 'sonner';
+
 interface AddCategoryModalProps {
     isOpen: boolean;
     onClose: () => void;
-    category?: string | null;
+    category?: ICategory | null;
     viewOnly?: boolean;
 }
 
@@ -32,6 +38,70 @@ const LANGUAGES = [
 
 export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }: AddCategoryModalProps) {
     const [activeLang, setActiveLang] = useState<LanguageRoutes>(LanguageRoutes.UZ);
+    const [translations, setTranslations] = useState<Record<string, string>>({
+        [LanguageRoutes.UZ]: '',
+        [LanguageRoutes.RU]: '',
+        [LanguageRoutes.EN]: '',
+    });
+
+    const { data: categoryData, isLoading: isLoadingCategory } = useCategory(category?.id);
+    const createMutation = useCreateCategory();
+    const updateMutation = useUpdateCategory();
+
+    React.useEffect(() => {
+        if (categoryData) {
+            const transMap: Record<string, string> = {
+                [LanguageRoutes.UZ]: '',
+                [LanguageRoutes.RU]: '',
+                [LanguageRoutes.EN]: '',
+            };
+            categoryData.translations.forEach((t: any) => {
+                transMap[t.lang] = t.name;
+            });
+            setTranslations(transMap);
+        } else if (!category) {
+            setTranslations({
+                [LanguageRoutes.UZ]: '',
+                [LanguageRoutes.RU]: '',
+                [LanguageRoutes.EN]: '',
+            });
+        }
+    }, [categoryData, category, isOpen]);
+
+
+    const handleSave = async () => {
+        const payload = {
+            translations: Object.entries(translations)
+                .filter(([_, name]) => name.trim() !== '')
+                .map(([lang, name]) => ({
+                    lang,
+                    name
+                }))
+        };
+
+        if (payload.translations.length === 0) {
+            toast.error('Kamida bitta tilda nom kiritish majburiy');
+            return;
+        }
+
+        try {
+            if (category) {
+                await updateMutation.mutateAsync({ id: category.id, ...payload });
+            } else {
+                await createMutation.mutateAsync(payload);
+            }
+            onClose();
+        } catch (error) {
+            // Error is handled in hook
+        }
+    };
+
+    const handleTranslationChange = (val: string) => {
+        setTranslations(prev => ({
+            ...prev,
+            [activeLang]: val
+        }));
+    };
 
     return (
         <Modal open={isOpen} onOpenChange={onClose}>
@@ -76,8 +146,8 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
                                 disabled={viewOnly}
                                 placeholder='Kategoriya nomi...'
                                 className='h-12 border-gray-100 rounded-2xl focus-visible:ring-black/10 font-bold'
-                                value={""}
-                                onChange={() => { }}
+                                value={translations[activeLang] || ''}
+                                onChange={(e) => handleTranslationChange(e.target.value)}
                             />
                         </div>
                     </div>
@@ -93,11 +163,11 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
                         </Button>
                         {!viewOnly && (
                             <Button
-                                onClick={() => []}
-                                disabled={false}
+                                onClick={handleSave}
+                                disabled={createMutation.isPending || updateMutation.isPending}
                                 className='rounded-[20px] h-14 px-12 bg-black text-white font-black uppercase tracking-widest text-[10px] shadow-2xl shadow-black/20 hover:scale-105 active:scale-95 transition-all cursor-pointer'
                             >
-                                Saqlash
+                                {createMutation.isPending || updateMutation.isPending ? 'Saqlanmoqda...' : 'Saqlash'}
                             </Button>
                         )}
                     </div>
@@ -106,3 +176,4 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
         </Modal>
     );
 }
+

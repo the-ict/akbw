@@ -21,9 +21,11 @@ import {
     createCategory,
     updateCategory,
     deleteCategory,
+    getCategoryById,
     getSizes,
     getColors
 } from "../controllers/product.controller.js";
+
 import {
     langaugeMiddleware
 } from "../middleware/language.middleware.js";
@@ -32,6 +34,8 @@ const router = Router();
 
 router.get("/", langaugeMiddleware, getProducts);
 router.get("/categories", langaugeMiddleware, getCategories);
+router.get("/categories/:id", getCategoryById);
+
 router.post("/categories", validate(categoriesSchema), createCategory);
 router.put("/categories/:id", langaugeMiddleware, validate(categoriesUpdateSchema), updateCategory);
 router.delete("/categories/:id", deleteCategory);

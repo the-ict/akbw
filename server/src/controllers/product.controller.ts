@@ -335,7 +335,26 @@ export const deleteCategory = async (req: Request, res: Response, next: NextFunc
     }
 };
 
+export const getCategoryById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const category = await prisma.categories.findUnique({
+            where: { id: Number(id) },
+            include: {
+                translations: true
+            }
+        });
+        if (!category) {
+            return res.status(404).json({ message: "Category not found" });
+        }
+        return res.status(200).json(category);
+    } catch (error) {
+        next(error);
+    }
+};
+
 export const getCategories = async (req: Request, res: Response, next: NextFunction) => {
+
     try {
         const { q } = req.query;
         const languageCode = (req as any).languageCode || 'uz';
