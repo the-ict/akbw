@@ -138,12 +138,19 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
         if (product && isOpen) {
             setPrice(product.price.toString());
             setStock(45);
-            setSelectedCategories(product.categories?.map(c => c.id) || []);
-            setSelectedSizes(product.sizes?.map(s => s.id) || []);
-            setSelectedColors(product.colors?.map(c => c.id) || []);
+            setSelectedCategories(product.categories?.map((c: any) => c.id) || []);
+            setSelectedSizes(product.sizes?.map((s: any) => s.id) || []);
+            setSelectedColors(product.colors?.map((c: any) => c.id) || []);
+            setImages(product.product_images || []);
+            setTranslations({
+                [LanguageRoutes.UZ]: { name: product.name, description: product.description },
+                [LanguageRoutes.RU]: { name: product.name, description: product.description },
+                [LanguageRoutes.EN]: { name: product.name, description: product.description },
+            });
         } else if (!product && isOpen) {
             setPrice('');
-            setStock(0);
+            setStock(45);
+            setImages([]);
             setSelectedCategories([]);
             setSelectedSizes([]);
             setSelectedColors([]);
@@ -154,6 +161,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
             });
         }
     }, [product, isOpen]);
+
 
 
     const nextStep = () => setStep(prev => Math.min(prev + 1, 3));

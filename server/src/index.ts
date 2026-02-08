@@ -29,7 +29,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // middlewares
-app.use(helmet());
+app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
 app.use(morgan("combined"));
 app.use(cors({
     origin: ["http://localhost:3001", "http://localhost:3002"],

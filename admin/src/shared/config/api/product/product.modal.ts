@@ -24,7 +24,8 @@ export interface ICreateCategory {
 };
 
 
-export type IUpdateProduct = Partial<ICreateProduct>;
+export type IUpdateProduct = { id: number } & Partial<ICreateProduct>;
+
 
 export interface ICategory {
     id: number;

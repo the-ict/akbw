@@ -35,16 +35,21 @@ export const deleteProductRequest = async (id: number) => {
 
 
 export const updateProductRequest = async (product: IUpdateProduct) => {
-    return (await httpClient.put(ENDP_PRODUCT_CREATE, product)).data;
+    const { id, ...data } = product;
+    return (await httpClient.put(`${ENDP_PRODUCT_CREATE}/${id}`, data)).data;
 }
+
+
 
 export const createCategoriesRequest = async (category: ICreateCategory) => {
     return await httpClient.post(ENDP_PRODUCT_CATEGORIES_CREATE, category)
 }
 
 export const updateCategoriesRequest = async (category: Partial<ICreateCategory> & { id: number }) => {
-    return await httpClient.put(`${ENDP_PRODUCT_CATEGORIES_CREATE}/${category.id}`, category)
+    const { id, ...data } = category;
+    return await httpClient.put(`${ENDP_PRODUCT_CATEGORIES_CREATE}/${id}`, data)
 }
+
 
 export const getCategoriesRequest = async (q?: string): Promise<ICategory[]> => {
     return (await httpClient.get(ENDP_PRODUCT_CATEGORIES_CREATE, { params: { q } })).data;
