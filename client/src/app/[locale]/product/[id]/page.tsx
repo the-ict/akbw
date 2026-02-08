@@ -1,10 +1,17 @@
 import Product from '@/features/product/ui'
 import React from 'react'
 
-export default function page() {
+interface ProductPageProps {
+    params: {
+        id: string;
+        locale: string;
+    };
+}
+
+export default function ProductPage({ params }: ProductPageProps) {
     return (
         <>
-            <Product />
+            <Product id={params.id} />
         </>
     )
 }

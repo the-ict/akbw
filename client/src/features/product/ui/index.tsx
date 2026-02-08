@@ -7,31 +7,57 @@ import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
 import { monsterrat } from '@/shared/fonts';
 import ProductCard from '@/widgets/product';
-import ProductMainImage from "../../../../public/assets/product.png";
+import { useProduct } from '@/features/products/lib/hooks';
+import { useProducts } from '@/features/products/lib/hooks';
 
-export default function Product() {
+interface ProductProps {
+    id: string;
+}
+
+export default function Product({ id }: ProductProps) {
+    const { data: product, isLoading, error } = useProduct(id);
+    const { data: relatedProducts } = useProducts({ limit: 4 });
     const [quantity, setQuantity] = useState(1);
-    const [selectedColor, setSelectedColor] = useState('#4F4631');
-    const [selectedSize, setSelectedSize] = useState('Large');
+    const [selectedColor, setSelectedColor] = useState<number | null>(null);
+    const [selectedSize, setSelectedSize] = useState<number | null>(null);
     const [activeImage, setActiveImage] = useState(0);
     const [activeTab, setActiveTab] = useState('reviews');
 
-    const product = {
-        name: "One Life Graphic T-shirt",
-        price: 260,
-        originalPrice: 300,
-        discount: 40,
-        rating: 4.5,
-        reviewsCount: 451,
-        description: "This graphic t-shirt which is perfect for any occasion. Crafted from a soft and breathable fabric, it offers superior comfort and style.",
-        colors: ['#4F4631', '#314F4A', '#31344F'],
-        sizes: ['Small', 'Medium', 'Large', 'X-Large'],
-        images: [
-            ProductMainImage.src,
-            ProductMainImage.src,
-            ProductMainImage.src
-        ]
-    };
+    // Set default selections when product loads
+    React.useEffect(() => {
+        if (product) {
+            if (product.colors?.length > 0 && selectedColor === null) {
+                setSelectedColor(product.colors[0].id);
+            }
+            if (product.sizes?.length > 0 && selectedSize === null) {
+                setSelectedSize(product.sizes[0].id);
+            }
+        }
+    }, [product, selectedColor, selectedSize]);
+
+    if (isLoading) {
+        return (
+            <div className='min-h-screen bg-white flex items-center justify-center'>
+                <div className='text-center'>
+                    <div className='w-16 h-16 border-4 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4' />
+                    <p className='text-gray-500'>Loading product...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error || !product) {
+        return (
+            <div className='min-h-screen bg-white flex items-center justify-center'>
+                <div className='text-center'>
+                    <h2 className='text-2xl font-bold mb-2'>Product not found</h2>
+                    <p className='text-gray-500'>The product you're looking for doesn't exist.</p>
+                </div>
+            </div>
+        );
+    }
+
+    const productImages = product.product_images?.length > 0 ? product.product_images : ['/assets/product.png'];
 
     const reviews = [
         { name: "Samantha D.", date: "August 14, 2023", text: "I absolutely love this t-shirt! The design is unique and the fabric feels so high quality. As a fellow designer, I appreciate the attention to detail. It's become my favorite go-to shirt.", verified: true, rating: 5 },
@@ -59,7 +85,7 @@ export default function Product() {
                 <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-20 mb-20'>
                     <div className='flex flex-col-reverse md:flex-row gap-5'>
                         <div className='flex md:flex-col gap-5 overflow-x-auto md:overflow-y-auto no-scrollbar'>
-                            {product.images.map((img, idx) => (
+                            {productImages.map((img, idx) => (
                                 <div
                                     key={idx}
                                     onClick={() => setActiveImage(idx)}
@@ -73,7 +99,7 @@ export default function Product() {
                             ))}
                         </div>
                         <div className='relative flex-1 aspect-[3/4] rounded-3xl overflow-hidden bg-gray-100 shadow-xl'>
-                            <Image src={product.images[activeImage]} alt="product-main" fill className='object-cover transition-transform duration-700' />
+                            <Image src={productImages[activeImage]} alt="product-main" fill className='object-cover transition-transform duration-700' />
                         </div>
                     </div>
 
@@ -88,26 +114,18 @@ export default function Product() {
                                     <Star
                                         key={s}
                                         size={18}
-                                        className={cn(s <= Math.floor(product.rating) ? 'text-yellow-400' : 'text-gray-200')}
-                                        fill={s <= Math.floor(product.rating) ? 'currentColor' : 'none'}
+                                        className='text-yellow-400'
+                                        fill='currentColor'
                                     />
                                 ))}
                             </div>
                             <span className='text-sm font-medium'>
-                                {product.rating}/<span className='text-gray-400 font-normal'>5</span>
+                                4.5/<span className='text-gray-400 font-normal'>5</span>
                             </span>
                         </div>
 
                         <div className='flex items-center gap-4 mb-8'>
-                            <span className='text-3xl font-bold'>${product.price}</span>
-                            {product.originalPrice && (
-                                <>
-                                    <span className='text-3xl font-bold text-gray-400 line-through decoration-2'>${product.originalPrice}</span>
-                                    <span className='bg-red-500/10 text-red-500 px-4 py-1.5 rounded-full font-bold text-xs'>
-                                        -{product.discount}%
-                                    </span>
-                                </>
-                            )}
+                            <span className='text-3xl font-bold'>{product.price.toLocaleString()} so'm</span>
                         </div>
 
                         <p className='text-gray-500 leading-relaxed mb-10 text-lg max-w-xl'>
@@ -119,17 +137,17 @@ export default function Product() {
                         <div className='mb-8'>
                             <h3 className='text-gray-500 font-medium mb-4 uppercase tracking-widest text-xs'>Select Colors</h3>
                             <div className='flex gap-4'>
-                                {product.colors.map((color) => (
+                                {product.colors?.map((color) => (
                                     <button
-                                        key={color}
-                                        onClick={() => setSelectedColor(color)}
-                                        style={{ backgroundColor: color }}
+                                        key={color.id}
+                                        onClick={() => setSelectedColor(color.id)}
+                                        style={{ backgroundColor: color.name }}
                                         className={cn(
                                             'w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 shadow-sm border-2 cursor-pointer',
-                                            selectedColor === color ? 'border-black ring-4 ring-black/5' : 'border-transparent'
+                                            selectedColor === color.id ? 'border-black ring-4 ring-black/5' : 'border-transparent'
                                         )}
                                     >
-                                        {selectedColor === color && <Check size={18} className='text-white' />}
+                                        {selectedColor === color.id && <Check size={18} className='text-white' />}
                                     </button>
                                 ))}
                             </div>
@@ -140,18 +158,18 @@ export default function Product() {
                         <div className='mb-10'>
                             <h3 className='text-gray-500 font-medium mb-4 uppercase tracking-widest text-xs'>Choose Size</h3>
                             <div className='flex flex-wrap gap-3'>
-                                {product.sizes.map((size) => (
+                                {product.sizes?.map((size) => (
                                     <button
-                                        key={size}
-                                        onClick={() => setSelectedSize(size)}
+                                        key={size.id}
+                                        onClick={() => setSelectedSize(size.id)}
                                         className={cn(
                                             'px-7 py-3 rounded-full text-sm font-semibold transition-all border cursor-pointer',
-                                            selectedSize === size
+                                            selectedSize === size.id
                                                 ? 'bg-black text-white border-black shadow-xl scale-105'
                                                 : 'bg-gray-100 border-transparent text-gray-500 hover:border-black/20 hover:text-black'
                                         )}
                                     >
-                                        {size}
+                                        {size.name}
                                     </button>
                                 ))}
                             </div>
@@ -208,7 +226,7 @@ export default function Product() {
                             <div className='flex items-center justify-between mb-8'>
                                 <div className='flex items-center gap-2'>
                                     <h2 className='text-2xl font-bold'>All Reviews</h2>
-                                    <span className='text-gray-400 font-normal'>({product.reviewsCount})</span>
+                                    <span className='text-gray-400 font-normal'>(0)</span>
                                 </div>
                                 <div className='flex gap-3'>
                                     <button className='p-3 bg-gray-100 rounded-full hover:bg-black hover:text-white transition-all'>
@@ -302,8 +320,8 @@ export default function Product() {
                         You might also like
                     </h2>
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
-                        {[1, 2, 3, 4].map((i) => (
-                            <ProductCard key={i} />
+                        {relatedProducts?.data?.map((relatedProduct) => (
+                            <ProductCard key={relatedProduct.id} product={relatedProduct} />
                         ))}
                     </div>
                 </div>
