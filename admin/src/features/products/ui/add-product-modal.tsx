@@ -6,8 +6,6 @@ import {
     Upload,
     Plus,
     Trash2,
-    Image as ImageIcon,
-    Check,
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
