@@ -11,6 +11,8 @@ const ENDP_PRODUCT_SIZES = "/product/sizes";
 const ENDP_PRODUCT_COLORS = "/product/colors";
 const ENDP_ADMIN = "/admin";
 const ENDP_PRODUCT_CREATE = "/product";
+const ENDP_PRODUCT_CATEGORIES_CREATE = "/product/categories";
+
 
 
 export {
@@ -24,5 +26,6 @@ export {
   ENDP_PRODUCT_SIZES,
   ENDP_PRODUCT_COLORS,
   ENDP_ADMIN,
-  ENDP_PRODUCT_CREATE
+  ENDP_PRODUCT_CREATE,
+  ENDP_PRODUCT_CATEGORIES_CREATE
 };

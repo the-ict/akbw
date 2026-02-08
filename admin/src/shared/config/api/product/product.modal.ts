@@ -13,4 +13,14 @@ export interface ICreateProduct {
     translations: IProductTranslation[];
 };
 
+export interface ICreateCategoryTranslation {
+    name: string;
+    lang: string;
+}
+
+export interface ICreateCategory {
+    translations: ICreateCategoryTranslation[];
+};
+
+
 export type IUpdateProduct = Partial<ICreateProduct>;
