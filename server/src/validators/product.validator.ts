@@ -26,4 +26,24 @@ const updateProductSchema = Joi.object({
     })),
 });
 
-export { createProductSchema, updateProductSchema };
+const categoriesSchema = Joi.object({
+    translations: Joi.array().items(Joi.object({
+        name: Joi.string().required(),
+        lang: Joi.string().required(),
+    })).required(),
+});
+
+const categoriesUpdateSchema = Joi.object({
+    id: Joi.number(),
+    translations: Joi.array().items(Joi.object({
+        name: Joi.string(),
+        lang: Joi.string(),
+    })).required(),
+});
+
+export {
+    createProductSchema,
+    updateProductSchema,
+    categoriesSchema,
+    categoriesUpdateSchema
+};

@@ -1,7 +1,13 @@
-import { Router } from "express";
-// @ts-ignore
-import { validate } from "../middleware/validate.middleware.js";
 import {
+    Router
+} from "express";
+// @ts-ignore
+import {
+    validate
+} from "../middleware/validate.middleware.js";
+import {
+    categoriesSchema,
+    categoriesUpdateSchema,
     createProductSchema,
     updateProductSchema
 } from "../validators/product.validator.js";
@@ -18,14 +24,16 @@ import {
     getSizes,
     getColors
 } from "../controllers/product.controller.js";
-import { langaugeMiddleware } from "../middleware/language.middleware.js";
+import {
+    langaugeMiddleware
+} from "../middleware/language.middleware.js";
 
 const router = Router();
 
 router.get("/", langaugeMiddleware, getProducts);
 router.get("/categories", langaugeMiddleware, getCategories);
-router.post("/categories", createCategory);
-router.put("/categories/:id", langaugeMiddleware, updateCategory);
+router.post("/categories", validate(categoriesSchema), createCategory);
+router.put("/categories/:id", langaugeMiddleware, validate(categoriesUpdateSchema), updateCategory);
 router.delete("/categories/:id", deleteCategory);
 router.get("/sizes", langaugeMiddleware, getSizes);
 router.get("/colors", langaugeMiddleware, getColors);
