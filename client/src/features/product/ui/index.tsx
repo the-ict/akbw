@@ -202,7 +202,7 @@ export default function Product({ id }: ProductProps) {
 
                 <div className='mt-20 border-b border-gray-100 mb-10'>
                     <div className='flex justify-between md:justify-around overflow-x-auto no-scrollbar'>
-                        {['details', 'reviews', 'faqs'].map((tab) => (
+                        {['reviews', 'faqs'].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
@@ -270,27 +270,6 @@ export default function Product({ id }: ProductProps) {
                                 <Button variant="outline" className='rounded-full px-10 py-6 font-bold border-gray-200 hover:bg-black hover:text-white transition-all'>
                                     Load More Reviews
                                 </Button>
-                            </div>
-                        </div>
-                    )}
-
-                    {activeTab === 'details' && (
-                        <div className='max-w-4xl mx-auto'>
-                            <h2 className='text-3xl font-bold mb-8 uppercase tracking-tighter'>Specifications</h2>
-                            <div className='grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-20'>
-                                {[
-                                    { label: 'Material', value: '100% Sustainable Cotton' },
-                                    { label: 'Fit Type', value: 'Classic / Regular Fit' },
-                                    { label: 'Neckline', value: 'Crew Neck' },
-                                    { label: 'Sleeve Length', value: 'Short Sleeves' },
-                                    { label: 'Care', value: 'Machine wash cold, tumble dry low' },
-                                    { label: 'Origin', value: 'Crafted in Uzbekistan' }
-                                ].map((spec, i) => (
-                                    <div key={i} className='flex justify-between border-b border-gray-50 pb-4'>
-                                        <span className='text-gray-400 font-medium'>{spec.label}</span>
-                                        <span className='text-black font-bold'>{spec.value}</span>
-                                    </div>
-                                ))}
                             </div>
                         </div>
                     )}
