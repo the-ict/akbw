@@ -25,6 +25,7 @@ import {
 import {
   useRef
 } from "react";
+import { useProducts } from "@/features/products/lib/hooks";
 
 import ShoppingCartIcon from "../../../public/icons/shoppingcart.png";
 import TufliIcon from "../../../public/icons/tufli.png";
@@ -33,6 +34,12 @@ import Futbolka from "../../../public/icons/futbolka.png";
 
 
 export default function Welcome() {
+  // Fetch products for "New Arrivals" section
+  const { data: newArrivals, isLoading: loadingNew } = useProducts({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' });
+
+  // Fetch products for "Best Sellers" section
+  const { data: bestSellers, isLoading: loadingBest } = useProducts({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' });
+
   const logos = [
     {
       name: "VERCAGE",
@@ -157,9 +164,15 @@ export default function Welcome() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
             {
-              [1, 2, 3, 4].map((item, index) => (
-                <Product key={index} />
-              ))
+              loadingNew ? (
+                [1, 2, 3, 4].map((_, index) => (
+                  <div key={index} className="w-full aspect-[3/4] rounded-2xl bg-gray-200 animate-pulse" />
+                ))
+              ) : (
+                newArrivals?.data?.map((product) => (
+                  <Product key={product.id} product={product} />
+                ))
+              )
             }
           </div>
 
@@ -179,9 +192,15 @@ export default function Welcome() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
             {
-              [1, 2, 3, 4].map((item, index) => (
-                <Product key={index} />
-              ))
+              loadingBest ? (
+                [1, 2, 3, 4].map((_, index) => (
+                  <div key={index} className="w-full aspect-[3/4] rounded-2xl bg-gray-200 animate-pulse" />
+                ))
+              ) : (
+                bestSellers?.data?.map((product) => (
+                  <Product key={product.id} product={product} />
+                ))
+              )
             }
           </div>
 

@@ -1,5 +1,6 @@
 const BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'https://jsonplaceholder.typicode.com';
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+
 
 const ENDP_POSTS = '/posts/';
 const ENDP_SEND_SMS = "/sms/send";
