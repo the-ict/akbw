@@ -33,6 +33,7 @@ const localizeProduct = (p: any, lang: string) => ({
     categories: p.categories?.map((c: any) => localizeCategory(c, lang)),
     sizes: p.sizes?.map((s: any) => localizeSize(s, lang)),
     colors: p.colors?.map((c: any) => localizeColor(c, lang)),
+    rating: p.reviews?.reduce((acc: any, review: any) => acc + review.rating, 0) / p.reviews?.length,
 });
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
@@ -88,7 +89,8 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
                             translations: { where: { lang: languageCode } }
                         }
                     },
-                    translations: { where: { lang: languageCode } }
+                    translations: { where: { lang: languageCode } },
+                    reviews: true,
                 },
                 orderBy,
                 skip,
@@ -134,7 +136,8 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
                         translations: { where: { lang: languageCode } }
                     }
                 },
-                translations: { where: { lang: languageCode } }
+                translations: { where: { lang: languageCode } },
+                reviews: true
             }
         });
 

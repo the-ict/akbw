@@ -153,7 +153,6 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                {/* Recent Activity / Side List */}
                 <div className='bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
                     <h2 className='text-lg font-black uppercase tracking-wider mb-6'>Oxirgi Buyurtmalar</h2>
                     <div className='space-y-6'>

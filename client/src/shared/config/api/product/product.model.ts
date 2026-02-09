@@ -32,6 +32,8 @@ export interface IProduct {
     colors: IColor[];
     createdAt: string;
     updatedAt: string;
+    rating: number;
+    discount: number;
 }
 
 export interface IProductListResponse {

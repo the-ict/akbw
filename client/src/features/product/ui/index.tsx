@@ -176,7 +176,7 @@ export default function Product({ id }: ProductProps) {
                                 ))}
                             </div>
                             <span className='text-sm font-medium'>
-                                4.5/<span className='text-gray-400 font-normal'>5</span>
+                                {product.rating}/<span className='text-gray-400 font-normal'>5</span>
                             </span>
                         </div>
 

@@ -37,14 +37,14 @@ export default function Product({ product }: ProductProps) {
                         <Star key={index} className="text-yellow-500 text-sm" size={15} fill="yellow" />
                     ))
                 }
-                <p className="text-sm text-gray-500">(4.5/5)</p>
+                <p className="text-sm text-gray-500">({product.rating}/5)</p>
             </div>
             <p className="text-lg font-semibold flex items-center gap-4">
                 {product.price.toLocaleString()} so'm
-                {discountPrice < product.price && (
+                {product.discount > 0 && (
                     <>
                         <span className="text-sm text-gray-500 line-through">{discountPrice.toLocaleString()} so'm</span>
-                        <span className="bg-red-500/30 px-3 py-1 rounded-full text-red-500 text-sm">-20%</span>
+                        <span className="bg-red-500/30 px-3 py-1 rounded-full text-red-500 text-sm">-{product.discount}%</span>
                     </>
                 )}
             </p>

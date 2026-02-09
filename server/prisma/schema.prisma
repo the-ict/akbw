@@ -60,6 +60,7 @@ model Products {
   sizes          Sizes[]
   colors         Colors[]
   translations   ProductTranslations[]
+  discount       Int                   @default(0)
   reviews        Reviews[]
   createdAt      DateTime              @default(now())
   updatedAt      DateTime              @updatedAt
