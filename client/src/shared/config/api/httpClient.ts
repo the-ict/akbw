@@ -3,6 +3,7 @@ import axios from 'axios';
 import { getLocale } from 'next-intl/server';
 import { LanguageRoutes } from '../i18n/types';
 import { BASE_URL } from './URLs';
+import { useUserStore } from '@/shared/store/user.store';
 
 const httpClient = axios.create({
   baseURL: BASE_URL,
@@ -23,10 +24,10 @@ httpClient.interceptors.request.use(
     }
 
     config.headers['Accept-Language'] = language;
-    // const accessToken = localStorage.getItem('accessToken');
-    // if (accessToken) {
-    //   config.headers['Authorization'] = `Bearer ${accessToken}`;
-    // }
+    const accessToken = useUserStore.getState().token;
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
+    };
 
     return config;
   },

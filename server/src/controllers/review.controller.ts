@@ -15,7 +15,7 @@ export const createReview = async (req: Request, res: Response) => {
             data: {
                 rating,
                 comment,
-                product_id,
+                product_id: parseInt(product_id),
                 user_id: req.user
             }
         });
@@ -47,6 +47,9 @@ export const getProductReviews = async (req: Request, res: Response) => {
                 orderBy: { createdAt: "desc" },
                 skip,
                 take: limit,
+                include: {
+                    user: true,
+                }
             }),
             prisma.reviews.count({
                 where: { product_id: Number(product_id) },

@@ -21,6 +21,5 @@ export interface IReviewListResponse {
 export interface ICreateReviewRequest {
     rating: number;
     comment: string;
-    userName: string;
-    productId: number;
-}
+    product_id: string | number;
+};

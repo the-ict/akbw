@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Star, Minus, Plus, Check, ChevronDown } from 'lucide-react';
+import { Star, Minus, Plus, Check, ChevronDown, Loader2 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
 import { monsterrat } from '@/shared/fonts';
@@ -16,6 +16,7 @@ import {
     useCreateReview
 } from '@/features/reviews/lib/hooks';
 import { useUserStore } from '@/shared/store/user.store';
+import { toast } from '@/shared/ui/toast';
 
 interface ProductProps {
     id: string;
@@ -31,7 +32,6 @@ export default function Product({ id }: ProductProps) {
     const [activeTab, setActiveTab] = useState('reviews');
     const [userRating, setUserRating] = useState(0);
     const [reviewText, setReviewText] = useState('');
-    const [reviewerName, setReviewerName] = useState('');
 
     const { data: reviewsData, isLoading: reviewsLoading } = useProductReviews(parseInt(id));
     const { token } = useUserStore();
@@ -73,8 +73,8 @@ export default function Product({ id }: ProductProps) {
     const productImages = product.product_images?.length > 0 ? product.product_images : ['/assets/product.png'];
 
     const handleSubmitReview = async () => {
-        if (!userRating || !reviewText.trim() || !reviewerName.trim()) {
-            alert('Please fill in all fields and select a rating');
+        if (!userRating || !reviewText.trim()) {
+            toast.error("Please fill in all fields and select a rating");
             return;
         }
 
@@ -82,17 +82,15 @@ export default function Product({ id }: ProductProps) {
             await createReviewMutation.mutateAsync({
                 rating: userRating,
                 comment: reviewText,
-                userName: reviewerName,
-                productId: parseInt(id),
+                product_id: id,
             });
 
             setUserRating(0);
             setReviewText('');
-            setReviewerName('');
-            alert('Review submitted successfully!');
+            toast.success("Review submitted successfully!");
         } catch (error) {
             console.error('Error submitting review:', error);
-            alert('Failed to submit review. Please try again.');
+            toast.error('Failed to submit review. Please try again.');
         }
     };
 
@@ -292,9 +290,9 @@ export default function Product({ id }: ProductProps) {
                                                 <Button
                                                     onClick={handleSubmitReview}
                                                     disabled={createReviewMutation.isPending}
-                                                    className='rounded-full px-8 py-2 h-auto bg-black hover:bg-black/90 font-semibold text-sm cursor-pointer'
+                                                    className='rounded-full px-8 py-2 h-auto flex items-center justify-center bg-black hover:bg-black/90 font-semibold text-sm cursor-pointer'
                                                 >
-                                                    {createReviewMutation.isPending ? 'Posting...' : 'Post'}
+                                                    {createReviewMutation.isPending ? <Loader2 className='animate-spin' size={18} /> : 'Post'}
                                                 </Button>
                                             </div>
                                         </div>
