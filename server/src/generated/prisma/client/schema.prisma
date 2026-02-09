@@ -14,13 +14,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  phone     String   @unique
+  id        String    @id @default(uuid())
+  phone     String    @unique
   name      String
   lastName  String
   gender    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  reviews   Reviews[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Verify {
@@ -129,12 +130,13 @@ model ColorTranslations {
 }
 
 model Reviews {
-  id        Int      @id @default(autoincrement())
-  rating    Int
-  comment   String
-  userName  String
-  productId Int
-  product   Products @relation(fields: [productId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  rating     Int
+  comment    String
+  user_id    String
+  user       User     @relation(fields: [user_id], references: [id])
+  product_id Int
+  product    Products @relation(fields: [product_id], references: [id])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

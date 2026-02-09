@@ -13,9 +13,11 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
             return res.status(401).json({ message: "Unauthorized: No token provided", ok: false });
         }
         const decodedToken: any = jwt.verify(token, String(process.env.JWT_SECRET));
+        console.log("DECODED-TOKEN: ", decodedToken);
 
         if (decodedToken.id) {
-            (req as any).user = decodedToken.id;
+            req.user = decodedToken.id;
+
             next();
         } else {
             console.warn("Auth failed: Invalid token decoded");

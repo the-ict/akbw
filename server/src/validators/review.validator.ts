@@ -3,6 +3,7 @@ import Joi from "joi";
 export const createReviewSchema = Joi.object({
     comment: Joi.string().required(),
     rating: Joi.number().required(),
+    product_id: Joi.string().required(),
 });
 
 export const getProductReviewsSchema = Joi.object({
