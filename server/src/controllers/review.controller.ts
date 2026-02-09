@@ -1,13 +1,16 @@
-import type { Request, Response } from "express";
-import { prisma } from "../db/client.js";
+import type {
+    Request,
+    Response
+} from "express";
+import {
+    prisma
+} from "../db/client.js";
 
 
-// Create a new review
 export const createReview = async (req: Request, res: Response) => {
     try {
         const { rating, comment, userName, productId } = req.body;
 
-        // Check if product exists
         const product = await prisma.products.findUnique({
             where: { id: productId },
         });
@@ -16,7 +19,6 @@ export const createReview = async (req: Request, res: Response) => {
             return res.status(404).json({ message: "Product not found" });
         }
 
-        // Create review
         const review = await prisma.reviews.create({
             data: {
                 rating,
@@ -33,9 +35,15 @@ export const createReview = async (req: Request, res: Response) => {
     }
 };
 
-// Get reviews for a specific product
 export const getProductReviews = async (req: Request, res: Response) => {
     try {
+        if (!req.params.productId) {
+            return res.status(404).json({
+                message: "Product not found",
+                ok: false,
+            })
+        };
+
         const productId = parseInt(req.params.productId);
         const page = parseInt(req.query.page as string) || 1;
         const limit = parseInt(req.query.limit as string) || 10;
@@ -68,7 +76,6 @@ export const getProductReviews = async (req: Request, res: Response) => {
     }
 };
 
-// Get all reviews (admin)
 export const getAllReviews = async (req: Request, res: Response) => {
     try {
         const page = parseInt(req.query.page as string) || 1;

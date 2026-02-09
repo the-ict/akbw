@@ -2,14 +2,19 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Star, Minus, Plus, Check, MapPinCheckInside, SlidersHorizontal, ChevronDown } from 'lucide-react';
+import { Star, Minus, Plus, Check, ChevronDown } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
 import { monsterrat } from '@/shared/fonts';
 import ProductCard from '@/widgets/product';
 import { useProduct } from '@/features/products/lib/hooks';
-import { useProducts } from '@/features/products/lib/hooks';
-import { useProductReviews, useCreateReview } from '@/features/reviews/lib/hooks';
+import {
+    useProducts
+} from '@/features/products/lib/hooks';
+import {
+    useProductReviews,
+    useCreateReview
+} from '@/features/reviews/lib/hooks';
 
 interface ProductProps {
     id: string;
@@ -27,11 +32,9 @@ export default function Product({ id }: ProductProps) {
     const [reviewText, setReviewText] = useState('');
     const [reviewerName, setReviewerName] = useState('');
 
-    // Fetch reviews for this product
     const { data: reviewsData, isLoading: reviewsLoading } = useProductReviews(parseInt(id));
     const createReviewMutation = useCreateReview();
 
-    // Set default selections when product loads
     React.useEffect(() => {
         if (product) {
             if (product.colors?.length > 0 && selectedColor === null) {
@@ -81,7 +84,6 @@ export default function Product({ id }: ProductProps) {
                 productId: parseInt(id),
             });
 
-            // Reset form
             setUserRating(0);
             setReviewText('');
             setReviewerName('');

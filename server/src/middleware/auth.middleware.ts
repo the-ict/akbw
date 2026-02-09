@@ -12,9 +12,10 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
             console.warn("Auth failed: No token provided");
             return res.status(401).json({ message: "Unauthorized: No token provided", ok: false });
         }
-        const decodedToken = jwt.verify(token, String(process.env.JWT_SECRET));
+        const decodedToken: any = jwt.verify(token, String(process.env.JWT_SECRET));
 
-        if (decodedToken) {
+        if (decodedToken.id) {
+            (req as any).user = decodedToken.id;
             next();
         } else {
             console.warn("Auth failed: Invalid token decoded");

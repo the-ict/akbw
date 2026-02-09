@@ -1,12 +1,15 @@
-import { Router } from "express";
+import {
+    uploadImage
+} from "../controllers/upload.controller.js";
+import {
+    Router
+} from "express";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import { uploadImage } from "../controllers/upload.controller.js";
 
 const router = Router();
 
-// Configure storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         const uploadDir = "uploads";

@@ -1,4 +1,8 @@
-import type { NextFunction, Request, Response } from "express";
+import type {
+    NextFunction,
+    Request,
+    Response
+} from "express";
 
 export const langaugeMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -8,10 +12,17 @@ export const langaugeMiddleware = async (req: Request, res: Response, next: Next
         let languageCode: 'uz' | 'ru' | 'en' = 'uz';
 
         if (acceptLanguage) {
-            const code = acceptLanguage.split(',')[0].split('-')[0].toLowerCase();
+            const code = acceptLanguage?.split(',')[0]?.split('-')[0]?.toLowerCase();
             console.log(code, 'language code');
-            if (['uz', 'ru', 'en'].includes(code)) {
-                languageCode = code as 'uz' | 'ru' | 'en';
+            if (code) {
+                if (['uz', 'ru', 'en'].includes(code)) {
+                    languageCode = code as 'uz' | 'ru' | 'en';
+                }
+            } else {
+                return res.status(404).json({
+                    message: "Code not found",
+                    ok: false,
+                })
             }
         }
 
