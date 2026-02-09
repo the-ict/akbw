@@ -15,6 +15,7 @@ import {
     useProductReviews,
     useCreateReview
 } from '@/features/reviews/lib/hooks';
+import { useUserStore } from '@/shared/store/user.store';
 
 interface ProductProps {
     id: string;
@@ -33,6 +34,7 @@ export default function Product({ id }: ProductProps) {
     const [reviewerName, setReviewerName] = useState('');
 
     const { data: reviewsData, isLoading: reviewsLoading } = useProductReviews(parseInt(id));
+    const { token } = useUserStore();
     const createReviewMutation = useCreateReview();
 
     React.useEffect(() => {
@@ -248,62 +250,63 @@ export default function Product({ id }: ProductProps) {
                 <div className='mb-20'>
                     {activeTab === 'reviews' && (
                         <div className='max-w-4xl mx-auto'>
-                            <div className='mb-10 p-8 border border-gray-100 rounded-[32px] bg-white shadow-sm'>
-                                <h3 className='text-xl font-bold mb-6'>Write a Review</h3>
+                            {
+                                token && (
+                                    <div className='mb-10 p-8 border border-gray-100 rounded-[32px] bg-white shadow-sm'>
+                                        <h3 className='text-xl font-bold mb-6'>Write a Review</h3>
 
-                                <div className='mb-6'>
-                                    <p className='text-sm text-gray-500 mb-3'>Rate this product</p>
-                                    <div className='flex gap-2'>
-                                        {[1, 2, 3, 4, 5].map((star) => (
-                                            <button
-                                                key={star}
-                                                onClick={() => setUserRating(star)}
-                                                className='hover:scale-110 transition-transform cursor-pointer'
-                                            >
-                                                <Star
-                                                    size={28}
-                                                    className={cn(
-                                                        'transition-colors',
-                                                        star <= userRating ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
-                                                    )}
-                                                    fill={star <= userRating ? 'currentColor' : 'none'}
-                                                />
-                                            </button>
-                                        ))}
+                                        <div className='mb-6'>
+                                            <p className='text-sm text-gray-500 mb-3'>Rate this product</p>
+                                            <div className='flex gap-2'>
+                                                {[1, 2, 3, 4, 5].map((star) => (
+                                                    <button
+                                                        key={star}
+                                                        onClick={() => setUserRating(star)}
+                                                        className='hover:scale-110 transition-transform cursor-pointer'
+                                                    >
+                                                        <Star
+                                                            size={28}
+                                                            className={cn(
+                                                                'transition-colors',
+                                                                star <= userRating ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
+                                                            )}
+                                                            fill={star <= userRating ? 'currentColor' : 'none'}
+                                                        />
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className='relative'>
+                                            <textarea
+                                                placeholder='Share your thoughts about this product...'
+                                                value={reviewText}
+                                                onChange={(e) => setReviewText(e.target.value)}
+                                                className='w-full p-4 pr-24 border border-gray-200 rounded-[20px] resize-none focus:outline-none focus:border-black transition-all min-h-[100px] text-sm'
+                                                maxLength={500}
+                                            />
+
+                                            <div className='flex items-center justify-between mt-3'>
+                                                <span className='text-xs text-gray-400'>{reviewText.length}/500</span>
+
+                                                <Button
+                                                    onClick={handleSubmitReview}
+                                                    disabled={createReviewMutation.isPending}
+                                                    className='rounded-full px-8 py-2 h-auto bg-black hover:bg-black/90 font-semibold text-sm cursor-pointer'
+                                                >
+                                                    {createReviewMutation.isPending ? 'Posting...' : 'Post'}
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-
-                                <div className='relative'>
-                                    <textarea
-                                        placeholder='Share your thoughts about this product...'
-                                        value={reviewText}
-                                        onChange={(e) => setReviewText(e.target.value)}
-                                        className='w-full p-4 pr-24 border border-gray-200 rounded-[20px] resize-none focus:outline-none focus:border-black transition-all min-h-[100px] text-sm'
-                                        maxLength={500}
-                                    />
-
-                                    <div className='flex items-center justify-between mt-3'>
-                                        <span className='text-xs text-gray-400'>{reviewText.length}/500</span>
-
-                                        <Button
-                                            onClick={handleSubmitReview}
-                                            disabled={createReviewMutation.isPending}
-                                            className='rounded-full px-8 py-2 h-auto bg-black hover:bg-black/90 font-semibold text-sm cursor-pointer'
-                                        >
-                                            {createReviewMutation.isPending ? 'Posting...' : 'Post'}
-                                        </Button>
-                                    </div>
-                                </div>
-                            </div>
+                                )
+                            }
 
                             <div className='flex items-center justify-between mb-8'>
                                 <div className='flex items-center gap-2'>
                                     <h2 className='text-2xl font-bold'>Reviews</h2>
                                     <span className='text-gray-400 font-normal'>({reviewsData?.meta.total || 0})</span>
                                 </div>
-                                <button className={cn('flex items-center gap-2 bg-gray-100 px-6 py-3 rounded-full font-bold group hover:bg-black hover:text-white transition-all cursor-pointer')}>
-                                    Latest <ChevronDown size={18} className='group-hover:rotate-180 transition-transform' />
-                                </button>
                             </div>
 
                             {reviewsLoading ? (
