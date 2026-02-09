@@ -323,7 +323,7 @@ export default function Product({ id }: ProductProps) {
                                         <div key={review.id} className='p-6 border-b border-gray-100 last:border-0'>
                                             <div className='flex items-start gap-4'>
                                                 <div className='w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold shrink-0'>
-                                                    {review.user.name}
+                                                    {review.user.name.charAt(0).toUpperCase()}
                                                 </div>
 
                                                 <div className='flex-1'>
