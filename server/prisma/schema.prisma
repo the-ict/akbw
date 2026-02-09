@@ -20,7 +20,7 @@ model User {
   lastName        String
   gender          String
   reviews         Reviews[]
-  profile_picture String @default("")
+  profile_picture String    @default("")
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }

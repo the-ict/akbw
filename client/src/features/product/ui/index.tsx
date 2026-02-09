@@ -27,6 +27,8 @@ import { useUserStore } from '@/shared/store/user.store';
 import { toast } from '@/shared/ui/toast';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
 import DeleteConfirmModal from '@/widgets/delete-confirm/ui';
+import { useDeleteReviewMutation } from '../lib/hooks';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ProductProps {
     id: string;
@@ -43,10 +45,14 @@ export default function Product({ id }: ProductProps) {
     const [activeTab, setActiveTab] = useState<string>('reviews');
     const [userRating, setUserRating] = useState<number>(0);
     const [reviewText, setReviewText] = useState<string>('');
+    const [reviewId, setReviewId] = useState<number | null>(null);
 
     const { data: reviewsData, isLoading: reviewsLoading } = useProductReviews(parseInt(id));
-    const { token } = useUserStore();
+    const deleteReviewMutation = useDeleteReviewMutation(reviewId!);
     const createReviewMutation = useCreateReview();
+    const queryClient = useQueryClient();
+
+    const { token } = useUserStore();
 
     React.useEffect(() => {
         if (product) {
@@ -59,8 +65,17 @@ export default function Product({ id }: ProductProps) {
         }
     }, [product, selectedColor, selectedSize]);
 
-    const handleDeleteReview = () => {
-
+    const handleDeleteReview = async () => {
+        try {
+            await deleteReviewMutation.mutateAsync();
+            toast.success("Review deleted successfully!");
+            queryClient.invalidateQueries({
+                queryKey: ["reviews"]
+            })
+            setOpenDeleteReview(false);
+        } catch (error) {
+            toast.error("Failed to delete review");
+        }
     }
 
     if (isLoading) {
@@ -103,6 +118,7 @@ export default function Product({ id }: ProductProps) {
             setUserRating(0);
             setReviewText('');
             toast.success("Review submitted successfully!");
+
         } catch (error) {
             console.error('Error submitting review:', error);
             toast.error('Failed to submit review. Please try again.');
@@ -266,9 +282,7 @@ export default function Product({ id }: ProductProps) {
                             <DeleteConfirmModal
                                 isOpen={openDeleteReview}
                                 onClose={() => setOpenDeleteReview(false)}
-                                onConfirm={() => {
-
-                                }}
+                                onConfirm={handleDeleteReview}
                                 title='Delete Review'
                                 description='Are you sure you want to delete this review?'
                             />
@@ -370,7 +384,10 @@ export default function Product({ id }: ProductProps) {
                                                         <EllipsisVertical size={18} className='text-gray-400 cursor-pointer' />
                                                     </DropdownMenuTrigger>
                                                     <DropdownMenuContent className='outline-none border-none p-2'>
-                                                        <DropdownMenuLabel className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>Delete</DropdownMenuLabel>
+                                                        <DropdownMenuLabel onClick={() => {
+                                                            setOpenDeleteReview(true);
+                                                            setReviewId(review.id);
+                                                        }} className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>Delete</DropdownMenuLabel>
                                                         <DropdownMenuSeparator />
                                                         <DropdownMenuLabel className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>Edit</DropdownMenuLabel>
                                                     </DropdownMenuContent>

@@ -115,6 +115,9 @@ export const getAllReviews = async (req: Request, res: Response) => {
 export const deleteReview = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { reviewId } = req.params;
+        console.log(req.params, "DELETE REVIEW PARAMS");
+        console.log(reviewId, "this is review id");
+
         await prisma.reviews.delete({
             where: {
                 id: Number(reviewId),
