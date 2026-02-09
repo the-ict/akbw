@@ -1,4 +1,5 @@
 import type {
+    NextFunction,
     Request,
     Response
 } from "express";
@@ -109,3 +110,21 @@ export const getAllReviews = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+
+export const deleteReview = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { reviewId } = req.params;
+        await prisma.reviews.delete({
+            where: {
+                id: Number(reviewId),
+            },
+        });
+        res.json({
+            message: "Review deleted successfully",
+            ok: true,
+        });
+    } catch (error) {
+        next(error);
+    }
+}

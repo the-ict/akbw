@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as api from './api';
+import { deleteReviewRequest } from '@/shared/config/api/review/review.request';
 
 export const useProducts = () => {
     return useQuery({
@@ -66,4 +67,11 @@ export const useDeleteProduct = () => {
             queryClient.invalidateQueries({ queryKey: ['products'] });
         },
     });
+};
+
+export const useDeleteReviewMutation = (reviewId: number) => {
+    return useMutation({
+        mutationKey: ["delete-review"],
+        mutationFn: () => deleteReviewRequest(reviewId)
+    })
 };

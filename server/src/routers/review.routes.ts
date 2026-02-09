@@ -2,7 +2,8 @@ import { Router } from "express";
 import {
     createReview,
     getProductReviews,
-    getAllReviews
+    getAllReviews,
+    deleteReview
 } from "../controllers/review.controller.js";
 import {
     validate
@@ -23,5 +24,7 @@ router.post("/", auth, validate(createReviewSchema), createReview);
 router.get("/product/:productId", validate(getProductReviewsSchema), getProductReviews);
 
 router.get("/", getAllReviews);
+
+router.delete("/:reviewId", auth, deleteReview);
 
 export default router;

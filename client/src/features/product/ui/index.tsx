@@ -7,7 +7,9 @@ import {
     Minus,
     Plus,
     Check,
-    Loader2
+    Loader2,
+    MoreHorizontal,
+    EllipsisVertical
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
@@ -23,21 +25,24 @@ import {
 } from '@/features/reviews/lib/hooks';
 import { useUserStore } from '@/shared/store/user.store';
 import { toast } from '@/shared/ui/toast';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
+import DeleteConfirmModal from '@/widgets/delete-confirm/ui';
 
 interface ProductProps {
     id: string;
 }
 
 export default function Product({ id }: ProductProps) {
+    const [openDeleteReview, setOpenDeleteReview] = useState<boolean>(false);
     const { data: product, isLoading, error } = useProduct(id);
     const { data: relatedProducts } = useProducts({ limit: 4 });
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState<number>(1);
     const [selectedColor, setSelectedColor] = useState<number | null>(null);
     const [selectedSize, setSelectedSize] = useState<number | null>(null);
-    const [activeImage, setActiveImage] = useState(0);
-    const [activeTab, setActiveTab] = useState('reviews');
-    const [userRating, setUserRating] = useState(0);
-    const [reviewText, setReviewText] = useState('');
+    const [activeImage, setActiveImage] = useState<number>(0);
+    const [activeTab, setActiveTab] = useState<string>('reviews');
+    const [userRating, setUserRating] = useState<number>(0);
+    const [reviewText, setReviewText] = useState<string>('');
 
     const { data: reviewsData, isLoading: reviewsLoading } = useProductReviews(parseInt(id));
     const { token } = useUserStore();
@@ -53,6 +58,10 @@ export default function Product({ id }: ProductProps) {
             }
         }
     }, [product, selectedColor, selectedSize]);
+
+    const handleDeleteReview = () => {
+
+    }
 
     if (isLoading) {
         return (
@@ -254,6 +263,16 @@ export default function Product({ id }: ProductProps) {
                 <div className='mb-20'>
                     {activeTab === 'reviews' && (
                         <div className='max-w-4xl mx-auto'>
+                            <DeleteConfirmModal
+                                isOpen={openDeleteReview}
+                                onClose={() => setOpenDeleteReview(false)}
+                                onConfirm={() => {
+
+                                }}
+                                title='Delete Review'
+                                description='Are you sure you want to delete this review?'
+                            />
+
                             {
                                 token && (
                                     <div className='mb-10 p-8 border border-gray-100 rounded-[32px] bg-white shadow-sm'>
@@ -345,6 +364,17 @@ export default function Product({ id }: ProductProps) {
 
                                                     <p className='text-gray-700 leading-relaxed text-sm'>{review.comment}</p>
                                                 </div>
+
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger className='outline-none'>
+                                                        <EllipsisVertical size={18} className='text-gray-400 cursor-pointer' />
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent className='outline-none border-none p-2'>
+                                                        <DropdownMenuLabel className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>Delete</DropdownMenuLabel>
+                                                        <DropdownMenuSeparator />
+                                                        <DropdownMenuLabel className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>Edit</DropdownMenuLabel>
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
                                             </div>
                                         </div>
                                     ))}

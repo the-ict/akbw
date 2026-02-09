@@ -14,3 +14,7 @@ export const getProductReviewsRequest = async (productId: number, page: number =
     console.log("product-id: ", productId);
     return (await httpClient.get(`${ENDP_REVIEW}/product/${productId}`, { params: { page, limit } })).data;
 }
+
+export const deleteReviewRequest = async (reviewId: number): Promise<void> => {
+    await httpClient.delete(`${ENDP_REVIEW}/${reviewId}`);
+}
