@@ -2249,6 +2249,7 @@ export namespace Prisma {
     name: string | null
     lastName: string | null
     gender: string | null
+    profile_picture: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2259,6 +2260,7 @@ export namespace Prisma {
     name: string | null
     lastName: string | null
     gender: string | null
+    profile_picture: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2269,6 +2271,7 @@ export namespace Prisma {
     name: number
     lastName: number
     gender: number
+    profile_picture: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2281,6 +2284,7 @@ export namespace Prisma {
     name?: true
     lastName?: true
     gender?: true
+    profile_picture?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2291,6 +2295,7 @@ export namespace Prisma {
     name?: true
     lastName?: true
     gender?: true
+    profile_picture?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2301,6 +2306,7 @@ export namespace Prisma {
     name?: true
     lastName?: true
     gender?: true
+    profile_picture?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2384,6 +2390,7 @@ export namespace Prisma {
     name: string
     lastName: string
     gender: string
+    profile_picture: string
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2411,6 +2418,7 @@ export namespace Prisma {
     name?: boolean
     lastName?: boolean
     gender?: boolean
+    profile_picture?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     reviews?: boolean | User$reviewsArgs<ExtArgs>
@@ -2423,6 +2431,7 @@ export namespace Prisma {
     name?: boolean
     lastName?: boolean
     gender?: boolean
+    profile_picture?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2433,6 +2442,7 @@ export namespace Prisma {
     name?: boolean
     lastName?: boolean
     gender?: boolean
+    profile_picture?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2443,11 +2453,12 @@ export namespace Prisma {
     name?: boolean
     lastName?: boolean
     gender?: boolean
+    profile_picture?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone" | "name" | "lastName" | "gender" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phone" | "name" | "lastName" | "gender" | "profile_picture" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     reviews?: boolean | User$reviewsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2466,6 +2477,7 @@ export namespace Prisma {
       name: string
       lastName: string
       gender: string
+      profile_picture: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2897,6 +2909,7 @@ export namespace Prisma {
     readonly name: FieldRef<"User", 'String'>
     readonly lastName: FieldRef<"User", 'String'>
     readonly gender: FieldRef<"User", 'String'>
+    readonly profile_picture: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -16716,6 +16729,7 @@ export namespace Prisma {
     name: 'name',
     lastName: 'lastName',
     gender: 'gender',
+    profile_picture: 'profile_picture',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -16946,6 +16960,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     lastName?: StringFilter<"User"> | string
     gender?: StringFilter<"User"> | string
+    profile_picture?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     reviews?: ReviewsListRelationFilter
@@ -16957,6 +16972,7 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     gender?: SortOrder
+    profile_picture?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     reviews?: ReviewsOrderByRelationAggregateInput
@@ -16971,6 +16987,7 @@ export namespace Prisma {
     name?: StringFilter<"User"> | string
     lastName?: StringFilter<"User"> | string
     gender?: StringFilter<"User"> | string
+    profile_picture?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     reviews?: ReviewsListRelationFilter
@@ -16982,6 +16999,7 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     gender?: SortOrder
+    profile_picture?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -16998,6 +17016,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"User"> | string
     lastName?: StringWithAggregatesFilter<"User"> | string
     gender?: StringWithAggregatesFilter<"User"> | string
+    profile_picture?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -17723,6 +17742,7 @@ export namespace Prisma {
     name: string
     lastName: string
     gender: string
+    profile_picture?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewsCreateNestedManyWithoutUserInput
@@ -17734,6 +17754,7 @@ export namespace Prisma {
     name: string
     lastName: string
     gender: string
+    profile_picture?: string
     createdAt?: Date | string
     updatedAt?: Date | string
     reviews?: ReviewsUncheckedCreateNestedManyWithoutUserInput
@@ -17745,6 +17766,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
+    profile_picture?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewsUpdateManyWithoutUserNestedInput
@@ -17756,6 +17778,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
+    profile_picture?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reviews?: ReviewsUncheckedUpdateManyWithoutUserNestedInput
@@ -17767,6 +17790,7 @@ export namespace Prisma {
     name: string
     lastName: string
     gender: string
+    profile_picture?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -17777,6 +17801,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
+    profile_picture?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -17787,6 +17812,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
+    profile_picture?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18529,6 +18555,7 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     gender?: SortOrder
+    profile_picture?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18539,6 +18566,7 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     gender?: SortOrder
+    profile_picture?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18549,6 +18577,7 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     gender?: SortOrder
+    profile_picture?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -20783,6 +20812,7 @@ export namespace Prisma {
     name: string
     lastName: string
     gender: string
+    profile_picture?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20793,6 +20823,7 @@ export namespace Prisma {
     name: string
     lastName: string
     gender: string
+    profile_picture?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20847,6 +20878,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
+    profile_picture?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20857,6 +20889,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     gender?: StringFieldUpdateOperationsInput | string
+    profile_picture?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
