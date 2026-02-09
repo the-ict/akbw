@@ -97,7 +97,6 @@ export default function Product({ id }: ProductProps) {
     return (
         <div className='min-h-screen bg-white'>
             <div className='container py-10 px-4 md:px-6'>
-                {/* Breadcrumbs */}
                 <div className='flex gap-2 text-sm text-gray-500 mb-10'>
                     <span>Home</span>
                     <span>/</span>
@@ -274,17 +273,6 @@ export default function Product({ id }: ProductProps) {
                                     </div>
                                 </div>
 
-                                <div className='mb-4'>
-                                    <input
-                                        type='text'
-                                        placeholder='Your name'
-                                        value={reviewerName}
-                                        onChange={(e) => setReviewerName(e.target.value)}
-                                        className='w-full p-4 border border-gray-200 rounded-[20px] focus:outline-none focus:border-black transition-all text-sm'
-                                        maxLength={100}
-                                    />
-                                </div>
-
                                 <div className='relative'>
                                     <textarea
                                         placeholder='Share your thoughts about this product...'
@@ -351,7 +339,6 @@ export default function Product({ id }: ProductProps) {
                                                         ))}
                                                     </div>
 
-                                                    {/* Review Text */}
                                                     <p className='text-gray-700 leading-relaxed text-sm'>{review.comment}</p>
                                                 </div>
                                             </div>
@@ -399,7 +386,6 @@ export default function Product({ id }: ProductProps) {
                     )}
                 </div>
 
-                {/* Related Products Section */}
                 <div className='mt-32 border-t border-gray-100 pt-32 pb-20'>
                     <h2 className={cn('text-4xl md:text-5xl lg:text-6xl font-black text-center uppercase mb-20 tracking-tighter', monsterrat.className)}>
                         You might also like

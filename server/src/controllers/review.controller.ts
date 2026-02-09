@@ -33,7 +33,10 @@ export const createReview = async (req: Request, res: Response) => {
 
 export const getProductReviews = async (req: Request, res: Response) => {
     try {
-        const { product_id } = req.params;
+        const { productId: product_id } = req.params;
+        console.log(req.params, "PARAMS");
+        console.log(product_id, "PRODUCT ID");
+
         const page = parseInt(req.query.page as string) || 1;
         const limit = parseInt(req.query.limit as string) || 10;
         const skip = (page - 1) * limit;
