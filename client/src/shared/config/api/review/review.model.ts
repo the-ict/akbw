@@ -1,9 +1,20 @@
+interface IUser {
+    id: string;
+    phone: string;
+    name: string;
+    lastName: string;
+    gender: string;
+    profile_picture: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
 export interface IReview {
     id: number;
     rating: number;
     comment: string;
-    userName: string;
-    productId: number;
+    product_id: number;
+    user: IUser;
     createdAt: string;
     updatedAt: string;
 }

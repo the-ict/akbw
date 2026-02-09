@@ -2,7 +2,13 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Star, Minus, Plus, Check, ChevronDown, Loader2 } from 'lucide-react';
+import {
+    Star,
+    Minus,
+    Plus,
+    Check,
+    Loader2
+} from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
 import { monsterrat } from '@/shared/fonts';
@@ -316,19 +322,16 @@ export default function Product({ id }: ProductProps) {
                                     {reviewsData?.data.map((review) => (
                                         <div key={review.id} className='p-6 border-b border-gray-100 last:border-0'>
                                             <div className='flex items-start gap-4'>
-                                                {/* Avatar */}
                                                 <div className='w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold shrink-0'>
-                                                    {review.userName.charAt(0)}
+                                                    {review.user.name}
                                                 </div>
 
-                                                {/* Review Content */}
                                                 <div className='flex-1'>
                                                     <div className='flex items-center gap-2 mb-2'>
-                                                        <h4 className='font-bold text-base'>{review.userName}</h4>
+                                                        <h4 className='font-bold text-base'>{review.user.name} {review.user.lastName}</h4>
                                                         <span className='text-gray-400 text-sm'>• {new Date(review.createdAt).toLocaleDateString()}</span>
                                                     </div>
 
-                                                    {/* Star Rating */}
                                                     <div className='flex gap-1 mb-3'>
                                                         {[1, 2, 3, 4, 5].map((s) => (
                                                             <Star
