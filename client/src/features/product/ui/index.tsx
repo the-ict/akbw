@@ -300,8 +300,8 @@ export default function Product({ id }: ProductProps) {
                                 isOpen={openDeleteReview}
                                 onClose={() => setOpenDeleteReview(false)}
                                 onConfirm={handleDeleteReview}
-                                title='Delete Review'
-                                description='Are you sure you want to delete this review?'
+                                title={`Izohni o'chirish`}
+                                description={`Izohni o'chirishga ishonchingiz komilmi?`}
                             />
 
                             {
@@ -333,7 +333,7 @@ export default function Product({ id }: ProductProps) {
 
                                         <div className='relative'>
                                             <textarea
-                                                placeholder='Share your thoughts about this product...'
+                                                placeholder='Bu mahsulot haqida fikringizni yozing...'
                                                 value={reviewText}
                                                 onChange={(e) => setReviewText(e.target.value)}
                                                 className='w-full p-4 pr-24 border border-gray-200 rounded-[20px] resize-none focus:outline-none focus:border-black transition-all min-h-[100px] text-sm'
@@ -348,7 +348,7 @@ export default function Product({ id }: ProductProps) {
                                                     disabled={createReviewMutation.isPending}
                                                     className='rounded-full px-8 py-2 h-auto flex items-center justify-center bg-black hover:bg-black/90 font-semibold text-sm cursor-pointer'
                                                 >
-                                                    {createReviewMutation.isPending ? <Loader2 className='animate-spin' size={18} /> : 'Post'}
+                                                    {createReviewMutation.isPending ? <Loader2 className='animate-spin' size={18} /> : 'Joylash'}
                                                 </Button>
                                             </div>
                                         </div>

@@ -1,8 +1,16 @@
 'use client';
 
 import React from 'react';
-import { AlertTriangle, X } from 'lucide-react';
-import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/modal';
+import {
+    AlertTriangle,
+    X
+} from 'lucide-react';
+import {
+    Modal,
+    ModalContent,
+    ModalTitle,
+    ModalDescription
+} from '@/shared/ui/modal';
 import { Button } from '@/shared/ui/button';
 
 interface DeleteConfirmModalProps {
@@ -31,7 +39,7 @@ export default function DeleteConfirmModal({
                                 <AlertTriangle size={20} />
                             </div>
                             <div>
-                                <ModalTitle className="text-lg font-black uppercase tracking-tight text-red-600">Tasdiqlash</ModalTitle>
+                                <ModalTitle className="text-lg font-black uppercase tracking-tight text-red-600">{title}</ModalTitle>
                                 <ModalDescription className="text-[10px] text-red-400 font-bold uppercase tracking-widest mt-0.5">O‘chirishni tasdiqlang</ModalDescription>
                             </div>
                         </div>
@@ -42,12 +50,7 @@ export default function DeleteConfirmModal({
 
                     {/* Content */}
                     <div className="p-8">
-                        <h3 className="text-lg font-bold text-gray-900 mb-2">{title}</h3>
-                        <p className="text-sm text-gray-500 leading-relaxed font-medium">
-                            {description}
-                        </p>
-
-                        <div className="mt-8 p-4 bg-gray-50 rounded-2xl border border-gray-100 italic text-[11px] font-bold text-gray-400">
+                        <div className="mt-1 p-4 bg-gray-50 rounded-2xl border border-gray-100 italic text-[11px] font-bold text-gray-400">
                             Diqqat: Ushbu amalni ortga qaytarib bo‘lmaydi. Barcha bog‘liq ma’lumotlar butunlay o‘chiriladi.
                         </div>
                     </div>
@@ -57,7 +60,7 @@ export default function DeleteConfirmModal({
                         <Button
                             variant="ghost"
                             onClick={onClose}
-                            className="flex-1 rounded-2xl h-14 font-black uppercase tracking-widest text-[10px] cursor-pointer"
+                            className="flex-1 rounded-xl h-14 font-black uppercase tracking-widest text-[10px] cursor-pointer"
                         >
                             Bekor qilish
                         </Button>
@@ -65,7 +68,7 @@ export default function DeleteConfirmModal({
                             onClick={onConfirm}
                             className="flex-1 rounded-2xl h-14 bg-red-500 hover:bg-red-600 text-white font-black uppercase tracking-widest text-[10px] shadow-lg shadow-red-200 transition-all hover:scale-[1.02] active:scale-98 cursor-pointer"
                         >
-                            O‘chirish
+                            Tasdiqlash
                         </Button>
                     </div>
                 </div>
