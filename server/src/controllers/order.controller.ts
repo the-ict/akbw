@@ -4,14 +4,15 @@ import { prisma } from "../db/client"
 export const reviewOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user_id = req.user;
-        const { items, total_price } = req.body;
+        const { items, total_price, coupon_id } = req.body;
 
         const order = await prisma.orders.create({
             data: {
                 user_id,
                 items,
                 total_price,
-                status: 'review'
+                status: 'review',
+                coupon_id,
             }
         });
 
@@ -37,6 +38,13 @@ export const getOrders = async (req: Request, res: Response, next: NextFunction)
                         name: true,
                         lastName: true,
                         phone: true
+                    }
+                },
+                coupon: {
+                    select: {
+                        id: true,
+                        code: true,
+                        discount: true,
                     }
                 }
             }

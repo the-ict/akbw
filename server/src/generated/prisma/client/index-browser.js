@@ -243,6 +243,7 @@ exports.Prisma.OrdersScalarFieldEnum = {
   user_id: 'user_id',
   items: 'items',
   total_price: 'total_price',
+  coupon_id: 'coupon_id',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -256,6 +257,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 

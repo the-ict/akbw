@@ -150,6 +150,7 @@ model Coupons {
   discount  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  orders    Orders[]
 }
 
 model Orders {
@@ -158,6 +159,8 @@ model Orders {
   user        User     @relation(fields: [user_id], references: [id])
   items       Int[]
   total_price Int
+  coupon_id   Int?
+  coupon      Coupons? @relation(fields: [coupon_id], references: [id])
   status      String   @default("review")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
