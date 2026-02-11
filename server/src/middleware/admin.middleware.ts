@@ -37,7 +37,6 @@ export const checkAdmins = async (req: Request, res: Response, next: NextFunctio
             });
         }
 
-        // Attach admin to request object if needed
         (req as any).admin = admin;
         next();
     } catch (error: any) {

@@ -1,9 +1,10 @@
 import httpClient from "../httpClient";
+import { ENDP_ORDER } from "../URLs";
 import { IOrder } from "./order.model";
 
 export const orderRequest = {
     getAll: async () => {
-        const response = await httpClient.get<{ data: IOrder[]; ok: boolean }>('/order/all');
+        const response = await httpClient.get<{ data: IOrder[]; ok: boolean }>(ENDP_ORDER);
         return response.data;
     },
     updateStatus: async (id: number, status: string) => {
