@@ -21,6 +21,7 @@ import {
     Layers,
     Headphones,
     HelpCircle,
+    Bell,
 } from 'lucide-react';
 import { useAdminAuthStore } from '@/shared/store/auth.store';
 
@@ -29,6 +30,7 @@ const sidebarItems = [
     { name: 'Mahsulotlar', icon: Package, href: '/products' },
     { name: 'Kategoriyalar', icon: Layers, href: '/categories' },
     { name: 'Buyurtmalar', icon: ShoppingBag, href: '/orders' },
+    { name: 'Bildirishnomalar', icon: Bell, href: '/notifications' },
     { name: 'Mijozlar', icon: Users, href: '/users' },
     { name: 'Statistika', icon: BarChart3, href: '/statistics' },
     { name: 'To‘lovlar', icon: CreditCard, href: '/payments' },

@@ -13,8 +13,8 @@ import { createNotificationValidator } from "../validators/notification.validato
 const router = Router();
 
 router.get("/", getNotifications);
-router.post("/", auth, checkAdmins, validate(createNotificationValidator), createNotification);
-router.put("/:id", auth, checkAdmins, updateNotification);
-router.delete("/:id", auth, checkAdmins, deleteNotification);
+router.post("/", validate(createNotificationValidator), createNotification);
+router.put("/:id", updateNotification);
+router.delete("/:id", deleteNotification);
 
 export default router;

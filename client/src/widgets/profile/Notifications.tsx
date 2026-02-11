@@ -5,8 +5,13 @@ import {
     Bell
 } from 'lucide-react'
 import React from 'react'
+import { useNotifications } from './lib/hooks'
 
 export default function Notifications() {
+
+    const { data: notifications } = useNotifications();
+
+
     return (
         <div className="space-y-3">
             {[].length === 0 ? (

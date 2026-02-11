@@ -13,7 +13,8 @@ const ENDP_ADMIN = "/admin";
 const ENDP_PRODUCT_CREATE = "/product";
 const ENDP_PRODUCT_CATEGORIES_CREATE = "/product/categories";
 const ENDP_UPLOAD = "/upload";
-const ENDP_ORDER = "/order/admins-order-all"
+const ENDP_ORDER = "/order"
+const ENDP_NOTIFICATION = "/notification";
 
 export {
   BASE_URL,
@@ -29,5 +30,6 @@ export {
   ENDP_PRODUCT_CREATE,
   ENDP_PRODUCT_CATEGORIES_CREATE,
   ENDP_UPLOAD,
-  ENDP_ORDER
+  ENDP_ORDER,
+  ENDP_NOTIFICATION
 };
