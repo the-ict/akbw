@@ -56,22 +56,6 @@ const profileSchema = z.object({
 type TabType = "menu" | "favorites" | "notifications" | "reviews";
 type SubSectionType = "editProfile" | "supportChat" | "productInquiry" | null;
 
-// Mock data for demonstration
-const mockFavorites = [
-    { id: 1, name: "Classic White T-Shirt", price: "150,000", image: "/placeholder.jpg" },
-    { id: 2, name: "Denim Jacket", price: "450,000", image: "/placeholder.jpg" },
-];
-
-const mockNotifications = [
-    { id: 1, title: "Yangi chegirma!", message: "Barcha mahsulotlarga 20% chegirma", date: "2026-02-01", read: false },
-    { id: 2, title: "Buyurtmangiz yetkazildi", message: "Buyurtma #12345 muvaffaqiyatli yetkazildi", date: "2026-01-30", read: true },
-];
-
-const mockReviews = [
-    { id: 1, productName: "Classic White T-Shirt", rating: 5, comment: "Juda yaxshi mahsulot!", date: "2026-01-25", productId: "123" },
-    { id: 2, productName: "Denim Jacket", rating: 4, comment: "Yaxshi, lekin rangi biroz boshqacha edi", date: "2026-01-20", productId: "456" },
-];
-
 const mockChatMessages = [
     { id: 1, sender: "admin", message: "Salom! Sizga qanday yordam bera olaman?", time: "10:30" },
     { id: 2, sender: "user", message: "Buyurtmam qachon yetib keladi?", time: "10:32" },
@@ -115,11 +99,8 @@ function Profile({ children }: ProfileProps) {
         setProfileTab
     } = useUIStore();
 
-    // Mapping store string types to component types
     const activeTab = activeProfileTab as TabType;
     const activeSubSection = activeProfileSubSection as SubSectionType;
-
-
 
     const { setToken } = useUserStore();
 

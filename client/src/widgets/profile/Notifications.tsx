@@ -43,7 +43,7 @@ export default function Notifications() {
                     {notifications?.data?.map((notification) => (
                         <div
                             key={notification.id}
-                            className={"group relative p-5 rounded-[24px] border border-gray-100 bg-white transition-all duration-300"}
+                            className={"group relative cursor-pointer p-5 rounded-[24px] border-2 border-gray-300 shadow-sm bg-white transition-all duration-300"}
                             onClick={() => setSelectedNotification(notification as any)}
                         >
                             <div className="flex gap-4 cursor-pointer">
@@ -92,7 +92,7 @@ export default function Notifications() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={() => setSelectedNotification(null)}
-                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9999]"
+                            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[9999] h-full"
                         />
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9, y: 20 }}

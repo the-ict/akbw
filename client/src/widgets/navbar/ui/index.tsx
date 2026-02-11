@@ -82,12 +82,12 @@ const Navbar = () => {
               </li>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="grid grid-cols-8 grid-rows-2 p-4 mt-10 ml-10 bg-[#D6D3CC]/60 border-none items-center gap-3">
+            <DropdownMenuContent className="grid grid-cols-8 grid-rows-2 p-4 mt-10 ml-10 bg-[#D6D3CC]/60 backdrop-blur-md border-none items-center gap-3">
               {categories?.map((item, index) => (
                 <DropdownMenuItem key={index} asChild>
                   <Link
                     href={`/filters?category=${item.id}`}
-                    className="w-full justify-center cursor-pointer py-3 bg-[#fff]/40 hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all text-sm font-medium block"
+                    className="w-full justify-center cursor-pointer py-3 bg-[#fff]/40 backdrop-blur-sm hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all text-sm font-medium block"
                   >
                     {item.name}
                   </Link>
