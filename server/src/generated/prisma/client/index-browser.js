@@ -24,12 +24,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.3.0
- * Query Engine version: 9d6ad21cbbceab97458517b147a6a09ff43aa735
+ * Prisma Client JS version: 7.4.0
+ * Query Engine version: ab56fe763f921d033a6c195e7ddeb3e255bdbb57
  */
 Prisma.prismaVersion = {
-  client: "7.3.0",
-  engine: "9d6ad21cbbceab97458517b147a6a09ff43aa735"
+  client: "7.4.0",
+  engine: "ab56fe763f921d033a6c195e7ddeb3e255bdbb57"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -238,6 +238,16 @@ exports.Prisma.CouponsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.OrdersScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  items: 'items',
+  total_price: 'total_price',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -263,7 +273,8 @@ exports.Prisma.ModelName = {
   Colors: 'Colors',
   ColorTranslations: 'ColorTranslations',
   Reviews: 'Reviews',
-  Coupons: 'Coupons'
+  Coupons: 'Coupons',
+  Orders: 'Orders'
 };
 
 /**

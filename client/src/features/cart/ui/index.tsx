@@ -41,6 +41,9 @@ import {
 } from "@/shared/ui/modal";
 import { OrderProgress } from './order-progress';
 import { useCartStore } from '@/shared/store/cart.store';
+import { useOrders, useCreateOrder } from '@/features/order/lib/hooks';
+import { useUserStore } from '@/shared/store/user.store';
+import { IOrder } from '@/shared/config/api/order/order.model';
 
 const UZBEKISTAN_DATA: Record<string, string[]> = {
     "Toshkent shahri": ["Olmazor", "Bektemir", "Mirobod", "Mirzo Ulug'bek", "Sergeli", "Uchtepa", "Chilonzor", "Shayxontohur", "Yunusobod", "Yakkasaroy", "Yashnobod"],
@@ -67,8 +70,11 @@ import Paynet from "../../../../public/icons/paynet.svg"
 
 export default function Cart() {
     const { items: cartItems, updateQuantity, removeItem, clearCart } = useCartStore();
+    const { token } = useUserStore();
 
-    const [checkingOrders, setCheckingOrders] = useState<any[]>([]);
+    const { data: ordersData, isLoading: ordersLoading } = useOrders();
+    const createOrderMutation = useCreateOrder();
+
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState<any>(null);
     const [region, setRegion] = useState('');
@@ -107,35 +113,26 @@ export default function Cart() {
     const deliveryFee = 15000; // Fixed delivery fee in UZS
     const total = subtotal - discount + deliveryFee;
 
-    const handleCheckout = () => {
+    const handleCheckout = async () => {
         if (cartItems.length === 0) return;
+        if (!token) {
+            toast.error("Iltimos, avval tizimga kiring");
+            return;
+        }
 
-        const newOrder = {
-            id: Date.now(),
-            items: [...cartItems],
-            status: 'checking',
-            date: new Date().toLocaleDateString(),
-            total,
-            subtotal,
-            discount,
-            deliveryFee
-        };
-
-        setCheckingOrders(prev => [newOrder, ...prev]);
-        clearCart();
-
-        toast.success("Buyurtmangiz tekshiruvga yuborildi!", {
-            description: "Tez orada operatorlarimiz siz bilan bog'lanishadi."
-        });
-
-        setTimeout(() => {
-            setCheckingOrders(prev => prev.map(order =>
-                order.id === newOrder.id ? { ...order, status: 'approved' } : order
-            ));
-            toast.info("Buyurtmangiz tasdiqlandi!", {
-                description: "Endi buyurtma berishingiz mumkin."
+        try {
+            await createOrderMutation.mutateAsync({
+                items: cartItems.map(item => item.id),
+                total_price: total
             });
-        }, 5000);
+
+            clearCart();
+            toast.success("Buyurtmangiz tekshiruvga yuborildi!", {
+                description: "Tez orada operatorlarimiz siz bilan bog'lanishadi."
+            });
+        } catch (error) {
+            toast.error("Buyurtma berishda xatolik yuz berdi");
+        }
     };
 
     const handleOrderNow = (order: any) => {
@@ -161,9 +158,8 @@ export default function Cart() {
         setTimeout(() => {
             // Switch to tracking mode instead of closing
             setModalMode('tracking');
-            // Update order status to delivering instead of removing
-            setCheckingOrders(prev => prev.map(o => o.id === selectedOrder.id ? { ...o, status: 'delivering' } : o));
-            // Don't clear address yet, user might want to see it
+            // Update order status logic would be here (backend)
+            // setCheckingOrders(prev => prev.map(o => o.id === selectedOrder.id ? { ...o, status: 'delivering' } : o));
         }, 2500);
     };
 
@@ -297,36 +293,24 @@ export default function Cart() {
                     </div>
                 </div>
 
-                {/* Checking Orders Section */}
-                {checkingOrders.length > 0 && (
+                {/* Active Orders Section */}
+                {token && ordersData?.data && ordersData.data.length > 0 && (
                     <div className='mt-20'>
                         <h2 className={cn('text-3xl font-black uppercase mb-10 text-gray-400', monsterrat.className)}>
                             Active Orders
                         </h2>
                         <div className='space-y-6'>
-                            {checkingOrders.map((order) => (
+                            {ordersData.data.map((order: IOrder) => (
                                 <div key={order.id} className='border border-gray-100 rounded-[24px] p-6 bg-gray-50/30 overflow-hidden relative'>
-                                    {order.status === 'checking' && (
+                                    {order.status === 'review' && (
                                         <div className='absolute inset-0 bg-white/40 z-10' />
                                     )}
                                     <div className='flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-20'>
                                         <div className='flex gap-4 items-center'>
-                                            <div className='flex -space-x-8'>
-                                                {order.items.slice(0, 3).map((item: any, i: number) => (
-                                                    <div key={i} className='w-20 h-20 rounded-xl overflow-hidden border-4 border-white shadow-sm'>
-                                                        <Image src={item.product_images?.[0] || ProductImage.src} alt={item.name} width={80} height={80} className='object-cover' />
-                                                    </div>
-                                                ))}
-                                                {order.items.length > 3 && (
-                                                    <div className='w-20 h-20 rounded-xl bg-gray-100 border-4 border-white shadow-sm flex items-center justify-center font-bold text-gray-400'>
-                                                        +{order.items.length - 3}
-                                                    </div>
-                                                )}
-                                            </div>
                                             <div className='ml-4'>
                                                 <p className='text-sm text-gray-400 font-medium'>Order ID: <span className='text-black'>#{order.id.toString().slice(-6)}</span></p>
-                                                <p className='font-bold text-lg'>{order.total.toLocaleString()} so'm</p>
-                                                <p className='text-xs text-gray-400'>{order.date}</p>
+                                                <p className='font-bold text-lg'>{order.total_price.toLocaleString()} so'm</p>
+                                                <p className='text-xs text-gray-400'>{new Date(order.createdAt).toLocaleDateString()}</p>
                                             </div>
                                         </div>
 
@@ -334,14 +318,15 @@ export default function Cart() {
                                             {/* Status Badge */}
                                             <div className={cn(
                                                 'px-5 py-2.5 rounded-full text-sm font-bold flex items-center gap-2',
-                                                order.status === 'checking' ? 'bg-gray-200 text-gray-500' :
+                                                order.status === 'review' ? 'bg-gray-200 text-gray-500' :
                                                     order.status === 'delivering' ? 'bg-blue-100 text-blue-600' :
-                                                        'bg-green-100 text-green-600'
+                                                        order.status === 'approved' ? 'bg-green-100 text-green-600' :
+                                                            'bg-green-100 text-green-600'
                                             )}>
-                                                {order.status === 'checking' && (
+                                                {order.status === 'review' && (
                                                     <>
                                                         <div className='w-2 h-2 rounded-full bg-gray-400 animate-pulse' />
-                                                        Checking...
+                                                        Reviewing...
                                                     </>
                                                 )}
                                                 {order.status === 'approved' && (
@@ -515,7 +500,7 @@ export default function Cart() {
                                 <div className="flex flex-col">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Total to Pay</span>
                                     <span className={cn("text-3xl font-black", Radiant.className)}>
-                                        {selectedOrder?.total.toLocaleString()} so'm
+                                        {selectedOrder?.total_price.toLocaleString()} so'm
                                     </span>
                                 </div>
                                 <Button

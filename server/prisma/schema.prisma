@@ -23,6 +23,7 @@ model User {
   profile_picture String    @default("")
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+  orders          Orders[]
 }
 
 model Verify {
@@ -144,9 +145,20 @@ model Reviews {
 }
 
 model Coupons {
-  id Int @id @default(autoincrement())
-  code String
-  discount Int
+  id        Int      @id @default(autoincrement())
+  code      String
+  discount  Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Orders {
+  id          Int      @id @default(autoincrement())
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  items       Int[]
+  total_price Int
+  status      String   @default("review")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
