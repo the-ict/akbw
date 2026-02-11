@@ -15,6 +15,7 @@ const ENDP_REVIEW = "/review";
 const ENDP_CATEGORIES = "/product/categories"
 const ENDP_COLORS = "/product/colors"
 const ENDP_SIZES = "/product/sizes"
+const ENDP_UPLOAD = "/upload";
 
 
 export {
@@ -31,7 +32,8 @@ export {
   ENDP_REVIEW,
   ENDP_CATEGORIES,
   ENDP_COLORS,
-  ENDP_SIZES
+  ENDP_SIZES,
+  ENDP_UPLOAD
 };
 
 

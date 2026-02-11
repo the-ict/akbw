@@ -51,8 +51,6 @@ const profileSchema = z.object({
     name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
     lastName: z.string().min(2, "Familiya kamida 2 ta harfdan iborat bo'lishi kerak"),
     gender: z.string().min(2, "Jins kamida 2 ta harfdan iborat bo'lishi kerak"),
-    phone: z.string().min(12, "Telefon raqami noto'g'ri").regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "Telefon raqami noto'g'ri"),
-    location: z.string().optional(),
 });
 
 type TabType = "menu" | "favorites" | "notifications" | "reviews";
@@ -91,11 +89,11 @@ function Profile({ children }: ProfileProps) {
     const [lastName, setLastName] = React.useState("");
     const [gender, setGender] = React.useState("");
     const [phone, setPhone] = React.useState("");
-    const [location, setLocation] = React.useState("");
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [profileImage, setProfileImage] = React.useState<string>("");
     const [chatMessage, setChatMessage] = React.useState("");
     const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
+    const [isUploading, setIsUploading] = React.useState(false);
 
     React.useEffect(() => {
         if (userData?.data) {
@@ -150,7 +148,7 @@ function Profile({ children }: ProfileProps) {
     };
 
     const handleSaveProfile = async () => {
-        const result = profileSchema.safeParse({ name, lastName, gender, phone, location });
+        const result = profileSchema.safeParse({ name, lastName, gender });
 
         if (!result.success) {
             const newErrors: Record<string, string> = {};
@@ -168,7 +166,6 @@ function Profile({ children }: ProfileProps) {
                 name,
                 lastName,
                 gender,
-                phone,
                 profile_picture: profileImage
             });
             toast.success("Profil muvaffaqiyatli saqlandi");
@@ -185,9 +182,20 @@ function Profile({ children }: ProfileProps) {
         }
     };
 
-    const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            setSelectedImage(e.target.files[0]);
+            const file = e.target.files[0];
+            setIsUploading(true);
+            try {
+                const { uploadRequest } = await import("@/shared/config/api/upload/upload.request");
+                const response = await uploadRequest.uploadImage(file);
+                setProfileImage(response.url);
+                toast.success("Rasm yuklandi");
+            } catch (error) {
+                toast.error("Rasm yuklashda xatolik yuz berdi");
+            } finally {
+                setIsUploading(false);
+            }
         }
     };
 
@@ -227,7 +235,16 @@ function Profile({ children }: ProfileProps) {
     ];
 
     const renderProfileHeader = () => (
-        <ProfileHeader name={name} lastName={lastName} gender={gender} profileImage={profileImage} activeTab={activeTab} activeSubSection={activeSubSection} />
+        <ProfileHeader
+            name={name}
+            lastName={lastName}
+            gender={gender}
+            profileImage={profileImage}
+            activeTab={activeTab}
+            activeSubSection={activeSubSection}
+            onImageSelect={handleImageSelect}
+            isUploading={isUploading}
+        />
     );
 
     const renderMenuItems = () => (
@@ -243,13 +260,10 @@ function Profile({ children }: ProfileProps) {
             lastName={lastName}
             gender={gender}
             phone={phone}
-            location={location}
             errors={errors}
             setName={setName}
             setLastName={setLastName}
             setGender={setGender}
-            setLocation={setLocation}
-            setPhone={setPhone}
         />
     );
 

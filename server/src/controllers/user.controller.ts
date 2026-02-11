@@ -47,7 +47,7 @@ export const getMe = async (req: Request, res: Response, next: NextFunction) => 
 export const updateProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user_id = (req as any).user;
-        const { name, lastName, gender, phone, profile_picture } = req.body;
+        const { name, lastName, gender, profile_picture } = req.body;
 
         const user = await prisma.user.update({
             where: { id: user_id },
@@ -55,7 +55,6 @@ export const updateProfile = async (req: Request, res: Response, next: NextFunct
                 name,
                 lastName,
                 gender,
-                phone,
                 profile_picture
             }
         });

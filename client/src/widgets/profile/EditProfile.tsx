@@ -10,18 +10,15 @@ interface Props {
     lastName: string;
     gender: string;
     phone: string;
-    location: string;
     errors: Record<string, string>;
     setName: (name: string) => void;
     setLastName: (lastName: string) => void;
     setGender: (gender: string) => void;
-    setPhone: (phone: string) => void;
     handlePhoneChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleSaveProfile: () => void;
-    setLocation: (location: string) => void;
 }
 
-export default function EditProfile({ handleBackMenu, handleSaveProfile, handlePhoneChange, name, lastName, gender, phone, location, errors, setName, setLastName, setGender, setLocation }: Props) {
+export default function EditProfile({ handleBackMenu, handleSaveProfile, handlePhoneChange, name, lastName, gender, phone, errors, setName, setLastName, setGender }: Props) {
     return (
         <div className="space-y-4">
             <button
@@ -87,27 +84,12 @@ export default function EditProfile({ handleBackMenu, handleSaveProfile, handleP
                     <Input
                         placeholder="+998 (000) 245-6780"
                         value={phone}
-                        onChange={handlePhoneChange}
+                        readOnly
                         className={cn(
-                            "h-11 shadow-sm border-gray-200 focus:border-black focus:ring-1 focus:ring-black transition-all",
-                            errors.phone ? "border-red-500" : "placeholder:opacity-40"
+                            "h-11 shadow-sm border-gray-200 bg-gray-50/50 cursor-not-allowed text-gray-500 placeholder:opacity-40"
                         )}
                     />
-                    {errors.phone && <p className="text-xs text-red-500">{errors.phone}</p>}
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                    <label className="text-xs font-semibold text-gray-600 uppercase tracking-wide flex items-center gap-1.5">
-                        <MapPin size={14} />
-                        Yetkazib berish manzili
-                    </label>
-                    <Input
-                        placeholder="Abdullox Address, add joyiashuv"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        className="h-11 shadow-sm border-gray-200 focus:border-black focus:ring-1 focus:ring-black transition-all placeholder:opacity-40"
-                    />
-                    <p className="text-[10px] text-gray-500 leading-tight">Bu manzil buyurtma berishda avtomatik tanlanadi</p>
+                    <p className="text-[10px] text-gray-400">Telefon raqamini o'zgartirib bo'lmaydi</p>
                 </div>
 
                 <Button onClick={handleSaveProfile} className="w-full mt-6 h-11 bg-black hover:bg-black/90 text-white font-semibold shadow-md hover:shadow-lg transition-all">
