@@ -491,25 +491,6 @@ export default function Cart() {
                                 </div>
                             </div>
 
-                            {/* Coupon Code Selection */}
-                            <div className="space-y-4">
-                                <h3 className="font-bold text-lg flex items-center gap-2">
-                                    <Tag size={20} className="text-black" />
-                                    Coupon Code
-                                </h3>
-                                <div className="flex gap-3">
-                                    <Input
-                                        value={checkoutPromoCode}
-                                        onChange={(e) => setCheckoutPromoCode(e.target.value)}
-                                        placeholder="Enter coupon code"
-                                        className="h-12 rounded-full bg-gray-50 border-none px-5 text-sm font-semibold"
-                                    />
-                                    <Button className="rounded-full px-8 bg-gray-100 hover:bg-gray-200 text-black font-bold h-12 shadow-none border-none">
-                                        Apply
-                                    </Button>
-                                </div>
-                            </div>
-
                             {/* Total & Pay */}
                             <div className="bg-black rounded-[28px] p-6 flex justify-between items-center text-white shadow-xl shadow-black/10">
                                 <div className="flex flex-col">
