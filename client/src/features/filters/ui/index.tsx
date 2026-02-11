@@ -1,14 +1,15 @@
 "use client";
 
 import { ArrowDown, ArrowRight, ArrowUp, Check } from 'lucide-react'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSearchParams } from 'next/navigation';
 import { Input } from "@/shared/ui/input";
 
 import FiltersIcon from "../../../../public/icons/filters.png";
-import Image from 'next/image';
-import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
+import { cn } from '@/shared/lib/utils';
 import Product from '@/widgets/product';
+import Image from 'next/image';
 
 
 const HorizontalLine = () => {
@@ -19,12 +20,23 @@ const HorizontalLine = () => {
 
 
 export default function FilterPage() {
+    const searchParams = useSearchParams();
+    const categoryParam = searchParams.get('category');
+
     const [isAll, setIsAll] = React.useState<boolean>(false);
+    const [selectedCategory, setSelectedCategory] = React.useState<string | null>(categoryParam);
+
+    useEffect(() => {
+        if (categoryParam) {
+            setSelectedCategory(categoryParam);
+        }
+    }, [categoryParam]);
     const [minPrice, setMinPrice] = React.useState<number>(50);
     const [maxPrice, setMaxPrice] = React.useState<number>(200);
     const [selectedColor, setSelectedColor] = React.useState<string | null>(null);
     const [selectedSizes, setSelectedSizes] = React.useState<string[]>([]);
     const [currentPage, setCurrentPage] = React.useState<number>(1);
+    const [openPagination, setOpenPagination] = React.useState<boolean>(false);
 
     const categories = [
         "Classic", "Casual", "Oversize", "Streetwear", "Sport / Active",
@@ -61,11 +73,25 @@ export default function FilterPage() {
                         <div id='categories' className='mt-6 space-y-1.5'>
                             {
                                 categories.map((item, index) => {
-                                    if (isAll || index < 5) {
+                                    const isActive = selectedCategory === item;
+                                    if (isAll || index < 5 || isActive) {
                                         return (
-                                            <div key={index} className='flex items-center justify-between py-2.5 cursor-pointer hover:translate-x-1.5 transition-transform group'>
-                                                <p className='text-gray-600 group-hover:text-black font-medium transition-colors'>{item}</p>
-                                                <ArrowRight size={14} className='opacity-30 group-hover:opacity-100 transition-opacity' />
+                                            <div
+                                                key={index}
+                                                onClick={() => setSelectedCategory(isActive ? null : item)}
+                                                className={cn(
+                                                    'flex items-center justify-between py-2.5 px-3 rounded-xl cursor-pointer hover:translate-x-1.5 transition-all group',
+                                                    isActive ? 'bg-black text-white' : 'hover:bg-white/40'
+                                                )}
+                                            >
+                                                <p className={cn(
+                                                    'font-medium transition-colors',
+                                                    isActive ? 'text-white' : 'text-gray-600 group-hover:text-black'
+                                                )}>{item}</p>
+                                                <ArrowRight size={14} className={cn(
+                                                    'transition-opacity',
+                                                    isActive ? 'opacity-100' : 'opacity-30 group-hover:opacity-100'
+                                                )} />
                                             </div>
                                         )
                                     }
@@ -161,7 +187,7 @@ export default function FilterPage() {
 
                 <main id='main-content' className='flex-1 w-full'>
                     <div className='flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4'>
-                        <h1 className='text-3xl md:text-4xl font-bold'>Streetwear</h1>
+                        <h1 className='text-3xl md:text-4xl font-bold'>{selectedCategory || "Barcha maxsulotlar"}</h1>
                         <div className='flex items-center gap-3 text-sm text-gray-500'>
                             <p>Showing {(currentPage - 1) * 9 + 1}-{Math.min(currentPage * 9, 100)} of 100 Products</p>
                             <span className="hidden md:block opacity-30 text-xl font-light">|</span>
@@ -184,42 +210,46 @@ export default function FilterPage() {
                         <HorizontalLine />
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-between py-12 gap-6">
-                        <Button
-                            variant="outline"
-                            disabled={currentPage === 1}
-                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                            className="px-8 py-6 rounded-xl font-bold text-sm"
-                        >
-                            Oldingi
-                        </Button>
-                        <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-2 sm:pb-0">
-                            {[1, 2, 3, '...', 8, 9, 10].map((page, i) => (
-                                <button
-                                    key={i}
-                                    onClick={() => typeof page === 'number' && setCurrentPage(page)}
-                                    className={cn(
-                                        "min-w-11 h-11 rounded-xl text-sm font-bold transition-all cursor-pointer",
-                                        currentPage === page
-                                            ? "bg-black text-white shadow-lg scale-105"
-                                            : "hover:bg-gray-100 text-gray-500 hover:text-black"
-                                    )}
+                    {
+                        openPagination && (
+                            <div className="flex flex-col sm:flex-row items-center justify-between py-12 gap-6">
+                                <Button
+                                    variant="outline"
+                                    disabled={currentPage === 1}
+                                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                    className="px-8 py-6 rounded-xl font-bold text-sm"
                                 >
-                                    {page}
-                                </button>
-                            ))}
-                        </div>
-                        <Button
-                            variant="outline"
-                            disabled={currentPage === 10}
-                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, 10))}
-                            className="px-8 py-6 rounded-xl font-bold text-sm"
-                        >
-                            Keyingi
-                        </Button>
-                    </div>
+                                    Oldingi
+                                </Button>
+                                <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-2 sm:pb-0">
+                                    {[1, 2, 3, '...', 8, 9, 10].map((page, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => typeof page === 'number' && setCurrentPage(page)}
+                                            className={cn(
+                                                "min-w-11 h-11 rounded-xl text-sm font-bold transition-all cursor-pointer",
+                                                currentPage === page
+                                                    ? "bg-black text-white shadow-lg scale-105"
+                                                    : "hover:bg-gray-100 text-gray-500 hover:text-black"
+                                            )}
+                                        >
+                                            {page}
+                                        </button>
+                                    ))}
+                                </div>
+                                <Button
+                                    variant="outline"
+                                    disabled={currentPage === 10}
+                                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, 10))}
+                                    className="px-8 py-6 rounded-xl font-bold text-sm"
+                                >
+                                    Keyingi
+                                </Button>
+                            </div>
+                        )
+                    }
                 </main>
             </div>
         </div>
-    )
-};
+    );
+}

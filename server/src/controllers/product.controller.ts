@@ -358,7 +358,6 @@ export const getCategoryById = async (req: Request, res: Response, next: NextFun
 };
 
 export const getCategories = async (req: Request, res: Response, next: NextFunction) => {
-
     try {
         const { q } = req.query;
         const languageCode = (req as any).languageCode || 'uz';

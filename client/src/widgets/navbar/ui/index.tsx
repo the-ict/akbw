@@ -8,42 +8,27 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel
 } from "@/shared/ui/dropdown-menu";
 import Register from "@/widgets/register";
 import Login from "@/widgets/login";
 import Profile from "@/widgets/profile";
-import Link from "next/link";
+import { Link } from "@/shared/config/i18n/navigation";
 import { useUserStore } from "@/shared/store/user.store";
-
-const categories = [
-  "Classic",
-  "Casual",
-  "Oversize",
-  "Streetwear",
-  "Sport / Active",
-  "Minimal",
-  "Elegant",
-  "Business",
-  "Formal",
-  "Old Money",
-  "Y2K",
-  "Urban",
-  "Vintage",
-  "Grunge",
-  "Korean Style",
-  "Romantic",
-  "Chic",
-  "Modest",
-  "Luxury",
-  "Daily Wear"
-]
+import { useCategories } from "../lib/hooks";
 
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
   const { token } = useUserStore();
+
+  const { data: categories, isLoading } = useCategories();
+
+  console.log(categories, "navbar categories");
+
+
+  if (isLoading) return null;
 
   return (
     <nav className="bg-[#D6D3CC] py-5 sticky top-0 z-50">
@@ -60,7 +45,6 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Desktop Nav Links */}
         <ul className="hidden lg:flex items-center gap-5 flex-1 justify-center">
           <DropdownMenu>
             <DropdownMenuTrigger className="outline-none">
@@ -71,8 +55,15 @@ const Navbar = () => {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="grid grid-cols-8 grid-rows-2 p-4 mt-10 ml-10 bg-[#D6D3CC]/60 border-none items-center gap-3">
-              {categories.map((item, index) => (
-                <DropdownMenuLabel className="cursor-pointer py-3  bg-[#fff]/40 hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all" key={index}>{item}</DropdownMenuLabel>
+              {categories?.map((item, index) => (
+                <DropdownMenuItem key={index} asChild>
+                  <Link
+                    href={`/filters?category=${item.id}`}
+                    className="w-full justify-center cursor-pointer py-3 bg-[#fff]/40 hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all text-sm font-medium block"
+                  >
+                    {item.name}
+                  </Link>
+                </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
