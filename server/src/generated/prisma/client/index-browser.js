@@ -257,6 +257,22 @@ exports.Prisma.NotificationsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ChatScalarFieldEnum = {
+  id: 'id',
+  members: 'members',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessagesScalarFieldEnum = {
+  id: 'id',
+  chat_id: 'chat_id',
+  sender_id: 'sender_id',
+  message: 'message',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -289,7 +305,9 @@ exports.Prisma.ModelName = {
   Reviews: 'Reviews',
   Coupons: 'Coupons',
   Orders: 'Orders',
-  Notifications: 'Notifications'
+  Notifications: 'Notifications',
+  Chat: 'Chat',
+  Messages: 'Messages'
 };
 
 /**

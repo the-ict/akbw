@@ -14,16 +14,17 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(uuid())
-  phone           String    @unique
+  id              String     @id @default(uuid())
+  phone           String     @unique
   name            String
   lastName        String
   gender          String
   reviews         Reviews[]
-  profile_picture String    @default("")
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  profile_picture String     @default("")
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
   orders          Orders[]
+  messages        Messages[]
 }
 
 model Verify {
@@ -167,9 +168,28 @@ model Orders {
 }
 
 model Notifications {
-  id Int @id @default(autoincrement())
-  title String
-  message String
+  id        Int      @id @default(autoincrement())
+  title     String
+  message   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chat {
+  id        Int        @id @default(autoincrement())
+  members   String[]
+  messages  Messages[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Messages {
+  id        Int      @id @default(autoincrement())
+  chat_id   Int
+  chat      Chat     @relation(fields: [chat_id], references: [id])
+  sender_id String
+  sender    User     @relation(fields: [sender_id], references: [id])
+  message   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
