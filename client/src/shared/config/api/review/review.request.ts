@@ -18,3 +18,7 @@ export const getProductReviewsRequest = async (productId: number, page: number =
 export const deleteReviewRequest = async (reviewId: number): Promise<void> => {
     await httpClient.delete(`${ENDP_REVIEW}/${reviewId}`);
 }
+
+export const updateReviewRequest = async (reviewId: number, data: ICreateReviewRequest): Promise<IReview> => {
+    return (await httpClient.put(`${ENDP_REVIEW}/${reviewId}`, data)).data;
+}

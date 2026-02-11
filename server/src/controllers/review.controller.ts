@@ -112,6 +112,32 @@ export const getAllReviews = async (req: Request, res: Response) => {
 };
 
 
+export const updateReview = async (req: Request, res: Response) => {
+    try {
+        const { reviewId } = req.params;
+        const { rating, comment } = req.body;
+
+        const review = await prisma.reviews.update({
+            where: {
+                id: Number(reviewId),
+            },
+            data: {
+                rating,
+                comment,
+            }
+        });
+
+        return res.json({
+            message: "Review updated successfully",
+            ok: true,
+            review
+        });
+    } catch (error) {
+        console.error("Error updating review:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 export const deleteReview = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { reviewId } = req.params;

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createReviewRequest, getProductReviewsRequest } from '@/shared/config/api/review/review.request';
+import { createReviewRequest, getProductReviewsRequest, updateReviewRequest } from '@/shared/config/api/review/review.request';
 import { ICreateReviewRequest } from '@/shared/config/api/review/review.model';
 
 export const useProductReviews = (productId: number, page: number = 1, limit: number = 10) => {
@@ -16,6 +16,16 @@ export const useCreateReview = () => {
     return useMutation({
         mutationFn: (data: ICreateReviewRequest) => createReviewRequest(data),
         onSuccess: (_, variables) => {
+            queryClient.invalidateQueries({ queryKey: ['reviews'] });
+        },
+    });
+};
+export const useUpdateReview = (reviewId: number) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (data: ICreateReviewRequest) => updateReviewRequest(reviewId, data),
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['reviews'] });
         },
     });

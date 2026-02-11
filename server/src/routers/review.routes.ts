@@ -3,7 +3,8 @@ import {
     createReview,
     getProductReviews,
     getAllReviews,
-    deleteReview
+    deleteReview,
+    updateReview
 } from "../controllers/review.controller.js";
 import {
     validate
@@ -24,6 +25,8 @@ router.post("/", auth, validate(createReviewSchema), createReview);
 router.get("/product/:productId", validate(getProductReviewsSchema), getProductReviews);
 
 router.get("/", getAllReviews);
+
+router.put("/:reviewId", auth, validate(createReviewSchema), updateReview);
 
 router.delete("/:reviewId", auth, deleteReview);
 

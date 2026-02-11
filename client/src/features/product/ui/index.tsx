@@ -21,7 +21,8 @@ import {
 } from '@/features/products/lib/hooks';
 import {
     useProductReviews,
-    useCreateReview
+    useCreateReview,
+    useUpdateReview
 } from '@/features/reviews/lib/hooks';
 import { useUserStore } from '@/shared/store/user.store';
 import { toast } from '@/shared/ui/toast';
@@ -46,10 +47,12 @@ export default function Product({ id }: ProductProps) {
     const [userRating, setUserRating] = useState<number>(0);
     const [reviewText, setReviewText] = useState<string>('');
     const [reviewId, setReviewId] = useState<number | null>(null);
+    const [editingReviewId, setEditingReviewId] = useState<number | null>(null);
 
     const { data: reviewsData, isLoading: reviewsLoading } = useProductReviews(parseInt(id));
     const deleteReviewMutation = useDeleteReviewMutation(reviewId!);
     const createReviewMutation = useCreateReview();
+    const updateReviewMutation = useUpdateReview(editingReviewId!);
     const queryClient = useQueryClient();
 
     const { token } = useUserStore();
@@ -109,11 +112,19 @@ export default function Product({ id }: ProductProps) {
         }
 
         try {
-            await createReviewMutation.mutateAsync({
-                rating: userRating,
-                comment: reviewText,
-                product_id: id,
-            });
+            if (editingReviewId) {
+                await updateReviewMutation.mutateAsync({
+                    rating: userRating,
+                    comment: reviewText,
+                    product_id: id,
+                });
+            } else {
+                await createReviewMutation.mutateAsync({
+                    rating: userRating,
+                    comment: reviewText,
+                    product_id: id,
+                });
+            }
 
             setUserRating(0);
             setReviewText('');
@@ -388,8 +399,6 @@ export default function Product({ id }: ProductProps) {
                                                             setOpenDeleteReview(true);
                                                             setReviewId(review.id);
                                                         }} className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>Delete</DropdownMenuLabel>
-                                                        <DropdownMenuSeparator />
-                                                        <DropdownMenuLabel className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>Edit</DropdownMenuLabel>
                                                     </DropdownMenuContent>
                                                 </DropdownMenu>
                                             </div>
