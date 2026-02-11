@@ -22,7 +22,7 @@ export default function ProfileHeader({ name, lastName, gender, profileImage, ac
     return (
         <div className="flex flex-col items-center gap-3 pb-6 border-b border-black/5">
             <div className="relative mt-2">
-                <div className="w-28 h-28 rounded-full bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-400 p-[3px] shadow-lg">
+                <div className="w-28 h-28 rounded-full bg-gradient-to-br shadow-lg">
                     <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden relative">
                         {profileImage ? (
                             <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />

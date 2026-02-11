@@ -1,5 +1,11 @@
-import { cn } from '@/shared/lib/utils'
-import { ExternalLink, MessageSquare, Star } from 'lucide-react'
+import {
+    cn
+} from '@/shared/lib/utils'
+import {
+    ExternalLink,
+    MessageSquare,
+    Star
+} from 'lucide-react'
 import React from 'react'
 
 interface Props {
@@ -19,7 +25,7 @@ export default function ReviewTab({ reviews }: Props) {
                     <div key={review.id} className="p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                         <div className="flex items-start justify-between gap-2 mb-2">
                             <h4 className="font-medium text-sm">Buyurtma #{review.id}</h4>
-                            <button className="text-gray-400 hover:text-black transition-colors">
+                            <button onClick={() => window.location.replace(`/product/${review.product_id}`)} className="text-gray-400 hover:text-black transition-colors cursor-pointer">
                                 <ExternalLink size={16} />
                             </button>
                         </div>
