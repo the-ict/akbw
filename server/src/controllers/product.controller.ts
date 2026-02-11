@@ -53,7 +53,8 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
             });
         }
 
-        if (category_id) {
+
+        if (category_id && (category_id as string).length > 0) {
             const categoryIds = (category_id as string).split(',').map(Number);
             where.AND.push({
                 categories: {
@@ -64,7 +65,7 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
             });
         };
 
-        if (color_id) {
+        if (color_id && (color_id as string).length > 0) {
             const colorIds = (color_id as string).split(',').map(Number);
             where.AND.push({
                 colors: {
@@ -75,7 +76,7 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
             });
         }
 
-        if (size_id) {
+        if (size_id && (size_id as string).length > 0) {
             const sizeIds = (size_id as string).split(',').map(Number);
             where.AND.push({
                 sizes: {

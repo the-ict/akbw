@@ -230,6 +230,14 @@ exports.Prisma.ReviewsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CouponsScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  discount: 'discount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -254,7 +262,8 @@ exports.Prisma.ModelName = {
   SizeTranslations: 'SizeTranslations',
   Colors: 'Colors',
   ColorTranslations: 'ColorTranslations',
-  Reviews: 'Reviews'
+  Reviews: 'Reviews',
+  Coupons: 'Coupons'
 };
 
 /**

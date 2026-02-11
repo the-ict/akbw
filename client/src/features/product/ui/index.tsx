@@ -36,6 +36,7 @@ import {
 import DeleteConfirmModal from '@/widgets/delete-confirm/ui';
 import { useDeleteReviewMutation } from '../lib/hooks';
 import { useQueryClient } from '@tanstack/react-query';
+import { useCartStore } from '@/shared/store/cart.store';
 
 interface ProductProps {
     id: string;
@@ -60,6 +61,7 @@ export default function Product({ id }: ProductProps) {
     const createReviewMutation = useCreateReview();
     const updateReviewMutation = useUpdateReview(editingReviewId!);
     const queryClient = useQueryClient();
+    const { addItem } = useCartStore();
 
     const { token } = useUserStore();
 
@@ -140,6 +142,18 @@ export default function Product({ id }: ProductProps) {
             console.error('Error submitting review:', error);
             toast.error('Failed to submit review. Please try again.');
         }
+    };
+    const handleAddToCart = () => {
+        if (!product) return;
+
+        const colorName = product.colors?.find(c => c.id === selectedColor)?.name;
+        const sizeName = product.sizes?.find(s => s.id === selectedSize)?.name;
+
+        addItem(product, quantity, sizeName, colorName);
+
+        toast.success(`${product.name} savatga qo'shildi`, {
+            description: `${quantity} dona, ${colorName ? `rang: ${colorName}, ` : ''}${sizeName ? `o'lcham: ${sizeName}` : ''}`
+        });
     };
 
     return (
@@ -266,7 +280,10 @@ export default function Product({ id }: ProductProps) {
                                     <Plus size={22} />
                                 </button>
                             </div>
-                            <Button className='flex-1 rounded-full cursor-pointer h-full py-8 font-black text-lg bg-black hover:bg-black/90 shadow-2xl hover:shadow-black/20 transition-all uppercase tracking-widest'>
+                            <Button
+                                onClick={handleAddToCart}
+                                className='flex-1 rounded-full cursor-pointer h-full py-8 font-black text-lg bg-black hover:bg-black/90 shadow-2xl hover:shadow-black/20 transition-all uppercase tracking-widest'
+                            >
                                 Savatga qo'shish
                             </Button>
                         </div>
@@ -306,7 +323,7 @@ export default function Product({ id }: ProductProps) {
 
                             {
                                 token && (
-                                    <div className='mb-10 p-8 border border-gray-100 rounded-[32px] bg-white shadow-sm'>
+                                    <div className='mb-10 p-8 border border-gray-100 rounded-[32px] bg-[#D6D3CC]/40 shadow-sm'>
                                         <h3 className='text-xl font-bold mb-6'>Izoh qoldirish</h3>
 
                                         <div className='mb-6'>
@@ -336,7 +353,7 @@ export default function Product({ id }: ProductProps) {
                                                 placeholder='Bu mahsulot haqida fikringizni yozing...'
                                                 value={reviewText}
                                                 onChange={(e) => setReviewText(e.target.value)}
-                                                className='w-full p-4 pr-24 border border-gray-200 rounded-[20px] resize-none focus:outline-none focus:border-black transition-all min-h-[100px] text-sm'
+                                                className='w-full p-4 pr-24 border border-gray-200 rounded-[20px] resize-none focus:outline-none focus:border-black bg-white transition-all min-h-[100px] text-sm'
                                                 maxLength={500}
                                             />
 

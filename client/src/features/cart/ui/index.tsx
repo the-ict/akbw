@@ -40,6 +40,7 @@ import {
     ModalClose,
 } from "@/shared/ui/modal";
 import { OrderProgress } from './order-progress';
+import { useCartStore } from '@/shared/store/cart.store';
 
 const UZBEKISTAN_DATA: Record<string, string[]> = {
     "Toshkent shahri": ["Olmazor", "Bektemir", "Mirobod", "Mirzo Ulug'bek", "Sergeli", "Uchtepa", "Chilonzor", "Shayxontohur", "Yunusobod", "Yakkasaroy", "Yashnobod"],
@@ -65,35 +66,7 @@ import Payme from "../../../../public/icons/payme.png"
 import Paynet from "../../../../public/icons/paynet.svg"
 
 export default function Cart() {
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: "Gradient Graphic T-shirt",
-            size: "Large",
-            color: "White",
-            price: 145,
-            quantity: 1,
-            image: ProductImage.src
-        },
-        {
-            id: 2,
-            name: "Checkered Shirt",
-            size: "Medium",
-            color: "Red",
-            price: 180,
-            quantity: 1,
-            image: ProductImage.src
-        },
-        {
-            id: 3,
-            name: "Skinny Fit Jeans",
-            size: "Large",
-            color: "Blue",
-            price: 240,
-            quantity: 1,
-            image: ProductImage.src
-        }
-    ]);
+    const { items: cartItems, updateQuantity, removeItem, clearCart } = useCartStore();
 
     const [checkingOrders, setCheckingOrders] = useState<any[]>([]);
     const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
@@ -105,26 +78,33 @@ export default function Cart() {
     const [paymentMethod, setPaymentMethod] = useState<'payme' | 'click'>('payme');
 
     const [modalMode, setModalMode] = useState<'checkout' | 'tracking'>('checkout');
+    const [promoCode, setPromoCode] = useState('');
+    const [appliedDiscount, setAppliedDiscount] = useState(0);
 
-    const updateQuantity = (id: number, delta: number) => {
-        setCartItems(items => items.map(item =>
-            item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-        ));
-    };
-
-    const removeItem = (id: number) => {
-        const itemToRemove = cartItems.find(i => i.id === id);
-        setCartItems(items => items.filter(item => item.id !== id));
-        if (itemToRemove) {
-            toast.success(`${itemToRemove.name} savatdan olib tashlandi`, {
-                description: "Sizning savatingiz yangilandi."
+    const handleApplyPromoCode = () => {
+        if (promoCode.trim().toUpperCase() === 'NON') {
+            setAppliedDiscount(0.2);
+            toast.success("Promo-kod muvaffaqiyatli qo'llanildi!", {
+                description: "Sizga 20% chegirma berildi."
+            });
+        } else {
+            setAppliedDiscount(0);
+            toast.error("Noto'g'ri promo-kod", {
+                description: "Iltimos, qaytadan urinib ko'ring."
             });
         }
     };
 
+    const handleRemoveItem = (id: number, name: string) => {
+        removeItem(id);
+        toast.success(`${name} savatdan olib tashlandi`, {
+            description: "Sizning savatingiz yangilandi."
+        });
+    };
+
     const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-    const discount = subtotal * 0.2;
-    const deliveryFee = 15;
+    const discount = subtotal * appliedDiscount;
+    const deliveryFee = 15000; // Fixed delivery fee in UZS
     const total = subtotal - discount + deliveryFee;
 
     const handleCheckout = () => {
@@ -135,14 +115,14 @@ export default function Cart() {
             items: [...cartItems],
             status: 'checking',
             date: new Date().toLocaleDateString(),
-            total: subtotal - discount + deliveryFee,
+            total,
             subtotal,
             discount,
             deliveryFee
         };
 
         setCheckingOrders(prev => [newOrder, ...prev]);
-        setCartItems([]);
+        clearCart();
 
         toast.success("Buyurtmangiz tekshiruvga yuborildi!", {
             description: "Tez orada operatorlarimiz siz bilan bog'lanishadi."
@@ -209,18 +189,18 @@ export default function Cart() {
                                 <React.Fragment key={item.id}>
                                     <div className='flex gap-4 md:gap-6 items-center'>
                                         <div className='relative w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0'>
-                                            <Image src={item.image} alt={item.name} fill className='object-cover' />
+                                            <Image src={item.product_images?.[0] || ProductImage.src} alt={item.name} fill className='object-cover' />
                                         </div>
 
                                         <div className='flex-1 flex flex-col justify-between h-24 md:h-32'>
                                             <div className='flex justify-between items-start'>
                                                 <div>
                                                     <h3 className='font-bold text-lg md:text-xl'>{item.name}</h3>
-                                                    <p className='text-sm text-gray-500'>Size: <span className='text-gray-400'>{item.size}</span></p>
-                                                    <p className='text-sm text-gray-500'>Color: <span className='text-gray-400'>{item.color}</span></p>
+                                                    {item.selectedSize && <p className='text-sm text-gray-500'>Size: <span className='text-gray-400'>{item.selectedSize}</span></p>}
+                                                    {item.selectedColor && <p className='text-sm text-gray-500'>Color: <span className='text-gray-400'>{item.selectedColor}</span></p>}
                                                 </div>
                                                 <button
-                                                    onClick={() => removeItem(item.id)}
+                                                    onClick={() => handleRemoveItem(item.id, item.name)}
                                                     className='text-red-500 hover:text-red-600 transition-colors p-1 cursor-pointer'
                                                 >
                                                     <Trash2 size={24} />
@@ -228,17 +208,17 @@ export default function Cart() {
                                             </div>
 
                                             <div className='flex justify-between items-end'>
-                                                <span className='text-xl md:text-2xl font-bold'>${item.price}</span>
+                                                <span className='text-xl md:text-2xl font-bold'>{item.price.toLocaleString()} so'm</span>
                                                 <div className='flex items-center gap-4 bg-gray-100 rounded-full px-4 py-2'>
                                                     <button
-                                                        onClick={() => updateQuantity(item.id, -1)}
+                                                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
                                                         className='hover:text-black transition-colors opacity-60 hover:opacity-100 cursor-pointer'
                                                     >
                                                         <Minus size={18} />
                                                     </button>
                                                     <span className='font-bold'>{item.quantity}</span>
                                                     <button
-                                                        onClick={() => updateQuantity(item.id, 1)}
+                                                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                                         className='hover:text-black transition-colors opacity-60 hover:opacity-100 cursor-pointer'
                                                     >
                                                         <Plus size={18} />
@@ -267,22 +247,22 @@ export default function Cart() {
                         <div className='space-y-4'>
                             <div className='flex justify-between items-center'>
                                 <span className='text-gray-500 text-lg'>Subtotal</span>
-                                <span className='font-bold text-lg'>${subtotal}</span>
+                                <span className='font-bold text-lg'>{subtotal.toLocaleString()} so'm</span>
                             </div>
                             <div className='flex justify-between items-center'>
-                                <span className='text-gray-500 text-lg'>Discount (-20%)</span>
-                                <span className='font-bold text-lg text-red-500'>-${discount}</span>
+                                <span className='text-gray-500 text-lg'>Discount {appliedDiscount > 0 ? `(-${appliedDiscount * 100}%)` : ''}</span>
+                                <span className='font-bold text-lg text-red-500'>-{discount.toLocaleString()} so'm</span>
                             </div>
                             <div className='flex justify-between items-center'>
                                 <span className='text-gray-500 text-lg'>Delivery Fee</span>
-                                <span className='font-bold text-lg'>${deliveryFee}</span>
+                                <span className='font-bold text-lg'>{deliveryFee.toLocaleString()} so'm</span>
                             </div>
 
                             <hr className='border-gray-50' />
 
                             <div className='flex justify-between items-center py-2'>
                                 <span className='text-lg font-medium'>Total</span>
-                                <span className='text-2xl font-bold'>${total}</span>
+                                <span className='text-2xl font-bold'>{total.toLocaleString()} so'm</span>
                             </div>
                         </div>
 
@@ -292,11 +272,16 @@ export default function Cart() {
                                     <Tag size={20} />
                                 </span>
                                 <Input
+                                    value={promoCode}
+                                    onChange={(e) => setPromoCode(e.target.value)}
                                     placeholder='Add promo code'
                                     className='pl-12 rounded-full h-12 bg-gray-50 border-none shadow-none text-sm'
                                 />
                             </div>
-                            <Button className='rounded-full px-8 py-6 h-12 font-bold cursor-pointer'>
+                            <Button
+                                onClick={handleApplyPromoCode}
+                                className='rounded-full px-8 py-6 h-12 font-bold cursor-pointer'
+                            >
                                 Apply
                             </Button>
                         </div>
@@ -329,7 +314,7 @@ export default function Cart() {
                                             <div className='flex -space-x-8'>
                                                 {order.items.slice(0, 3).map((item: any, i: number) => (
                                                     <div key={i} className='w-20 h-20 rounded-xl overflow-hidden border-4 border-white shadow-sm'>
-                                                        <Image src={item.image} alt={item.name} width={80} height={80} className='object-cover' />
+                                                        <Image src={item.product_images?.[0] || ProductImage.src} alt={item.name} width={80} height={80} className='object-cover' />
                                                     </div>
                                                 ))}
                                                 {order.items.length > 3 && (
@@ -340,7 +325,7 @@ export default function Cart() {
                                             </div>
                                             <div className='ml-4'>
                                                 <p className='text-sm text-gray-400 font-medium'>Order ID: <span className='text-black'>#{order.id.toString().slice(-6)}</span></p>
-                                                <p className='font-bold text-lg'>${order.total}</p>
+                                                <p className='font-bold text-lg'>{order.total.toLocaleString()} so'm</p>
                                                 <p className='text-xs text-gray-400'>{order.date}</p>
                                             </div>
                                         </div>
@@ -417,11 +402,10 @@ export default function Cart() {
                                 </ModalDescription>
                             </div>
 
-                            {/* Products Preview */}
                             <div className="flex -space-x-10 overflow-x-auto py-2 no-scrollbar">
                                 {selectedOrder?.items.map((item: any, i: number) => (
                                     <div key={i} className="w-24 h-24 rounded-2xl overflow-hidden border-4 border-white shadow-xl hover:-translate-y-2 transition-transform flex-shrink-0">
-                                        <Image src={item.image} alt={item.name} width={96} height={96} className="object-cover" />
+                                        <Image src={item.product_images?.[0] || ProductImage.src} alt={item.name} width={96} height={96} className="object-cover" />
                                     </div>
                                 ))}
                             </div>
@@ -531,7 +515,7 @@ export default function Cart() {
                                 <div className="flex flex-col">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Total to Pay</span>
                                     <span className={cn("text-3xl font-black", Radiant.className)}>
-                                        ${selectedOrder?.total}
+                                        {selectedOrder?.total.toLocaleString()} so'm
                                     </span>
                                 </div>
                                 <Button
@@ -556,11 +540,10 @@ export default function Cart() {
                                 </ModalDescription>
                             </div>
 
-                            {/* Products Preview Minimal */}
                             <div className="flex justify-center -space-x-4 mb-10">
                                 {selectedOrder?.items.map((item: any, i: number) => (
                                     <div key={i} className="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-lg">
-                                        <Image src={item.image} alt={item.name} width={64} height={64} className="object-cover" />
+                                        <Image src={item.product_images?.[0] || ProductImage.src} alt={item.name} width={64} height={64} className="object-cover" />
                                     </div>
                                 ))}
                             </div>
@@ -585,6 +568,6 @@ export default function Cart() {
                     </ModalClose>
                 </ModalContent>
             </Modal>
-        </div>
+        </div >
     );
 }

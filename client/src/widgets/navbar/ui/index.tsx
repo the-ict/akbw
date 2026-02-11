@@ -1,31 +1,59 @@
 'use client';
 
-import { Button } from "@/shared/ui/button";
-import { ArrowDown, Menu, Search, ShoppingCart, User, X } from "lucide-react";
-import { useState } from "react";
-import { cn } from "@/shared/lib/utils";
+
+import {
+  Button
+} from "@/shared/ui/button";
+import {
+  Link,
+  useRouter
+} from "@/shared/config/i18n/navigation";
+import {
+  useUserStore
+} from "@/shared/store/user.store";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel
 } from "@/shared/ui/dropdown-menu";
 import Register from "@/widgets/register";
 import Login from "@/widgets/login";
 import Profile from "@/widgets/profile";
-import { Link } from "@/shared/config/i18n/navigation";
-import { useUserStore } from "@/shared/store/user.store";
-import { useCategories } from "../lib/hooks";
+import {
+  useState
+} from "react";
+import {
+  cn
+} from "@/shared/lib/utils";
+import {
+  ArrowDown,
+  Menu,
+  Search,
+  ShoppingCart,
+  User,
+  X
+} from "lucide-react";
+import {
+  useCategories
+} from "../lib/hooks";
+
 
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const { token } = useUserStore();
+  const [searchVal, setSearchVal] = useState<string>('');
+  const router = useRouter();
 
   const { data: categories, isLoading } = useCategories();
 
-  console.log(categories, "navbar categories");
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchVal.trim()) {
+      router.push(`/filters?q=${searchVal.trim()}`);
+    }
+  };
 
 
   if (isLoading) return null;
@@ -72,21 +100,26 @@ const Navbar = () => {
           <Link href={"/contact"} className="cursor-pointer transition-all">Bog'lanish</Link>
         </ul>
 
-        {/* Desktop Search */}
-        <form className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-full border-1 border-[#000]/20 shadow-sm bg-[#fff] flex-1 max-w-md">
-          <button type="button">
+        <form onSubmit={handleSearch} className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-full border-1 border-[#000]/20 shadow-sm bg-[#fff] flex-1 max-w-md">
+          <button type="submit">
             <Search size={20} />
           </button>
-          <input type="text" placeholder="Maxsulotlarni qidiring" className="bg-transparent outline-none flex-1 text-sm" />
+          <input
+            type="text"
+            placeholder="Maxsulotlarni qidiring"
+            className="bg-transparent outline-none flex-1 text-sm"
+            value={searchVal}
+            onChange={(e) => setSearchVal(e.target.value)}
+          />
         </form>
 
         <div className="flex items-center gap-3">
-          <button className="lg:hidden p-1">
+          <button onClick={() => setIsMenuOpen(true)} className="lg:hidden p-1">
             <Search size={24} />
           </button>
-          <button className="p-1">
+          <Link href={"/cart"} className="p-1 cursor-pointer">
             <ShoppingCart size={24} />
-          </button>
+          </Link >
 
           <select className="hidden md:block bg-transparent text-sm outline-none cursor-pointer">
             <option value="english">English 🇺🇸</option>
@@ -127,6 +160,20 @@ const Navbar = () => {
               <X size={24} />
             </button>
           </div>
+
+          {/* Mobile Search */}
+          <form onSubmit={handleSearch} className="flex items-center gap-2 px-4 py-3 rounded-xl border border-black/10 shadow-sm bg-gray-50 mb-8">
+            <button type="submit">
+              <Search size={20} className="text-gray-400" />
+            </button>
+            <input
+              type="text"
+              placeholder="Maxsulotlarni qidiring"
+              className="bg-transparent outline-none flex-1 text-sm font-medium"
+              value={searchVal}
+              onChange={(e) => setSearchVal(e.target.value)}
+            />
+          </form>
 
           <ul className="flex flex-col gap-6 text-lg font-bold">
             <li className="flex items-center justify-between border-b border-black/5 pb-2">

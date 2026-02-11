@@ -142,3 +142,11 @@ model Reviews {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
+
+model Coupons {
+  id Int @id @default(autoincrement())
+  code String
+  discount Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

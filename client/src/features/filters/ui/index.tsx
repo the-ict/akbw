@@ -3,7 +3,9 @@
 import { ArrowDown, ArrowRight, ArrowUp, Check } from 'lucide-react'
 import { useSearchParams } from 'next/navigation';
 import { Input } from "@/shared/ui/input";
-import React, { useEffect } from 'react'
+import React, {
+    useEffect
+} from 'react'
 
 import FiltersIcon from "../../../../public/icons/filters.png";
 import { useCategories } from '@/widgets/navbar/lib/hooks';
@@ -11,30 +13,41 @@ import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
 import Product from '@/widgets/product';
 import Image from 'next/image';
-import { useColors, useSizes, useProducts } from '../lib/hooks';
+import {
+    useColors,
+    useSizes,
+    useProducts
+} from '../lib/hooks';
 import { IProductFilters } from '@/shared/config/api/product/product.model';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger
+} from '@/shared/ui/dropdown-menu';
 
 
 const HorizontalLine = () => {
     return (
         <hr className='border-gray-300' />
     )
-}
+};
 
 
 export default function FilterPage() {
     const searchParams = useSearchParams();
     const categoryParam = searchParams.get('category');
-
+    const searchParam = searchParams.get('q');
     const [isAll, setIsAll] = React.useState<boolean>(false);
     const [selectedCategory, setSelectedCategory] = React.useState<string | null | number>(categoryParam);
 
     useEffect(() => {
         if (categoryParam) {
             setSelectedCategory(categoryParam);
+        } else if (searchParam) {
+            setSelectedCategory(null);
         }
-    }, [categoryParam]);
+    }, [categoryParam, searchParam]);
     const [minPrice, setMinPrice] = React.useState<number>(50);
     const [maxPrice, setMaxPrice] = React.useState<number>(200);
     const [selectedColor, setSelectedColor] = React.useState<number | null>(null);
@@ -47,11 +60,21 @@ export default function FilterPage() {
 
     const [appliedFilters, setAppliedFilters] = React.useState<IProductFilters>({
         category_id: categoryParam || undefined,
+        q: searchParam || undefined,
         page: 1,
         limit: 9,
         sortBy: 'createdAt',
         sortOrder: 'desc'
     });
+
+    useEffect(() => {
+        setAppliedFilters(prev => ({
+            ...prev,
+            category_id: categoryParam || undefined,
+            q: searchParam || undefined,
+            page: 1
+        }));
+    }, [categoryParam, searchParam]);
 
     const { data: categories, isLoading } = useCategories();
     const { data: colors, isLoading: colorsLoading } = useColors();
@@ -222,23 +245,27 @@ export default function FilterPage() {
 
                 <main id='main-content' className='flex-1 w-full'>
                     <div className='flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4'>
-                        <h1 className='text-3xl md:text-4xl font-bold'>{categories?.find((item) => item.id === Number(selectedCategory))?.name || "Barcha maxsulotlar"}</h1>
+                        <h1 className='text-3xl md:text-4xl font-bold'>
+                            {searchParam ? (
+                                <><span>"{searchParam}"</span> bo'yicha qidiruv</>
+                            ) : (
+                                categories?.find((item: any) => item.id === Number(selectedCategory))?.name || "Barcha maxsulotlar"
+                            )}
+                        </h1>
                         <div className='flex items-center gap-3 text-sm text-gray-500'>
-                            <p>Showing {productsData?.data.length || 0} of {productsData?.meta.total || 0} Products</p>
-                            <span className="hidden md:block opacity-30 text-xl font-light">|</span>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <div className="flex items-center gap-2 cursor-pointer hover:text-black transition-colors bg-white/50 px-4 py-2 rounded-full border border-gray-100 shadow-sm">
-                                        <p>Sort by: <span className="font-bold text-black">
-                                            {sortBy === 'price' ? (sortOrder === 'asc' ? 'Cheapest' : 'Most Expensive') : 'Most Recent'}
+                                        <p>Saralash: <span className="font-bold text-black">
+                                            {sortBy === 'price' ? (sortOrder === 'asc' ? 'Eng arzon' : 'Eng qimmat') : 'Eng yangi'}
                                         </span></p>
                                         <ArrowDown size={14} className="mt-0.5" />
                                     </div>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent className="bg-white rounded-xl shadow-xl border-gray-100 p-2 min-w-[180px]">
-                                    <DropdownMenuItem onClick={() => { setSortBy('createdAt'); setSortOrder('desc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Most Recent</DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => { setSortBy('price'); setSortOrder('asc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Cheapest</DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => { setSortBy('price'); setSortOrder('desc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Most Expensive</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => { setSortBy('createdAt'); setSortOrder('desc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Eng yangi</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => { setSortBy('price'); setSortOrder('asc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Eng arzon</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => { setSortBy('price'); setSortOrder('desc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Eng qimmat</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>

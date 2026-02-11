@@ -1,28 +1,56 @@
 import { Button } from '@/shared/ui/button'
 import { Heart } from 'lucide-react'
 import React from 'react'
+import Image from 'next/image'
+import { useWishlistStore } from '@/shared/store/wishlist.store'
+import { useCartStore } from '@/shared/store/cart.store'
+import { toast } from '@/shared/ui/toast'
+import { IProduct } from '@/shared/config/api/product/product.model'
 
 export default function FavoriteTab() {
+    const { items, toggleWishlist } = useWishlistStore();
+    const { addItem } = useCartStore();
+
     return (
-        <div className="space-y-3">
-            {[].length === 0 ? (
-                <div className="text-center py-10 text-gray-500">
-                    <Heart size={48} className="mx-auto mb-3 opacity-20" />
-                    <p>Sevimli mahsulotlar yo'q</p>
+        <div className="space-y-4">
+            {items.length === 0 ? (
+                <div className="text-center py-20 bg-[#D6D3CC]/10 rounded-3xl border border-dashed border-[#D6D3CC]">
+                    <Heart size={48} className="mx-auto mb-4 text-[#D6D3CC]" />
+                    <p className="text-gray-500 font-medium tracking-tight">Sevimli mahsulotlar yo'q</p>
                 </div>
             ) : (
-                [{ id: 1, name: "", price: "" }].map((item) => (
-                    <div key={item.id} className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-                        <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center">
-                            <span className="text-xs text-gray-400">Rasm</span>
+                items.map((item: IProduct) => (
+                    <div key={item.id} className="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 group">
+                        <div className="relative w-20 h-20 rounded-xl overflow-hidden bg-[#F0EEED] flex-shrink-0">
+                            <Image
+                                src={item.product_images?.[0] || '/assets/product.png'}
+                                alt={item.name}
+                                fill
+                                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
                         </div>
-                        <div className="flex-1">
-                            <h4 className="font-medium text-sm">{item.name}</h4>
-                            <p className="text-sm font-bold">{item.price} UZS</p>
+                        <div className="flex-1 min-w-0">
+                            <h4 className="font-bold text-base truncate">{item.name}</h4>
+                            <p className="text-lg font-black mt-0.5">{item.price.toLocaleString()} so'm</p>
                         </div>
-                        <Button size="sm" className="text-xs">
-                            Ko'rish
-                        </Button>
+                        <div className="flex items-center gap-2">
+                            <Button
+                                onClick={() => {
+                                    addItem(item);
+                                    toast.success(`${item.name} savatga qo'shildi`);
+                                }}
+                                size="sm"
+                                className="rounded-full px-5 py-5 font-bold text-xs shadow-lg shadow-black/5"
+                            >
+                                Savatga
+                            </Button>
+                            <button
+                                onClick={() => toggleWishlist(item)}
+                                className="p-2.5 text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                            >
+                                <Heart size={20} fill="currentColor" />
+                            </button>
+                        </div>
                     </div>
                 ))
             )}
