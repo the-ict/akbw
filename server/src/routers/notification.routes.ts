@@ -1,14 +1,18 @@
-import { Router } from "express";
+import {
+    Router
+} from "express";
 import {
     getNotifications,
     createNotification,
     updateNotification,
-    deleteNotification
+    deleteNotification,
 } from "../controllers/notification.controller.js";
-import { auth } from "../middleware/auth.middleware.js";
-import { checkAdmins } from "../middleware/admin.middleware.js";
-import { validate } from "../middleware/validate.middleware.js";
-import { createNotificationValidator } from "../validators/notification.validator.js";
+import {
+    validate
+} from "../middleware/validate.middleware.js";
+import {
+    createNotificationValidator
+} from "../validators/notification.validator.js";
 
 const router = Router();
 
