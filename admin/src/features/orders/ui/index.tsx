@@ -2,18 +2,13 @@
 
 import React, { useState } from 'react';
 import {
-    Search,
-    Filter,
     MoreHorizontal,
     Eye,
     Truck,
-    Package,
     CheckCircle2,
     XCircle,
     Copy,
 } from 'lucide-react';
-import { Button } from '@/shared/ui/button';
-import { Input } from '@/shared/ui/input';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -31,6 +26,7 @@ const getStatusStyles = (status: string) => {
     switch (status) {
         case 'review': return 'bg-yellow-50 text-yellow-600 border-yellow-100';
         case 'approved': return 'bg-blue-50 text-blue-600 border-blue-100';
+        case 'paid': return 'bg-blue-50 text-blue-600 border-blue-100';
         case 'delivering': return 'bg-purple-50 text-purple-600 border-purple-100';
         case 'completed': return 'bg-green-50 text-green-600 border-green-100';
         case 'cancelled': return 'bg-red-50 text-red-600 border-red-100';
@@ -42,6 +38,7 @@ const getStatusLabel = (status: string) => {
     switch (status) {
         case 'review': return 'Tekshirilmoqda';
         case 'approved': return 'Tasdiqlandi';
+        case 'paid': return `To'langan`;
         case 'delivering': return 'Yo‘lda';
         case 'completed': return 'Yetkazildi';
         case 'cancelled': return 'Bekor qilindi';
@@ -88,7 +85,7 @@ export default function Orders() {
 
             {/* Quick Status Filters */}
             <div className='flex gap-4 overflow-x-auto no-scrollbar py-2'>
-                {['Hammasi', 'review', 'approved', 'delivering', 'completed', 'cancelled'].map((status) => (
+                {['Hammasi', 'review', 'approved', 'paid', 'delivering', 'completed', 'cancelled'].map((status) => (
                     <button
                         key={status}
                         onClick={() => setFilterStatus(status)}
@@ -191,6 +188,13 @@ export default function Orders() {
                                                     >
                                                         <CheckCircle2 size={16} className='text-blue-500' />
                                                         <span className='text-xs font-bold uppercase tracking-wider'>Tasdiqlash (Can be ordered)</span>
+                                                    </DropdownMenuItem>
+                                                    <DropdownMenuItem
+                                                        onClick={() => handleUpdateStatus(order.id, 'paid')}
+                                                        className='rounded-xl gap-3 px-3 py-2 cursor-pointer'
+                                                    >
+                                                        <CheckCircle2 size={16} className='text-blue-500' />
+                                                        <span className='text-xs font-bold uppercase tracking-wider'>To'langan</span>
                                                     </DropdownMenuItem>
                                                     <DropdownMenuItem
                                                         onClick={() => handleUpdateStatus(order.id, 'delivering')}

@@ -119,7 +119,6 @@ export default function Cart() {
             toast.error("Iltimos, avval tizimga kiring");
             return;
         }
-
         try {
             await createOrderMutation.mutateAsync({
                 items: cartItems.map(item => item.id),
@@ -319,7 +318,9 @@ export default function Cart() {
                                                 order.status === 'review' ? 'bg-gray-200 text-gray-500' :
                                                     order.status === 'delivering' ? 'bg-blue-100 text-blue-600' :
                                                         order.status === 'approved' ? 'bg-green-100 text-green-600' :
-                                                            'bg-green-100 text-green-600'
+                                                            'bg-green-100 text-green-600',
+                                                order.status === "paid" ? "bg-green-100 text-green-600" : "",
+                                                order.status === "cancelled" ? "bg-red-100 text-red-600" : ""
                                             )}>
                                                 {order.status === 'review' && (
                                                     <>
@@ -327,6 +328,14 @@ export default function Cart() {
                                                         Reviewing...
                                                     </>
                                                 )}
+                                                {
+                                                    order.status === 'paid' && (
+                                                        <>
+                                                            <Check size={16} strokeWidth={3} />
+                                                            Paid
+                                                        </>
+                                                    )
+                                                }
                                                 {order.status === 'approved' && (
                                                     <>
                                                         <Check size={16} strokeWidth={3} />
@@ -339,6 +348,14 @@ export default function Cart() {
                                                         On the way
                                                     </>
                                                 )}
+                                                {
+                                                    order.status === "cancelled" && (
+                                                        <>
+                                                            <X size={16} strokeWidth={3} />
+                                                            Cancelled
+                                                        </>
+                                                    )
+                                                }
                                             </div>
 
                                             {/* Action Button */}

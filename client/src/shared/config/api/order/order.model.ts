@@ -3,7 +3,7 @@ export interface IOrder {
     user_id: string;
     items: number[];
     total_price: number;
-    status: 'review' | 'approved' | 'delivering' | 'completed' | 'cancelled';
+    status: 'review' | 'approved' | 'paid' | 'delivering' | 'completed' | 'cancelled';
     createdAt: string;
     updatedAt: string;
     user?: {
