@@ -50,7 +50,11 @@ export interface IProductFilters {
     page?: number;
     limit?: number;
     q?: string;
-    categoryId?: string;
+    category_id?: string;
+    color_id?: string;
+    size_id?: string;
+    min_price?: number;
+    max_price?: number;
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';
 }

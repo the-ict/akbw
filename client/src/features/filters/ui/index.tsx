@@ -11,7 +11,9 @@ import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
 import Product from '@/widgets/product';
 import Image from 'next/image';
-import { useColors, useSizes } from '../lib/hooks';
+import { useColors, useSizes, useProducts } from '../lib/hooks';
+import { IProductFilters } from '@/shared/config/api/product/product.model';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
 
 
 const HorizontalLine = () => {
@@ -40,9 +42,41 @@ export default function FilterPage() {
     const [currentPage, setCurrentPage] = React.useState<number>(1);
     const [openPagination, setOpenPagination] = React.useState<boolean>(false);
 
+    const [sortBy, setSortBy] = React.useState<string>('createdAt');
+    const [sortOrder, setSortOrder] = React.useState<'asc' | 'desc'>('desc');
+
+    const [appliedFilters, setAppliedFilters] = React.useState<IProductFilters>({
+        category_id: categoryParam || undefined,
+        page: 1,
+        limit: 9,
+        sortBy: 'createdAt',
+        sortOrder: 'desc'
+    });
+
     const { data: categories, isLoading } = useCategories();
     const { data: colors, isLoading: colorsLoading } = useColors();
     const { data: sizes, isLoading: sizesLoading } = useSizes();
+
+    const { data: productsData, isLoading: productsLoading } = useProducts(appliedFilters);
+
+    const handleApplyFilters = () => {
+        setAppliedFilters({
+            category_id: selectedCategory?.toString(),
+            color_id: selectedColor?.toString(),
+            size_id: selectedSizes.join(','),
+            min_price: minPrice,
+            max_price: maxPrice,
+            sortBy,
+            sortOrder,
+            page: 1,
+            limit: 9
+        });
+        setCurrentPage(1);
+    };
+
+    useEffect(() => {
+        setAppliedFilters(prev => ({ ...prev, sortBy, sortOrder }));
+    }, [sortBy, sortOrder]);
 
     const toggleSize = (size: number) => {
         setSelectedSizes(prev =>
@@ -177,7 +211,10 @@ export default function FilterPage() {
                             </div>
                         </div>
 
-                        <Button className="w-full mt-6 rounded-full py-7 font-bold text-base shadow-xl hover:shadow-2xl transition-all">
+                        <Button
+                            onClick={handleApplyFilters}
+                            className="w-full mt-6 rounded-full py-7 font-bold text-base shadow-xl hover:shadow-2xl transition-all"
+                        >
                             Filterlarni qo'llash
                         </Button>
                     </div>
@@ -187,21 +224,36 @@ export default function FilterPage() {
                     <div className='flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4'>
                         <h1 className='text-3xl md:text-4xl font-bold'>{categories?.find((item) => item.id === Number(selectedCategory))?.name || "Barcha maxsulotlar"}</h1>
                         <div className='flex items-center gap-3 text-sm text-gray-500'>
-                            <p>Showing {(currentPage - 1) * 9 + 1}-{Math.min(currentPage * 9, 100)} of 100 Products</p>
+                            <p>Showing {productsData?.data.length || 0} of {productsData?.meta.total || 0} Products</p>
                             <span className="hidden md:block opacity-30 text-xl font-light">|</span>
-                            <div className="flex items-center gap-2 cursor-pointer hover:text-black transition-colors bg-white/50 px-4 py-2 rounded-full border border-gray-100 shadow-sm">
-                                <p>Sort by: <span className="font-bold text-black">Most Popular</span></p>
-                                <ArrowDown size={14} className="mt-0.5" />
-                            </div>
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <div className="flex items-center gap-2 cursor-pointer hover:text-black transition-colors bg-white/50 px-4 py-2 rounded-full border border-gray-100 shadow-sm">
+                                        <p>Sort by: <span className="font-bold text-black">
+                                            {sortBy === 'price' ? (sortOrder === 'asc' ? 'Cheapest' : 'Most Expensive') : 'Most Recent'}
+                                        </span></p>
+                                        <ArrowDown size={14} className="mt-0.5" />
+                                    </div>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="bg-white rounded-xl shadow-xl border-gray-100 p-2 min-w-[180px]">
+                                    <DropdownMenuItem onClick={() => { setSortBy('createdAt'); setSortOrder('desc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Most Recent</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => { setSortBy('price'); setSortOrder('asc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Cheapest</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => { setSortBy('price'); setSortOrder('desc'); }} className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium">Most Expensive</DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
                         </div>
                     </div>
 
                     <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8'>
-                        {
-                            Array.from({ length: 9 }).map((_, index) => (
-                                <Product key={index + (currentPage - 1) * 9} />
+                        {productsLoading ? (
+                            <div className="col-span-full py-20 text-center text-gray-400">Loading products...</div>
+                        ) : productsData?.data.length === 0 ? (
+                            <div className="col-span-full py-20 text-center text-gray-400">No products found for the selected filters.</div>
+                        ) : (
+                            productsData?.data.map((item: any) => (
+                                <Product key={item.id} product={item} />
                             ))
-                        }
+                        )}
                     </div>
 
                     <div className="mt-12">

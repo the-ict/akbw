@@ -38,27 +38,60 @@ const localizeProduct = (p: any, lang: string) => ({
 
 export const getProducts = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { q, category_id, sortBy, sortOrder, page = 1, limit = 10 } = req.query;
+        const { q, category_id, color_id, size_id, min_price, max_price, sortBy, sortOrder, page = 1, limit = 10 } = req.query;
         const languageCode = (req as any).languageCode || 'uz';
 
-        const where: any = {};
+        const where: any = { AND: [] };
 
         if (q) {
-            where.translations = {
-                some: {
-                    name: { contains: q as string, mode: 'insensitive' }
+            where.AND.push({
+                translations: {
+                    some: {
+                        name: { contains: q as string, mode: 'insensitive' }
+                    }
                 }
-            };
+            });
         }
 
         if (category_id) {
             const categoryIds = (category_id as string).split(',').map(Number);
-            where.categories = {
-                some: {
-                    id: { in: categoryIds }
+            where.AND.push({
+                categories: {
+                    some: {
+                        id: { in: categoryIds }
+                    }
                 }
-            };
+            });
         };
+
+        if (color_id) {
+            const colorIds = (color_id as string).split(',').map(Number);
+            where.AND.push({
+                colors: {
+                    some: {
+                        id: { in: colorIds }
+                    }
+                }
+            });
+        }
+
+        if (size_id) {
+            const sizeIds = (size_id as string).split(',').map(Number);
+            where.AND.push({
+                sizes: {
+                    some: {
+                        id: { in: sizeIds }
+                    }
+                }
+            });
+        }
+
+        if (min_price || max_price) {
+            const priceFilter: any = {};
+            if (min_price) priceFilter.gte = Number(min_price);
+            if (max_price) priceFilter.lte = Number(max_price);
+            where.AND.push({ price: priceFilter });
+        }
 
         const skip = (Number(page) - 1) * Number(limit);
         const take = Number(limit);
