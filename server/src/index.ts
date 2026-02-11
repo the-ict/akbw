@@ -18,6 +18,7 @@ import productRoutes from "./routers/product.routes.js";
 import uploadRoutes from "./routers/upload.routes.js";
 import reviewRoutes from "./routers/review.routes.js";
 import orderRoutes from "./routers/order.routes.js";
+import notificationRoutes from "./routers/notification.routes.js";
 import path from "path";
 
 
@@ -58,6 +59,7 @@ app.use("/api/product", productRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/notification", notificationRoutes);
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

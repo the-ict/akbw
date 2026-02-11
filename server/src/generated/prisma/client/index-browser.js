@@ -249,6 +249,14 @@ exports.Prisma.OrdersScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.NotificationsScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  message: 'message',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -280,7 +288,8 @@ exports.Prisma.ModelName = {
   ColorTranslations: 'ColorTranslations',
   Reviews: 'Reviews',
   Coupons: 'Coupons',
-  Orders: 'Orders'
+  Orders: 'Orders',
+  Notifications: 'Notifications'
 };
 
 /**
