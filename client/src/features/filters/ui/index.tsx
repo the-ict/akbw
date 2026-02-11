@@ -1,15 +1,17 @@
 "use client";
 
 import { ArrowDown, ArrowRight, ArrowUp, Check } from 'lucide-react'
-import React, { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation';
 import { Input } from "@/shared/ui/input";
+import React, { useEffect } from 'react'
 
 import FiltersIcon from "../../../../public/icons/filters.png";
+import { useCategories } from '@/widgets/navbar/lib/hooks';
 import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
 import Product from '@/widgets/product';
 import Image from 'next/image';
+import { useColors, useSizes } from '../lib/hooks';
 
 
 const HorizontalLine = () => {
@@ -24,7 +26,7 @@ export default function FilterPage() {
     const categoryParam = searchParams.get('category');
 
     const [isAll, setIsAll] = React.useState<boolean>(false);
-    const [selectedCategory, setSelectedCategory] = React.useState<string | null>(categoryParam);
+    const [selectedCategory, setSelectedCategory] = React.useState<string | null | number>(categoryParam);
 
     useEffect(() => {
         if (categoryParam) {
@@ -33,26 +35,22 @@ export default function FilterPage() {
     }, [categoryParam]);
     const [minPrice, setMinPrice] = React.useState<number>(50);
     const [maxPrice, setMaxPrice] = React.useState<number>(200);
-    const [selectedColor, setSelectedColor] = React.useState<string | null>(null);
-    const [selectedSizes, setSelectedSizes] = React.useState<string[]>([]);
+    const [selectedColor, setSelectedColor] = React.useState<number | null>(null);
+    const [selectedSizes, setSelectedSizes] = React.useState<number[]>([]);
     const [currentPage, setCurrentPage] = React.useState<number>(1);
     const [openPagination, setOpenPagination] = React.useState<boolean>(false);
 
-    const categories = [
-        "Classic", "Casual", "Oversize", "Streetwear", "Sport / Active",
-        "Minimal", "Elegant", "Business", "Formal", "Old Money",
-        "Y2K", "Urban", "Vintage", "Grunge", "Korean Style",
-        "Romantic", "Chic", "Modest", "Luxury", "Daily Wear"
-    ];
+    const { data: categories, isLoading } = useCategories();
+    const { data: colors, isLoading: colorsLoading } = useColors();
+    const { data: sizes, isLoading: sizesLoading } = useSizes();
 
-    const colors = ['#00C12B', '#F50606', '#F5DD06', '#F57906', '#06CAF5', '#063AF5', '#7D06F5', '#F506A4', '#FFFFFF', '#000000'];
-    const sizes = ['XX-Small', 'X-Small', 'Small', 'Medium', 'Large', 'X-Large', 'XX-Large', '3X-Large', '4X-Large'];
-
-    const toggleSize = (size: string) => {
+    const toggleSize = (size: number) => {
         setSelectedSizes(prev =>
             prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
         );
     };
+
+    if (isLoading) return null;
 
     return (
         <div className='min-h-screen container py-10 px-4 md:px-6'>
@@ -72,13 +70,13 @@ export default function FilterPage() {
 
                         <div id='categories' className='mt-6 space-y-1.5'>
                             {
-                                categories.map((item, index) => {
-                                    const isActive = selectedCategory === item;
+                                categories?.map((item, index) => {
+                                    const isActive = Number(selectedCategory) === item.id;
                                     if (isAll || index < 5 || isActive) {
                                         return (
                                             <div
                                                 key={index}
-                                                onClick={() => setSelectedCategory(isActive ? null : item)}
+                                                onClick={() => setSelectedCategory(isActive ? null : item.id)}
                                                 className={cn(
                                                     'flex items-center justify-between py-2.5 px-3 rounded-xl cursor-pointer hover:translate-x-1.5 transition-all group',
                                                     isActive ? 'bg-black text-white' : 'hover:bg-white/40'
@@ -87,7 +85,7 @@ export default function FilterPage() {
                                                 <p className={cn(
                                                     'font-medium transition-colors',
                                                     isActive ? 'text-white' : 'text-gray-600 group-hover:text-black'
-                                                )}>{item}</p>
+                                                )}>{item.name}</p>
                                                 <ArrowRight size={14} className={cn(
                                                     'transition-opacity',
                                                     isActive ? 'opacity-100' : 'opacity-30 group-hover:opacity-100'
@@ -138,19 +136,19 @@ export default function FilterPage() {
                             <div className="py-7">
                                 <h1 className="font-bold mb-6 uppercase tracking-widest text-xs text-gray-500">Ranglar</h1>
                                 <div className="flex flex-wrap gap-3">
-                                    {colors.map((color, i) => (
+                                    {colors?.map((color, i) => (
                                         <button
                                             key={i}
-                                            onClick={() => setSelectedColor(selectedColor === color ? null : color)}
-                                            style={{ backgroundColor: color }}
+                                            onClick={() => setSelectedColor(selectedColor === color.id ? null : color.id)}
+                                            style={{ backgroundColor: color.name }}
                                             className={cn(
                                                 "w-9 h-9 rounded-full border border-gray-100 shadow-sm cursor-pointer hover:scale-115 transition-all ring-offset-2 flex items-center justify-center",
-                                                selectedColor === color ? "ring-2 ring-black" : "hover:ring-2 hover:ring-black/20",
-                                                color === '#FFFFFF' ? "border-gray-200" : "border-transparent"
+                                                selectedColor === color.id ? "ring-2 ring-black" : "hover:ring-2 hover:ring-black/20",
+                                                color.name === '#FFFFFF' ? "border-gray-200" : "border-transparent"
                                             )}
                                         >
-                                            {selectedColor === color && (
-                                                <Check size={16} className={cn(color === '#FFFFFF' || color === '#F5DD06' ? "text-black" : "text-white")} />
+                                            {selectedColor === color.id && (
+                                                <Check size={16} className={cn(color.name === '#FFFFFF' || color.name === '#F5DD06' ? "text-black" : "text-white")} />
                                             )}
                                         </button>
                                     ))}
@@ -161,18 +159,18 @@ export default function FilterPage() {
                             <div className="py-7">
                                 <h1 className="font-bold mb-6 uppercase tracking-widest text-xs text-gray-500">O'lchamlar</h1>
                                 <div className="flex flex-wrap gap-2.5">
-                                    {sizes.map((size) => (
+                                    {sizes?.map((size) => (
                                         <button
-                                            key={size}
-                                            onClick={() => toggleSize(size)}
+                                            key={size.id}
+                                            onClick={() => toggleSize(size.id)}
                                             className={cn(
                                                 "px-5 py-2.5 rounded-full text-xs font-semibold transition-all border cursor-pointer",
-                                                selectedSizes.includes(size)
+                                                selectedSizes.includes(size.id)
                                                     ? "bg-black text-white border-black"
                                                     : "bg-[#F0F0F0] text-gray-600 border-transparent hover:border-black"
                                             )}
                                         >
-                                            {size}
+                                            {size.name}
                                         </button>
                                     ))}
                                 </div>
@@ -187,7 +185,7 @@ export default function FilterPage() {
 
                 <main id='main-content' className='flex-1 w-full'>
                     <div className='flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4'>
-                        <h1 className='text-3xl md:text-4xl font-bold'>{selectedCategory || "Barcha maxsulotlar"}</h1>
+                        <h1 className='text-3xl md:text-4xl font-bold'>{categories?.find((item) => item.id === Number(selectedCategory))?.name || "Barcha maxsulotlar"}</h1>
                         <div className='flex items-center gap-3 text-sm text-gray-500'>
                             <p>Showing {(currentPage - 1) * 9 + 1}-{Math.min(currentPage * 9, 100)} of 100 Products</p>
                             <span className="hidden md:block opacity-30 text-xl font-light">|</span>
