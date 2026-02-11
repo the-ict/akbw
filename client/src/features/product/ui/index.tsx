@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, {
+    useState
+} from 'react';
 import Image from 'next/image';
 import {
     Star,
@@ -8,7 +10,6 @@ import {
     Plus,
     Check,
     Loader2,
-    MoreHorizontal,
     EllipsisVertical
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
@@ -26,14 +27,19 @@ import {
 } from '@/features/reviews/lib/hooks';
 import { useUserStore } from '@/shared/store/user.store';
 import { toast } from '@/shared/ui/toast';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuTrigger
+} from '@/shared/ui/dropdown-menu';
 import DeleteConfirmModal from '@/widgets/delete-confirm/ui';
 import { useDeleteReviewMutation } from '../lib/hooks';
 import { useQueryClient } from '@tanstack/react-query';
 
 interface ProductProps {
     id: string;
-}
+};
 
 export default function Product({ id }: ProductProps) {
     const [openDeleteReview, setOpenDeleteReview] = useState<boolean>(false);
@@ -86,7 +92,7 @@ export default function Product({ id }: ProductProps) {
             <div className='min-h-screen bg-white flex items-center justify-center'>
                 <div className='text-center'>
                     <div className='w-16 h-16 border-4 border-black border-t-transparent rounded-full animate-spin mx-auto mb-4' />
-                    <p className='text-gray-500'>Loading product...</p>
+                    <p className='text-gray-500'>Mahsulot yuklanmoqda...</p>
                 </div>
             </div>
         );
@@ -96,8 +102,8 @@ export default function Product({ id }: ProductProps) {
         return (
             <div className='min-h-screen bg-white flex items-center justify-center'>
                 <div className='text-center'>
-                    <h2 className='text-2xl font-bold mb-2'>Product not found</h2>
-                    <p className='text-gray-500'>The product you're looking for doesn't exist.</p>
+                    <h2 className='text-2xl font-bold mb-2'>Maxsulot topilmadi!</h2>
+                    <p className='text-gray-500'>Siz qidirayotgan maxsulot topilmadi.</p>
                 </div>
             </div>
         );
@@ -140,11 +146,11 @@ export default function Product({ id }: ProductProps) {
         <div className='min-h-screen bg-white'>
             <div className='container py-10 px-4 md:px-6'>
                 <div className='flex gap-2 text-sm text-gray-500 mb-10'>
-                    <span>Home</span>
+                    <span>Bosh sahifa</span>
                     <span>/</span>
-                    <span>Shop</span>
+                    <span>Do'kon</span>
                     <span>/</span>
-                    <span className='text-black font-medium'>Men</span>
+                    <span className='text-black font-medium'>Erkaklar</span>
                     <span>/</span>
                     <span className='text-black font-medium'>T-shirts</span>
                 </div>
@@ -202,7 +208,7 @@ export default function Product({ id }: ProductProps) {
                         <hr className='border-gray-100 mb-8' />
 
                         <div className='mb-8'>
-                            <h3 className='text-gray-500 font-medium mb-4 uppercase tracking-widest text-xs'>Select Colors</h3>
+                            <h3 className='text-gray-500 font-medium mb-4 uppercase tracking-widest text-xs'>Rangni tanlang</h3>
                             <div className='flex gap-4'>
                                 {product.colors?.map((color) => (
                                     <button
@@ -223,7 +229,7 @@ export default function Product({ id }: ProductProps) {
                         <hr className='border-gray-100 mb-8' />
 
                         <div className='mb-10'>
-                            <h3 className='text-gray-500 font-medium mb-4 uppercase tracking-widest text-xs'>Choose Size</h3>
+                            <h3 className='text-gray-500 font-medium mb-4 uppercase tracking-widest text-xs'>O'lchamni tanlang</h3>
                             <div className='flex flex-wrap gap-3'>
                                 {product.sizes?.map((size) => (
                                     <button
@@ -261,7 +267,7 @@ export default function Product({ id }: ProductProps) {
                                 </button>
                             </div>
                             <Button className='flex-1 rounded-full cursor-pointer h-full py-8 font-black text-lg bg-black hover:bg-black/90 shadow-2xl hover:shadow-black/20 transition-all uppercase tracking-widest'>
-                                Add to Cart
+                                Savatga qo'shish
                             </Button>
                         </div>
                     </div>
@@ -301,10 +307,10 @@ export default function Product({ id }: ProductProps) {
                             {
                                 token && (
                                     <div className='mb-10 p-8 border border-gray-100 rounded-[32px] bg-white shadow-sm'>
-                                        <h3 className='text-xl font-bold mb-6'>Write a Review</h3>
+                                        <h3 className='text-xl font-bold mb-6'>Izoh qoldirish</h3>
 
                                         <div className='mb-6'>
-                                            <p className='text-sm text-gray-500 mb-3'>Rate this product</p>
+                                            <p className='text-sm text-gray-500 mb-3'>Bu mahsulotga baho bering</p>
                                             <div className='flex gap-2'>
                                                 {[1, 2, 3, 4, 5].map((star) => (
                                                     <button
@@ -352,14 +358,14 @@ export default function Product({ id }: ProductProps) {
 
                             <div className='flex items-center justify-between mb-8'>
                                 <div className='flex items-center gap-2'>
-                                    <h2 className='text-2xl font-bold'>Reviews</h2>
+                                    <h2 className='text-2xl font-bold'>Izohlar</h2>
                                     <span className='text-gray-400 font-normal'>({reviewsData?.meta.total || 0})</span>
                                 </div>
                             </div>
 
                             {reviewsLoading ? (
                                 <div className='text-center py-10'>
-                                    <p className='text-gray-500'>Loading reviews...</p>
+                                    <p className='text-gray-500'>Izohlar yuklanmoqda...</p>
                                 </div>
                             ) : (
                                 <div className='space-y-6'>
@@ -398,7 +404,7 @@ export default function Product({ id }: ProductProps) {
                                                         <DropdownMenuLabel onClick={() => {
                                                             setOpenDeleteReview(true);
                                                             setReviewId(review.id);
-                                                        }} className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>Delete</DropdownMenuLabel>
+                                                        }} className='cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md'>O'chirish</DropdownMenuLabel>
                                                     </DropdownMenuContent>
                                                 </DropdownMenu>
                                             </div>
@@ -412,15 +418,15 @@ export default function Product({ id }: ProductProps) {
                                     <div className='w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4'>
                                         <Star size={32} className='text-gray-300' />
                                     </div>
-                                    <h3 className='text-xl font-bold mb-2'>No reviews yet</h3>
-                                    <p className='text-gray-500'>Be the first to share your thoughts!</p>
+                                    <h3 className='text-xl font-bold mb-2'>Hali izohlar yo'q</h3>
+                                    <p className='text-gray-500'>Birinchi bo'lib o'z fikringizni bildiring!</p>
                                 </div>
                             )}
 
                             {!reviewsLoading && reviewsData && reviewsData.data.length > 0 && reviewsData.meta.totalPages > 1 && (
                                 <div className='mt-10 flex justify-center'>
                                     <Button variant="outline" className='rounded-full px-10 py-6 font-bold border-gray-200 hover:bg-black hover:text-white transition-all cursor-pointer'>
-                                        Load More Reviews
+                                        Ko'proq yuklash
                                     </Button>
                                 </div>
                             )}
@@ -448,7 +454,7 @@ export default function Product({ id }: ProductProps) {
 
                 <div className='mt-32 border-t border-gray-100 pt-32 pb-20'>
                     <h2 className={cn('text-4xl md:text-5xl lg:text-6xl font-black text-center uppercase mb-20 tracking-tighter', monsterrat.className)}>
-                        You might also like
+                        Sizga yoqishi mumkin!
                     </h2>
                     <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8'>
                         {relatedProducts?.data?.map((relatedProduct) => (
