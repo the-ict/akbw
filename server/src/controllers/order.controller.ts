@@ -81,3 +81,54 @@ export const getOrders = async (req: Request, res: Response, next: NextFunction)
         next(error);
     }
 }
+
+export const updateOrderStatus = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        const order = await prisma.orders.update({
+            where: { id: Number(id) },
+            data: { status }
+        });
+
+        res.status(200).json({
+            message: "Order status updated successfully",
+            data: order,
+            ok: true
+        });
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const getAllOrders = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const orders = await prisma.orders.findMany({
+            orderBy: { createdAt: 'desc' },
+            include: {
+                user: {
+                    select: {
+                        name: true,
+                        lastName: true,
+                        phone: true
+                    }
+                },
+                coupon: {
+                    select: {
+                        id: true,
+                        code: true,
+                        discount: true,
+                    }
+                }
+            }
+        });
+
+        res.status(200).json({
+            data: orders,
+            ok: true
+        });
+    } catch (error) {
+        next(error);
+    }
+}
