@@ -4,16 +4,39 @@ import { prisma } from "../db/client"
 export const reviewOrder = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user_id = req.user;
-        const { items, total_price, coupon_id } = req.body;
+        const { items, total_price, coupon_id, coupon_code } = req.body;
+
+        const user = await prisma.user.findUnique({
+            where: { id: user_id }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+                ok: false
+            });
+        }
+
+        const data: any = {
+            user_id,
+            items,
+            total_price,
+            status: 'review',
+        };
+
+        if (coupon_id && coupon_id !== 0) {
+            data.coupon_id = coupon_id;
+        } else if (coupon_code) {
+            const coupon = await prisma.coupons.findFirst({
+                where: { code: coupon_code }
+            });
+            if (coupon) {
+                data.coupon_id = coupon.id;
+            }
+        }
 
         const order = await prisma.orders.create({
-            data: {
-                user_id,
-                items,
-                total_price,
-                status: 'review',
-                coupon_id,
-            }
+            data
         });
 
         res.status(201).json({

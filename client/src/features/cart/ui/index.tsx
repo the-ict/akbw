@@ -63,10 +63,10 @@ const UZBEKISTAN_DATA: Record<string, string[]> = {
 };
 
 
-import Uzum from "../../../../public/icons/uzum.png"
-import Click from "../../../../public/icons/click.png"
-import Payme from "../../../../public/icons/payme.png"
-import Paynet from "../../../../public/icons/paynet.svg"
+import Uzum from "../../../../public/icons/uzum.png";
+import Click from "../../../../public/icons/click.png";
+import Payme from "../../../../public/icons/payme.png";
+import Paynet from "../../../../public/icons/paynet.svg";
 
 export default function Cart() {
     const { items: cartItems, updateQuantity, removeItem, clearCart } = useCartStore();
@@ -110,7 +110,7 @@ export default function Cart() {
 
     const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
     const discount = subtotal * appliedDiscount;
-    const deliveryFee = 15000; // Fixed delivery fee in UZS
+    const deliveryFee = 15000;
     const total = subtotal - discount + deliveryFee;
 
     const handleCheckout = async () => {
@@ -123,7 +123,8 @@ export default function Cart() {
         try {
             await createOrderMutation.mutateAsync({
                 items: cartItems.map(item => item.id),
-                total_price: total
+                total_price: total,
+                coupon_code: appliedDiscount > 0 ? promoCode : undefined,
             });
 
             clearCart();
@@ -156,10 +157,7 @@ export default function Cart() {
             }
         );
         setTimeout(() => {
-            // Switch to tracking mode instead of closing
             setModalMode('tracking');
-            // Update order status logic would be here (backend)
-            // setCheckingOrders(prev => prev.map(o => o.id === selectedOrder.id ? { ...o, status: 'delivering' } : o));
         }, 2500);
     };
 
@@ -185,7 +183,7 @@ export default function Cart() {
                                 <React.Fragment key={item.id}>
                                     <div className='flex gap-4 md:gap-6 items-center'>
                                         <div className='relative w-24 h-24 md:w-32 md:h-32 rounded-xl overflow-hidden bg-gray-100 flex-shrink-0'>
-                                            <Image src={item.product_images?.[0] || ProductImage.src} alt={item.name} fill className='object-cover' />
+                                            <Image src={item.product_images?.[0] || ProductImage.src} alt={item.name} fill className='object-cover' sizes='100%' />
                                         </div>
 
                                         <div className='flex-1 flex flex-col justify-between h-24 md:h-32'>

@@ -59,23 +59,12 @@ export default function Product({ product }: ProductProps) {
                 <button
                     onClick={handleToggleWishlist}
                     className={cn(
-                        "absolute top-4 right-4 p-2.5 rounded-full backdrop-blur-md transition-all duration-300 z-10 shadow-sm",
+                        "absolute top-4 cursor-pointer right-4 p-2.5 rounded-full backdrop-blur-md transition-all duration-300 z-10 shadow-sm",
                         isFavorite ? "bg-red-50 text-red-500 scale-110" : "bg-white/80 text-gray-400 hover:text-red-500 hover:scale-110"
                     )}
                 >
                     <Heart size={20} fill={isFavorite ? "currentColor" : "none"} />
                 </button>
-
-                {/* Quick Add Button Overlay */}
-                <div className="absolute bottom-4 left-4 right-4 translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                    <button
-                        onClick={handleAddToCart}
-                        className="w-full bg-black text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 shadow-xl hover:bg-black/90 active:scale-95 transition-all text-sm"
-                    >
-                        <ShoppingCart size={16} />
-                        Savatga
-                    </button>
-                </div>
             </div>
 
             <div className="px-1">

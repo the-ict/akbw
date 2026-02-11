@@ -16,4 +16,6 @@ export interface IOrder {
 export interface ICreateOrderRequest {
     items: number[];
     total_price: number;
+    coupon_id?: number;
+    coupon_code?: string;
 }
