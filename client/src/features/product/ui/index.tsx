@@ -390,7 +390,15 @@ export default function Product({ id }: ProductProps) {
                                         <div key={review.id} className='p-6 border-b border-gray-100 last:border-0'>
                                             <div className='flex items-start gap-4'>
                                                 <div className='w-10 h-10 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white font-bold shrink-0'>
-                                                    {review.user.name.charAt(0).toUpperCase()}
+                                                    {
+                                                        review.user.profile_picture?.length > 0 ? (
+                                                            <div className='w-full h-full rounded-full overflow-hidden relative'>
+                                                                <Image src={review.user.profile_picture} alt={review.user.name} fill className='object-cover' />
+                                                            </div>
+                                                        ) : (
+                                                            review.user.name.charAt(0).toUpperCase()
+                                                        )
+                                                    }
                                                 </div>
 
                                                 <div className='flex-1'>
