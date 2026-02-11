@@ -44,6 +44,8 @@ import FavoriteTab from "./FavoriteTab";
 import Notifications from "./Notifications";
 import ReviewTab from "./ReviewTab";
 import { useUserStore } from "@/shared/store/user.store";
+import { useUser, useUpdateUser } from "@/features/user/lib/hooks";
+import { toast } from "@/shared/ui/toast";
 
 const profileSchema = z.object({
     name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
@@ -82,16 +84,29 @@ interface ProfileProps {
 }
 
 function Profile({ children }: ProfileProps) {
-    const [name, setName] = React.useState("Abdullox");
-    const [lastName, setLastName] = React.useState("Akbarov");
-    const [gender, setGender] = React.useState("male");
-    const [phone, setPhone] = React.useState("+998 90 123 45 67");
+    const { data: userData, isLoading: isUserLoading } = useUser();
+    const updateUserMutation = useUpdateUser();
+
+    const [name, setName] = React.useState("");
+    const [lastName, setLastName] = React.useState("");
+    const [gender, setGender] = React.useState("");
+    const [phone, setPhone] = React.useState("");
     const [location, setLocation] = React.useState("");
     const [errors, setErrors] = React.useState<Record<string, string>>({});
     const [profileImage, setProfileImage] = React.useState<string>("");
     const [chatMessage, setChatMessage] = React.useState("");
     const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
 
+    React.useEffect(() => {
+        if (userData?.data) {
+            const user = userData.data;
+            setName(user.name || "");
+            setLastName(user.lastName || "");
+            setGender(user.gender || "male");
+            setPhone(user.phone || "");
+            setProfileImage(user.profile_picture || "");
+        }
+    }, [userData]);
 
     const {
         isProfileOpen,
@@ -134,7 +149,7 @@ function Profile({ children }: ProfileProps) {
         }
     };
 
-    const handleSaveProfile = () => {
+    const handleSaveProfile = async () => {
         const result = profileSchema.safeParse({ name, lastName, gender, phone, location });
 
         if (!result.success) {
@@ -147,7 +162,20 @@ function Profile({ children }: ProfileProps) {
         }
 
         setErrors({});
-        console.log("Profile saved:", result.data);
+
+        try {
+            await updateUserMutation.mutateAsync({
+                name,
+                lastName,
+                gender,
+                phone,
+                profile_picture: profileImage
+            });
+            toast.success("Profil muvaffaqiyatli saqlandi");
+            setProfileSubSection(null);
+        } catch (error) {
+            toast.error("Profilni saqlashda xatolik yuz berdi");
+        }
     };
 
     const handleSendMessage = () => {
@@ -271,7 +299,7 @@ function Profile({ children }: ProfileProps) {
 
             case "reviews":
                 return (
-                    <ReviewTab />
+                    <ReviewTab reviews={userData?.data?.reviews || []} />
                 );
         }
     };
