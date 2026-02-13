@@ -15,7 +15,7 @@ export const createAskForProductMessageSchema = Joi.object({
     message: Joi.string().required(),
     chat_id: Joi.string().required(),
     sender_id: Joi.string().required(),
-    photo: Joi.string().required(),
+    photo: Joi.string().optional(),
 })
 
 export const createAskForProductChatSchema = Joi.object({
