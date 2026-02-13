@@ -19,6 +19,7 @@ import uploadRoutes from "./routers/upload.routes.js";
 import reviewRoutes from "./routers/review.routes.js";
 import orderRoutes from "./routers/order.routes.js";
 import notificationRoutes from "./routers/notification.routes.js";
+import chatRoutes from "./routers/chat.routes.js";
 import path from "path";
 
 
@@ -60,6 +61,7 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/notification", notificationRoutes);
+app.use("/api/chat", chatRoutes);
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -4,17 +4,17 @@ import { Input } from '@/shared/ui/input';
 import { ArrowLeft, Send } from 'lucide-react';
 import React from 'react'
 
-
 interface Props {
     handleBackToMenu: () => void;
     chatMessage: string;
     setChatMessage: (chatMessage: string) => void;
     handleSendMessage: () => void;
-    mockChatMessages: any[];
+    messages: any[];
+    currentUserId: string;
 }
 
+export default function SupportChat({ handleBackToMenu, chatMessage, setChatMessage, handleSendMessage, messages, currentUserId }: Props) {
 
-export default function SupportChat({ handleBackToMenu, chatMessage, setChatMessage, handleSendMessage, mockChatMessages }: Props) {
     return (
         <div className="flex flex-col h-full">
             <button
@@ -27,18 +27,18 @@ export default function SupportChat({ handleBackToMenu, chatMessage, setChatMess
 
             <div className="flex-1 bg-gray-50 rounded-lg p-4 mb-4 overflow-y-auto min-h-[500px]">
                 <div className="space-y-3">
-                    {mockChatMessages.map((msg) => (
+                    {messages?.map((msg) => (
                         <div
                             key={msg.id}
                             className={cn(
                                 "flex",
-                                msg.sender === "user" ? "justify-end" : "justify-start"
+                                msg.sender_id === currentUserId ? "justify-end" : "justify-start"
                             )}
                         >
                             <div
                                 className={cn(
                                     "max-w-[70%] rounded-lg px-4 py-2",
-                                    msg.sender === "user"
+                                    msg.sender_id === currentUserId
                                         ? "bg-black text-white"
                                         : "bg-white text-gray-900 border border-gray-200"
                                 )}
@@ -46,15 +46,16 @@ export default function SupportChat({ handleBackToMenu, chatMessage, setChatMess
                                 <p className="text-sm">{msg.message}</p>
                                 <p className={cn(
                                     "text-xs mt-1",
-                                    msg.sender === "user" ? "text-gray-300" : "text-gray-500"
+                                    msg.sender_id === currentUserId ? "text-gray-300" : "text-gray-500"
                                 )}>
-                                    {msg.time}
+                                    {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                 </p>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
+
 
             <div className="flex gap-2 my-3">
                 <Input

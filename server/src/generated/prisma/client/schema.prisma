@@ -26,6 +26,8 @@ model User {
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
   orders             Orders[]
+  helpChats          HelpChat[]
+  askForChats        AskForChat[]
 }
 
 model Verify {
@@ -37,14 +39,16 @@ model Verify {
 }
 
 model Admins {
-  id        Int      @id @default(autoincrement())
-  name      String
-  lastName  String
-  phone     String   @unique
-  role      String
-  access    Access[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                 Int                  @id @default(autoincrement())
+  name               String
+  lastName           String
+  phone              String               @unique
+  role               String
+  access             Access[]
+  helpChatMessages   HelpChatMessages[]
+  askForChatMessages AskForChatMessages[]
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
 }
 
 model Access {
@@ -179,6 +183,8 @@ model Notifications {
 model HelpChat {
   id        Int                @id @default(autoincrement())
   members   String[]
+  user_id   String
+  user      User               @relation(fields: [user_id], references: [id])
   messages  HelpChatMessages[]
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
@@ -188,8 +194,10 @@ model HelpChatMessages {
   id        Int      @id @default(autoincrement())
   chat_id   Int
   chat      HelpChat @relation(fields: [chat_id], references: [id])
-  sender_id String
-  sender    User     @relation(fields: [sender_id], references: [id])
+  sender_id String?
+  sender    User?    @relation(fields: [sender_id], references: [id])
+  admin_id  Int?
+  admin     Admins?  @relation(fields: [admin_id], references: [id])
   message   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -199,6 +207,8 @@ model AskForChat {
   id        Int                  @id @default(autoincrement())
   members   String[]
   messages  AskForChatMessages[]
+  user_id   String
+  user      User                 @relation(fields: [user_id], references: [id])
   createdAt DateTime             @default(now())
   updatedAt DateTime             @updatedAt
 }
@@ -207,8 +217,10 @@ model AskForChatMessages {
   id        Int        @id @default(autoincrement())
   chat_id   Int
   chat      AskForChat @relation(fields: [chat_id], references: [id])
-  sender_id String
-  sender    User       @relation(fields: [sender_id], references: [id])
+  sender_id String?
+  sender    User?      @relation(fields: [sender_id], references: [id])
+  admin_id  Int?
+  admin     Admins?    @relation(fields: [admin_id], references: [id])
   message   String
   photo     String?    @default("")
   createdAt DateTime   @default(now())

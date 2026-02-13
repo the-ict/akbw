@@ -45,7 +45,10 @@ import Notifications from "./Notifications";
 import ReviewTab from "./ReviewTab";
 import { useUserStore } from "@/shared/store/user.store";
 import { useUser, useUpdateUser } from "@/features/user/lib/hooks";
+import { useSupportChat, useProductInquiry } from "./lib/hooks";
 import { toast } from "@/shared/ui/toast";
+import { uploadRequest } from "@/shared/config/api/upload/upload.request";
+
 
 const profileSchema = z.object({
     name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
@@ -56,12 +59,8 @@ const profileSchema = z.object({
 type TabType = "menu" | "favorites" | "notifications" | "reviews";
 type SubSectionType = "editProfile" | "supportChat" | "productInquiry" | null;
 
-const mockChatMessages = [
-    { id: 1, sender: "admin", message: "Salom! Sizga qanday yordam bera olaman?", time: "10:30" },
-    { id: 2, sender: "user", message: "Buyurtmam qachon yetib keladi?", time: "10:32" },
-];
-
 interface ProfileProps {
+
     children?: React.ReactNode;
 }
 
@@ -156,12 +155,41 @@ function Profile({ children }: ProfileProps) {
         }
     };
 
-    const handleSendMessage = () => {
-        if (chatMessage.trim()) {
-            console.log("Sending message:", chatMessage);
+    const { data: supportChat, sendMessage: sendSupportMessage, createChat: createSupportChat } = useSupportChat();
+    const { data: productInquiryChat, sendMessage: sendProductInquiryMessage, createChat: createProductInquiryChat } = useProductInquiry();
+
+    const handleSendMessage = async () => {
+        if (!chatMessage.trim()) return;
+
+        try {
+            if (activeSubSection === "supportChat") {
+                let chatId = supportChat?.id;
+                if (!chatId) {
+                    const newChat = await createSupportChat({ receiver_id: "admin" }); // Assuming admin ID is known or handle by backend
+                    chatId = newChat.id;
+                }
+                await sendSupportMessage({ chat_id: chatId, message: chatMessage });
+            } else if (activeSubSection === "productInquiry") {
+                let chatId = productInquiryChat?.id;
+                let photoUrl = "";
+                if (selectedImage) {
+                    const response = await uploadRequest.uploadImage(selectedImage);
+                    photoUrl = response.url;
+                }
+
+                if (!chatId) {
+                    const newChat = await createProductInquiryChat({ receiver_id: "admin" });
+                    chatId = newChat.id;
+                }
+                await sendProductInquiryMessage({ chat_id: chatId, message: chatMessage, photo: photoUrl });
+                setSelectedImage(null);
+            }
             setChatMessage("");
+        } catch (error) {
+            toast.error("Xabar yuborishda xatolik yuz berdi");
         }
     };
+
 
     const handleImageSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -254,7 +282,8 @@ function Profile({ children }: ProfileProps) {
             chatMessage={chatMessage}
             setChatMessage={setChatMessage}
             handleSendMessage={handleSendMessage}
-            mockChatMessages={mockChatMessages}
+            messages={supportChat?.messages || []}
+            currentUserId={userData?.data?.id || ""}
         />
     );
 
@@ -265,8 +294,14 @@ function Profile({ children }: ProfileProps) {
             setChatMessage={setChatMessage}
             handleSendMessage={handleSendMessage}
             selectedImage={selectedImage}
-            handleImageSelect={handleImageSelect}
+            handleImageSelect={(e) => {
+                if (e.target.files && e.target.files[0]) {
+                    setSelectedImage(e.target.files[0]);
+                }
+            }}
             setSelectedImage={setSelectedImage}
+            messages={productInquiryChat?.messages || []}
+            currentUserId={userData?.data?.id || ""}
         />
     );
 

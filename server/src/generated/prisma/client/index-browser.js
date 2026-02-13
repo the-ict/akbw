@@ -260,6 +260,7 @@ exports.Prisma.NotificationsScalarFieldEnum = {
 exports.Prisma.HelpChatScalarFieldEnum = {
   id: 'id',
   members: 'members',
+  user_id: 'user_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -268,6 +269,7 @@ exports.Prisma.HelpChatMessagesScalarFieldEnum = {
   id: 'id',
   chat_id: 'chat_id',
   sender_id: 'sender_id',
+  admin_id: 'admin_id',
   message: 'message',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -276,6 +278,7 @@ exports.Prisma.HelpChatMessagesScalarFieldEnum = {
 exports.Prisma.AskForChatScalarFieldEnum = {
   id: 'id',
   members: 'members',
+  user_id: 'user_id',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -284,6 +287,7 @@ exports.Prisma.AskForChatMessagesScalarFieldEnum = {
   id: 'id',
   chat_id: 'chat_id',
   sender_id: 'sender_id',
+  admin_id: 'admin_id',
   message: 'message',
   photo: 'photo',
   createdAt: 'createdAt',

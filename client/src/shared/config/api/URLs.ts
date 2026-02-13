@@ -17,7 +17,10 @@ const ENDP_COLORS = "/product/colors"
 const ENDP_SIZES = "/product/sizes"
 const ENDP_UPLOAD = "/upload";
 const ENDP_NOTIFICATIONS = "/notification";
-
+const ENDP_SUPPORT_CHAT_CREATE = "/chat"
+const ENDP_SUPPORT_CHAT_MESSAGE_CREATE = "/chat/help-chat-message";
+const ENDP_ASK_CHAT_CREATE = "/chat/ask-for-product-chat";
+const ENDP_ASK_CHAT_MESSAGE_CREATE = "/chat/ask-for-product-message";
 
 export {
   BASE_URL,
@@ -35,7 +38,9 @@ export {
   ENDP_COLORS,
   ENDP_SIZES,
   ENDP_UPLOAD,
-  ENDP_NOTIFICATIONS
-};
-
-
+  ENDP_NOTIFICATIONS,
+  ENDP_SUPPORT_CHAT_CREATE,
+  ENDP_SUPPORT_CHAT_MESSAGE_CREATE,
+  ENDP_ASK_CHAT_CREATE,
+  ENDP_ASK_CHAT_MESSAGE_CREATE
+}
