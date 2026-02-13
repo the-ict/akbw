@@ -2,7 +2,10 @@
 
 import React from 'react';
 import { usePathname } from 'next/navigation';
-import { Search, User } from 'lucide-react';
+import {
+    Search,
+    User
+} from 'lucide-react';
 import { Input } from '@/shared/ui/input';
 import { useAdminMe } from '../lib/hooks';
 

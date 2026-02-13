@@ -52,6 +52,10 @@ app.get("/", (req: Request, res: Response) => {
     res.send("Working !");
 });
 
+app.get("/favicon.ico", (req: Request, res: Response) => {
+    res.status(204).end();
+});
+
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/sms", smsRoutes);
@@ -62,6 +66,14 @@ app.use("/api/review", reviewRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/notification", notificationRoutes);
 app.use("/api/chat", chatRoutes);
+
+// 404 handler
+app.use((req: Request, res: Response) => {
+    res.status(404).json({
+        message: `Route ${req.originalUrl} not found`,
+        ok: false
+    });
+});
 
 // error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -23,47 +23,43 @@ import {
   Star,
 } from "lucide-react";
 import {
-  useRef
+  useRef,
 } from "react";
 import { useProducts } from "@/features/products/lib/hooks";
 
 import ShoppingCartIcon from "../../../public/icons/shoppingcart.png";
+import Futbolka from "../../../public/icons/futbolka.png";
 import TufliIcon from "../../../public/icons/tufli.png";
 import KiyimIcon from "../../../public/icons/kiyim.png";
-import Futbolka from "../../../public/icons/futbolka.png";
 
+const logos = [
+  {
+    name: "VERCAGE",
+    style: "font-radiant text-sm font-bold text-5xl"
+  },
+  {
+    name: "ZARA",
+    style: "font-didot text-sm font-bold text-5xl"
+
+  }, {
+    name: "GUCCI",
+    style: "font-granjon text-sm font-bold text-5xl"
+  }, {
+    name: "PRADA",
+    style: "font-rosan text-sm font-bold text-5xl"
+  },
+  {
+    name: "Calvin Klein",
+    style: "font-futura text-sm font-bold text-5xl"
+  }
+]
 
 export default function Welcome() {
-  // Fetch products for "New Arrivals" section
+  const { data: bestSellers, isLoading: loadingBest } = useProducts({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' });
   const { data: newArrivals, isLoading: loadingNew } = useProducts({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' });
 
-  // Fetch products for "Best Sellers" section
-  const { data: bestSellers, isLoading: loadingBest } = useProducts({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' });
-
-  const logos = [
-    {
-      name: "VERCAGE",
-      style: "font-radiant text-sm font-bold text-5xl"
-    },
-    {
-      name: "ZARA",
-      style: "font-didot text-sm font-bold text-5xl"
-
-    }, {
-      name: "GUCCI",
-      style: "font-granjon text-sm font-bold text-5xl"
-    }, {
-      name: "PRADA",
-      style: "font-rosan text-sm font-bold text-5xl"
-    },
-    {
-      name: "Calvin Klein",
-      style: "font-futura text-sm font-bold text-5xl"
-    }
-  ]
-
-  const reviewRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const reviewRef = useRef<HTMLDivElement | null>(null);
 
   const handleScroll = (direction: "left" | "right") => {
     if (wrapperRef.current && reviewRef.current) {
@@ -74,7 +70,7 @@ export default function Welcome() {
         behavior: "smooth"
       })
     }
-  }
+  };
 
   return (
     <div>
@@ -178,7 +174,7 @@ export default function Welcome() {
 
           <div className="flex items-center justify-center mt-10">
             <Button className="bg-[#fff]/50 text-[#000] hover:border-[#000]/100 btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl">
-              View All
+              Ko'proq ko'rish
             </Button>
           </div>
         </div>

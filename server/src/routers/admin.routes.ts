@@ -3,10 +3,10 @@ import {
 } from "express";
 import {
     validate
-} from "../middleware/validate.middleware";
+} from "../middleware/validate.middleware.js";
 import {
     createRoleSchema
-} from "../validators/admin.validator";
+} from "../validators/admin.validator.js";
 import {
     createAdmin,
     getAdmins,
@@ -14,16 +14,16 @@ import {
     updateAdmin,
     deleteAdmin,
     getAdminMe
-} from "../controllers/admin.controller";
-import { checkAdmins } from "../middleware/admin.middleware";
+} from "../controllers/admin.controller.js";
+import { checkAdmins } from "../middleware/admin.middleware.js";
 
 const router = Router();
 
+router.get("/me", checkAdmins, getAdminMe);
 router.get("/", getAdmins);
 router.get("/:id", getAdminById);
 router.post("/", validate(createRoleSchema), createAdmin);
 router.put("/:id", updateAdmin);
 router.delete("/:id", deleteAdmin);
-router.get("/admin/me", checkAdmins, getAdminMe);
 
 export default router;

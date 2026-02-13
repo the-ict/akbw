@@ -16,5 +16,5 @@ export const deleteAdminRequest = async (id: number) => {
 };
 
 export const adminMeRequest = async () => {
-    return (await httpClient.get(`${ENDP_ADMIN}/admin/me`)).data;
+    return (await httpClient.get(`${ENDP_ADMIN}/me`)).data;
 };
