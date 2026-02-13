@@ -285,6 +285,7 @@ exports.Prisma.AskForChatMessagesScalarFieldEnum = {
   chat_id: 'chat_id',
   sender_id: 'sender_id',
   message: 'message',
+  photo: 'photo',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

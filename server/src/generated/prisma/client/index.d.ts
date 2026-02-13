@@ -24188,6 +24188,7 @@ export namespace Prisma {
     chat_id: number | null
     sender_id: string | null
     message: string | null
+    photo: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24197,6 +24198,7 @@ export namespace Prisma {
     chat_id: number | null
     sender_id: string | null
     message: string | null
+    photo: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -24206,6 +24208,7 @@ export namespace Prisma {
     chat_id: number
     sender_id: number
     message: number
+    photo: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -24227,6 +24230,7 @@ export namespace Prisma {
     chat_id?: true
     sender_id?: true
     message?: true
+    photo?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24236,6 +24240,7 @@ export namespace Prisma {
     chat_id?: true
     sender_id?: true
     message?: true
+    photo?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -24245,6 +24250,7 @@ export namespace Prisma {
     chat_id?: true
     sender_id?: true
     message?: true
+    photo?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -24341,6 +24347,7 @@ export namespace Prisma {
     chat_id: number
     sender_id: string
     message: string
+    photo: string | null
     createdAt: Date
     updatedAt: Date
     _count: AskForChatMessagesCountAggregateOutputType | null
@@ -24369,6 +24376,7 @@ export namespace Prisma {
     chat_id?: boolean
     sender_id?: boolean
     message?: boolean
+    photo?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     chat?: boolean | AskForChatDefaultArgs<ExtArgs>
@@ -24380,6 +24388,7 @@ export namespace Prisma {
     chat_id?: boolean
     sender_id?: boolean
     message?: boolean
+    photo?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     chat?: boolean | AskForChatDefaultArgs<ExtArgs>
@@ -24391,6 +24400,7 @@ export namespace Prisma {
     chat_id?: boolean
     sender_id?: boolean
     message?: boolean
+    photo?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     chat?: boolean | AskForChatDefaultArgs<ExtArgs>
@@ -24402,11 +24412,12 @@ export namespace Prisma {
     chat_id?: boolean
     sender_id?: boolean
     message?: boolean
+    photo?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AskForChatMessagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chat_id" | "sender_id" | "message" | "createdAt" | "updatedAt", ExtArgs["result"]["askForChatMessages"]>
+  export type AskForChatMessagesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chat_id" | "sender_id" | "message" | "photo" | "createdAt" | "updatedAt", ExtArgs["result"]["askForChatMessages"]>
   export type AskForChatMessagesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     chat?: boolean | AskForChatDefaultArgs<ExtArgs>
     sender?: boolean | UserDefaultArgs<ExtArgs>
@@ -24431,6 +24442,7 @@ export namespace Prisma {
       chat_id: number
       sender_id: string
       message: string
+      photo: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["askForChatMessages"]>
@@ -24862,6 +24874,7 @@ export namespace Prisma {
     readonly chat_id: FieldRef<"AskForChatMessages", 'Int'>
     readonly sender_id: FieldRef<"AskForChatMessages", 'String'>
     readonly message: FieldRef<"AskForChatMessages", 'String'>
+    readonly photo: FieldRef<"AskForChatMessages", 'String'>
     readonly createdAt: FieldRef<"AskForChatMessages", 'DateTime'>
     readonly updatedAt: FieldRef<"AskForChatMessages", 'DateTime'>
   }
@@ -25514,6 +25527,7 @@ export namespace Prisma {
     chat_id: 'chat_id',
     sender_id: 'sender_id',
     message: 'message',
+    photo: 'photo',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -26771,6 +26785,7 @@ export namespace Prisma {
     chat_id?: IntFilter<"AskForChatMessages"> | number
     sender_id?: StringFilter<"AskForChatMessages"> | string
     message?: StringFilter<"AskForChatMessages"> | string
+    photo?: StringNullableFilter<"AskForChatMessages"> | string | null
     createdAt?: DateTimeFilter<"AskForChatMessages"> | Date | string
     updatedAt?: DateTimeFilter<"AskForChatMessages"> | Date | string
     chat?: XOR<AskForChatScalarRelationFilter, AskForChatWhereInput>
@@ -26782,6 +26797,7 @@ export namespace Prisma {
     chat_id?: SortOrder
     sender_id?: SortOrder
     message?: SortOrder
+    photo?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     chat?: AskForChatOrderByWithRelationInput
@@ -26796,6 +26812,7 @@ export namespace Prisma {
     chat_id?: IntFilter<"AskForChatMessages"> | number
     sender_id?: StringFilter<"AskForChatMessages"> | string
     message?: StringFilter<"AskForChatMessages"> | string
+    photo?: StringNullableFilter<"AskForChatMessages"> | string | null
     createdAt?: DateTimeFilter<"AskForChatMessages"> | Date | string
     updatedAt?: DateTimeFilter<"AskForChatMessages"> | Date | string
     chat?: XOR<AskForChatScalarRelationFilter, AskForChatWhereInput>
@@ -26807,6 +26824,7 @@ export namespace Prisma {
     chat_id?: SortOrder
     sender_id?: SortOrder
     message?: SortOrder
+    photo?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AskForChatMessagesCountOrderByAggregateInput
@@ -26824,6 +26842,7 @@ export namespace Prisma {
     chat_id?: IntWithAggregatesFilter<"AskForChatMessages"> | number
     sender_id?: StringWithAggregatesFilter<"AskForChatMessages"> | string
     message?: StringWithAggregatesFilter<"AskForChatMessages"> | string
+    photo?: StringNullableWithAggregatesFilter<"AskForChatMessages"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"AskForChatMessages"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"AskForChatMessages"> | Date | string
   }
@@ -27966,6 +27985,7 @@ export namespace Prisma {
 
   export type AskForChatMessagesCreateInput = {
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     chat: AskForChatCreateNestedOneWithoutMessagesInput
@@ -27977,12 +27997,14 @@ export namespace Prisma {
     chat_id: number
     sender_id: string
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type AskForChatMessagesUpdateInput = {
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chat?: AskForChatUpdateOneRequiredWithoutMessagesNestedInput
@@ -27994,6 +28016,7 @@ export namespace Prisma {
     chat_id?: IntFieldUpdateOperationsInput | number
     sender_id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28003,12 +28026,14 @@ export namespace Prisma {
     chat_id: number
     sender_id: string
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type AskForChatMessagesUpdateManyMutationInput = {
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28018,6 +28043,7 @@ export namespace Prisma {
     chat_id?: IntFieldUpdateOperationsInput | number
     sender_id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28972,6 +28998,21 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type AskForChatScalarRelationFilter = {
     is?: AskForChatWhereInput
     isNot?: AskForChatWhereInput
@@ -28982,6 +29023,7 @@ export namespace Prisma {
     chat_id?: SortOrder
     sender_id?: SortOrder
     message?: SortOrder
+    photo?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -28996,6 +29038,7 @@ export namespace Prisma {
     chat_id?: SortOrder
     sender_id?: SortOrder
     message?: SortOrder
+    photo?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -29005,6 +29048,7 @@ export namespace Prisma {
     chat_id?: SortOrder
     sender_id?: SortOrder
     message?: SortOrder
+    photo?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -29012,6 +29056,24 @@ export namespace Prisma {
   export type AskForChatMessagesSumOrderByAggregateInput = {
     id?: SortOrder
     chat_id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type HelpChatMessagesCreateNestedManyWithoutSenderInput = {
@@ -30036,6 +30098,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type AskForChatUpdateOneRequiredWithoutMessagesNestedInput = {
     create?: XOR<AskForChatCreateWithoutMessagesInput, AskForChatUncheckedCreateWithoutMessagesInput>
     connectOrCreate?: AskForChatCreateOrConnectWithoutMessagesInput
@@ -30184,6 +30250,37 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type HelpChatMessagesCreateWithoutSenderInput = {
     message: string
     createdAt?: Date | string
@@ -30211,6 +30308,7 @@ export namespace Prisma {
 
   export type AskForChatMessagesCreateWithoutSenderInput = {
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     chat: AskForChatCreateNestedOneWithoutMessagesInput
@@ -30220,6 +30318,7 @@ export namespace Prisma {
     id?: number
     chat_id: number
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -30342,6 +30441,7 @@ export namespace Prisma {
     chat_id?: IntFilter<"AskForChatMessages"> | number
     sender_id?: StringFilter<"AskForChatMessages"> | string
     message?: StringFilter<"AskForChatMessages"> | string
+    photo?: StringNullableFilter<"AskForChatMessages"> | string | null
     createdAt?: DateTimeFilter<"AskForChatMessages"> | Date | string
     updatedAt?: DateTimeFilter<"AskForChatMessages"> | Date | string
   }
@@ -31689,6 +31789,7 @@ export namespace Prisma {
 
   export type AskForChatMessagesCreateWithoutChatInput = {
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     sender: UserCreateNestedOneWithoutAskForChatMessagesInput
@@ -31698,6 +31799,7 @@ export namespace Prisma {
     id?: number
     sender_id: string
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31854,6 +31956,7 @@ export namespace Prisma {
     id?: number
     chat_id: number
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -31902,6 +32005,7 @@ export namespace Prisma {
 
   export type AskForChatMessagesUpdateWithoutSenderInput = {
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     chat?: AskForChatUpdateOneRequiredWithoutMessagesNestedInput
@@ -31911,6 +32015,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     chat_id?: IntFieldUpdateOperationsInput | number
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -31919,6 +32024,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     chat_id?: IntFieldUpdateOperationsInput | number
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32423,12 +32529,14 @@ export namespace Prisma {
     id?: number
     sender_id: string
     message: string
+    photo?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type AskForChatMessagesUpdateWithoutChatInput = {
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sender?: UserUpdateOneRequiredWithoutAskForChatMessagesNestedInput
@@ -32438,6 +32546,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     sender_id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -32446,6 +32555,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     sender_id?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

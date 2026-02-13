@@ -1,5 +1,9 @@
 import { prisma } from "../db/client";
-import type { NextFunction, Request, Response } from "express";
+import type {
+    NextFunction,
+    Request,
+    Response
+} from "express";
 
 export const createHelpChat = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -53,8 +57,17 @@ export const createAskForProductChat = async (req: Request, res: Response, next:
 
 export const createAskForProductMessage = async (req: Request, res: Response, next: NextFunction) => {
     try {
+        const askForProductChatMessage = await prisma.askForChatMessages.create({
+            data: {
+                sender_id: req.body.sender_id,
+                chat_id: req.body.chat_id,
+                message: req.body.message,
+                photo: req.body.phone ? req.body.phone : "",
+            }
+        })
 
+        return res.status(201).json(askForProductChatMessage);
     } catch (error) {
-
+        next(error);
     }
-}
+};
