@@ -1,7 +1,6 @@
 import {
     Star,
     Heart,
-    ShoppingCart
 } from "lucide-react";
 import Image from "next/image";
 import {
@@ -50,7 +49,7 @@ export default function Product({ product }: ProductProps) {
             <div className="relative w-full aspect-[3/4] rounded-2xl overflow-hidden bg-[#F0EEED]">
                 <Image
                     src={firstImage}
-                    alt={product.name}
+                    alt={product.name || "product image"}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />

@@ -24,9 +24,11 @@ import {
 } from "lucide-react";
 import {
   useRef,
+  useState,
 } from "react";
 import { useRecommendedProducts } from "@/features/products/lib/hooks";
 import { IProduct } from "@/shared/config/api/product/product.model";
+import { Link } from "@/shared/config/i18n/navigation";
 
 import ShoppingCartIcon from "../../../public/icons/shoppingcart.png";
 import Futbolka from "../../../public/icons/futbolka.png";
@@ -57,9 +59,14 @@ const logos = [
 
 export default function Welcome() {
   const { data: recommendedData, isLoading } = useRecommendedProducts();
+  const [showAllNewest, setShowAllNewest] = useState(false);
+  const [showAllMostSold, setShowAllMostSold] = useState(false);
 
   const newest = recommendedData?.newest || [];
   const mostSold = recommendedData?.mostSold || [];
+
+  const displayNewest = showAllNewest ? newest : newest.slice(0, 4);
+  const displayMostSold = showAllMostSold ? mostSold : mostSold.slice(0, 4);
 
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const reviewRef = useRef<HTMLDivElement | null>(null);
@@ -87,9 +94,11 @@ export default function Welcome() {
             <br />
             Biz kiyimga bo‘lgan munosabatni o‘zgartiramiz. Chunki kiyim — shunchaki kundalik vosita emas, u sizning tashqi ko‘rinishingiz va o‘zingizga bo‘lgan ishonchingizdir.
           </p>
-          <Button className="w-full lg:w-fit rounded-full btn-welcome font-bold" size={"lg"} variant={"outline"}>
-            Maxsulotlarni ko'rish
-          </Button>
+          <Link href="/filters">
+            <Button className="w-full lg:w-fit rounded-full btn-welcome font-bold" size={"lg"} variant={"outline"}>
+              Maxsulotlarni ko'rish
+            </Button>
+          </Link>
           <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 lg:gap-10 mt-5">
             <div className="text-center lg:text-left">
               <p className="text-2xl lg:text-3xl font-bold text-center">1000+</p>
@@ -168,18 +177,23 @@ export default function Welcome() {
                   <div key={index} className="w-full aspect-[3/4] rounded-2xl bg-gray-200 animate-pulse" />
                 ))
               ) : (
-                newest.map((product: IProduct) => (
+                displayNewest.map((product: IProduct) => (
                   <Product key={product.id} product={product} />
                 ))
               )
             }
           </div>
 
-          <div className="flex items-center justify-center mt-10">
-            <Button className="bg-[#fff]/50 text-[#000] hover:border-[#000]/100 btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl">
-              Ko'proq ko'rish
-            </Button>
-          </div>
+          {!isLoading && newest.length > 4 && (
+            <div className="flex items-center justify-center mt-10">
+              <Button
+                onClick={() => setShowAllNewest(!showAllNewest)}
+                className="bg-[#fff]/50 text-[#000] hover:border-[#000]/100 btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl"
+              >
+                {showAllNewest ? "Kamroq ko'rish" : "Ko'proq ko'rish"}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
       <hr />
@@ -196,18 +210,23 @@ export default function Welcome() {
                   <div key={index} className="w-full aspect-[3/4] rounded-2xl bg-gray-200 animate-pulse" />
                 ))
               ) : (
-                mostSold.map((product: IProduct) => (
+                displayMostSold.map((product: IProduct) => (
                   <Product key={product.id} product={product} />
                 ))
               )
             }
           </div>
 
-          <div className="flex items-center justify-center mt-10">
-            <Button className="bg-[#fff]/50 text-[#000] hover:border-[#000]/100 btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl">
-              View All
-            </Button>
-          </div>
+          {!isLoading && mostSold.length > 4 && (
+            <div className="flex items-center justify-center mt-10">
+              <Button
+                onClick={() => setShowAllMostSold(!showAllMostSold)}
+                className="bg-[#fff]/50 text-[#000] hover:border-[#000]/100 btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl"
+              >
+                {showAllMostSold ? "Show Less" : "View All"}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 
