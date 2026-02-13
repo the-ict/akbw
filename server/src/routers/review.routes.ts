@@ -4,7 +4,8 @@ import {
     getProductReviews,
     getAllReviews,
     deleteReview,
-    updateReview
+    updateReview,
+    getTopReviews
 } from "../controllers/review.controller.js";
 import {
     validate
@@ -29,5 +30,7 @@ router.get("/", getAllReviews);
 router.put("/:reviewId", auth, validate(createReviewSchema), updateReview);
 
 router.delete("/:reviewId", auth, deleteReview);
+
+router.get("/top", getTopReviews);
 
 export default router;

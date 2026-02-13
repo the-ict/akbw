@@ -138,6 +138,51 @@ export const updateReview = async (req: Request, res: Response) => {
     }
 };
 
+export const getTopReviews = async (req: Request, res: Response) => {
+    try {
+        const threshold = 10;
+        const minRating = 2;
+
+        const count = await prisma.reviews.count({
+            where: {
+                rating: {
+                    gte: minRating
+                }
+            }
+        });
+
+        if (count < threshold) {
+            return res.json({
+                data: [],
+                message: "Not enough reviews to display"
+            });
+        }
+
+        const reviews = await prisma.reviews.findMany({
+            where: {
+                rating: {
+                    gte: minRating
+                }
+            },
+            orderBy: {
+                createdAt: "desc"
+            },
+            take: 20, // Limit to recent top reviews
+            include: {
+                user: true
+            }
+        });
+
+        return res.json({
+            data: reviews,
+            ok: true
+        });
+    } catch (error) {
+        console.error("Error fetching top reviews:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 export const deleteReview = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { reviewId } = req.params;

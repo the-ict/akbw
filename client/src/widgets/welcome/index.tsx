@@ -9,10 +9,6 @@ import {
   cn
 } from "@/shared/lib/utils";
 import Product from "../product";
-import OverSize from "../../../public/assets/oversize.jpg";
-import OldMoney from "../../../public/assets/oldmoney.jpg";
-import SportStyle from "../../../public/assets/sport-style.jpg";
-import Minimalistik from "../../../public/assets/minimalistik.jpg";
 import {
   monsterrat
 } from "@/shared/fonts";
@@ -23,6 +19,7 @@ import {
   Star,
 } from "lucide-react";
 import {
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -58,15 +55,20 @@ const logos = [
   }
 ]
 
+import { useTopReviews } from "@/features/reviews/lib/hooks";
+
 export default function Welcome() {
   const { data: recommendedData, isLoading } = useRecommendedProducts();
-  const { data: stylesData } = useStyles();
-  const [showAllNewest, setShowAllNewest] = useState(false);
-  const [showAllMostSold, setShowAllMostSold] = useState(false);
+  const { data: stylesData, isLoading: isLoadingStyles } = useStyles();
+  const { data: topReviewsData, isLoading: isLoadingReviews } = useTopReviews();
+  const [showAllNewest, setShowAllNewest] = useState<boolean>(false);
+  const [showAllMostSold, setShowAllMostSold] = useState<boolean>(false);
+  const [showAllReviews, setShowAllReviews] = useState<boolean>(false);
 
   const newest = recommendedData?.newest || [];
   const mostSold = recommendedData?.mostSold || [];
   const styles = stylesData?.data || [];
+  const reviews = topReviewsData?.data || [];
 
   const displayNewest = showAllNewest ? newest : newest.slice(0, 4);
   const displayMostSold = showAllMostSold ? mostSold : mostSold.slice(0, 4);
@@ -84,6 +86,14 @@ export default function Welcome() {
       })
     }
   };
+
+  useEffect(() => {
+    if (topReviewsData && topReviewsData?.data.length >= 10) {
+      setShowAllReviews(true);
+    } else {
+      setShowAllReviews(false);
+    }
+  }, [topReviewsData])
 
   return (
     <div>
@@ -248,8 +258,6 @@ export default function Welcome() {
             <div key={rowIndex} className="flex flex-col lg:flex-row gap-5 w-full">
               {pair.map((style: IStyle, colIndex: number) => {
                 const isFirst = colIndex === 0;
-                // Swap ratios every row for visual interest, or keep consistent
-                // Original: row 1 (3,7), row 2 (7,3)
                 const isThree = (rowIndex % 2 === 0) ? isFirst : !isFirst;
 
                 return (
@@ -299,47 +307,33 @@ export default function Welcome() {
         </div>
 
         <div className="flex gap-5 overflow-x-scroll px-5 no-scrollbar" ref={wrapperRef}>
-          {[
-            {
-              name: "Sarah M.",
-              text: "I'm blown away by the quality and style of the clothes I received from AKBW. From everyday essentials to standout pieces, every item I've purchased has exceeded my expectations.",
-            },
-            {
-              name: "Sarah M.",
-              text: "I'm blown away by the quality and style of the clothes I received from AKBW. From everyday essentials to standout pieces, every item I've purchased has exceeded my expectations.",
-            },
-            {
-              name: "Alex K.",
-              text: "Finding clothes that align with my personal style used to be a challenge until I discovered AKBW. The range of options they offer is truly remarkable, catering to a variety of tastes and occasions.",
-            },
-            {
-              name: "James L.",
-              text: "As someone who's always on the lookout for unique fashion pieces, I'm thrilled to have come across AKBW. The selection of clothes is not only diverse but also on-point with the latest trends.",
-            },
-            {
-              name: "Michael R.",
-              text: "The customer service at AKBW is top-notch. I had a small issue with my order and they handled it quickly and professionally. Plus, the clothes look even better in person!",
-            },
-            {
-              name: "Emma D.",
-              text: "I love the minimalist aesthetic of AKBW. The fabrics are so comfortable and the fit is perfect. Highly recommend for anyone looking for quality basics.",
-            },
-          ].map((review, index) => (
-            <div ref={reviewRef} key={index} className="flex flex-col gap-3 border-1 border-black/10 p-5 rounded-[20px] bg-[#D6D3CC]/20 w-[300px] shrink-0">
-              <div className="flex items-center gap-2">
-                <Star size={20} fill="yellow" className="text-yellow-500" />
-                <Star size={20} fill="yellow" className="text-yellow-500" />
-                <Star size={20} fill="yellow" className="text-yellow-500" />
-                <Star size={20} fill="yellow" className="text-yellow-500" />
-                <Star size={20} fill="yellow" className="text-yellow-500" />
+          {topReviewsData?.data && topReviewsData.data.length >= 10 ? (
+            topReviewsData.data.map((review: any, index: number) => (
+              <div ref={reviewRef} key={index} className="flex flex-col gap-3 border-1 border-black/10 p-5 rounded-[20px] bg-[#D6D3CC]/20 w-[300px] shrink-0">
+                <div className="flex items-center gap-2">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={20}
+                      fill={i < review.rating ? "yellow" : "none"}
+                      className={i < review.rating ? "text-yellow-500" : "text-gray-300"}
+                    />
+                  ))}
+                </div>
+                <div className="flex items-center gap-2">
+                  <h1 className="font-bold">{review.user?.name || "Anonim"}</h1>
+                  <MapPinCheckInside size={20} />
+                </div>
+                <p className="text-sm line-clamp-3">{review.comment}</p>
               </div>
-              <div className="flex items-center gap-2">
-                <h1 className="font-bold">{review.name}</h1>
-                <MapPinCheckInside size={20} />
+            ))
+          ) : (
+            !isLoadingReviews && (
+              <div className="w-full py-10 text-center text-gray-400">
+                <p>Hozircha sharhlar yetarli emas</p>
               </div>
-              <p className="text-sm line-clamp-3">{review.text}</p>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </div>

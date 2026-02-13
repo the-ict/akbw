@@ -22,3 +22,7 @@ export const deleteReviewRequest = async (reviewId: number): Promise<void> => {
 export const updateReviewRequest = async (reviewId: number, data: ICreateReviewRequest): Promise<IReview> => {
     return (await httpClient.put(`${ENDP_REVIEW}/${reviewId}`, data)).data;
 }
+
+export const getTopReviewsRequest = async (): Promise<{ data: IReview[], ok: boolean }> => {
+    return (await httpClient.get(`${ENDP_REVIEW}/top`)).data;
+}

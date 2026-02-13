@@ -36,7 +36,7 @@ const HorizontalLine = () => {
 
 export default function FilterPage() {
     const searchParams = useSearchParams();
-    const categoryParam = searchParams.get('category');
+    const categoryParam = searchParams.get('category') || searchParams.get('category_id');
     const searchParam = searchParams.get('q');
     const [isAll, setIsAll] = React.useState<boolean>(false);
     const [selectedCategory, setSelectedCategory] = React.useState<string | null | number>(categoryParam);
@@ -70,11 +70,11 @@ export default function FilterPage() {
     useEffect(() => {
         setAppliedFilters(prev => ({
             ...prev,
-            category_id: categoryParam || undefined,
+            category_id: (searchParams.get('category') || searchParams.get('category_id')) || undefined,
             q: searchParam || undefined,
             page: 1
         }));
-    }, [categoryParam, searchParam]);
+    }, [searchParams, searchParam]);
 
     const { data: categories, isLoading } = useCategories();
     const { data: colors, isLoading: colorsLoading } = useColors();

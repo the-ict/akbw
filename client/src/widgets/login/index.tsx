@@ -21,7 +21,10 @@ import {
 import React from "react";
 import * as z from "zod";
 import { useMutation } from "@tanstack/react-query";
-import { sendSms, verifySms } from "@/shared/config/api/sms/sms.request";
+import {
+    sendSms,
+    verifySms
+} from "@/shared/config/api/sms/sms.request";
 import { login } from "@/shared/config/api/auth/auth.request";
 import { useUserStore } from "@/shared/store/user.store";
 import UseAuth from "@/shared/hooks/use-auth";

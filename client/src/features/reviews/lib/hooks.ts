@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { createReviewRequest, getProductReviewsRequest, updateReviewRequest } from '@/shared/config/api/review/review.request';
+import { createReviewRequest, getProductReviewsRequest, updateReviewRequest, getTopReviewsRequest } from '@/shared/config/api/review/review.request';
 import { ICreateReviewRequest } from '@/shared/config/api/review/review.model';
 
 export const useProductReviews = (productId: number, page: number = 1, limit: number = 10) => {
@@ -28,5 +28,11 @@ export const useUpdateReview = (reviewId: number) => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['reviews'] });
         },
+    });
+};
+export const useTopReviews = () => {
+    return useQuery({
+        queryKey: ['top-reviews'],
+        queryFn: getTopReviewsRequest,
     });
 };
