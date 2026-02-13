@@ -7,7 +7,15 @@ export const getStylesRequest = async (): Promise<{ ok: boolean, data: IStyle[] 
 };
 
 export const createStyleRequest = async (data: ICreateStyle): Promise<{ ok: boolean, message: string, data: IStyle }> => {
-    return (await httpClient.post(ENDP_STYLE, data)).data;
+    const formData = new FormData();
+    formData.append("image", data.image);
+    formData.append("categoryId", data.categoryId.toString());
+
+    return (await httpClient.post(ENDP_STYLE, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })).data;
 };
 
 export const deleteStyleRequest = async (id: number): Promise<{ ok: boolean, message: string }> => {

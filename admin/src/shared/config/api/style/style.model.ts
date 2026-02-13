@@ -1,4 +1,4 @@
-import { ICategory } from "../product/product.modal";
+import { ICategory } from "../product/product.model";
 
 export interface IStyle {
     id: number;
@@ -10,6 +10,6 @@ export interface IStyle {
 }
 
 export interface ICreateStyle {
-    image: string;
+    image: File;
     categoryId: number;
 }

@@ -34,9 +34,21 @@ export const getStyles = async (req: Request, res: Response, next: NextFunction)
     }
 };
 
+import path from "path";
+
 export const createStyle = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { image, categoryId } = req.body;
+        const { categoryId } = req.body;
+
+        if (!req.file) {
+            return res.status(400).json({ message: "No image uploaded" });
+        }
+
+        const protocol = req.protocol;
+        const host = req.get("host");
+        const filePath = req.file.path.replace(/\\/g, "/");
+        const fileName = path.basename(filePath);
+        const image = `${protocol}://${host}/uploads/${fileName}`;
 
         const style = await prisma.styles.create({
             data: {

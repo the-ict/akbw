@@ -1,9 +1,10 @@
+"use client";
+
 import React, { useState } from "react";
 import { useStyles, useDeleteStyle } from "../lib/hooks";
 import { Plus, Trash2, Image as ImageIcon } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import AddStyleModal from "./AddStyleModal";
-import { toast } from "sonner";
 import { IStyle } from "@/shared/config/api/style/style.model";
 
 export default function Styles() {
