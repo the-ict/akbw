@@ -37,6 +37,12 @@ export default function ProductSupportChat() {
 
     const sendMessageMutation = useAdminSendMessage('ask');
 
+
+    const chat = inquiries.find((i: any) => i.id === selectedInquiryId);
+    console.log(chat, "chat");
+
+    const user = chat?.user;
+
     const handleSend = async () => {
         if (!message.trim() || !selectedInquiry) return;
         try {
@@ -85,6 +91,8 @@ export default function ProductSupportChat() {
         );
     };
 
+    if (!chat?.user) return null;
+
     return (
         <div className='flex h-[calc(100vh-140px)] bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm relative'>
 
@@ -131,10 +139,12 @@ export default function ProductSupportChat() {
                             )}
                         >
                             <div className='w-12 h-12 rounded-xl bg-gray-100 overflow-hidden shrink-0 border border-gray-100 flex items-center justify-center'>
-                                {inquiry.messages?.some((m: any) => m.photo) ? (
-                                    <img src={inquiry.messages.find((m: any) => m.photo).photo} className='w-full h-full object-cover' />
+                                {chat.user.profile_picture.length > 0 ? (
+                                    <img src={user.profile_picture} alt='some point ' />
                                 ) : (
-                                    <Box size={24} className='text-gray-300' />
+                                    <span className='text-gray-400 font-bold text-xl'>
+                                        {user.name.charAt(0).toUpperCase()}
+                                    </span>
                                 )}
                             </div>
                             <div className='flex-1 min-w-0'>
