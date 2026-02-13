@@ -1,6 +1,12 @@
-import { Router } from "express";
-import { validate } from "../middleware/validate.middleware";
-import { createRoleSchema } from "../validators/admin.validator";
+import {
+    Router
+} from "express";
+import {
+    validate
+} from "../middleware/validate.middleware";
+import {
+    createRoleSchema
+} from "../validators/admin.validator";
 import {
     createAdmin,
     getAdmins,
@@ -18,6 +24,6 @@ router.get("/:id", getAdminById);
 router.post("/", validate(createRoleSchema), createAdmin);
 router.put("/:id", updateAdmin);
 router.delete("/:id", deleteAdmin);
-router.get("/me", checkAdmins, getAdminMe);
+router.get("/admin/me", checkAdmins, getAdminMe);
 
 export default router;

@@ -14,3 +14,7 @@ export const createAdminRequest = async (data: any) => {
 export const deleteAdminRequest = async (id: number) => {
     return (await httpClient.delete(`${ENDP_ADMIN}/${id}`)).data;
 };
+
+export const adminMeRequest = async () => {
+    return (await httpClient.get(`${ENDP_ADMIN}/admin/me`)).data;
+};

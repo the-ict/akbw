@@ -145,9 +145,10 @@ export const getAdminMe = async (req: Request, res: Response, next: NextFunction
         const admin = req.admin;
 
         console.log("admin: ", admin);
+
         const me = await prisma.admins.findUnique({
             where: {
-                id: Number(admin)
+                id: admin.id
             },
             include: {
                 access: true,
@@ -155,7 +156,6 @@ export const getAdminMe = async (req: Request, res: Response, next: NextFunction
         });
 
         console.log("log info", me);
-
 
         return res.status(200).json({
             message: "Admin is found",
