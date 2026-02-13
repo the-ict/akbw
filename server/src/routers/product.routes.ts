@@ -25,7 +25,8 @@ import {
     getSizes,
     getColors,
     createSize,
-    createColor
+    createColor,
+    recomentAll
 } from "../controllers/product.controller.js";
 
 
@@ -47,9 +48,11 @@ router.post("/sizes", createSize);
 router.get("/colors", langaugeMiddleware, getColors);
 router.post("/colors", createColor);
 
+router.get("/recomended/all", recomentAll);
 router.get("/:id", langaugeMiddleware, getProductById);
 router.post("/", validate(createProductSchema), createProduct);
 router.put("/:id", validate(updateProductSchema), updateProduct);
 router.delete("/:id", deleteProduct);
+
 
 export default router;

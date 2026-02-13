@@ -4,6 +4,7 @@ import type {
     Response
 } from "express";
 import { prisma } from "../db/client.js";
+import { Z_DEFAULT_STRATEGY } from "node:zlib";
 
 const localizeCategory = (c: any, lang: string) => ({
     ...c,
@@ -494,3 +495,71 @@ export const createColor = async (req: Request, res: Response, next: NextFunctio
         next(error);
     }
 };
+
+
+export const recomentAll = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const now = new Date();
+        const thirtyDaysAgo = new Date();
+        thirtyDaysAgo.setDate(now.getDate() - 30);
+
+        const newestProducts = await prisma.products.findMany({
+            where: {
+                createdAt: {
+                    gte: thirtyDaysAgo,
+                    lte: now,
+                }
+            },
+            include: {
+                translations: true,
+                categories: {
+                    include: {
+                        translations: true
+                    }
+                },
+                reviews: true
+            }
+        });
+
+        const allOrders = await prisma.orders.findMany({
+            select: { items: true }
+        });
+
+        const soldCount: Record<number, number> = {};
+        allOrders.forEach(order => {
+            order.items.forEach(itemId => {
+                soldCount[itemId] = (soldCount[itemId] || 0) + 1;
+            });
+        });
+
+        const topSoldIds = Object.entries(soldCount)
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 10)
+            .map(([id]) => Number(id));
+
+        const mostSoldProducts = await prisma.products.findMany({
+            where: {
+                id: { in: topSoldIds }
+            },
+            include: {
+                translations: true,
+                categories: {
+                    include: {
+                        translations: true
+                    }
+                },
+                reviews: true
+            }
+        });
+
+        const sortedMostSold = mostSoldProducts.sort((a, b) => (soldCount[b.id] || 0) - (soldCount[a.id] || 0));
+
+        return res.status(200).json({
+            ok: true,
+            newest: newestProducts,
+            mostSold: sortedMostSold
+        });
+    } catch (error) {
+        next(error);
+    }
+}
