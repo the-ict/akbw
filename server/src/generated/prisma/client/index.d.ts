@@ -49,6 +49,11 @@ export type ProductTranslations = $Result.DefaultSelection<Prisma.$ProductTransl
  */
 export type Categories = $Result.DefaultSelection<Prisma.$CategoriesPayload>
 /**
+ * Model Styles
+ * 
+ */
+export type Styles = $Result.DefaultSelection<Prisma.$StylesPayload>
+/**
  * Model CategoryTranslations
  * 
  */
@@ -300,6 +305,16 @@ export class PrismaClient<
     * ```
     */
   get categories(): Prisma.CategoriesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.styles`: Exposes CRUD operations for the **Styles** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Styles
+    * const styles = await prisma.styles.findMany()
+    * ```
+    */
+  get styles(): Prisma.StylesDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.categoryTranslations`: Exposes CRUD operations for the **CategoryTranslations** model.
@@ -871,6 +886,7 @@ export namespace Prisma {
     Products: 'Products',
     ProductTranslations: 'ProductTranslations',
     Categories: 'Categories',
+    Styles: 'Styles',
     CategoryTranslations: 'CategoryTranslations',
     Sizes: 'Sizes',
     SizeTranslations: 'SizeTranslations',
@@ -899,7 +915,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "verify" | "admins" | "access" | "products" | "productTranslations" | "categories" | "categoryTranslations" | "sizes" | "sizeTranslations" | "colors" | "colorTranslations" | "reviews" | "coupons" | "orders" | "notifications" | "helpChat" | "helpChatMessages" | "askForChat" | "askForChatMessages"
+      modelProps: "user" | "verify" | "admins" | "access" | "products" | "productTranslations" | "categories" | "styles" | "categoryTranslations" | "sizes" | "sizeTranslations" | "colors" | "colorTranslations" | "reviews" | "coupons" | "orders" | "notifications" | "helpChat" | "helpChatMessages" | "askForChat" | "askForChatMessages"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1418,6 +1434,80 @@ export namespace Prisma {
           count: {
             args: Prisma.CategoriesCountArgs<ExtArgs>
             result: $Utils.Optional<CategoriesCountAggregateOutputType> | number
+          }
+        }
+      }
+      Styles: {
+        payload: Prisma.$StylesPayload<ExtArgs>
+        fields: Prisma.StylesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.StylesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.StylesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>
+          }
+          findFirst: {
+            args: Prisma.StylesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.StylesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>
+          }
+          findMany: {
+            args: Prisma.StylesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>[]
+          }
+          create: {
+            args: Prisma.StylesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>
+          }
+          createMany: {
+            args: Prisma.StylesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.StylesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>[]
+          }
+          delete: {
+            args: Prisma.StylesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>
+          }
+          update: {
+            args: Prisma.StylesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>
+          }
+          deleteMany: {
+            args: Prisma.StylesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.StylesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.StylesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>[]
+          }
+          upsert: {
+            args: Prisma.StylesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$StylesPayload>
+          }
+          aggregate: {
+            args: Prisma.StylesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateStyles>
+          }
+          groupBy: {
+            args: Prisma.StylesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<StylesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.StylesCountArgs<ExtArgs>
+            result: $Utils.Optional<StylesCountAggregateOutputType> | number
           }
         }
       }
@@ -2498,6 +2588,7 @@ export namespace Prisma {
     products?: ProductsOmit
     productTranslations?: ProductTranslationsOmit
     categories?: CategoriesOmit
+    styles?: StylesOmit
     categoryTranslations?: CategoryTranslationsOmit
     sizes?: SizesOmit
     sizeTranslations?: SizeTranslationsOmit
@@ -2816,11 +2907,13 @@ export namespace Prisma {
   export type CategoriesCountOutputType = {
     products: number
     translations: number
+    styles: number
   }
 
   export type CategoriesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | CategoriesCountOutputTypeCountProductsArgs
     translations?: boolean | CategoriesCountOutputTypeCountTranslationsArgs
+    styles?: boolean | CategoriesCountOutputTypeCountStylesArgs
   }
 
   // Custom InputTypes
@@ -2846,6 +2939,13 @@ export namespace Prisma {
    */
   export type CategoriesCountOutputTypeCountTranslationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: CategoryTranslationsWhereInput
+  }
+
+  /**
+   * CategoriesCountOutputType without action
+   */
+  export type CategoriesCountOutputTypeCountStylesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StylesWhereInput
   }
 
 
@@ -10120,6 +10220,7 @@ export namespace Prisma {
     updatedAt?: boolean
     products?: boolean | Categories$productsArgs<ExtArgs>
     translations?: boolean | Categories$translationsArgs<ExtArgs>
+    styles?: boolean | Categories$stylesArgs<ExtArgs>
     _count?: boolean | CategoriesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["categories"]>
 
@@ -10145,6 +10246,7 @@ export namespace Prisma {
   export type CategoriesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     products?: boolean | Categories$productsArgs<ExtArgs>
     translations?: boolean | Categories$translationsArgs<ExtArgs>
+    styles?: boolean | Categories$stylesArgs<ExtArgs>
     _count?: boolean | CategoriesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type CategoriesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -10155,6 +10257,7 @@ export namespace Prisma {
     objects: {
       products: Prisma.$ProductsPayload<ExtArgs>[]
       translations: Prisma.$CategoryTranslationsPayload<ExtArgs>[]
+      styles: Prisma.$StylesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -10556,6 +10659,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     products<T extends Categories$productsArgs<ExtArgs> = {}>(args?: Subset<T, Categories$productsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProductsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     translations<T extends Categories$translationsArgs<ExtArgs> = {}>(args?: Subset<T, Categories$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CategoryTranslationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    styles<T extends Categories$stylesArgs<ExtArgs> = {}>(args?: Subset<T, Categories$stylesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11024,6 +11128,30 @@ export namespace Prisma {
   }
 
   /**
+   * Categories.styles
+   */
+  export type Categories$stylesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    where?: StylesWhereInput
+    orderBy?: StylesOrderByWithRelationInput | StylesOrderByWithRelationInput[]
+    cursor?: StylesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StylesScalarFieldEnum | StylesScalarFieldEnum[]
+  }
+
+  /**
    * Categories without action
    */
   export type CategoriesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11039,6 +11167,1102 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CategoriesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Styles
+   */
+
+  export type AggregateStyles = {
+    _count: StylesCountAggregateOutputType | null
+    _avg: StylesAvgAggregateOutputType | null
+    _sum: StylesSumAggregateOutputType | null
+    _min: StylesMinAggregateOutputType | null
+    _max: StylesMaxAggregateOutputType | null
+  }
+
+  export type StylesAvgAggregateOutputType = {
+    id: number | null
+    categoryId: number | null
+  }
+
+  export type StylesSumAggregateOutputType = {
+    id: number | null
+    categoryId: number | null
+  }
+
+  export type StylesMinAggregateOutputType = {
+    id: number | null
+    image: string | null
+    categoryId: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StylesMaxAggregateOutputType = {
+    id: number | null
+    image: string | null
+    categoryId: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type StylesCountAggregateOutputType = {
+    id: number
+    image: number
+    categoryId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type StylesAvgAggregateInputType = {
+    id?: true
+    categoryId?: true
+  }
+
+  export type StylesSumAggregateInputType = {
+    id?: true
+    categoryId?: true
+  }
+
+  export type StylesMinAggregateInputType = {
+    id?: true
+    image?: true
+    categoryId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StylesMaxAggregateInputType = {
+    id?: true
+    image?: true
+    categoryId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type StylesCountAggregateInputType = {
+    id?: true
+    image?: true
+    categoryId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type StylesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Styles to aggregate.
+     */
+    where?: StylesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Styles to fetch.
+     */
+    orderBy?: StylesOrderByWithRelationInput | StylesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: StylesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Styles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Styles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Styles
+    **/
+    _count?: true | StylesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: StylesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: StylesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: StylesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: StylesMaxAggregateInputType
+  }
+
+  export type GetStylesAggregateType<T extends StylesAggregateArgs> = {
+        [P in keyof T & keyof AggregateStyles]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateStyles[P]>
+      : GetScalarType<T[P], AggregateStyles[P]>
+  }
+
+
+
+
+  export type StylesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StylesWhereInput
+    orderBy?: StylesOrderByWithAggregationInput | StylesOrderByWithAggregationInput[]
+    by: StylesScalarFieldEnum[] | StylesScalarFieldEnum
+    having?: StylesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: StylesCountAggregateInputType | true
+    _avg?: StylesAvgAggregateInputType
+    _sum?: StylesSumAggregateInputType
+    _min?: StylesMinAggregateInputType
+    _max?: StylesMaxAggregateInputType
+  }
+
+  export type StylesGroupByOutputType = {
+    id: number
+    image: string
+    categoryId: number
+    createdAt: Date
+    updatedAt: Date
+    _count: StylesCountAggregateOutputType | null
+    _avg: StylesAvgAggregateOutputType | null
+    _sum: StylesSumAggregateOutputType | null
+    _min: StylesMinAggregateOutputType | null
+    _max: StylesMaxAggregateOutputType | null
+  }
+
+  type GetStylesGroupByPayload<T extends StylesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<StylesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof StylesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], StylesGroupByOutputType[P]>
+            : GetScalarType<T[P], StylesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type StylesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    image?: boolean
+    categoryId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["styles"]>
+
+  export type StylesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    image?: boolean
+    categoryId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["styles"]>
+
+  export type StylesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    image?: boolean
+    categoryId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["styles"]>
+
+  export type StylesSelectScalar = {
+    id?: boolean
+    image?: boolean
+    categoryId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type StylesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "image" | "categoryId" | "createdAt" | "updatedAt", ExtArgs["result"]["styles"]>
+  export type StylesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
+  }
+  export type StylesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
+  }
+  export type StylesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    category?: boolean | CategoriesDefaultArgs<ExtArgs>
+  }
+
+  export type $StylesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Styles"
+    objects: {
+      category: Prisma.$CategoriesPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      image: string
+      categoryId: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["styles"]>
+    composites: {}
+  }
+
+  type StylesGetPayload<S extends boolean | null | undefined | StylesDefaultArgs> = $Result.GetResult<Prisma.$StylesPayload, S>
+
+  type StylesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<StylesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: StylesCountAggregateInputType | true
+    }
+
+  export interface StylesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Styles'], meta: { name: 'Styles' } }
+    /**
+     * Find zero or one Styles that matches the filter.
+     * @param {StylesFindUniqueArgs} args - Arguments to find a Styles
+     * @example
+     * // Get one Styles
+     * const styles = await prisma.styles.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends StylesFindUniqueArgs>(args: SelectSubset<T, StylesFindUniqueArgs<ExtArgs>>): Prisma__StylesClient<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Styles that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {StylesFindUniqueOrThrowArgs} args - Arguments to find a Styles
+     * @example
+     * // Get one Styles
+     * const styles = await prisma.styles.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends StylesFindUniqueOrThrowArgs>(args: SelectSubset<T, StylesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StylesClient<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Styles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StylesFindFirstArgs} args - Arguments to find a Styles
+     * @example
+     * // Get one Styles
+     * const styles = await prisma.styles.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends StylesFindFirstArgs>(args?: SelectSubset<T, StylesFindFirstArgs<ExtArgs>>): Prisma__StylesClient<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Styles that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StylesFindFirstOrThrowArgs} args - Arguments to find a Styles
+     * @example
+     * // Get one Styles
+     * const styles = await prisma.styles.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends StylesFindFirstOrThrowArgs>(args?: SelectSubset<T, StylesFindFirstOrThrowArgs<ExtArgs>>): Prisma__StylesClient<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Styles that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StylesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Styles
+     * const styles = await prisma.styles.findMany()
+     * 
+     * // Get first 10 Styles
+     * const styles = await prisma.styles.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const stylesWithIdOnly = await prisma.styles.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends StylesFindManyArgs>(args?: SelectSubset<T, StylesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Styles.
+     * @param {StylesCreateArgs} args - Arguments to create a Styles.
+     * @example
+     * // Create one Styles
+     * const Styles = await prisma.styles.create({
+     *   data: {
+     *     // ... data to create a Styles
+     *   }
+     * })
+     * 
+     */
+    create<T extends StylesCreateArgs>(args: SelectSubset<T, StylesCreateArgs<ExtArgs>>): Prisma__StylesClient<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Styles.
+     * @param {StylesCreateManyArgs} args - Arguments to create many Styles.
+     * @example
+     * // Create many Styles
+     * const styles = await prisma.styles.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends StylesCreateManyArgs>(args?: SelectSubset<T, StylesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Styles and returns the data saved in the database.
+     * @param {StylesCreateManyAndReturnArgs} args - Arguments to create many Styles.
+     * @example
+     * // Create many Styles
+     * const styles = await prisma.styles.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Styles and only return the `id`
+     * const stylesWithIdOnly = await prisma.styles.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends StylesCreateManyAndReturnArgs>(args?: SelectSubset<T, StylesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Styles.
+     * @param {StylesDeleteArgs} args - Arguments to delete one Styles.
+     * @example
+     * // Delete one Styles
+     * const Styles = await prisma.styles.delete({
+     *   where: {
+     *     // ... filter to delete one Styles
+     *   }
+     * })
+     * 
+     */
+    delete<T extends StylesDeleteArgs>(args: SelectSubset<T, StylesDeleteArgs<ExtArgs>>): Prisma__StylesClient<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Styles.
+     * @param {StylesUpdateArgs} args - Arguments to update one Styles.
+     * @example
+     * // Update one Styles
+     * const styles = await prisma.styles.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends StylesUpdateArgs>(args: SelectSubset<T, StylesUpdateArgs<ExtArgs>>): Prisma__StylesClient<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Styles.
+     * @param {StylesDeleteManyArgs} args - Arguments to filter Styles to delete.
+     * @example
+     * // Delete a few Styles
+     * const { count } = await prisma.styles.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends StylesDeleteManyArgs>(args?: SelectSubset<T, StylesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Styles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StylesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Styles
+     * const styles = await prisma.styles.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends StylesUpdateManyArgs>(args: SelectSubset<T, StylesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Styles and returns the data updated in the database.
+     * @param {StylesUpdateManyAndReturnArgs} args - Arguments to update many Styles.
+     * @example
+     * // Update many Styles
+     * const styles = await prisma.styles.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Styles and only return the `id`
+     * const stylesWithIdOnly = await prisma.styles.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends StylesUpdateManyAndReturnArgs>(args: SelectSubset<T, StylesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Styles.
+     * @param {StylesUpsertArgs} args - Arguments to update or create a Styles.
+     * @example
+     * // Update or create a Styles
+     * const styles = await prisma.styles.upsert({
+     *   create: {
+     *     // ... data to create a Styles
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Styles we want to update
+     *   }
+     * })
+     */
+    upsert<T extends StylesUpsertArgs>(args: SelectSubset<T, StylesUpsertArgs<ExtArgs>>): Prisma__StylesClient<$Result.GetResult<Prisma.$StylesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Styles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StylesCountArgs} args - Arguments to filter Styles to count.
+     * @example
+     * // Count the number of Styles
+     * const count = await prisma.styles.count({
+     *   where: {
+     *     // ... the filter for the Styles we want to count
+     *   }
+     * })
+    **/
+    count<T extends StylesCountArgs>(
+      args?: Subset<T, StylesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], StylesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Styles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StylesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends StylesAggregateArgs>(args: Subset<T, StylesAggregateArgs>): Prisma.PrismaPromise<GetStylesAggregateType<T>>
+
+    /**
+     * Group by Styles.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {StylesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends StylesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: StylesGroupByArgs['orderBy'] }
+        : { orderBy?: StylesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, StylesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStylesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Styles model
+   */
+  readonly fields: StylesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Styles.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__StylesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    category<T extends CategoriesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CategoriesDefaultArgs<ExtArgs>>): Prisma__CategoriesClient<$Result.GetResult<Prisma.$CategoriesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Styles model
+   */
+  interface StylesFieldRefs {
+    readonly id: FieldRef<"Styles", 'Int'>
+    readonly image: FieldRef<"Styles", 'String'>
+    readonly categoryId: FieldRef<"Styles", 'Int'>
+    readonly createdAt: FieldRef<"Styles", 'DateTime'>
+    readonly updatedAt: FieldRef<"Styles", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Styles findUnique
+   */
+  export type StylesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * Filter, which Styles to fetch.
+     */
+    where: StylesWhereUniqueInput
+  }
+
+  /**
+   * Styles findUniqueOrThrow
+   */
+  export type StylesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * Filter, which Styles to fetch.
+     */
+    where: StylesWhereUniqueInput
+  }
+
+  /**
+   * Styles findFirst
+   */
+  export type StylesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * Filter, which Styles to fetch.
+     */
+    where?: StylesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Styles to fetch.
+     */
+    orderBy?: StylesOrderByWithRelationInput | StylesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Styles.
+     */
+    cursor?: StylesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Styles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Styles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Styles.
+     */
+    distinct?: StylesScalarFieldEnum | StylesScalarFieldEnum[]
+  }
+
+  /**
+   * Styles findFirstOrThrow
+   */
+  export type StylesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * Filter, which Styles to fetch.
+     */
+    where?: StylesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Styles to fetch.
+     */
+    orderBy?: StylesOrderByWithRelationInput | StylesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Styles.
+     */
+    cursor?: StylesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Styles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Styles.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Styles.
+     */
+    distinct?: StylesScalarFieldEnum | StylesScalarFieldEnum[]
+  }
+
+  /**
+   * Styles findMany
+   */
+  export type StylesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * Filter, which Styles to fetch.
+     */
+    where?: StylesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Styles to fetch.
+     */
+    orderBy?: StylesOrderByWithRelationInput | StylesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Styles.
+     */
+    cursor?: StylesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Styles from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Styles.
+     */
+    skip?: number
+    distinct?: StylesScalarFieldEnum | StylesScalarFieldEnum[]
+  }
+
+  /**
+   * Styles create
+   */
+  export type StylesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Styles.
+     */
+    data: XOR<StylesCreateInput, StylesUncheckedCreateInput>
+  }
+
+  /**
+   * Styles createMany
+   */
+  export type StylesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Styles.
+     */
+    data: StylesCreateManyInput | StylesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Styles createManyAndReturn
+   */
+  export type StylesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * The data used to create many Styles.
+     */
+    data: StylesCreateManyInput | StylesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Styles update
+   */
+  export type StylesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Styles.
+     */
+    data: XOR<StylesUpdateInput, StylesUncheckedUpdateInput>
+    /**
+     * Choose, which Styles to update.
+     */
+    where: StylesWhereUniqueInput
+  }
+
+  /**
+   * Styles updateMany
+   */
+  export type StylesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Styles.
+     */
+    data: XOR<StylesUpdateManyMutationInput, StylesUncheckedUpdateManyInput>
+    /**
+     * Filter which Styles to update
+     */
+    where?: StylesWhereInput
+    /**
+     * Limit how many Styles to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Styles updateManyAndReturn
+   */
+  export type StylesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * The data used to update Styles.
+     */
+    data: XOR<StylesUpdateManyMutationInput, StylesUncheckedUpdateManyInput>
+    /**
+     * Filter which Styles to update
+     */
+    where?: StylesWhereInput
+    /**
+     * Limit how many Styles to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Styles upsert
+   */
+  export type StylesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Styles to update in case it exists.
+     */
+    where: StylesWhereUniqueInput
+    /**
+     * In case the Styles found by the `where` argument doesn't exist, create a new Styles with this data.
+     */
+    create: XOR<StylesCreateInput, StylesUncheckedCreateInput>
+    /**
+     * In case the Styles was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<StylesUpdateInput, StylesUncheckedUpdateInput>
+  }
+
+  /**
+   * Styles delete
+   */
+  export type StylesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
+    /**
+     * Filter which Styles to delete.
+     */
+    where: StylesWhereUniqueInput
+  }
+
+  /**
+   * Styles deleteMany
+   */
+  export type StylesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Styles to delete
+     */
+    where?: StylesWhereInput
+    /**
+     * Limit how many Styles to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Styles without action
+   */
+  export type StylesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Styles
+     */
+    select?: StylesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Styles
+     */
+    omit?: StylesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StylesInclude<ExtArgs> | null
   }
 
 
@@ -25723,6 +26947,17 @@ export namespace Prisma {
   export type CategoriesScalarFieldEnum = (typeof CategoriesScalarFieldEnum)[keyof typeof CategoriesScalarFieldEnum]
 
 
+  export const StylesScalarFieldEnum: {
+    id: 'id',
+    image: 'image',
+    categoryId: 'categoryId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type StylesScalarFieldEnum = (typeof StylesScalarFieldEnum)[keyof typeof StylesScalarFieldEnum]
+
+
   export const CategoryTranslationsScalarFieldEnum: {
     id: 'id',
     name: 'name',
@@ -26377,6 +27612,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Categories"> | Date | string
     products?: ProductsListRelationFilter
     translations?: CategoryTranslationsListRelationFilter
+    styles?: StylesListRelationFilter
   }
 
   export type CategoriesOrderByWithRelationInput = {
@@ -26385,6 +27621,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     products?: ProductsOrderByRelationAggregateInput
     translations?: CategoryTranslationsOrderByRelationAggregateInput
+    styles?: StylesOrderByRelationAggregateInput
   }
 
   export type CategoriesWhereUniqueInput = Prisma.AtLeast<{
@@ -26396,6 +27633,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Categories"> | Date | string
     products?: ProductsListRelationFilter
     translations?: CategoryTranslationsListRelationFilter
+    styles?: StylesListRelationFilter
   }, "id">
 
   export type CategoriesOrderByWithAggregationInput = {
@@ -26416,6 +27654,63 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Categories"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Categories"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Categories"> | Date | string
+  }
+
+  export type StylesWhereInput = {
+    AND?: StylesWhereInput | StylesWhereInput[]
+    OR?: StylesWhereInput[]
+    NOT?: StylesWhereInput | StylesWhereInput[]
+    id?: IntFilter<"Styles"> | number
+    image?: StringFilter<"Styles"> | string
+    categoryId?: IntFilter<"Styles"> | number
+    createdAt?: DateTimeFilter<"Styles"> | Date | string
+    updatedAt?: DateTimeFilter<"Styles"> | Date | string
+    category?: XOR<CategoriesScalarRelationFilter, CategoriesWhereInput>
+  }
+
+  export type StylesOrderByWithRelationInput = {
+    id?: SortOrder
+    image?: SortOrder
+    categoryId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    category?: CategoriesOrderByWithRelationInput
+  }
+
+  export type StylesWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: StylesWhereInput | StylesWhereInput[]
+    OR?: StylesWhereInput[]
+    NOT?: StylesWhereInput | StylesWhereInput[]
+    image?: StringFilter<"Styles"> | string
+    categoryId?: IntFilter<"Styles"> | number
+    createdAt?: DateTimeFilter<"Styles"> | Date | string
+    updatedAt?: DateTimeFilter<"Styles"> | Date | string
+    category?: XOR<CategoriesScalarRelationFilter, CategoriesWhereInput>
+  }, "id">
+
+  export type StylesOrderByWithAggregationInput = {
+    id?: SortOrder
+    image?: SortOrder
+    categoryId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: StylesCountOrderByAggregateInput
+    _avg?: StylesAvgOrderByAggregateInput
+    _max?: StylesMaxOrderByAggregateInput
+    _min?: StylesMinOrderByAggregateInput
+    _sum?: StylesSumOrderByAggregateInput
+  }
+
+  export type StylesScalarWhereWithAggregatesInput = {
+    AND?: StylesScalarWhereWithAggregatesInput | StylesScalarWhereWithAggregatesInput[]
+    OR?: StylesScalarWhereWithAggregatesInput[]
+    NOT?: StylesScalarWhereWithAggregatesInput | StylesScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Styles"> | number
+    image?: StringWithAggregatesFilter<"Styles"> | string
+    categoryId?: IntWithAggregatesFilter<"Styles"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Styles"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Styles"> | Date | string
   }
 
   export type CategoryTranslationsWhereInput = {
@@ -27665,6 +28960,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutCategoriesInput
     translations?: CategoryTranslationsCreateNestedManyWithoutCategoryInput
+    styles?: StylesCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesUncheckedCreateInput = {
@@ -27673,6 +28969,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     products?: ProductsUncheckedCreateNestedManyWithoutCategoriesInput
     translations?: CategoryTranslationsUncheckedCreateNestedManyWithoutCategoryInput
+    styles?: StylesUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesUpdateInput = {
@@ -27680,6 +28977,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutCategoriesNestedInput
     translations?: CategoryTranslationsUpdateManyWithoutCategoryNestedInput
+    styles?: StylesUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesUncheckedUpdateInput = {
@@ -27688,6 +28986,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUncheckedUpdateManyWithoutCategoriesNestedInput
     translations?: CategoryTranslationsUncheckedUpdateManyWithoutCategoryNestedInput
+    styles?: StylesUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesCreateManyInput = {
@@ -27703,6 +29002,58 @@ export namespace Prisma {
 
   export type CategoriesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StylesCreateInput = {
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    category: CategoriesCreateNestedOneWithoutStylesInput
+  }
+
+  export type StylesUncheckedCreateInput = {
+    id?: number
+    image: string
+    categoryId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StylesUpdateInput = {
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    category?: CategoriesUpdateOneRequiredWithoutStylesNestedInput
+  }
+
+  export type StylesUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StylesCreateManyInput = {
+    id?: number
+    image: string
+    categoryId: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StylesUpdateManyMutationInput = {
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StylesUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image?: StringFieldUpdateOperationsInput | string
+    categoryId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28949,11 +30300,21 @@ export namespace Prisma {
     none?: CategoryTranslationsWhereInput
   }
 
+  export type StylesListRelationFilter = {
+    every?: StylesWhereInput
+    some?: StylesWhereInput
+    none?: StylesWhereInput
+  }
+
   export type ProductsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type CategoryTranslationsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StylesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -28986,6 +30347,40 @@ export namespace Prisma {
   export type CategoriesScalarRelationFilter = {
     is?: CategoriesWhereInput
     isNot?: CategoriesWhereInput
+  }
+
+  export type StylesCountOrderByAggregateInput = {
+    id?: SortOrder
+    image?: SortOrder
+    categoryId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StylesAvgOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
+  }
+
+  export type StylesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    image?: SortOrder
+    categoryId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StylesMinOrderByAggregateInput = {
+    id?: SortOrder
+    image?: SortOrder
+    categoryId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type StylesSumOrderByAggregateInput = {
+    id?: SortOrder
+    categoryId?: SortOrder
   }
 
   export type CategoryTranslationsCountOrderByAggregateInput = {
@@ -30212,6 +31607,13 @@ export namespace Prisma {
     connect?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
   }
 
+  export type StylesCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<StylesCreateWithoutCategoryInput, StylesUncheckedCreateWithoutCategoryInput> | StylesCreateWithoutCategoryInput[] | StylesUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: StylesCreateOrConnectWithoutCategoryInput | StylesCreateOrConnectWithoutCategoryInput[]
+    createMany?: StylesCreateManyCategoryInputEnvelope
+    connect?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+  }
+
   export type ProductsUncheckedCreateNestedManyWithoutCategoriesInput = {
     create?: XOR<ProductsCreateWithoutCategoriesInput, ProductsUncheckedCreateWithoutCategoriesInput> | ProductsCreateWithoutCategoriesInput[] | ProductsUncheckedCreateWithoutCategoriesInput[]
     connectOrCreate?: ProductsCreateOrConnectWithoutCategoriesInput | ProductsCreateOrConnectWithoutCategoriesInput[]
@@ -30223,6 +31625,13 @@ export namespace Prisma {
     connectOrCreate?: CategoryTranslationsCreateOrConnectWithoutCategoryInput | CategoryTranslationsCreateOrConnectWithoutCategoryInput[]
     createMany?: CategoryTranslationsCreateManyCategoryInputEnvelope
     connect?: CategoryTranslationsWhereUniqueInput | CategoryTranslationsWhereUniqueInput[]
+  }
+
+  export type StylesUncheckedCreateNestedManyWithoutCategoryInput = {
+    create?: XOR<StylesCreateWithoutCategoryInput, StylesUncheckedCreateWithoutCategoryInput> | StylesCreateWithoutCategoryInput[] | StylesUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: StylesCreateOrConnectWithoutCategoryInput | StylesCreateOrConnectWithoutCategoryInput[]
+    createMany?: StylesCreateManyCategoryInputEnvelope
+    connect?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
   }
 
   export type ProductsUpdateManyWithoutCategoriesNestedInput = {
@@ -30252,6 +31661,20 @@ export namespace Prisma {
     deleteMany?: CategoryTranslationsScalarWhereInput | CategoryTranslationsScalarWhereInput[]
   }
 
+  export type StylesUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<StylesCreateWithoutCategoryInput, StylesUncheckedCreateWithoutCategoryInput> | StylesCreateWithoutCategoryInput[] | StylesUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: StylesCreateOrConnectWithoutCategoryInput | StylesCreateOrConnectWithoutCategoryInput[]
+    upsert?: StylesUpsertWithWhereUniqueWithoutCategoryInput | StylesUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: StylesCreateManyCategoryInputEnvelope
+    set?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+    disconnect?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+    delete?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+    connect?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+    update?: StylesUpdateWithWhereUniqueWithoutCategoryInput | StylesUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: StylesUpdateManyWithWhereWithoutCategoryInput | StylesUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: StylesScalarWhereInput | StylesScalarWhereInput[]
+  }
+
   export type ProductsUncheckedUpdateManyWithoutCategoriesNestedInput = {
     create?: XOR<ProductsCreateWithoutCategoriesInput, ProductsUncheckedCreateWithoutCategoriesInput> | ProductsCreateWithoutCategoriesInput[] | ProductsUncheckedCreateWithoutCategoriesInput[]
     connectOrCreate?: ProductsCreateOrConnectWithoutCategoriesInput | ProductsCreateOrConnectWithoutCategoriesInput[]
@@ -30277,6 +31700,34 @@ export namespace Prisma {
     update?: CategoryTranslationsUpdateWithWhereUniqueWithoutCategoryInput | CategoryTranslationsUpdateWithWhereUniqueWithoutCategoryInput[]
     updateMany?: CategoryTranslationsUpdateManyWithWhereWithoutCategoryInput | CategoryTranslationsUpdateManyWithWhereWithoutCategoryInput[]
     deleteMany?: CategoryTranslationsScalarWhereInput | CategoryTranslationsScalarWhereInput[]
+  }
+
+  export type StylesUncheckedUpdateManyWithoutCategoryNestedInput = {
+    create?: XOR<StylesCreateWithoutCategoryInput, StylesUncheckedCreateWithoutCategoryInput> | StylesCreateWithoutCategoryInput[] | StylesUncheckedCreateWithoutCategoryInput[]
+    connectOrCreate?: StylesCreateOrConnectWithoutCategoryInput | StylesCreateOrConnectWithoutCategoryInput[]
+    upsert?: StylesUpsertWithWhereUniqueWithoutCategoryInput | StylesUpsertWithWhereUniqueWithoutCategoryInput[]
+    createMany?: StylesCreateManyCategoryInputEnvelope
+    set?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+    disconnect?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+    delete?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+    connect?: StylesWhereUniqueInput | StylesWhereUniqueInput[]
+    update?: StylesUpdateWithWhereUniqueWithoutCategoryInput | StylesUpdateWithWhereUniqueWithoutCategoryInput[]
+    updateMany?: StylesUpdateManyWithWhereWithoutCategoryInput | StylesUpdateManyWithWhereWithoutCategoryInput[]
+    deleteMany?: StylesScalarWhereInput | StylesScalarWhereInput[]
+  }
+
+  export type CategoriesCreateNestedOneWithoutStylesInput = {
+    create?: XOR<CategoriesCreateWithoutStylesInput, CategoriesUncheckedCreateWithoutStylesInput>
+    connectOrCreate?: CategoriesCreateOrConnectWithoutStylesInput
+    connect?: CategoriesWhereUniqueInput
+  }
+
+  export type CategoriesUpdateOneRequiredWithoutStylesNestedInput = {
+    create?: XOR<CategoriesCreateWithoutStylesInput, CategoriesUncheckedCreateWithoutStylesInput>
+    connectOrCreate?: CategoriesCreateOrConnectWithoutStylesInput
+    upsert?: CategoriesUpsertWithoutStylesInput
+    connect?: CategoriesWhereUniqueInput
+    update?: XOR<XOR<CategoriesUpdateToOneWithWhereWithoutStylesInput, CategoriesUpdateWithoutStylesInput>, CategoriesUncheckedUpdateWithoutStylesInput>
   }
 
   export type CategoriesCreateNestedOneWithoutTranslationsInput = {
@@ -31510,6 +32961,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     translations?: CategoryTranslationsCreateNestedManyWithoutCategoryInput
+    styles?: StylesCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesUncheckedCreateWithoutProductsInput = {
@@ -31517,6 +32969,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     translations?: CategoryTranslationsUncheckedCreateNestedManyWithoutCategoryInput
+    styles?: StylesUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesCreateOrConnectWithoutProductsInput = {
@@ -31855,6 +33308,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type StylesCreateWithoutCategoryInput = {
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StylesUncheckedCreateWithoutCategoryInput = {
+    id?: number
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type StylesCreateOrConnectWithoutCategoryInput = {
+    where: StylesWhereUniqueInput
+    create: XOR<StylesCreateWithoutCategoryInput, StylesUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type StylesCreateManyCategoryInputEnvelope = {
+    data: StylesCreateManyCategoryInput | StylesCreateManyCategoryInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ProductsUpsertWithWhereUniqueWithoutCategoriesInput = {
     where: ProductsWhereUniqueInput
     update: XOR<ProductsUpdateWithoutCategoriesInput, ProductsUncheckedUpdateWithoutCategoriesInput>
@@ -31911,10 +33387,84 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"CategoryTranslations"> | Date | string
   }
 
+  export type StylesUpsertWithWhereUniqueWithoutCategoryInput = {
+    where: StylesWhereUniqueInput
+    update: XOR<StylesUpdateWithoutCategoryInput, StylesUncheckedUpdateWithoutCategoryInput>
+    create: XOR<StylesCreateWithoutCategoryInput, StylesUncheckedCreateWithoutCategoryInput>
+  }
+
+  export type StylesUpdateWithWhereUniqueWithoutCategoryInput = {
+    where: StylesWhereUniqueInput
+    data: XOR<StylesUpdateWithoutCategoryInput, StylesUncheckedUpdateWithoutCategoryInput>
+  }
+
+  export type StylesUpdateManyWithWhereWithoutCategoryInput = {
+    where: StylesScalarWhereInput
+    data: XOR<StylesUpdateManyMutationInput, StylesUncheckedUpdateManyWithoutCategoryInput>
+  }
+
+  export type StylesScalarWhereInput = {
+    AND?: StylesScalarWhereInput | StylesScalarWhereInput[]
+    OR?: StylesScalarWhereInput[]
+    NOT?: StylesScalarWhereInput | StylesScalarWhereInput[]
+    id?: IntFilter<"Styles"> | number
+    image?: StringFilter<"Styles"> | string
+    categoryId?: IntFilter<"Styles"> | number
+    createdAt?: DateTimeFilter<"Styles"> | Date | string
+    updatedAt?: DateTimeFilter<"Styles"> | Date | string
+  }
+
+  export type CategoriesCreateWithoutStylesInput = {
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: ProductsCreateNestedManyWithoutCategoriesInput
+    translations?: CategoryTranslationsCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoriesUncheckedCreateWithoutStylesInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    products?: ProductsUncheckedCreateNestedManyWithoutCategoriesInput
+    translations?: CategoryTranslationsUncheckedCreateNestedManyWithoutCategoryInput
+  }
+
+  export type CategoriesCreateOrConnectWithoutStylesInput = {
+    where: CategoriesWhereUniqueInput
+    create: XOR<CategoriesCreateWithoutStylesInput, CategoriesUncheckedCreateWithoutStylesInput>
+  }
+
+  export type CategoriesUpsertWithoutStylesInput = {
+    update: XOR<CategoriesUpdateWithoutStylesInput, CategoriesUncheckedUpdateWithoutStylesInput>
+    create: XOR<CategoriesCreateWithoutStylesInput, CategoriesUncheckedCreateWithoutStylesInput>
+    where?: CategoriesWhereInput
+  }
+
+  export type CategoriesUpdateToOneWithWhereWithoutStylesInput = {
+    where?: CategoriesWhereInput
+    data: XOR<CategoriesUpdateWithoutStylesInput, CategoriesUncheckedUpdateWithoutStylesInput>
+  }
+
+  export type CategoriesUpdateWithoutStylesInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductsUpdateManyWithoutCategoriesNestedInput
+    translations?: CategoryTranslationsUpdateManyWithoutCategoryNestedInput
+  }
+
+  export type CategoriesUncheckedUpdateWithoutStylesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    products?: ProductsUncheckedUpdateManyWithoutCategoriesNestedInput
+    translations?: CategoryTranslationsUncheckedUpdateManyWithoutCategoryNestedInput
+  }
+
   export type CategoriesCreateWithoutTranslationsInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsCreateNestedManyWithoutCategoriesInput
+    styles?: StylesCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesUncheckedCreateWithoutTranslationsInput = {
@@ -31922,6 +33472,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     products?: ProductsUncheckedCreateNestedManyWithoutCategoriesInput
+    styles?: StylesUncheckedCreateNestedManyWithoutCategoryInput
   }
 
   export type CategoriesCreateOrConnectWithoutTranslationsInput = {
@@ -31944,6 +33495,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUpdateManyWithoutCategoriesNestedInput
+    styles?: StylesUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesUncheckedUpdateWithoutTranslationsInput = {
@@ -31951,6 +33503,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     products?: ProductsUncheckedUpdateManyWithoutCategoriesNestedInput
+    styles?: StylesUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type ProductsCreateWithoutSizesInput = {
@@ -33531,6 +35084,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     translations?: CategoryTranslationsUpdateManyWithoutCategoryNestedInput
+    styles?: StylesUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesUncheckedUpdateWithoutProductsInput = {
@@ -33538,6 +35092,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     translations?: CategoryTranslationsUncheckedUpdateManyWithoutCategoryNestedInput
+    styles?: StylesUncheckedUpdateManyWithoutCategoryNestedInput
   }
 
   export type CategoriesUncheckedUpdateManyWithoutProductsInput = {
@@ -33644,6 +35199,13 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type StylesCreateManyCategoryInput = {
+    id?: number
+    image: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ProductsUpdateWithoutCategoriesInput = {
     price?: IntFieldUpdateOperationsInput | number
     product_images?: ProductsUpdateproduct_imagesInput | string[]
@@ -33697,6 +35259,26 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     lang?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StylesUpdateWithoutCategoryInput = {
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StylesUncheckedUpdateWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StylesUncheckedUpdateManyWithoutCategoryInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    image?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

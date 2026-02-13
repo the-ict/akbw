@@ -1,6 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
-import { getProductsRequest, getProductByIdRequest, getRecommendedProductsRequest } from '@/shared/config/api/product/product.request';
+import { getProductsRequest, getProductByIdRequest, getRecommendedProductsRequest, getStylesRequest } from '@/shared/config/api/product/product.request';
 import { IProductFilters } from '@/shared/config/api/product/product.model';
+import { useQuery } from '@tanstack/react-query';
 
 export const useProducts = (params: IProductFilters = {}) => {
     return useQuery({
@@ -21,6 +21,13 @@ export const useRecommendedProducts = () => {
     return useQuery({
         queryKey: ['recommended-products'],
         queryFn: () => getRecommendedProductsRequest(),
+    });
+};
+
+export const useStyles = () => {
+    return useQuery({
+        queryKey: ['styles'],
+        queryFn: () => getStylesRequest(),
     });
 };
 

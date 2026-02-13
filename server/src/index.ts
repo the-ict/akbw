@@ -12,6 +12,7 @@ import cors from "cors";
 // import routers
 import authRoutes from "./routers/auth.routes.js";
 import smsRoutes from "./routers/sms.routes.js";
+import styleRoutes from "./routers/style.routes.js";
 import userRoutes from "./routers/user.routes.js";
 import adminRoutes from "./routers/admin.routes.js";
 import productRoutes from "./routers/product.routes.js";
@@ -64,6 +65,7 @@ app.use("/api/product", productRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/review", reviewRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/style", styleRoutes);
 app.use("/api/notification", notificationRoutes);
 app.use("/api/chat", chatRoutes);
 

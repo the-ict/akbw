@@ -26,8 +26,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { useRecommendedProducts } from "@/features/products/lib/hooks";
+import { useRecommendedProducts, useStyles } from "@/features/products/lib/hooks";
 import { IProduct } from "@/shared/config/api/product/product.model";
+import { IStyle } from "@/shared/config/api/product/style.model";
 import { Link } from "@/shared/config/i18n/navigation";
 
 import ShoppingCartIcon from "../../../public/icons/shoppingcart.png";
@@ -59,11 +60,13 @@ const logos = [
 
 export default function Welcome() {
   const { data: recommendedData, isLoading } = useRecommendedProducts();
+  const { data: stylesData } = useStyles();
   const [showAllNewest, setShowAllNewest] = useState(false);
   const [showAllMostSold, setShowAllMostSold] = useState(false);
 
   const newest = recommendedData?.newest || [];
   const mostSold = recommendedData?.mostSold || [];
+  const styles = stylesData?.data || [];
 
   const displayNewest = showAllNewest ? newest : newest.slice(0, 4);
   const displayMostSold = showAllMostSold ? mostSold : mostSold.slice(0, 4);
@@ -237,42 +240,48 @@ export default function Welcome() {
         </h1>
 
         <div className="flex flex-col gap-5 w-full">
-          <div className="flex flex-col lg:flex-row gap-5 w-full">
-            <div className="lg:flex-[3] w-full cursor-pointer">
-              <div className="relative w-full h-[190px] lg:h-[330px] rounded-[10px] overflow-hidden">
-                <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg">
-                  <h1>Oversize</h1>
-                </div>
-                <Image src={OverSize.src} alt="product" fill className="object-cover" />
-              </div>
+          {styles.reduce((acc: IStyle[][], style: IStyle, i: number) => {
+            if (i % 2 === 0) acc.push([style]);
+            else acc[acc.length - 1].push(style);
+            return acc;
+          }, []).map((pair: IStyle[], rowIndex: number) => (
+            <div key={rowIndex} className="flex flex-col lg:flex-row gap-5 w-full">
+              {pair.map((style: IStyle, colIndex: number) => {
+                const isFirst = colIndex === 0;
+                // Swap ratios every row for visual interest, or keep consistent
+                // Original: row 1 (3,7), row 2 (7,3)
+                const isThree = (rowIndex % 2 === 0) ? isFirst : !isFirst;
+
+                return (
+                  <Link
+                    key={style.id}
+                    href={`/filters?category_id=${style.categoryId}`}
+                    className={cn(
+                      "w-full cursor-pointer",
+                      isThree ? "lg:flex-[3]" : "lg:flex-[7]"
+                    )}
+                  >
+                    <div className="relative w-full h-[190px] lg:h-[330px] rounded-[10px] overflow-hidden group">
+                      <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg backdrop-blur-sm">
+                        <h1>{style.category.name}</h1>
+                      </div>
+                      <img
+                        src={style.image}
+                        alt={style.category.name}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
-            <div className="lg:flex-[7] w-full cursor-pointer">
-              <div className="relative w-full h-[190px] lg:h-[330px] rounded-[10px] overflow-hidden">
-                <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg">
-                  <h1>Old Money</h1>
-                </div>
-                <Image src={OldMoney.src} alt="product" fill className="object-cover" />
-              </div>
+          ))}
+
+          {styles.length === 0 && !isLoading && (
+            <div className="py-20 text-center text-gray-400">
+              <p>Hozircha stillar mavjud emas</p>
             </div>
-          </div>
-          <div className="flex flex-col lg:flex-row gap-5 w-full">
-            <div className="lg:flex-[7] w-full cursor-pointer">
-              <div className="relative w-full h-[190px] lg:h-[330px] rounded-[10px] overflow-hidden">
-                <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg">
-                  <h1>Sport Style</h1>
-                </div>
-                <Image src={SportStyle.src} alt="product" fill className="object-cover" />
-              </div>
-            </div>
-            <div className="lg:flex-[3] w-full cursor-pointer">
-              <div className="relative w-full h-[190px] lg:h-[330px] rounded-[10px] overflow-hidden">
-                <div className="text-sm font-bold z-10 absolute top-5 left-5 text-white bg-[#000]/30 px-3 py-1 rounded-lg">
-                  <h1>Minimalistik</h1>
-                </div>
-                <Image src={Minimalistik.src} alt="product" fill className="object-cover" />
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
 

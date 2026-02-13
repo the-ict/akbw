@@ -15,6 +15,7 @@ const ENDP_PRODUCT_CATEGORIES_CREATE = "/product/categories";
 const ENDP_UPLOAD = "/upload";
 const ENDP_ORDER = "/order"
 const ENDP_NOTIFICATION = "/notification";
+const ENDP_STYLE = "/style";
 
 export {
   BASE_URL,
@@ -31,5 +32,6 @@ export {
   ENDP_PRODUCT_CATEGORIES_CREATE,
   ENDP_UPLOAD,
   ENDP_ORDER,
-  ENDP_NOTIFICATION
+  ENDP_NOTIFICATION,
+  ENDP_STYLE
 };

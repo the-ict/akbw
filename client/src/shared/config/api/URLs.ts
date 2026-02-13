@@ -22,6 +22,8 @@ const ENDP_SUPPORT_CHAT_MESSAGE_CREATE = "/chat/help-chat-message";
 const ENDP_ASK_CHAT_CREATE = "/chat/ask-for-product-chat";
 const ENDP_ASK_CHAT_MESSAGE_CREATE = "/chat/ask-for-product-message";
 
+const ENDP_STYLE = "/style";
+
 export {
   BASE_URL,
   ENDP_POSTS,
@@ -42,5 +44,6 @@ export {
   ENDP_SUPPORT_CHAT_CREATE,
   ENDP_SUPPORT_CHAT_MESSAGE_CREATE,
   ENDP_ASK_CHAT_CREATE,
-  ENDP_ASK_CHAT_MESSAGE_CREATE
+  ENDP_ASK_CHAT_MESSAGE_CREATE,
+  ENDP_STYLE
 }
