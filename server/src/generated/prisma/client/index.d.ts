@@ -5486,7 +5486,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role: string | null
     createdAt: Date
     updatedAt: Date
     _count: AdminsCountAggregateOutputType | null
@@ -5576,7 +5576,7 @@ export namespace Prisma {
       name: string
       lastName: string
       phone: string
-      role: string
+      role: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["admins"]>
@@ -26110,7 +26110,7 @@ export namespace Prisma {
     name?: StringFilter<"Admins"> | string
     lastName?: StringFilter<"Admins"> | string
     phone?: StringFilter<"Admins"> | string
-    role?: StringFilter<"Admins"> | string
+    role?: StringNullableFilter<"Admins"> | string | null
     createdAt?: DateTimeFilter<"Admins"> | Date | string
     updatedAt?: DateTimeFilter<"Admins"> | Date | string
     access?: AccessListRelationFilter
@@ -26123,7 +26123,7 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     phone?: SortOrder
-    role?: SortOrder
+    role?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     access?: AccessOrderByRelationAggregateInput
@@ -26139,7 +26139,7 @@ export namespace Prisma {
     NOT?: AdminsWhereInput | AdminsWhereInput[]
     name?: StringFilter<"Admins"> | string
     lastName?: StringFilter<"Admins"> | string
-    role?: StringFilter<"Admins"> | string
+    role?: StringNullableFilter<"Admins"> | string | null
     createdAt?: DateTimeFilter<"Admins"> | Date | string
     updatedAt?: DateTimeFilter<"Admins"> | Date | string
     access?: AccessListRelationFilter
@@ -26152,7 +26152,7 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     phone?: SortOrder
-    role?: SortOrder
+    role?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: AdminsCountOrderByAggregateInput
@@ -26170,7 +26170,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Admins"> | string
     lastName?: StringWithAggregatesFilter<"Admins"> | string
     phone?: StringWithAggregatesFilter<"Admins"> | string
-    role?: StringWithAggregatesFilter<"Admins"> | string
+    role?: StringNullableWithAggregatesFilter<"Admins"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Admins"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Admins"> | Date | string
   }
@@ -27389,7 +27389,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     access?: AccessCreateNestedManyWithoutAdminsInput
@@ -27402,7 +27402,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     access?: AccessUncheckedCreateNestedManyWithoutAdminsInput
@@ -27414,7 +27414,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     access?: AccessUpdateManyWithoutAdminsNestedInput
@@ -27427,7 +27427,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     access?: AccessUncheckedUpdateManyWithoutAdminsNestedInput
@@ -27440,7 +27440,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -27449,7 +27449,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -27459,7 +27459,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -28682,10 +28682,30 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type AccessListRelationFilter = {
     every?: AccessWhereInput
     some?: AccessWhereInput
     none?: AccessWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type AccessOrderByRelationAggregateInput = {
@@ -28728,6 +28748,24 @@ export namespace Prisma {
 
   export type AdminsSumOrderByAggregateInput = {
     id?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type AdminsListRelationFilter = {
@@ -29248,11 +29286,6 @@ export namespace Prisma {
     isNot?: CouponsWhereInput | null
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type OrdersCountOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
@@ -29376,21 +29409,6 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type HelpChatScalarRelationFilter = {
     is?: HelpChatWhereInput
     isNot?: HelpChatWhereInput
@@ -29446,24 +29464,6 @@ export namespace Prisma {
     id?: SortOrder
     chat_id?: SortOrder
     admin_id?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type AskForChatCountOrderByAggregateInput = {
@@ -29852,6 +29852,10 @@ export namespace Prisma {
     connectOrCreate?: AskForChatMessagesCreateOrConnectWithoutAdminInput | AskForChatMessagesCreateOrConnectWithoutAdminInput[]
     createMany?: AskForChatMessagesCreateManyAdminInputEnvelope
     connect?: AskForChatMessagesWhereUniqueInput | AskForChatMessagesWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type AccessUpdateManyWithoutAdminsNestedInput = {
@@ -30705,10 +30709,6 @@ export namespace Prisma {
     update?: XOR<XOR<AdminsUpdateToOneWithWhereWithoutHelpChatMessagesInput, AdminsUpdateWithoutHelpChatMessagesInput>, AdminsUncheckedUpdateWithoutHelpChatMessagesInput>
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type AskForChatCreatemembersInput = {
     set: string[]
   }
@@ -30914,6 +30914,37 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -30950,37 +30981,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type HelpChatMessagesCreateWithoutSenderInput = {
@@ -31453,7 +31453,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     helpChatMessages?: HelpChatMessagesCreateNestedManyWithoutAdminInput
@@ -31465,7 +31465,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     helpChatMessages?: HelpChatMessagesUncheckedCreateNestedManyWithoutAdminInput
@@ -31501,7 +31501,7 @@ export namespace Prisma {
     name?: StringFilter<"Admins"> | string
     lastName?: StringFilter<"Admins"> | string
     phone?: StringFilter<"Admins"> | string
-    role?: StringFilter<"Admins"> | string
+    role?: StringNullableFilter<"Admins"> | string | null
     createdAt?: DateTimeFilter<"Admins"> | Date | string
     updatedAt?: DateTimeFilter<"Admins"> | Date | string
   }
@@ -32736,7 +32736,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     access?: AccessCreateNestedManyWithoutAdminsInput
@@ -32748,7 +32748,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     access?: AccessUncheckedCreateNestedManyWithoutAdminsInput
@@ -32844,7 +32844,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     access?: AccessUpdateManyWithoutAdminsNestedInput
@@ -32856,7 +32856,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     access?: AccessUncheckedUpdateManyWithoutAdminsNestedInput
@@ -33049,7 +33049,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     access?: AccessCreateNestedManyWithoutAdminsInput
@@ -33061,7 +33061,7 @@ export namespace Prisma {
     name: string
     lastName: string
     phone: string
-    role: string
+    role?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     access?: AccessUncheckedCreateNestedManyWithoutAdminsInput
@@ -33157,7 +33157,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     access?: AccessUpdateManyWithoutAdminsNestedInput
@@ -33169,7 +33169,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     access?: AccessUncheckedUpdateManyWithoutAdminsNestedInput
@@ -33480,7 +33480,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     helpChatMessages?: HelpChatMessagesUpdateManyWithoutAdminNestedInput
@@ -33492,7 +33492,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     helpChatMessages?: HelpChatMessagesUncheckedUpdateManyWithoutAdminNestedInput
@@ -33504,7 +33504,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     phone?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
+    role?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

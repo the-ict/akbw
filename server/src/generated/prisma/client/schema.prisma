@@ -43,7 +43,7 @@ model Admins {
   name               String
   lastName           String
   phone              String               @unique
-  role               String
+  role               String?
   access             Access[]
   helpChatMessages   HelpChatMessages[]
   askForChatMessages AskForChatMessages[]

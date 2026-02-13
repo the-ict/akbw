@@ -59,7 +59,7 @@ export const createAdmin = async (req: Request, res: Response, next: NextFunctio
                 name: req.body.name,
                 lastName: req.body.lastName,
                 phone: req.body.phone,
-                role: req.body.role,
+                role: req.body.role || 'Moderator',
                 access: {
                     connect: req.body.access.map((name: string) => ({ name }))
                 },

@@ -21,8 +21,29 @@ import {
 import { cn } from '@/shared/lib/utils';
 import AddUserModal from './add-user-modal';
 import CredentialsModal from './credentials-modal';
+import { useAdmins, useDeleteAdmin } from '../lib/hooks';
 
 export default function UsersRoles() {
+    const { data: admins = [], isLoading } = useAdmins();
+    const deleteAdminMutation = useDeleteAdmin();
+    const [isAddUserOpen, setIsAddUserOpen] = React.useState(false);
+    const [credentials, setCredentials] = React.useState<{ name: string; phone: string; token: string } | null>(null);
+
+    const onAddUser = (user: any, token: string) => {
+        setCredentials({
+            name: `${user.name} ${user.lastName}`,
+            phone: user.phone,
+            token: token
+        });
+    };
+
+    if (isLoading) {
+        return (
+            <div className='h-[400px] flex items-center justify-center'>
+                <p className='text-gray-400 font-bold animate-pulse'>Yuklanmoqda...</p>
+            </div>
+        );
+    }
 
     return (
         <div className='space-y-8'>
@@ -32,7 +53,7 @@ export default function UsersRoles() {
                     <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Admin panelga kirish huquqlarini boshqarish</p>
                 </div>
                 <Button
-                    onClick={() => false}
+                    onClick={() => setIsAddUserOpen(true)}
                     className='rounded-2xl bg-black text-white px-6 py-6 h-auto font-black uppercase tracking-widest text-[10px] flex items-center gap-2 shadow-xl shadow-black/10 transition-all hover:scale-105 active:scale-95 cursor-pointer'
                 >
                     <UserPlus size={18} />
@@ -42,7 +63,7 @@ export default function UsersRoles() {
 
             {/* Role Summary Grid */}
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-                {[].map((user: any, i: number) => {
+                {admins.map((user: any) => {
                     const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`;
                     const color = user.role === 'Admin' ? 'bg-black' : 'bg-blue-600';
                     const Icon = user.role === 'Admin' ? ShieldCheck : Shield;
@@ -79,7 +100,7 @@ export default function UsersRoles() {
                                     <Lock size={12} />
                                 </div>
                                 <div className='flex flex-wrap gap-2'>
-                                    {user.access.map((a: any) => (
+                                    {user.access?.map((a: any) => (
                                         <span key={a.id} className='px-3 py-1.5 bg-gray-50 rounded-xl text-[10px] font-bold text-gray-500 uppercase tracking-widest'>
                                             {a.name}
                                         </span>
@@ -95,13 +116,17 @@ export default function UsersRoles() {
                                 </div>
                                 <DropdownMenu>
                                     <DropdownMenuTrigger asChild>
-                                        <button className='p-2 hover:bg-gray-50 rounded-xl transition-all cursor-pointer'>
-                                            <MoreVertical size={18} className='text-gray-400' />
+                                        <button className='p-2 hover:bg-gray-50 rounded-xl transition-all cursor-pointer text-gray-400'>
+                                            <MoreVertical size={18} />
                                         </button>
                                     </DropdownMenuTrigger>
-                                    <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl'>
+                                    <DropdownMenuContent align="end" className='rounded-2xl border-gray-100 p-2 shadow-xl bg-white'>
                                         <DropdownMenuItem
-                                            onClick={() => false}
+                                            onClick={() => {
+                                                if (window.confirm("Rostdan ham ushbu adminni o'chirmoqchimisiz?")) {
+                                                    deleteAdminMutation.mutate(user.id);
+                                                }
+                                            }}
                                             className='rounded-xl gap-3 px-3 py-2 text-red-500 hover:bg-red-50 cursor-pointer'
                                         >
                                             <Trash2 size={16} />
@@ -144,16 +169,17 @@ export default function UsersRoles() {
             </div>
 
             <AddUserModal
-                isOpen={false}
-                onClose={() => false}
-                onAdd={() => { }}
+                isOpen={isAddUserOpen}
+                onClose={() => setIsAddUserOpen(false)}
+                onAdd={onAddUser}
             />
 
             <CredentialsModal
-                isOpen={!!false}
-                onClose={() => false}
-                credentials={null}
+                isOpen={!!credentials}
+                onClose={() => setCredentials(null)}
+                credentials={credentials}
             />
         </div>
     );
 }
+
