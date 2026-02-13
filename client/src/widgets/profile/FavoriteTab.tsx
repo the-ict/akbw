@@ -1,11 +1,11 @@
-import { Button } from '@/shared/ui/button'
-import { Heart } from 'lucide-react'
-import React from 'react'
-import Image from 'next/image'
-import { useWishlistStore } from '@/shared/store/wishlist.store'
-import { useCartStore } from '@/shared/store/cart.store'
-import { toast } from '@/shared/ui/toast'
-import { IProduct } from '@/shared/config/api/product/product.model'
+import { IProduct } from '@/shared/config/api/product/product.model';
+import { useWishlistStore } from '@/shared/store/wishlist.store';
+import { useCartStore } from '@/shared/store/cart.store';
+import { Button } from '@/shared/ui/button';
+import { toast } from '@/shared/ui/toast';
+import { Heart } from 'lucide-react';
+import Image from 'next/image';
+import React from 'react';
 
 export default function FavoriteTab() {
     const { items, toggleWishlist } = useWishlistStore();
@@ -40,13 +40,13 @@ export default function FavoriteTab() {
                                     toast.success(`${item.name} savatga qo'shildi`);
                                 }}
                                 size="sm"
-                                className="rounded-full px-5 py-5 font-bold text-xs shadow-lg shadow-black/5"
+                                className="rounded-full cursor-pointer px-5 py-5 font-bold text-xs shadow-lg shadow-black/5"
                             >
                                 Savatga
                             </Button>
                             <button
                                 onClick={() => toggleWishlist(item)}
-                                className="p-2.5 text-red-500 hover:bg-red-50 rounded-full transition-colors"
+                                className="p-2.5 cursor-pointer text-red-500 hover:bg-red-50 rounded-full transition-colors"
                             >
                                 <Heart size={20} fill="currentColor" />
                             </button>

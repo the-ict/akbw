@@ -1,5 +1,7 @@
 import httpClient from "../httpClient";
-import { ENDP_ADMIN } from "../URLs";
+import {
+    ENDP_ADMIN
+} from "../URLs";
 
 export const getAdminsRequest = async () => {
     return (await httpClient.get(ENDP_ADMIN)).data;

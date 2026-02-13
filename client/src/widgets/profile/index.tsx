@@ -175,15 +175,21 @@ function Profile({ children }: ProfileProps) {
                 if (selectedImage) {
                     const response = await uploadRequest.uploadImage(selectedImage);
                     photoUrl = response.url;
-                }
+                };
 
                 if (!chatId) {
                     const newChat = await createProductInquiryChat({ receiver_id: "admin" });
                     chatId = newChat.id;
-                }
-                await sendProductInquiryMessage({ chat_id: chatId, message: chatMessage, photo: photoUrl });
+                };
+
+                if (photoUrl.length > 0) {
+                    await sendProductInquiryMessage({ chat_id: chatId, message: chatMessage, photo: photoUrl });
+                } else {
+                    await sendProductInquiryMessage({ chat_id: chatId, message: chatMessage });
+                };
+
                 setSelectedImage(null);
-            }
+            };
             setChatMessage("");
         } catch (error) {
             toast.error("Xabar yuborishda xatolik yuz berdi");

@@ -7,7 +7,6 @@ import {
     UserPlus,
     MoreVertical,
     Lock,
-    Unlock,
     Activity,
     Trash2,
 } from 'lucide-react';
@@ -21,7 +20,10 @@ import {
 import { cn } from '@/shared/lib/utils';
 import AddUserModal from './add-user-modal';
 import CredentialsModal from './credentials-modal';
-import { useAdmins, useDeleteAdmin } from '../lib/hooks';
+import {
+    useAdmins,
+    useDeleteAdmin
+} from '../lib/hooks';
 
 export default function UsersRoles() {
     const { data: admins = [], isLoading } = useAdmins();
@@ -43,7 +45,7 @@ export default function UsersRoles() {
                 <p className='text-gray-400 font-bold animate-pulse'>Yuklanmoqda...</p>
             </div>
         );
-    }
+    };
 
     return (
         <div className='space-y-8'>
@@ -138,34 +140,6 @@ export default function UsersRoles() {
                         </div>
                     );
                 })}
-            </div>
-
-            {/* Activity Log Section */}
-            <div className='bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
-                <h2 className='text-lg font-black uppercase tracking-wider mb-8'>Xavfsizlik Jurnali (Activity Log)</h2>
-                <div className='space-y-6'>
-                    {[
-                        { action: 'Mahsulot tahrirlandi', user: 'Anvar Toshmatov', time: '12 daqiqa oldin', code: 'PROD-1293' },
-                        { action: 'Yangi buyurtma qabul qilindi', user: 'System', time: '25 daqiqa oldin', code: 'ORD-8204' },
-                        { action: 'Narxlar o‘zgartirildi', user: 'Davlatbek Erkinov', time: '1 soat oldin', code: 'SET-9901' },
-                        { action: 'Profil rasm o‘zgartirildi', user: 'Nilufar Rahimova', time: '3 soat oldin', code: 'USR-0012' },
-                    ].map((log, i) => (
-                        <div key={i} className='flex items-center justify-between py-4 border-b border-gray-50 last:border-0 hover:bg-gray-50/50 px-4 rounded-2xl transition-all cursor-pointer'>
-                            <div className='flex items-center gap-4'>
-                                <div className='w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center'>
-                                    <Unlock size={18} className='text-gray-400' />
-                                </div>
-                                <div>
-                                    <p className='text-sm font-bold uppercase'>{log.action}</p>
-                                    <p className='text-[10px] text-gray-400 font-black uppercase tracking-widest'>{log.user} • {log.time}</p>
-                                </div>
-                            </div>
-                            <span className='text-[10px] font-black uppercase tracking-widest border border-gray-200 px-3 py-1 rounded-lg text-gray-400'>
-                                {log.code}
-                            </span>
-                        </div>
-                    ))}
-                </div>
             </div>
 
             <AddUserModal
