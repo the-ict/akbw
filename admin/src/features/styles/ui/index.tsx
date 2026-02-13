@@ -25,9 +25,9 @@ export default function Styles() {
                     <h1 className="text-2xl font-bold tracking-tight">Fasllar boshqaruvi</h1>
                     <p className="text-gray-500">Bosh sahifadagi "Fasllar" bo'limini boshqarish</p>
                 </div>
-                <Button onClick={() => setIsModalOpen(true)} className="gap-2 bg-black text-white hover:bg-black/90">
+                <Button onClick={() => setIsModalOpen(true)} className="cursor-pointer gap-2 bg-black text-white hover:bg-black/90">
                     <Plus size={18} />
-                    Yangi stil qo'shish
+                    Yangi fasl qo'shish
                 </Button>
             </div>
 
@@ -40,7 +40,7 @@ export default function Styles() {
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {stylesData?.data.map((style: IStyle) => (
-                        <div key={style.id} className="relative group overflow-hidden bg-white border border-gray-100 shadow-sm rounded-2xl transition-all duration-300 hover:shadow-lg">
+                        <div key={style.id} className="cursor-pointer relative group overflow-hidden bg-white border border-gray-100 shadow-sm rounded-2xl transition-all duration-300 hover:shadow-lg">
                             <div className="aspect-[16/9] w-full overflow-hidden">
                                 <img
                                     src={style.image}
@@ -68,7 +68,7 @@ export default function Styles() {
                         <div className="col-span-full py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-gray-500">
                             <ImageIcon size={48} className="mb-4 opacity-20" />
                             <p className="text-lg font-medium">Hozircha fasllar mavjud emas</p>
-                            <p className="text-sm">Boshlash uchun yangi stil qo'shing</p>
+                            <p className="text-sm">Boshlash uchun yangi fasl qo'shing</p>
                         </div>
                     )}
                 </div>

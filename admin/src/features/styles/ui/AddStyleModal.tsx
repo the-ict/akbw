@@ -106,10 +106,10 @@ export default function AddStyleModal({ isOpen, onClose }: Props) {
                     </div>
 
                     <div className="flex justify-end gap-3 pt-4">
-                        <Button type="button" variant="ghost" onClick={onClose} className="rounded-xl">
+                        <Button type="button" variant="ghost" onClick={onClose} className="rounded-xl cursor-pointer">
                             Bekor qilish
                         </Button>
-                        <Button type="submit" disabled={isPending} className="bg-black text-white hover:bg-black/90 rounded-xl px-8">
+                        <Button type="submit" disabled={isPending} className="bg-black text-white hover:bg-black/90 cursor-pointer rounded-xl px-8">
                             {isPending ? "Qo'shilmoqda..." : "Qo'shish"}
                         </Button>
                     </div>
