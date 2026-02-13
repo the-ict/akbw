@@ -56,7 +56,8 @@ export default function ProductSupportChat() {
 
         const link = document.createElement("a");
         link.href = previewImageRef.current.src;
-        link.download;
+        link.download = previewImageRef.current.src;
+        link.click();
     };
 
     useEffect(() => {
@@ -71,7 +72,7 @@ export default function ProductSupportChat() {
                 <p className='text-gray-400 font-bold animate-pulse'>Yuklanmoqda...</p>
             </div>
         );
-    }
+    };
 
     if (inquiries.length === 0) {
         return (
@@ -82,7 +83,7 @@ export default function ProductSupportChat() {
                 </div>
             </div>
         );
-    }
+    };
 
     return (
         <div className='flex h-[calc(100vh-140px)] bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm relative'>
@@ -97,12 +98,13 @@ export default function ProductSupportChat() {
                     </button>
                     <img src={previewImage} ref={previewImageRef} id='preview-image' className='max-w-full max-h-full object-contain rounded-2xl shadow-2xl' />
 
-
-                    <button
+                    <a
+                        href={previewImage}
+                        download
                         className='absolute bottom-8 right-8 text-white cursor-pointer'
-                        onClick={handleDownload}>
+                    >
                         <Download size={32} />
-                    </button>
+                    </a>
                 </div>
             )}
 
@@ -124,7 +126,7 @@ export default function ProductSupportChat() {
                             key={inquiry.id}
                             onClick={() => setSelectedInquiryId(inquiry.id)}
                             className={cn(
-                                'w-full p-4 flex gap-4 transition-all hover:bg-gray-50 text-left border-b border-gray-50/50',
+                                'w-full p-4 cursor-pointer flex gap-4 transition-all hover:bg-gray-50 text-left border-b border-gray-50/50',
                                 selectedInquiry?.id === inquiry.id && 'bg-indigo-50/50 border-l-4 border-indigo-600'
                             )}
                         >

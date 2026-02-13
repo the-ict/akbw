@@ -1,6 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, {
+    useState,
+    useEffect
+} from 'react';
 import {
     Search,
     MoreVertical,
@@ -12,7 +15,10 @@ import {
 import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
-import { useAdminHelpChats, useAdminSendMessage } from '../../chat/lib/hooks';
+import {
+    useAdminHelpChats,
+    useAdminSendMessage
+} from '../../chat/lib/hooks';
 
 
 export default function SupportChat() {
@@ -64,7 +70,6 @@ export default function SupportChat() {
 
     return (
         <div className='flex h-[calc(100vh-140px)] bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm'>
-            {/* Sidebar - Chat List */}
             <div className='w-[350px] border-r border-gray-100 flex flex-col'>
                 <div className='p-6 border-b border-gray-50'>
                     <h2 className='text-xl font-black uppercase tracking-tight mb-4'>Xabarlar</h2>
@@ -83,7 +88,7 @@ export default function SupportChat() {
                             key={chat.id}
                             onClick={() => setSelectedChatId(chat.id)}
                             className={cn(
-                                'w-full p-4 flex gap-4 transition-all hover:bg-gray-50 text-left border-b border-gray-50/50',
+                                'w-full p-4 cursor-pointer flex gap-4 transition-all hover:bg-gray-50 text-left border-b border-gray-50/50',
                                 selectedChat?.id === chat.id && 'bg-gray-50 border-l-4 border-black'
                             )}
                         >
@@ -110,10 +115,8 @@ export default function SupportChat() {
                 </div>
             </div>
 
-            {/* Main Chat Area */}
             {selectedChat ? (
                 <div className='flex-1 flex flex-col bg-gray-50/30'>
-                    {/* Chat Header */}
                     <div className='p-6 bg-white border-b border-gray-100 flex items-center justify-between'>
                         <div className='flex items-center gap-4'>
                             <div className='w-10 h-10 rounded-full bg-black/5 flex items-center justify-center'>
@@ -135,7 +138,6 @@ export default function SupportChat() {
                         </div>
                     </div>
 
-                    {/* Messages */}
                     <div className='flex-1 overflow-y-auto p-6 space-y-6 no-scrollbar flex flex-col-reverse'>
                         <div className='flex flex-col space-y-6'>
                             {selectedChat.messages?.map((msg: any) => (
@@ -164,7 +166,6 @@ export default function SupportChat() {
                         </div>
                     </div>
 
-                    {/* Input Area */}
                     <div className='p-6 bg-white border-t border-gray-100'>
                         <div className='flex gap-4 items-center bg-gray-50 pl-6 pr-2 py-2 rounded-2xl border border-gray-100 focus-within:border-black transition-all'>
                             <input

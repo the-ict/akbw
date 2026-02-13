@@ -10,7 +10,9 @@ import {
     Activity,
     Trash2,
 } from 'lucide-react';
-import { Button } from '@/shared/ui/button';
+import {
+    Button
+} from '@/shared/ui/button';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -63,7 +65,6 @@ export default function UsersRoles() {
                 </Button>
             </div>
 
-            {/* Role Summary Grid */}
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
                 {admins.map((user: any) => {
                     const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`;
