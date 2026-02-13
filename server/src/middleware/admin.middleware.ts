@@ -26,6 +26,9 @@ export const checkAdmins = async (req: Request, res: Response, next: NextFunctio
         const admin = await prisma.admins.findUnique({
             where: {
                 id: Number(decodedToken.id),
+            },
+            include: {
+                access: true,
             }
         });
 

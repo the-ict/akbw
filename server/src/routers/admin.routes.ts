@@ -6,8 +6,10 @@ import {
     getAdmins,
     getAdminById,
     updateAdmin,
-    deleteAdmin
+    deleteAdmin,
+    getAdminMe
 } from "../controllers/admin.controller";
+import { checkAdmins } from "../middleware/admin.middleware";
 
 const router = Router();
 
@@ -16,5 +18,6 @@ router.get("/:id", getAdminById);
 router.post("/", validate(createRoleSchema), createAdmin);
 router.put("/:id", updateAdmin);
 router.delete("/:id", deleteAdmin);
+router.get("/me", checkAdmins, getAdminMe);
 
 export default router;

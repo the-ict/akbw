@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
 import {
     Modal,
     ModalClose,
@@ -17,19 +16,11 @@ import {
     Heart,
     Bell,
     MessageSquare,
-    MapPin,
-    ChevronDown,
-    Camera,
-    Star,
-    ExternalLink,
     Menu as MenuIcon,
-    ArrowLeft,
-    Send,
     Image as ImageIcon,
     Settings,
     Headphones,
     HelpCircle,
-    ChevronRight,
     LogOut
 } from "lucide-react";
 import React from "react";

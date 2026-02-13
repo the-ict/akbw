@@ -138,3 +138,31 @@ export const deleteAdmin = async (req: Request, res: Response, next: NextFunctio
         next(error);
     }
 };
+
+
+export const getAdminMe = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const admin = req.admin;
+
+        console.log("admin: ", admin);
+        const me = await prisma.admins.findUnique({
+            where: {
+                id: Number(admin)
+            },
+            include: {
+                access: true,
+            }
+        });
+
+        console.log("log info", me);
+
+
+        return res.status(200).json({
+            message: "Admin is found",
+            ok: true,
+            admin: me,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
