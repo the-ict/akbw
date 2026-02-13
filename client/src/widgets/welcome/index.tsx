@@ -293,49 +293,53 @@ export default function Welcome() {
         </div>
       </div>
 
-      <div className="py-20">
-        <div className="container mb-10 flex items-end justify-between">
-          <h1 className={cn("text-4xl font-bold uppercase", monsterrat.className)}>Bizning minnatdor mijozlarimiz</h1>
-          <div className="flex gap-4">
-            <button onClick={() => handleScroll('left')} className="p-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all cursor-pointer">
-              <ArrowLeft size={20} />
-            </button>
-            <button onClick={() => handleScroll('right')} className="p-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all cursor-pointer">
-              <ArrowRight size={20} />
-            </button>
-          </div>
-        </div>
+      {
+        showAllReviews && (
+          <div className="py-20">
+            <div className="container mb-10 flex items-end justify-between">
+              <h1 className={cn("text-4xl font-bold uppercase", monsterrat.className)}>Bizning minnatdor mijozlarimiz</h1>
+              <div className="flex gap-4">
+                <button onClick={() => handleScroll('left')} className="p-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all cursor-pointer">
+                  <ArrowLeft size={20} />
+                </button>
+                <button onClick={() => handleScroll('right')} className="p-2 border border-black/10 rounded-full hover:bg-black hover:text-white transition-all cursor-pointer">
+                  <ArrowRight size={20} />
+                </button>
+              </div>
+            </div>
 
-        <div className="flex gap-5 overflow-x-scroll px-5 no-scrollbar" ref={wrapperRef}>
-          {topReviewsData?.data && topReviewsData.data.length >= 10 ? (
-            topReviewsData.data.map((review: any, index: number) => (
-              <div ref={reviewRef} key={index} className="flex flex-col gap-3 border-1 border-black/10 p-5 rounded-[20px] bg-[#D6D3CC]/20 w-[300px] shrink-0">
-                <div className="flex items-center gap-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={20}
-                      fill={i < review.rating ? "yellow" : "none"}
-                      className={i < review.rating ? "text-yellow-500" : "text-gray-300"}
-                    />
-                  ))}
-                </div>
-                <div className="flex items-center gap-2">
-                  <h1 className="font-bold">{review.user?.name || "Anonim"}</h1>
-                  <MapPinCheckInside size={20} />
-                </div>
-                <p className="text-sm line-clamp-3">{review.comment}</p>
-              </div>
-            ))
-          ) : (
-            !isLoadingReviews && (
-              <div className="w-full py-10 text-center text-gray-400">
-                <p>Hozircha sharhlar yetarli emas</p>
-              </div>
-            )
-          )}
-        </div>
-      </div>
+            <div className="flex gap-5 overflow-x-scroll px-5 no-scrollbar" ref={wrapperRef}>
+              {topReviewsData?.data && topReviewsData.data.length >= 10 ? (
+                topReviewsData.data.map((review: any, index: number) => (
+                  <div ref={reviewRef} key={index} className="flex flex-col gap-3 border-1 border-black/10 p-5 rounded-[20px] bg-[#D6D3CC]/20 w-[300px] shrink-0">
+                    <div className="flex items-center gap-2">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={20}
+                          fill={i < review.rating ? "yellow" : "none"}
+                          className={i < review.rating ? "text-yellow-500" : "text-gray-300"}
+                        />
+                      ))}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <h1 className="font-bold">{review.user?.name || "Anonim"}</h1>
+                      <MapPinCheckInside size={20} />
+                    </div>
+                    <p className="text-sm line-clamp-3">{review.comment}</p>
+                  </div>
+                ))
+              ) : (
+                !isLoadingReviews && (
+                  <div className="w-full py-10 text-center text-gray-400">
+                    <p>Hozircha sharhlar yetarli emas</p>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        )
+      }
     </div>
   );
 }
