@@ -6,15 +6,12 @@ import {
     getMe,
     updateProfile
 } from "../controllers/user.controller.js";
-import {
-    checkAdmins
-} from "../middleware/admin.middleware.js";
 import { auth } from "../middleware/auth.middleware.js";
 
 const router = Router();
 
 router.get("/me", auth, getMe);
 router.put("/me", auth, updateProfile);
-router.get("/", checkAdmins, getUsers);
+router.get("/", getUsers);
 
 export default router;

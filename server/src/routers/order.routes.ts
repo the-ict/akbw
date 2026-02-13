@@ -14,8 +14,8 @@ const router = Router();
 
 router.post("/", auth, validate(reviewOrderValidator), reviewOrder)
 router.get("/admins-order-all", getAllOrders)
-router.get("/", auth, langaugeMiddleware, getOrders)
+router.get("/", langaugeMiddleware, getOrders)
 router.patch("/:id/status", updateOrderStatus)
-router.get("/all", auth, getAllOrders)
+router.get("/all", getAllOrders)
 
 export default router;
