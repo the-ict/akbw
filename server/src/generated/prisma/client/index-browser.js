@@ -257,14 +257,30 @@ exports.Prisma.NotificationsScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ChatScalarFieldEnum = {
+exports.Prisma.HelpChatScalarFieldEnum = {
   id: 'id',
   members: 'members',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.MessagesScalarFieldEnum = {
+exports.Prisma.HelpChatMessagesScalarFieldEnum = {
+  id: 'id',
+  chat_id: 'chat_id',
+  sender_id: 'sender_id',
+  message: 'message',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AskForChatScalarFieldEnum = {
+  id: 'id',
+  members: 'members',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AskForChatMessagesScalarFieldEnum = {
   id: 'id',
   chat_id: 'chat_id',
   sender_id: 'sender_id',
@@ -306,8 +322,10 @@ exports.Prisma.ModelName = {
   Coupons: 'Coupons',
   Orders: 'Orders',
   Notifications: 'Notifications',
-  Chat: 'Chat',
-  Messages: 'Messages'
+  HelpChat: 'HelpChat',
+  HelpChatMessages: 'HelpChatMessages',
+  AskForChat: 'AskForChat',
+  AskForChatMessages: 'AskForChatMessages'
 };
 
 /**

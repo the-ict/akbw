@@ -14,17 +14,18 @@ datasource db {
 }
 
 model User {
-  id              String     @id @default(uuid())
-  phone           String     @unique
-  name            String
-  lastName        String
-  gender          String
-  reviews         Reviews[]
-  profile_picture String     @default("")
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  orders          Orders[]
-  messages        Messages[]
+  id                 String               @id @default(uuid())
+  phone              String               @unique
+  name               String
+  lastName           String
+  gender             String
+  helpChatMessages   HelpChatMessages[]
+  askForChatMessages AskForChatMessages[]
+  reviews            Reviews[]
+  profile_picture    String               @default("")
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  orders             Orders[]
 }
 
 model Verify {
@@ -175,21 +176,40 @@ model Notifications {
   updatedAt DateTime @updatedAt
 }
 
-model Chat {
-  id        Int        @id @default(autoincrement())
+model HelpChat {
+  id        Int                @id @default(autoincrement())
   members   String[]
-  messages  Messages[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  messages  HelpChatMessages[]
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
 }
 
-model Messages {
+model HelpChatMessages {
   id        Int      @id @default(autoincrement())
   chat_id   Int
-  chat      Chat     @relation(fields: [chat_id], references: [id])
+  chat      HelpChat @relation(fields: [chat_id], references: [id])
   sender_id String
   sender    User     @relation(fields: [sender_id], references: [id])
   message   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model AskForChat {
+  id        Int                  @id @default(autoincrement())
+  members   String[]
+  messages  AskForChatMessages[]
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+}
+
+model AskForChatMessages {
+  id        Int        @id @default(autoincrement())
+  chat_id   Int
+  chat      AskForChat @relation(fields: [chat_id], references: [id])
+  sender_id String
+  sender    User       @relation(fields: [sender_id], references: [id])
+  message   String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 }
