@@ -4,7 +4,6 @@ import type {
     Response
 } from "express";
 import { prisma } from "../db/client.js";
-import { Z_DEFAULT_STRATEGY } from "node:zlib";
 
 const localizeCategory = (c: any, lang: string) => ({
     ...c,
@@ -497,7 +496,7 @@ export const createColor = async (req: Request, res: Response, next: NextFunctio
 };
 
 
-export const recomentAll = async (req: Request, res: Response, next: NextFunction) => {
+export const recommendedAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const now = new Date();
         const thirtyDaysAgo = new Date();

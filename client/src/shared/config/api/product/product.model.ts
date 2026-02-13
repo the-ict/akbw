@@ -58,3 +58,8 @@ export interface IProductFilters {
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';
 }
+
+export interface IRecommendedProductsResponse {
+    newest: IProduct[];
+    mostSold: IProduct[];
+}

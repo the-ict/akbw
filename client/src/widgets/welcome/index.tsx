@@ -25,7 +25,8 @@ import {
 import {
   useRef,
 } from "react";
-import { useProducts } from "@/features/products/lib/hooks";
+import { useRecommendedProducts } from "@/features/products/lib/hooks";
+import { IProduct } from "@/shared/config/api/product/product.model";
 
 import ShoppingCartIcon from "../../../public/icons/shoppingcart.png";
 import Futbolka from "../../../public/icons/futbolka.png";
@@ -55,8 +56,10 @@ const logos = [
 ]
 
 export default function Welcome() {
-  const { data: bestSellers, isLoading: loadingBest } = useProducts({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' });
-  const { data: newArrivals, isLoading: loadingNew } = useProducts({ limit: 4, sortBy: 'createdAt', sortOrder: 'desc' });
+  const { data: recommendedData, isLoading } = useRecommendedProducts();
+
+  const newest = recommendedData?.newest || [];
+  const mostSold = recommendedData?.mostSold || [];
 
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const reviewRef = useRef<HTMLDivElement | null>(null);
@@ -160,12 +163,12 @@ export default function Welcome() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
             {
-              loadingNew ? (
+              isLoading ? (
                 [1, 2, 3, 4].map((_, index) => (
                   <div key={index} className="w-full aspect-[3/4] rounded-2xl bg-gray-200 animate-pulse" />
                 ))
               ) : (
-                newArrivals?.data?.map((product) => (
+                newest.map((product: IProduct) => (
                   <Product key={product.id} product={product} />
                 ))
               )
@@ -188,12 +191,12 @@ export default function Welcome() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
             {
-              loadingBest ? (
+              isLoading ? (
                 [1, 2, 3, 4].map((_, index) => (
                   <div key={index} className="w-full aspect-[3/4] rounded-2xl bg-gray-200 animate-pulse" />
                 ))
               ) : (
-                bestSellers?.data?.map((product) => (
+                mostSold.map((product: IProduct) => (
                   <Product key={product.id} product={product} />
                 ))
               )
