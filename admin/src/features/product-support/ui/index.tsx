@@ -1,6 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, {
+    useState,
+    useEffect,
+    useRef
+} from 'react';
 import {
     Search,
     MoreVertical,
@@ -9,12 +13,16 @@ import {
     Image as ImageIcon,
     Box,
     X,
-    Maximize2
+    Maximize2,
+    Download
 } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
-import { useAdminAskChats, useAdminSendMessage } from '../../chat/lib/hooks';
+import {
+    useAdminAskChats,
+    useAdminSendMessage
+} from '../../chat/lib/hooks';
 
 
 export default function ProductSupportChat() {
@@ -22,6 +30,8 @@ export default function ProductSupportChat() {
     const [selectedInquiryId, setSelectedInquiryId] = useState<number | null>(null);
     const [message, setMessage] = useState('');
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+    const previewImageRef = useRef<HTMLImageElement | null>(null);
 
     const selectedInquiry = inquiries.find((i: any) => i.id === selectedInquiryId) || inquiries[0];
 
@@ -38,6 +48,15 @@ export default function ProductSupportChat() {
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const handleDownload = () => {
+        if (!previewImage) return;
+        if (!previewImageRef.current) return;
+
+        const link = document.createElement("a");
+        link.href = previewImageRef.current.src;
+        link.download;
     };
 
     useEffect(() => {
@@ -68,7 +87,6 @@ export default function ProductSupportChat() {
     return (
         <div className='flex h-[calc(100vh-140px)] bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm relative'>
 
-            {/* Image Preview Modal Overlay */}
             {previewImage && (
                 <div className='absolute inset-0 bg-black/90 z-[100] flex items-center justify-center p-10 animate-in fade-in zoom-in duration-200'>
                     <button
@@ -77,11 +95,17 @@ export default function ProductSupportChat() {
                     >
                         <X size={32} />
                     </button>
-                    <img src={previewImage} className='max-w-full max-h-full object-contain rounded-2xl shadow-2xl' />
+                    <img src={previewImage} ref={previewImageRef} id='preview-image' className='max-w-full max-h-full object-contain rounded-2xl shadow-2xl' />
+
+
+                    <button
+                        className='absolute bottom-8 right-8 text-white cursor-pointer'
+                        onClick={handleDownload}>
+                        <Download size={32} />
+                    </button>
                 </div>
             )}
 
-            {/* Sidebar - Inquiries List */}
             <div className='w-[350px] border-r border-gray-100 flex flex-col'>
                 <div className='p-6 border-b border-gray-50'>
                     <h2 className='text-xl font-black uppercase tracking-tight mb-4 text-indigo-600'>So‘rovlar</h2>
@@ -132,10 +156,8 @@ export default function ProductSupportChat() {
                 </div>
             </div>
 
-            {/* Main Chat Area */}
             {selectedInquiry ? (
                 <div className='flex-1 flex flex-col bg-slate-50/20'>
-                    {/* Chat Header */}
                     <div className='p-6 bg-white border-b border-gray-100 flex items-center justify-between'>
                         <div className='flex items-center gap-4'>
                             <div className='w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center'>
@@ -157,7 +179,6 @@ export default function ProductSupportChat() {
                         </div>
                     </div>
 
-                    {/* Messages */}
                     <div className='flex-1 overflow-y-auto p-8 space-y-8 no-scrollbar flex flex-col'>
                         {selectedInquiry.messages?.map((msg: any) => (
                             <div
@@ -195,7 +216,6 @@ export default function ProductSupportChat() {
                         ))}
                     </div>
 
-                    {/* Input Area */}
                     <div className='p-6 bg-white border-t border-gray-100'>
                         <div className='flex gap-4 items-center bg-gray-50 pl-6 pr-2 py-2 rounded-2xl border border-gray-100 focus-within:border-indigo-600 transition-all'>
                             <input
