@@ -236,7 +236,7 @@ export default function Welcome() {
 
       <div className="container bg-[#D6D3CC]/40 p-6 lg:p-20 pt-10 rounded-[20px] my-10">
         <h1 className={cn("text-3xl lg:text-4xl font-bold text-center uppercase mb-10", monsterrat.className)}>
-          Stillar
+          Fasllar
         </h1>
 
         <div className="flex flex-col gap-5 w-full">
@@ -279,7 +279,7 @@ export default function Welcome() {
 
           {styles.length === 0 && !isLoading && (
             <div className="py-20 text-center text-gray-400">
-              <p>Hozircha stillar mavjud emas</p>
+              <p>Hozircha fasllar mavjud emas</p>
             </div>
           )}
         </div>

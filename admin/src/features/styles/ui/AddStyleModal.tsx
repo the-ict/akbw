@@ -63,7 +63,7 @@ export default function AddStyleModal({ isOpen, onClose }: Props) {
         <Modal open={isOpen} onOpenChange={onClose}>
             <ModalContent className="sm:max-w-[425px] rounded-3xl !bg-white">
                 <ModalClose />
-                <ModalTitle className="text-xl font-bold">Yangi stil qo'shish</ModalTitle>
+                <ModalTitle className="text-xl font-bold cursor-pointer">Yangi fasl qo'shish</ModalTitle>
                 <form onSubmit={handleSubmit} className="space-y-6 pt-4">
                     <div className="space-y-2">
                         <label className="font-bold text-sm uppercase text-gray-400">Kategoriya</label>

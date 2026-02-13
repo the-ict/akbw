@@ -22,8 +22,8 @@ export default function Styles() {
         <div className="p-6 space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-2xl font-bold tracking-tight">Stillar boshqaruvi</h1>
-                    <p className="text-gray-500">Bosh sahifadagi "Stillar" bo'limini boshqarish</p>
+                    <h1 className="text-2xl font-bold tracking-tight">Fasllar boshqaruvi</h1>
+                    <p className="text-gray-500">Bosh sahifadagi "Fasllar" bo'limini boshqarish</p>
                 </div>
                 <Button onClick={() => setIsModalOpen(true)} className="gap-2 bg-black text-white hover:bg-black/90">
                     <Plus size={18} />
@@ -55,7 +55,7 @@ export default function Styles() {
                                         variant="ghost"
                                         size="icon"
                                         onClick={() => handleDelete(style.id)}
-                                        className="text-red-500 hover:bg-red-50 hover:text-red-700 rounded-full"
+                                        className="text-red-500 cursor-pointer hover:bg-red-50 hover:text-red-700 rounded-full"
                                     >
                                         <Trash2 size={18} />
                                     </Button>
@@ -67,7 +67,7 @@ export default function Styles() {
                     {stylesData?.data.length === 0 && (
                         <div className="col-span-full py-20 bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-gray-500">
                             <ImageIcon size={48} className="mb-4 opacity-20" />
-                            <p className="text-lg font-medium">Hozircha stillar mavjud emas</p>
+                            <p className="text-lg font-medium">Hozircha fasllar mavjud emas</p>
                             <p className="text-sm">Boshlash uchun yangi stil qo'shing</p>
                         </div>
                     )}
