@@ -61,7 +61,10 @@ export const createAdmin = async (req: Request, res: Response, next: NextFunctio
                 phone: req.body.phone,
                 role: req.body.role || 'Moderator',
                 access: {
-                    connect: req.body.access.map((name: string) => ({ name }))
+                    connectOrCreate: (req.body.access || []).map((name: string) => ({
+                        where: { name },
+                        create: { name }
+                    }))
                 },
             }
         })
@@ -97,7 +100,11 @@ export const updateAdmin = async (req: Request, res: Response, next: NextFunctio
 
         if (access) {
             updateData.access = {
-                set: access.map((name: string) => ({ name }))
+                set: [], // Disconnect all first to replace
+                connectOrCreate: access.map((name: string) => ({
+                    where: { name },
+                    create: { name }
+                }))
             };
         }
 

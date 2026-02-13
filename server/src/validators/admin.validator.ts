@@ -5,7 +5,7 @@ const createRoleSchema = Joi.object({
     lastName: Joi.string().required(),
     phone: Joi.string().required(),
     role: Joi.string(),
-    access: Joi.array().items(Joi.string()).required(),
+    access: Joi.array().items(Joi.string()),
 });
 
 export { createRoleSchema };
