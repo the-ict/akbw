@@ -38,14 +38,13 @@
   --color-akbw-sand: #a6a195;
   --color-akbw-white: #f6f4f0;
   --color-akbw-black: #000000;
-  --color-akbw-gray: #7C7A74;
-  --color-akbw-olive: #6B6E5F;
-  --color-akbw-taupe: #8A847A;
+  --color-akbw-gray: #7c7a74;
+  --color-akbw-olive: #6b6e5f;
+  --color-akbw-taupe: #8a847a;
 
   --animate-float: float 3s ease-in-out infinite;
 
   @keyframes float {
-
     0%,
     100% {
       transform: translateY(0) rotate(0deg);
@@ -62,7 +61,7 @@
 
   --akbw-black: #000000;
   --akbw-white: #ffffff;
-  --akbw-background: #D6D3CC;
+  --akbw-background: #d6d3cc;
 }
 
 @layer base {
@@ -80,7 +79,6 @@
 }
 
 @layer components {
-
   /* Container - spacious and clean */
   .container {
     @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;

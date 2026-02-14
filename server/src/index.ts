@@ -50,7 +50,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(langaugeMiddleware);
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
-
 // routes
 app.get("/", (req: Request, res: Response) => {
     res.send("Working !");

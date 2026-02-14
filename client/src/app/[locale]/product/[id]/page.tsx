@@ -1,17 +1,18 @@
-import Product from '@/features/product/ui'
-import React from 'react'
+import Product from '@/features/product/ui';
+import React from 'react';
 
 interface ProductPageProps {
-    params: {
-        id: string;
-        locale: string;
-    };
+  params: Promise<{
+    id: string;
+    locale: string;
+  }>;
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-    return (
-        <>
-            <Product id={params.id} />
-        </>
-    )
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { id } = await params;
+  return (
+    <>
+      <Product id={id} />
+    </>
+  );
 }

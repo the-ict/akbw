@@ -1,10 +1,10 @@
 interface SmsRequest {
-    phone: string;
+  phone: string;
 }
 
 interface VerifyRequest {
-    phone: string;
-    code: string;
+  phone: string;
+  code: string;
 }
 
 export type { SmsRequest, VerifyRequest };

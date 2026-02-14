@@ -2,13 +2,7 @@
 
 import Link from 'next/link';
 import { PRODUCT_INFO } from '@/shared/constants/data';
-import {
-  Instagram,
-  Facebook,
-  Youtube,
-  Send,
-  Globe2Icon
-} from 'lucide-react';
+import { Instagram, Facebook, Youtube, Send, Globe2Icon } from 'lucide-react';
 import { useUIStore } from '@/shared/model/use-ui-store';
 
 const Footer = () => {
@@ -23,7 +17,7 @@ const Footer = () => {
     ],
     support: [
       { name: 'Contact Us', href: '/contact' },
-      { name: "Chat", href: "/" }
+      { name: 'Chat', href: '/' },
     ],
     company: [
       { name: 'About AKBW', href: '/about' },
@@ -37,7 +31,10 @@ const Footer = () => {
       <div className="container section-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
-            <Link href="/" className="font-display text-2xl text-akbw-black hover:opacity-70 transition-opacity inline-block mb-4">
+            <Link
+              href="/"
+              className="font-display text-2xl text-akbw-black hover:opacity-70 transition-opacity inline-block mb-4"
+            >
               {PRODUCT_INFO.name}
             </Link>
             <p className="text-black text-sm leading-relaxed">
@@ -119,7 +116,7 @@ const Footer = () => {
               </a>
               <a
                 href={PRODUCT_INFO.socials.website}
-                rel='noopener noreferrer'
+                rel="noopener noreferrer"
                 className="text-black hover:font-bold transition-colors"
                 aria-label="Website"
               >
@@ -133,13 +130,20 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-black">
-              © «2026© XK MCHJ «AKBW». STIR 00000000. Barcha huquqlar himoyalangan»
+              © «2026© XK MCHJ «AKBW». STIR 00000000. Barcha huquqlar
+              himoyalangan»
             </p>
             <div className="flex space-x-6 text-sm text-black">
-              <Link href={PRODUCT_INFO.privacy_policy} className="hover:font-bold transition-colors">
+              <Link
+                href={PRODUCT_INFO.privacy_policy}
+                className="hover:font-bold transition-colors"
+              >
                 Privacy
               </Link>
-              <Link href={PRODUCT_INFO.terms_of_use} className="hover:font-bold transition-colors">
+              <Link
+                href={PRODUCT_INFO.terms_of_use}
+                className="hover:font-bold transition-colors"
+              >
                 Terms
               </Link>
             </div>

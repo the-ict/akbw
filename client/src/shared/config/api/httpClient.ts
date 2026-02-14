@@ -30,7 +30,7 @@ httpClient.interceptors.request.use(
     const accessToken = useUserStore.getState().token;
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
-    };
+    }
 
     return config;
   },
