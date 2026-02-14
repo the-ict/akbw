@@ -5,6 +5,7 @@ const createProductSchema = Joi.object({
     product_images: Joi.array().items(Joi.string()).required(),
     categories: Joi.array().items(Joi.number()).required(),
     sizes: Joi.array().items(Joi.number()).required(),
+    discount: Joi.number().optional(),
     colors: Joi.array().items(Joi.number()).required(),
     translations: Joi.array().items(Joi.object({
         name: Joi.string().required(),
@@ -19,6 +20,7 @@ const updateProductSchema = Joi.object({
     categories: Joi.array().items(Joi.number()),
     sizes: Joi.array().items(Joi.number()),
     colors: Joi.array().items(Joi.number()),
+    discount: Joi.number().optional(),
     translations: Joi.array().items(Joi.object({
         name: Joi.string(),
         description: Joi.string(),

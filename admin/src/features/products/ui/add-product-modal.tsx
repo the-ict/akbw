@@ -13,7 +13,10 @@ import { Modal, ModalContent, ModalTitle, ModalDescription } from '@/shared/ui/m
 import { cn } from '@/shared/lib/utils';
 import { LanguageRoutes } from '@/shared/config/i18n/types';
 
-import { IProduct, ICreateProduct } from '@/shared/config/api/product/product.modal';
+import type {
+    IProduct,
+    ICreateProduct
+} from '@/shared/config/api/product/product.model';
 
 import { useCategories } from '../../categories/lib/hooks';
 import { useCreateProduct, useUpdateProduct } from '../lib/hooks';
@@ -163,7 +166,6 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
     }, [product, isOpen]);
 
 
-
     const nextStep = () => setStep(prev => Math.min(prev + 1, 3));
     const prevStep = () => setStep(prev => Math.max(prev - 1, 1));
 
@@ -190,6 +192,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
             price: Number(price),
             product_images: images.length > 0 ? images : ["https://images.unsplash.com/photo-1542291026-7eec264c27ff"],
             categories: selectedCategories,
+            discount: discountPrice ? Number(discountPrice) : 0,
             sizes: selectedSizes,
             colors: selectedColors,
             translations: Object.entries(translations)

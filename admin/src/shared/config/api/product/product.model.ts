@@ -11,6 +11,7 @@ export interface ICreateProduct {
     sizes: number[];
     colors: number[];
     translations: IProductTranslation[];
+    discount?: number;
 };
 
 

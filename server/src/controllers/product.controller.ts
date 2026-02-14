@@ -203,13 +203,14 @@ export const getProductById = async (req: Request, res: Response, next: NextFunc
 
 export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { price, product_images, categories, sizes, colors, translations } = req.body;
+        const { price, product_images, categories, sizes, colors, translations, discount } = req.body;
         const languageCode = (req as any).languageCode || 'uz';
 
         const product = await prisma.products.create({
             data: {
                 price,
                 product_images,
+                discount,
                 categories: {
                     connect: categories.map((id: number) => ({ id }))
                 },
@@ -256,7 +257,7 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 export const updateProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const { price, product_images, categories, sizes, colors, translations } = req.body;
+        const { price, product_images, categories, sizes, colors, translations, discount } = req.body;
         const languageCode = (req as any).languageCode || 'uz';
 
         const data: any = {};
@@ -272,6 +273,9 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
         if (colors) {
             data.colors = { set: colors.map((id: number) => ({ id })) };
         }
+        if (discount) {
+            data.discount = discount;
+        };
         if (translations) {
             data.translations = {
                 deleteMany: {},
