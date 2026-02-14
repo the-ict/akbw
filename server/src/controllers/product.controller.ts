@@ -548,21 +548,25 @@ export const recommendedAll = async (req: Request, res: Response, next: NextFunc
             }
         });
 
-        const allOrders = await prisma.orders.findMany({
-            select: { items: true }
+        const soldCountData = await prisma.orderItem.groupBy({
+            by: ['productId'],
+            _sum: {
+                quantity: true
+            },
+            orderBy: {
+                _sum: {
+                    quantity: 'desc'
+                }
+            },
+            take: 10
         });
 
         const soldCount: Record<number, number> = {};
-        allOrders.forEach(order => {
-            order.items.forEach(itemId => {
-                soldCount[itemId] = (soldCount[itemId] || 0) + 1;
-            });
+        soldCountData.forEach(item => {
+            soldCount[item.productId] = item._sum.quantity || 0;
         });
 
-        const topSoldIds = Object.entries(soldCount)
-            .sort(([, a], [, b]) => b - a)
-            .slice(0, 10)
-            .map(([id]) => Number(id));
+        const topSoldIds = soldCountData.map(item => item.productId);
 
         const mostSoldProducts = await prisma.products.findMany({
             where: {
