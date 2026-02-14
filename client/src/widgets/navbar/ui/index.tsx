@@ -78,7 +78,7 @@ const Navbar = () => {
               </li>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="p-6 bg-white/95 backdrop-blur-2xl border-none shadow-2xl rounded-[32px] w-[800px] mt-4 animate-in fade-in zoom-in-95 duration-300 z-[70]">
+            <DropdownMenuContent className="p-6 bg-[#D6D3CC]/40 backdrop-blur-2xl border-none shadow-2xl rounded-[32px] w-[800px] mt-4 animate-in fade-in zoom-in-95 duration-300 z-[70]">
               <div className="flex flex-col gap-8">
                 <div className="flex items-center gap-4 overflow-x-auto no-scrollbar pb-2 border-b border-black/5">
                   {categories?.filter(c => !c.parentId).map((item, index) => {
