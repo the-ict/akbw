@@ -39,8 +39,10 @@ export default function Product({ product }: ProductProps) {
             toast.success(`${product.name} sevimlilarga qo'shildi`);
         } else {
             toast.info(`${product.name} sevimlilardan olib tashlandi`);
-        }
+        };
     };
+
+    console.log(product, "this is product from product wadget")
 
     return (
         <div className="cursor-pointer flex flex-col gap-3 group relative" onClick={() => {
@@ -54,7 +56,6 @@ export default function Product({ product }: ProductProps) {
                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
 
-                {/* Heart Icon */}
                 <button
                     onClick={handleToggleWishlist}
                     className={cn(

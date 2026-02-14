@@ -583,12 +583,13 @@ export const recommendedAll = async (req: Request, res: Response, next: NextFunc
             }
         });
 
-        const sortedMostSold = mostSoldProducts.sort((a, b) => (soldCount[b.id] || 0) - (soldCount[a.id] || 0));
+        const languageCode = req.languageCode || "uz";
 
         return res.status(200).json({
             ok: true,
-            newest: newestProducts,
-            mostSold: sortedMostSold
+            newest: newestProducts.map(product => localizeProduct(product, languageCode)),
+            mostSold: mostSoldProducts.map(product => localizeProduct(product, languageCode)),
+            message: "Recommended products fetched successfully"
         });
     } catch (error) {
         next(error);

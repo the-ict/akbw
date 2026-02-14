@@ -9,6 +9,7 @@ declare global {
                 name: string;
                 lastName: string;
             };
+            languageCode: string;
         }
     }
 };

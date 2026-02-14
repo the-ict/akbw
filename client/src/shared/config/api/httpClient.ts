@@ -16,12 +16,15 @@ httpClient.interceptors.request.use(
 
     // Language configs
     let language = LanguageRoutes.UZ;
+
     try {
       language = (await getLocale()) as LanguageRoutes;
     } catch (e) {
       console.log('error', e);
       language = getLocaleCS() || LanguageRoutes.UZ;
     }
+
+    console.log(language, 'THIS IS LANGUAGE');
 
     config.headers['Accept-Language'] = language;
     const accessToken = useUserStore.getState().token;

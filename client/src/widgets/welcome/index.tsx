@@ -236,7 +236,7 @@ export default function Welcome() {
                 onClick={() => setShowAllMostSold(!showAllMostSold)}
                 className="bg-[#fff]/50 text-[#000] hover:border-[#000]/100 btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl"
               >
-                {showAllMostSold ? "Show Less" : "View All"}
+                {showAllMostSold ? "Kamroq ko'rish" : "Ko'proq ko'rish"}
               </Button>
             </div>
           )}
