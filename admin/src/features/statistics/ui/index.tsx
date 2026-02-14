@@ -228,7 +228,7 @@ export default function Statistics() {
                     </div>
                 </div>
             </div>
-            <Button variant='outline' className='w-full mt-8 rounded-2xl h-12 border-gray-100 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer'>
+            <Button onClick={() => window.location.replace("/products")} variant='outline' className='w-full mt-8 rounded-2xl h-12 border-gray-100 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer'>
                 Barcha mahsulotlar hisoboti
             </Button>
         </div>
