@@ -52,9 +52,7 @@ const Navbar = () => {
     }
   };
 
-
   if (isLoading) return null;
-
   return (
     <nav className="bg-[#D6D3CC] py-5 sticky top-0 z-50">
       <div className="container flex items-center justify-between gap-4">

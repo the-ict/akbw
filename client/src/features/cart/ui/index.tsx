@@ -31,7 +31,9 @@ import {
     Radiant
 } from '@/shared/fonts';
 import ProductImage from "../../../../public/assets/product.png";
-import { toast } from '@/shared/ui/toast';
+import {
+    toast
+} from '@/shared/ui/toast';
 import {
     Modal,
     ModalContent,
@@ -80,7 +82,6 @@ export default function Cart() {
     const [region, setRegion] = useState('');
     const [district, setDistrict] = useState('');
     const [detailedAddress, setDetailedAddress] = useState('');
-    const [checkoutPromoCode, setCheckoutPromoCode] = useState('');
     const [paymentMethod, setPaymentMethod] = useState<'payme' | 'click'>('payme');
 
     const [modalMode, setModalMode] = useState<'checkout' | 'tracking'>('checkout');
@@ -163,7 +164,6 @@ export default function Cart() {
     return (
         <div className='min-h-screen bg-white'>
             <div className='container py-10 px-4 md:px-6'>
-                {/* Breadcrumbs */}
                 <div className='flex gap-2 text-sm text-gray-500 mb-10'>
                     <span>Home</span>
                     <span>/</span>
@@ -175,7 +175,6 @@ export default function Cart() {
                 </h1>
 
                 <div className='flex flex-col lg:flex-row gap-8 items-start mb-20'>
-                    {/* Cart Items List */}
                     <div className='flex-1 w-full border border-gray-100 rounded-[20px] p-4 md:p-6 space-y-6'>
                         {cartItems.length > 0 ? (
                             cartItems.map((item, idx) => (
@@ -226,14 +225,13 @@ export default function Cart() {
                         ) : (
                             <div className='py-20 text-center'>
                                 <p className='text-gray-400 text-lg'>Sizning savatingiz bo'sh.</p>
-                                <Button className='mt-6 rounded-full px-10 py-6 font-bold cursor-pointer'>
+                                <Button onClick={() => window.location.replace("/filters")} className='mt-6 rounded-full px-10 py-6 font-bold cursor-pointer'>
                                     Mahsulotlarni ko'rish
                                 </Button>
                             </div>
                         )}
                     </div>
 
-                    {/* Order Summary */}
                     <div className='w-full lg:w-[400px] border border-gray-100 rounded-[20px] p-6 space-y-6'>
                         <h2 className='text-2xl font-bold'>Order Summary</h2>
 
@@ -290,7 +288,6 @@ export default function Cart() {
                     </div>
                 </div>
 
-                {/* Active Orders Section */}
                 {token && ordersData?.data && ordersData.data.length > 0 && (
                     <div className='mt-20'>
                         <h2 className={cn('text-3xl font-black uppercase mb-10 text-gray-400', monsterrat.className)}>
@@ -358,7 +355,6 @@ export default function Cart() {
                                                 }
                                             </div>
 
-                                            {/* Action Button */}
                                             {order.status === 'approved' && (
                                                 <Button
                                                     onClick={() => handleOrderNow(order)}
@@ -388,7 +384,6 @@ export default function Cart() {
                 )}
             </div>
 
-            {/* Checkout / Tracking Modal */}
             <Modal open={isCheckoutOpen} onOpenChange={setIsCheckoutOpen}>
                 <ModalContent className="max-w-2xl bg-white p-0 overflow-hidden border-none rounded-[32px] shadow-2xl max-h-[90vh] overflow-y-auto no-scrollbar">
                     {modalMode === 'checkout' ? (
@@ -410,7 +405,6 @@ export default function Cart() {
                                 ))}
                             </div>
 
-                            {/* Manual Location Selection */}
                             <div className="space-y-4">
                                 <h3 className="font-bold text-lg flex items-center gap-2 text-black">
                                     <MapPin size={20} />
@@ -462,7 +456,6 @@ export default function Cart() {
                                 </div>
                             </div>
 
-                            {/* Payment Selection */}
                             <div className="space-y-4">
                                 <h3 className="font-bold text-lg flex items-center gap-2">
                                     <CreditCard size={20} className="text-black" />
@@ -491,7 +484,6 @@ export default function Cart() {
                                 </div>
                             </div>
 
-                            {/* Total & Pay */}
                             <div className="bg-black rounded-[28px] p-6 flex justify-between items-center text-white shadow-xl shadow-black/10">
                                 <div className="flex flex-col">
                                     <span className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">Total to Pay</span>
@@ -529,7 +521,6 @@ export default function Cart() {
                                 ))}
                             </div>
 
-                            {/* Tracking Animation */}
                             <div className="bg-gray-50 rounded-[24px] p-6 shadow-sm border border-gray-100">
                                 <OrderProgress status="delivering" progress={33} />
                             </div>

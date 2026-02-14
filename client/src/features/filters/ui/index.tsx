@@ -165,14 +165,10 @@ export default function FilterPage() {
                                                                     key={cIdx}
                                                                     onClick={() => setSelectedCategory(isChildActive ? null : child.id)}
                                                                     className={cn(
-                                                                        'flex items-center gap-3 py-2.5 px-3 rounded-xl cursor-pointer transition-all duration-200 group/child',
+                                                                        'flex items-center py-2.5 px-3 rounded-xl cursor-pointer transition-all duration-200 group/child',
                                                                         isChildActive ? 'bg-black/90 text-white shadow-md' : 'hover:bg-black/5'
                                                                     )}
                                                                 >
-                                                                    <div className={cn(
-                                                                        "w-1.5 h-1.5 rounded-full transition-all",
-                                                                        isChildActive ? "bg-white scale-110" : "bg-black/20 group-hover/child:bg-black/40"
-                                                                    )} />
                                                                     <p className={cn(
                                                                         'text-[13px] font-medium transition-colors',
                                                                         isChildActive ? 'text-white' : 'text-gray-600 group-hover/child:text-black'
