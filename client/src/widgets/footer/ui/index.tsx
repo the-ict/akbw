@@ -2,11 +2,10 @@
 
 import Link from 'next/link';
 import { PRODUCT_INFO } from '@/shared/constants/data';
-import { Instagram, Facebook, Youtube, Send, Globe2Icon } from 'lucide-react';
+import { Instagram, Send, Globe2Icon } from 'lucide-react';
 import { useUIStore } from '@/shared/model/use-ui-store';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
   const openProfileChat = useUIStore((state) => state.openProfileChat);
 
   const footerLinks = {
@@ -42,58 +41,60 @@ const Footer = () => {
             </p>
           </div>
 
-          <div>
-            <h3 className="font-display text-sm mb-4">Shop</h3>
-            <ul className="space-y-3">
-              {footerLinks.shop.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-black hover:font-bold transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div className='grid grid-cols-3 gap-3 justify-between'>
+            <div>
+              <h3 className="font-display text-sm mb-4">Shop</h3>
+              <ul className="space-y-3">
+                {footerLinks.shop.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-black hover:font-bold transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <h3 className="font-display text-sm mb-4">Support</h3>
-            <ul className="space-y-3">
-              {footerLinks.support.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    onClick={(e) => {
-                      if (link.name === 'Chat') {
-                        e.preventDefault();
-                        openProfileChat();
-                      }
-                    }}
-                    className="text-sm text-black hover:font-bold transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div>
+              <h3 className="font-display text-sm mb-4">Support</h3>
+              <ul className="space-y-3">
+                {footerLinks.support.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      onClick={(e) => {
+                        if (link.name === 'Chat') {
+                          e.preventDefault();
+                          openProfileChat();
+                        }
+                      }}
+                      className="text-sm text-black hover:font-bold transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div>
-            <h3 className="font-display text-sm mb-4">Company</h3>
-            <ul className="space-y-3 mb-6">
-              {footerLinks.company.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-black hover:font-bold transition-colors"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <h3 className="font-display text-sm mb-4">Company</h3>
+              <ul className="space-y-3 mb-6">
+                {footerLinks.company.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-black hover:font-bold transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
             <div className="flex space-x-4">
               <a
@@ -150,7 +151,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </footer >
   );
 };
 
