@@ -419,6 +419,12 @@ function Profile({ children }: ProfileProps) {
                 </Link>
               </div>
             </div>
+
+            <select className="bg-transparent text-sm outline-none cursor-pointer">
+              <option value="english">English 🇺🇸</option>
+              <option value="russian">Русский 🇷🇺</option>
+              <option value="uzbek">O'zbek 🇺🇿</option>
+            </select>
           </div>
         </ModalContent>
       </Modal>
