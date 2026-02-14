@@ -379,7 +379,7 @@ function Profile({ children }: ProfileProps) {
         <ModalTrigger asChild>
           {children || <User size={24} className="cursor-pointer" />}
         </ModalTrigger>
-        <ModalContent className="max-w-[95%] md:max-w-xl overflow-hidden flex flex-col bg-white rounded-2xl p-6">
+        <ModalContent className="max-w-[95%] md:max-w-xl overflow-hidden flex flex-col bg-[#D6D3CC] rounded-2xl p-6">
           <ModalTitle className="text-xl font-bold mb-4">Mehmon rejimi</ModalTitle>
           <ModalClose className="absolute right-4 top-4 z-10">
             <X className="h-5 w-5" />
@@ -396,7 +396,7 @@ function Profile({ children }: ProfileProps) {
                 />
                 <Register
                   trigger={
-                    <Button variant="outline" className="w-full">Ro'yxatdan o'tish</Button>
+                    <Button variant="outline" className="w-full bg-[#fff]/50 text-black">Ro'yxatdan o'tish</Button>
                   }
                 />
               </div>
