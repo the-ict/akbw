@@ -89,7 +89,7 @@ export default function Welcome() {
   return (
     <div>
       <div className="flex flex-col lg:flex-row items-center justify-between max-lg:justify-center max-lg:items-start">
-        <div className="container flex flex-col lg:flex-row items-center justify-between gap-10 max-sm:gap-1 flex-1">
+        <div className="container flex flex-col lg:flex-row items-center justify-between gap-10 max-sm:gap-1 flex-1 lg:min-h-[calc(100vh_-_100px)]">
           <div className="flex flex-col gap-5 lg:w-1/2 justify-center py-10">
             <h1
               className={cn(
