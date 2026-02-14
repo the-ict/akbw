@@ -202,9 +202,9 @@ const Navbar = () => {
         </form>
 
         <div className="flex items-center gap-3">
-          <button onClick={() => setIsMenuOpen(true)} className="lg:hidden p-1">
+          <Link href={'/search'} className="lg:hidden p-1">
             <Search size={24} />
-          </button>
+          </Link>
           <Link href={'/cart'} className="p-1 cursor-pointer">
             <ShoppingCart size={24} />
           </Link>

@@ -17,7 +17,6 @@ import {
   Bell,
   MessageSquare,
   Menu as MenuIcon,
-  Image as ImageIcon,
   Settings,
   Headphones,
   HelpCircle,

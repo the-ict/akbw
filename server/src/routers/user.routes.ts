@@ -6,7 +6,9 @@ import {
     getMe,
     updateProfile
 } from "../controllers/user.controller.js";
-import { auth } from "../middleware/auth.middleware.js";
+import {
+    auth
+} from "../middleware/auth.middleware.js";
 
 const router = Router();
 
