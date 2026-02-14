@@ -501,7 +501,7 @@ export default function Cart() {
             <Button
               onClick={handleCheckout}
               disabled={cartItems.length === 0}
-              className="w-full rounded-full py-8 font-black text-lg bg-black hover:bg-black/90 shadow-2xl hover:shadow-black/20 transition-all uppercase tracking-widest flex items-center justify-center gap-3 cursor-pointer"
+              className="w-full rounded-full py-8 max-sm:text-[15px] font-black text-lg bg-black hover:bg-black/90 shadow-2xl hover:shadow-black/20 transition-all uppercase tracking-widest flex items-center justify-center gap-3 cursor-pointer"
             >
               tekshiruvga yuborish
               <ArrowRight size={22} />
