@@ -1,6 +1,13 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
-import { IProduct } from '@/shared/config/api/product/product.model';
+import {
+  create
+} from 'zustand';
+import {
+  persist,
+  createJSONStorage
+} from 'zustand/middleware';
+import {
+  IProduct
+} from '@/shared/config/api/product/product.model';
 
 interface WishlistStore {
   items: IProduct[];

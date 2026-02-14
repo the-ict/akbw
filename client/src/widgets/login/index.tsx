@@ -26,6 +26,7 @@ import {
 import { login } from '@/shared/config/api/auth/auth.request';
 import { useUserStore } from '@/shared/store/user.store';
 import UseAuth from '@/shared/hooks/use-auth';
+import Register from '../register';
 
 const registerSchema = z.object({
   phone: z
@@ -148,6 +149,8 @@ function Login({ trigger, className }: LoginProps) {
               {errors.phone && (
                 <p className="text-xs text-red-500">{errors.phone}</p>
               )}
+
+              <p className="text-xs text-black mt-3">Agar ro'yhatdan o'tmagan bo'lsangiz! <Register trigger={<Button variant="link" className='p-0 mx-1'>Ro'yhatdan o'tish</Button>} /></p>
             </div>
 
             <Button onClick={handleRegister} className="mt-5 w-full">
@@ -215,7 +218,6 @@ function Login({ trigger, className }: LoginProps) {
   return (
     <Modal>
       <ModalTrigger asChild>{trigger || <Button>Kirish</Button>}</ModalTrigger>
-      {/* ... rest of the modal ... */}
       <ModalContent className={className}>
         <ModalClose>
           <X />
