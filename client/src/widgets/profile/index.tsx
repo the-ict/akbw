@@ -372,7 +372,6 @@ function Profile({ children }: ProfileProps) {
     window.location.reload();
   };
 
-  // Guest view
   if (!token) {
     return (
       <Modal open={isProfileOpen} onOpenChange={onOpenChange}>
@@ -386,7 +385,7 @@ function Profile({ children }: ProfileProps) {
           </ModalClose>
 
           <div className="flex flex-col gap-4">
-            <div className="bg-gray-50 p-4 rounded-xl text-center">
+            <div className="bg-[#D6D3CC]/40 p-4 rounded-xl text-center">
               <p className="text-gray-600 mb-4 text-sm">To'liq imkoniyatlardan foydalanish uchun tizimga kiring</p>
               <div className="flex flex-col gap-3">
                 <Login
@@ -484,7 +483,6 @@ function Profile({ children }: ProfileProps) {
         >
           {renderTabContent()}
 
-          {/* Only show logout button when NOT in a sub-section */}
           {!(activeTab === 'menu' && activeSubSection) && (
             <Button
               onClick={handleLogOut}
@@ -496,7 +494,6 @@ function Profile({ children }: ProfileProps) {
           )}
         </div>
 
-        {/* Only show footer when NOT in a sub-section */}
         {!(activeTab === 'menu' && activeSubSection) && (
           <ModalDescription className="text-gray-400 mt-5 mb-2 text-[10px] text-center leading-tight">
             Ma&apos;lumotlaringiz xavfsiz saqlanadi va uchinchi shaxslarga berilmaydi

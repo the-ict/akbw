@@ -192,7 +192,6 @@ function Register({ trigger }: RegisterProps) {
           </Button>
         )}
       </ModalTrigger>
-      {/* ... rest of the modal ... */}
       <ModalContent>
         <ModalClose>
           <X />
