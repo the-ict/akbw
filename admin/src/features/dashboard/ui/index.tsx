@@ -37,7 +37,7 @@ export default function Dashboard() {
         {
             title: 'Umumiy Savdo',
             value: `${(dashboardData?.overAllSales?._sum?.total_price || 0).toLocaleString()} so'm`,
-            change: '+0%', // Can be calculated if we fetch and compare
+            change: '+0%',
             isUp: true,
             icon: DollarSign,
             color: 'bg-green-500',
@@ -86,13 +86,6 @@ export default function Dashboard() {
                                 <div className={cn('p-3 rounded-2xl text-white shadow-lg', stat.color)}>
                                     <Icon size={20} />
                                 </div>
-                                <div className={cn(
-                                    'flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full',
-                                    stat.isUp ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'
-                                )}>
-                                    {stat.isUp ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
-                                    {stat.change}
-                                </div>
                             </div>
                             <h3 className='text-gray-400 text-xs font-bold uppercase tracking-widest mb-1'>
                                 {stat.title}
@@ -106,7 +99,7 @@ export default function Dashboard() {
             </div>
 
             {/* Main Content Grid */}
-            <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
+            <div className='grid grid-cols-1 lg:grid-cols-3 gap-8 h-[calc(100vh-35vh)]'>
                 {/* Sales Chart */}
                 <div className='lg:col-span-2 bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
                     <div className='flex justify-between items-center mb-8'>

@@ -15,8 +15,6 @@ import {
 import {
     AreaChart,
     Area,
-    BarChart,
-    Bar,
     XAxis,
     YAxis,
     CartesianGrid,
@@ -26,9 +24,13 @@ import {
     Pie,
     Cell,
 } from 'recharts';
-import { Button } from '@/shared/ui/button';
+import {
+    Button
+} from '@/shared/ui/button';
 
-import { useStatisticsData } from '../lib/hooks';
+import {
+    useStatisticsData
+} from '../lib/hooks';
 
 export default function Statistics() {
     const [dayRange, setDayRange] = React.useState(30);
@@ -72,26 +74,17 @@ export default function Statistics() {
     ];
     return (
         <div className='space-y-8 pb-10'>
-            {/* Header */}
             <div>
                 <h1 className='text-2xl font-black uppercase tracking-tight'>Statistika</h1>
                 <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Ma’lumotlar asosida qaror qabul qiling</p>
             </div>
 
-            {/* Top Stats Grid */}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
                 {topStats.map((stat, i) => (
                     <div key={i} className='bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm'>
                         <div className='flex justify-between items-start mb-4'>
                             <div className='p-3 bg-gray-50 rounded-2xl'>
                                 <stat.icon size={20} className='text-black' />
-                            </div>
-                            <div className={cn(
-                                'flex items-center gap-1 text-[10px] font-black uppercase px-2 py-1 rounded-lg',
-                                stat.up ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600'
-                            )}>
-                                {stat.up ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
-                                {stat.change}
                             </div>
                         </div>
                         <h3 className='text-gray-400 text-[10px] font-black uppercase tracking-widest mb-1'>{stat.label}</h3>
@@ -100,9 +93,7 @@ export default function Statistics() {
                 ))}
             </div>
 
-            {/* Main Charts Grid */}
             <div className='grid grid-cols-1 lg:grid-cols-3 gap-8'>
-                {/* Sales Chart */}
                 <div className='lg:col-span-2 bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
                     <div className='flex justify-between items-center mb-8'>
                         <h2 className='text-lg font-black uppercase tracking-wider'>Savdo Dinamikasi</h2>
@@ -137,7 +128,6 @@ export default function Statistics() {
                     </div>
                 </div>
 
-                {/* Traffic Sources */}
                 <div className='bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
                     <h2 className='text-lg font-black uppercase tracking-wider mb-8'>Trafik Manbasi</h2>
                     <div className='h-[250px] w-full relative'>
@@ -178,9 +168,7 @@ export default function Statistics() {
                 </div>
             </div>
 
-            {/* Bottom Grid: Variants & Ranking */}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                {/* Popular Sizes & Colors */}
                 <div className='bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
                     <h2 className='text-lg font-black uppercase tracking-wider mb-8'>O‘lcham va Ranglar AnalitIkasi</h2>
                     <div className='space-y-8'>
