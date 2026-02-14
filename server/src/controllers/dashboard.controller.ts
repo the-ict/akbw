@@ -5,8 +5,8 @@ export const getDashboardData = async (req: Request, res: Response, next: NextFu
     try {
         const dayRange = req.query.dayRange as string;
 
-        const day = new Date();
-        const threeMonthsAgo = new Date(day.getDate() - Number(dayRange));
+        const threeMonthsAgo = new Date();
+        threeMonthsAgo.setDate(threeMonthsAgo.getDate() - Number(dayRange || 30));
 
         const overAllSales = await prisma.orders.aggregate({
             _sum: {
@@ -60,8 +60,8 @@ export const getStatisticsData = async (req: Request, res: Response, next: NextF
     try {
         const dayRange = req.query.dayRange as string;
 
-        const day = new Date();
-        const threeMonthsAgo = new Date(day.getDate() - Number(dayRange));
+        const threeMonthsAgo = new Date();
+        threeMonthsAgo.setDate(threeMonthsAgo.getDate() - Number(dayRange || 30));
 
         // callculate average check price
         // calculate daily average orders price
@@ -109,37 +109,148 @@ export const getStatisticsData = async (req: Request, res: Response, next: NextF
             }
         });
 
-        const week = 7;
-        const month = 30;
-
         const weekSales = [];
         const monthSales = [];
 
-        for (let i = 0; i < week; i++) {
-            const weekDay = new Date(day.getDate() - i);
-            const weekDayOrders = await prisma.orders.count({
-                where: {
-                    createdAt: {
-                        gte: weekDay,
-                        lte: weekDay
-                    }
-                }
-            });
-            weekSales.push(weekDayOrders);
-        };
+        for (let i = 0; i < 7; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            date.setHours(0, 0, 0, 0);
+            const nextDay = new Date(date);
+            nextDay.setDate(nextDay.getDate() + 1);
 
-        for (let i = 0; i < month; i++) {
-            const monthDay = new Date(day.getDate() - i);
-            const monthDayOrders = await prisma.orders.count({
+            const count = await prisma.orders.count({
                 where: {
                     createdAt: {
-                        gte: monthDay,
-                        lte: monthDay
+                        gte: date,
+                        lt: nextDay
                     }
                 }
             });
-            monthSales.push(monthDayOrders);
-        };
+            weekSales.push({ date: date.toISOString().split('T')[0], count });
+        }
+
+        for (let i = 0; i < 30; i++) {
+            const date = new Date();
+            date.setDate(date.getDate() - i);
+            date.setHours(0, 0, 0, 0);
+            const nextDay = new Date(date);
+            nextDay.setDate(nextDay.getDate() + 1);
+
+            const count = await prisma.orders.count({
+                where: {
+                    createdAt: {
+                        gte: date,
+                        lt: nextDay
+                    }
+                }
+            });
+            monthSales.push({ date: date.toISOString().split('T')[0], count });
+        }
+
+        const mostSoldProducts = await prisma.orderItem.groupBy({
+            by: ['productId'],
+            _sum: {
+                quantity: true
+            },
+            where: {
+                createdAt: {
+                    gte: threeMonthsAgo
+                }
+            },
+            orderBy: {
+                _sum: {
+                    quantity: 'desc'
+                }
+            },
+            take: 5
+        });
+
+        const productDetails = await prisma.products.findMany({
+            where: {
+                id: { in: mostSoldProducts.map(p => p.productId) }
+            },
+            include: {
+                translations: true
+            }
+        });
+
+        const mostSoldSizes = await prisma.orderItem.groupBy({
+            by: ['sizeId'],
+            _sum: {
+                quantity: true
+            },
+            where: {
+                createdAt: {
+                    gte: threeMonthsAgo
+                },
+                sizeId: { not: null }
+            },
+            orderBy: {
+                _sum: {
+                    quantity: 'desc'
+                }
+            },
+            take: 5
+        });
+
+        const sizeDetails = await prisma.sizes.findMany({
+            where: {
+                id: { in: mostSoldSizes.map(s => s.sizeId as number) }
+            },
+            include: {
+                translations: true
+            }
+        });
+
+        const mostSoldColors = await prisma.orderItem.groupBy({
+            by: ['colorId'],
+            _sum: {
+                quantity: true
+            },
+            where: {
+                createdAt: {
+                    gte: threeMonthsAgo
+                },
+                colorId: { not: null }
+            },
+            orderBy: {
+                _sum: {
+                    quantity: 'desc'
+                }
+            },
+            take: 5
+        });
+
+        const colorDetails = await prisma.colors.findMany({
+            where: {
+                id: { in: mostSoldColors.map(c => c.colorId as number) }
+            },
+            include: {
+                translations: true
+            }
+        });
+
+        return res.status(200).json({
+            averageCheckPrice: averageCheckPrice._avg.total_price || 0,
+            dailyAverageOrdersPrice: (dailyAverageOrdersPrice._sum.total_price || 0) / (Number(dayRange) || 1),
+            monthsOrdersNumber,
+            newUserCount,
+            weekSales,
+            monthSales,
+            mostSoldProducts: mostSoldProducts.map(p => ({
+                ...p,
+                details: productDetails.find(pd => pd.id === p.productId)
+            })),
+            mostSoldSizes: mostSoldSizes.map(s => ({
+                ...s,
+                details: sizeDetails.find(sd => sd.id === s.sizeId)
+            })),
+            mostSoldColors: mostSoldColors.map(c => ({
+                ...c,
+                details: colorDetails.find(cd => cd.id === c.colorId)
+            }))
+        });
 
     } catch (error) {
         next(error);

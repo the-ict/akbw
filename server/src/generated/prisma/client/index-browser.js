@@ -250,10 +250,21 @@ exports.Prisma.CouponsScalarFieldEnum = {
 exports.Prisma.OrdersScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  items: 'items',
   total_price: 'total_price',
   coupon_id: 'coupon_id',
   status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  productId: 'productId',
+  sizeId: 'sizeId',
+  colorId: 'colorId',
+  quantity: 'quantity',
+  price: 'price',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -336,6 +347,7 @@ exports.Prisma.ModelName = {
   Reviews: 'Reviews',
   Coupons: 'Coupons',
   Orders: 'Orders',
+  OrderItem: 'OrderItem',
   Notifications: 'Notifications',
   HelpChat: 'HelpChat',
   HelpChatMessages: 'HelpChatMessages',

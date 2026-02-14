@@ -70,7 +70,8 @@ model Products {
   discount       Int                   @default(0)
   reviews        Reviews[]
   createdAt      DateTime              @default(now())
-  updatedAt      DateTime              @updatedAt
+  updatedAt      DateTime              @default(now()) @updatedAt
+  orderItems     OrderItem[]
 }
 
 model ProductTranslations {
@@ -120,7 +121,8 @@ model Sizes {
   products     Products[]
   translations SizeTranslations[]
   createdAt    DateTime           @default(now())
-  updatedAt    DateTime           @updatedAt
+  updatedAt    DateTime           @default(now()) @updatedAt
+  orderItems   OrderItem[]
 }
 
 model SizeTranslations {
@@ -138,7 +140,8 @@ model Colors {
   products     Products[]
   translations ColorTranslations[]
   createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @updatedAt
+  updatedAt    DateTime            @default(now()) @updatedAt
+  orderItems   OrderItem[]
 }
 
 model ColorTranslations {
@@ -173,16 +176,32 @@ model Coupons {
 }
 
 model Orders {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   user_id     String
-  user        User     @relation(fields: [user_id], references: [id])
-  items       Int[]
+  user        User        @relation(fields: [user_id], references: [id])
+  orderItems  OrderItem[]
   total_price Int
   coupon_id   Int?
-  coupon      Coupons? @relation(fields: [coupon_id], references: [id])
-  status      String   @default("review")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  coupon      Coupons?    @relation(fields: [coupon_id], references: [id])
+  status      String      @default("review")
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now()) @updatedAt
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  orderId    Int
+  order      Orders   @relation(fields: [orderId], references: [id])
+  productId  Int
+  product    Products @relation(fields: [productId], references: [id])
+  sizeId     Int?
+  size       Sizes?   @relation(fields: [sizeId], references: [id])
+  colorId    Int?
+  color      Colors?  @relation(fields: [colorId], references: [id])
+  quantity   Int      @default(1)
+  price      Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
 }
 
 model Notifications {

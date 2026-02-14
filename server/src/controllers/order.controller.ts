@@ -35,8 +35,33 @@ export const reviewOrder = async (req: Request, res: Response, next: NextFunctio
             }
         }
 
+        const productIds = items.map((i: any) => i.productId);
+        const products = await prisma.products.findMany({
+            where: { id: { in: productIds } }
+        });
+
         const order = await prisma.orders.create({
-            data
+            data: {
+                user_id,
+                total_price,
+                status: 'review',
+                coupon_id: data.coupon_id,
+                orderItems: {
+                    create: items.map((item: any) => {
+                        const product = products.find(p => p.id === item.productId);
+                        return {
+                            productId: item.productId,
+                            sizeId: item.sizeId,
+                            colorId: item.colorId,
+                            quantity: item.quantity,
+                            price: product ? product.price : 0
+                        };
+                    })
+                }
+            },
+            include: {
+                orderItems: true
+            }
         });
 
         res.status(201).json({
@@ -68,6 +93,25 @@ export const getOrders = async (req: Request, res: Response, next: NextFunction)
                         id: true,
                         code: true,
                         discount: true,
+                    }
+                },
+                orderItems: {
+                    include: {
+                        product: {
+                            include: {
+                                translations: true
+                            }
+                        },
+                        size: {
+                            include: {
+                                translations: true
+                            }
+                        },
+                        color: {
+                            include: {
+                                translations: true
+                            }
+                        }
                     }
                 }
             }
@@ -119,6 +163,25 @@ export const getAllOrders = async (req: Request, res: Response, next: NextFuncti
                         id: true,
                         code: true,
                         discount: true,
+                    }
+                },
+                orderItems: {
+                    include: {
+                        product: {
+                            include: {
+                                translations: true
+                            }
+                        },
+                        size: {
+                            include: {
+                                translations: true
+                            }
+                        },
+                        color: {
+                            include: {
+                                translations: true
+                            }
+                        }
                     }
                 }
             }

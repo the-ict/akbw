@@ -121,8 +121,24 @@ export default function Cart() {
             return;
         }
         try {
+            const items = cartItems.map(item => {
+                const sizeId = item.selectedSize
+                    ? item.sizes.find(s => s.name === item.selectedSize)?.id
+                    : null;
+                const colorId = item.selectedColor
+                    ? item.colors.find(c => c.name === item.selectedColor)?.id
+                    : null;
+
+                return {
+                    productId: item.id,
+                    sizeId: sizeId || null,
+                    colorId: colorId || null,
+                    quantity: item.quantity
+                };
+            });
+
             await createOrderMutation.mutateAsync({
-                items: cartItems.map(item => item.id),
+                items,
                 total_price: total,
                 coupon_code: appliedDiscount > 0 ? promoCode : undefined,
             });
