@@ -27,27 +27,32 @@ import AddProductModal from './add-product-modal';
 import DeleteConfirmModal from './delete-confirm-modal';
 import { cn } from '@/shared/lib/utils';
 import { useLocale } from 'next-intl';
+import { useDebounce } from '@/shared/lib/hooks';
 
 import { useProducts, useDeleteProduct } from '../lib/hooks';
 import { useCategories } from '../../categories/lib/hooks';
-import { IProduct } from '@/shared/config/api/product/product.modal';
+import type { IProduct } from '@/shared/config/api/product/product.model';
 import Loading from '@/widgets/loading/ui';
 
+type ISortOrder = 'asc' | 'desc';
 
 export default function Products() {
-
     const locale = useLocale();
-    const [searchQuery, setSearchQuery] = useState('');
+
     const [selectedCategoryId, setSelectedCategoryId] = useState<string>('all');
-    const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
+    const [sortOrder, setSortOrder] = useState<ISortOrder>('desc');
+    const [searchQuery, setSearchQuery] = useState<string>('');
     const [sortBy, setSortBy] = useState<string>('createdAt');
-    const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+    const [limit, setLimit] = useState<number>(10);
+    const [page, setPage] = useState<number>(1);
+
+    // Debounce search query to prevent too many requests
+    const debouncedSearchQuery = useDebounce(searchQuery, 1000);
 
     const { data: productsData, isLoading: isLoadingProducts } = useProducts({
         page,
         limit,
-        q: searchQuery || undefined,
+        q: debouncedSearchQuery || undefined,
         categoryId: selectedCategoryId === 'all' ? undefined : selectedCategoryId,
         sortBy,
         sortOrder
@@ -84,9 +89,6 @@ export default function Products() {
         }
     };
 
-
-
-
     if (isLoadingProducts) return <div className='flex items-center justify-center p-20'><Loading /></div>;
 
     const products = productsData?.data || [];
@@ -94,7 +96,6 @@ export default function Products() {
 
     return (
         <div className='space-y-6'>
-            {/* Header / Actions */}
             <div className='flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4'>
                 <div>
                     <h1 className='text-2xl font-black uppercase tracking-tight'>Mahsulotlar</h1>
@@ -131,7 +132,6 @@ export default function Products() {
                 description={`Siz haqiqatan ham "${deletingProduct?.name}" mahsulotini o‘chirmoqchimisiz? Bu amalni ortga qaytarib bo‘lmaydi.`}
             />
 
-            {/* Filter Bar */}
             <div className='bg-white p-4 rounded-[24px] border border-gray-100 flex flex-col md:flex-row gap-4 items-center shadow-sm'>
                 <div className='relative flex-1 w-full'>
                     <Search className='absolute left-4 top-1/2 -translate-y-1/2 text-gray-400' size={18} />
@@ -180,7 +180,6 @@ export default function Products() {
                 </div>
             </div>
 
-            {/* Product Table */}
             <div className='bg-white rounded-[32px] border border-gray-100 overflow-hidden shadow-sm'>
                 <div className='overflow-x-auto no-scrollbar'>
                     <table className='w-full'>
@@ -214,7 +213,7 @@ export default function Products() {
                             </tr>
                         </thead>
                         <tbody className='divide-y divide-gray-50'>
-                            {products.map((product) => (
+                            {products.map((product: IProduct) => (
                                 <tr key={product.id} className='hover:bg-gray-50/50 transition-colors group'>
                                     <td className='px-6 py-4'>
                                         <div className='flex items-center gap-4'>
@@ -301,7 +300,6 @@ export default function Products() {
                     </table>
                 </div>
 
-                {/* Pagination */}
                 {meta && meta.totalPages > 1 && (
                     <div className='px-8 py-6 bg-gray-50/50 flex justify-between items-center border-t border-gray-100'>
                         <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>

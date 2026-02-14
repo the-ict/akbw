@@ -6,8 +6,6 @@ import {
     Users,
     ShoppingBag,
     DollarSign,
-    ArrowUpRight,
-    ArrowDownRight,
 } from 'lucide-react';
 import {
     AreaChart,
@@ -18,11 +16,15 @@ import {
     Tooltip,
     ResponsiveContainer
 } from 'recharts';
-import { useDashboardData, useStatisticsData } from '../lib/hooks';
+import {
+    useDashboardData,
+    useStatisticsData
+} from '../lib/hooks';
 import { useOrders } from '../../orders/lib/hooks';
 
 export default function Dashboard() {
     const [dayRange, setDayRange] = React.useState(7);
+
     const { data: dashboardData, isLoading: isDashboardLoading } = useDashboardData(dayRange);
     const { data: statsData, isLoading: isStatsLoading } = useStatisticsData(dayRange);
     const { data: ordersData, isLoading: isOrdersLoading } = useOrders();
@@ -195,7 +197,6 @@ export default function Dashboard() {
     );
 }
 
-// Utility for concatenating classes
 function cn(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
 }

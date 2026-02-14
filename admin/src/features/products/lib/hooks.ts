@@ -5,7 +5,7 @@ import {
     updateProductRequest,
     deleteProductRequest
 } from '@/shared/config/api/product/product.request';
-import { ICreateProduct, IProductFilters } from '@/shared/config/api/product/product.modal';
+import type { ICreateProduct, IProductFilters } from '@/shared/config/api/product/product.model';
 import { toast } from 'sonner';
 
 export const useProducts = (params: IProductFilters) => {

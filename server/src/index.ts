@@ -11,6 +11,7 @@ import cors from "cors";
 
 // import routers
 import authRoutes from "./routers/auth.routes.js";
+import { langaugeMiddleware } from "./middleware/language.middleware.js";
 import smsRoutes from "./routers/sms.routes.js";
 import styleRoutes from "./routers/style.routes.js";
 import userRoutes from "./routers/user.routes.js";
@@ -46,6 +47,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(langaugeMiddleware);
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 
