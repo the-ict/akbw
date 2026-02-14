@@ -1,8 +1,12 @@
 'use client';
 
-import { Button } from '@/shared/ui/button';
-import { Link, useRouter } from '@/shared/config/i18n/navigation';
-import { useUserStore } from '@/shared/store/user.store';
+import {
+  Link,
+  useRouter
+} from '@/shared/config/i18n/navigation';
+import {
+  useUserStore
+} from '@/shared/store/user.store';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -11,19 +15,20 @@ import {
 import Register from '@/widgets/register';
 import Profile from '@/widgets/profile';
 import Login from '@/widgets/login';
-import { useState } from 'react';
-import { cn } from '@/shared/lib/utils';
+import {
+  useState
+} from 'react';
 import {
   ArrowDown,
   ChevronLeft,
   ChevronRight,
-  Menu,
   Search,
   ShoppingCart,
   User,
-  X,
 } from 'lucide-react';
-import { useCategories } from '../lib/hooks';
+import {
+  useCategories
+} from '../lib/hooks';
 
 const Navbar = () => {
   const [activeParentId, setActiveParentId] = useState<number | null>(null);
