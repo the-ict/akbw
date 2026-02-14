@@ -86,11 +86,10 @@ export default function Welcome() {
       setShowAllReviews(false);
     }
   }, [topReviewsData]);
-
   return (
     <div>
-      <div className="flex flex-col lg:flex-row items-center justify-between min-h-[calc(100vh-80px)]">
-        <div className="container flex flex-col lg:flex-row items-center justify-between gap-10 max-sm:gap-5 flex-1">
+      <div className="flex flex-col lg:flex-row items-center justify-between max-lg:justify-center max-lg:items-start min-h-[calc(100vh-80px)]">
+        <div className="container flex flex-col lg:flex-row items-center justify-between gap-10 max-sm:gap-1 flex-1">
           <div className="flex flex-col gap-5 lg:w-1/2 justify-center py-10">
             <h1
               className={cn(
@@ -110,7 +109,7 @@ export default function Welcome() {
             </p>
             <Link href="/filters">
               <Button
-                className="w-full lg:w-fit rounded-full btn-welcome font-bold"
+                className="w-full lg:w-fit rounded-full btn-welcome font-bold max-sm:text-[12px] max-sm:py-2 max-sm:px-5"
                 size={'lg'}
                 variant={'outline'}
               >
