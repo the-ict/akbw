@@ -36,7 +36,7 @@ const sidebarItems = [
     { name: 'Mijozlar', icon: Users, href: '/users' },
     { name: 'Statistika', icon: BarChart3, href: '/statistics' },
     { name: 'To‘lovlar', icon: CreditCard, href: '/payments' },
-    { name: 'Ombor', icon: Box, href: '/inventory' },
+    // { name: 'Ombor', icon: Box, href: '/inventory' },
     { name: 'Yordam', icon: Headphones, href: '/support' },
     { name: 'Mahsulot So\'rovi', icon: HelpCircle, href: '/product-support' },
     // { name: 'Kontent', icon: ImageIcon, href: '/content-managment' },
