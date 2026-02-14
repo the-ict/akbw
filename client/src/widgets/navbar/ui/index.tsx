@@ -1,6 +1,5 @@
 'use client';
 
-
 import {
   Button
 } from "@/shared/ui/button";
@@ -15,7 +14,6 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuItem,
 } from "@/shared/ui/dropdown-menu";
 import Register from "@/widgets/register";
 import Login from "@/widgets/login";
@@ -37,7 +35,6 @@ import {
 import {
   useCategories
 } from "../lib/hooks";
-
 
 
 const Navbar = () => {
@@ -87,7 +84,7 @@ const Navbar = () => {
                 <div key={index} className="group/cat relative">
                   <Link
                     href={`/filters?category=${item.id}`}
-                    className="w-full justify-center cursor-pointer py-3 bg-[#fff]/40 backdrop-blur-sm hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all text-sm font-medium block"
+                    className="w-full justify-center cursor-pointer px-4 py-3 bg-[#fff]/40 backdrop-blur-sm hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all text-sm font-medium block"
                   >
                     {item.name}
                   </Link>
@@ -97,7 +94,7 @@ const Navbar = () => {
                         <Link
                           key={cIdx}
                           href={`/filters?category=${child.id}`}
-                          className="block px-4 py-2 hover:bg-white/40 rounded-md text-xs font-medium transition-all"
+                          className="block cursor-pointer px-4 py-2 hover:bg-white/40 rounded-md text-xs font-medium transition-all"
                         >
                           {child.name}
                         </Link>
@@ -136,8 +133,8 @@ const Navbar = () => {
 
           <select className="hidden md:block bg-transparent text-sm outline-none cursor-pointer">
             <option value="english">English 🇺🇸</option>
-            <option value="uzbek">Uzbek 🇺🇿</option>
             <option value="russian">Russian 🇷🇺</option>
+            <option value="uzbek">Uzbek 🇺🇿</option>
           </select>
 
           {
@@ -155,7 +152,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
       <div className={cn(
         "fixed inset-0 bg-black/50 z-[100] transition-opacity duration-300 lg:hidden",
         isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -174,7 +170,6 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Search */}
           <form onSubmit={handleSearch} className="flex items-center gap-2 px-4 py-3 rounded-xl border border-black/10 shadow-sm bg-gray-50 mb-8">
             <button type="submit">
               <Search size={20} className="text-gray-400" />

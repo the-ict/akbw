@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDown, ArrowRight, ArrowUp, Check } from 'lucide-react'
+import { ArrowDown, ArrowUp, Check, ChevronDown } from 'lucide-react'
 import { useSearchParams } from 'next/navigation';
 import { Input } from "@/shared/ui/input";
 import React, {
@@ -130,28 +130,34 @@ export default function FilterPage() {
                                 categories?.filter(c => !c.parentId).map((item, index) => {
                                     const isActive = Number(selectedCategory) === item.id;
                                     const hasActiveChild = item.children?.some(child => Number(selectedCategory) === child.id);
+                                    const isExpanded = isActive || hasActiveChild;
 
                                     if (isAll || index < 5 || isActive || hasActiveChild) {
                                         return (
-                                            <div key={index} className="space-y-1">
+                                            <div key={index} className="space-y-1.5">
                                                 <div
                                                     onClick={() => setSelectedCategory(isActive ? null : item.id)}
                                                     className={cn(
-                                                        'flex items-center justify-between py-2.5 px-3 rounded-xl cursor-pointer hover:translate-x-1.5 transition-all group',
-                                                        isActive ? 'bg-black text-white' : 'hover:bg-white/40'
+                                                        'flex items-center justify-between py-3 px-4 rounded-2xl cursor-pointer transition-all duration-300 group',
+                                                        isActive ? 'bg-black text-white shadow-lg shadow-black/10' : 'hover:bg-white/60 bg-white/20'
                                                     )}
                                                 >
                                                     <p className={cn(
-                                                        'font-medium transition-colors text-sm',
-                                                        isActive ? 'text-white' : 'text-gray-600 group-hover:text-black'
+                                                        'font-semibold tracking-tight transition-colors text-sm',
+                                                        isActive ? 'text-white' : 'text-gray-700 group-hover:text-black'
                                                     )}>{item.name}</p>
-                                                    <ArrowRight size={14} className={cn(
-                                                        'transition-opacity',
-                                                        isActive ? 'opacity-100' : 'opacity-30 group-hover:opacity-100'
-                                                    )} />
+                                                    <div className={cn(
+                                                        "transition-transform duration-300",
+                                                        isExpanded ? "rotate-180" : ""
+                                                    )}>
+                                                        <ChevronDown size={16} className={cn(
+                                                            'transition-opacity',
+                                                            isActive ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'
+                                                        )} />
+                                                    </div>
                                                 </div>
-                                                {item.children && (isActive || hasActiveChild) && (
-                                                    <div className="ml-4 border-l border-black/10 pl-2 space-y-1">
+                                                {item.children && isExpanded && (
+                                                    <div className="ml-5 border-l-2 border-black/5 pl-3 space-y-1.5 py-1">
                                                         {item.children.map((child, cIdx) => {
                                                             const isChildActive = Number(selectedCategory) === child.id;
                                                             return (
@@ -159,13 +165,17 @@ export default function FilterPage() {
                                                                     key={cIdx}
                                                                     onClick={() => setSelectedCategory(isChildActive ? null : child.id)}
                                                                     className={cn(
-                                                                        'flex items-center justify-between py-2 px-3 rounded-lg cursor-pointer hover:translate-x-1 transition-all group',
-                                                                        isChildActive ? 'bg-black/80 text-white' : 'hover:bg-white/40'
+                                                                        'flex items-center gap-3 py-2.5 px-3 rounded-xl cursor-pointer transition-all duration-200 group/child',
+                                                                        isChildActive ? 'bg-black/90 text-white shadow-md' : 'hover:bg-black/5'
                                                                     )}
                                                                 >
+                                                                    <div className={cn(
+                                                                        "w-1.5 h-1.5 rounded-full transition-all",
+                                                                        isChildActive ? "bg-white scale-110" : "bg-black/20 group-hover/child:bg-black/40"
+                                                                    )} />
                                                                     <p className={cn(
-                                                                        'text-xs font-medium transition-colors',
-                                                                        isChildActive ? 'text-white' : 'text-gray-500 group-hover:text-black'
+                                                                        'text-[13px] font-medium transition-colors',
+                                                                        isChildActive ? 'text-white' : 'text-gray-600 group-hover/child:text-black'
                                                                     )}>{child.name}</p>
                                                                 </div>
                                                             )
@@ -354,4 +364,4 @@ export default function FilterPage() {
             </div>
         </div>
     );
-}
+};

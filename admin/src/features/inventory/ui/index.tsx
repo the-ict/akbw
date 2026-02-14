@@ -3,13 +3,9 @@
 import React from 'react';
 import {
     Box,
-    AlertTriangle,
     ArrowRight,
     Search,
 } from 'lucide-react';
-import {
-    Button
-} from '@/shared/ui/button';
 
 const inventory = [
     { name: 'Oversized T-Shirt (Black)', category: 'T-Shirts', stock: 124, status: 'In Stock', color: 'bg-green-500' },
