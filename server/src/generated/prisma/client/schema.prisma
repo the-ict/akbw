@@ -35,7 +35,7 @@ model Verify {
   code      String
   phone     String   @unique
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Admins {
@@ -56,7 +56,7 @@ model Access {
   name      String   @unique
   admins    Admins[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Products {
@@ -130,7 +130,7 @@ model SizeTranslations {
   sizeId    Int
   size      Sizes    @relation(fields: [sizeId], references: [id])
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Colors {
@@ -148,7 +148,7 @@ model ColorTranslations {
   colorId   Int
   color     Colors   @relation(fields: [colorId], references: [id])
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Reviews {
@@ -168,7 +168,7 @@ model Coupons {
   code      String
   discount  Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
   orders    Orders[]
 }
 
@@ -190,7 +190,7 @@ model Notifications {
   title     String
   message   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model HelpChat {
@@ -213,7 +213,7 @@ model HelpChatMessages {
   admin     Admins?  @relation(fields: [admin_id], references: [id])
   message   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model AskForChat {

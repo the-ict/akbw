@@ -35,7 +35,7 @@ model Verify {
   code      String
   phone     String   @unique
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Admins {
@@ -51,13 +51,12 @@ model Admins {
   updatedAt          DateTime             @updatedAt
 }
 
-
 model Access {
   id        Int      @id @default(autoincrement())
   name      String   @unique
   admins    Admins[]
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Products {
@@ -131,7 +130,7 @@ model SizeTranslations {
   sizeId    Int
   size      Sizes    @relation(fields: [sizeId], references: [id])
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Colors {
@@ -149,7 +148,7 @@ model ColorTranslations {
   colorId   Int
   color     Colors   @relation(fields: [colorId], references: [id])
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Reviews {
@@ -169,7 +168,7 @@ model Coupons {
   code      String
   discount  Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
   orders    Orders[]
 }
 
@@ -191,7 +190,7 @@ model Notifications {
   title     String
   message   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model HelpChat {
@@ -209,12 +208,12 @@ model HelpChatMessages {
   chat_id   Int
   chat      HelpChat @relation(fields: [chat_id], references: [id])
   sender_id String?
-  sender    User?     @relation(fields: [sender_id], references: [id])
+  sender    User?    @relation(fields: [sender_id], references: [id])
   admin_id  Int?
   admin     Admins?  @relation(fields: [admin_id], references: [id])
   message   String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model AskForChat {
@@ -232,7 +231,7 @@ model AskForChatMessages {
   chat_id   Int
   chat      AskForChat @relation(fields: [chat_id], references: [id])
   sender_id String?
-  sender    User?       @relation(fields: [sender_id], references: [id])
+  sender    User?      @relation(fields: [sender_id], references: [id])
   admin_id  Int?
   admin     Admins?    @relation(fields: [admin_id], references: [id])
   message   String
@@ -240,4 +239,3 @@ model AskForChatMessages {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
 }
-

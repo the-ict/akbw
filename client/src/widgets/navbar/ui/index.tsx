@@ -16,8 +16,8 @@ import {
   DropdownMenuContent,
 } from "@/shared/ui/dropdown-menu";
 import Register from "@/widgets/register";
-import Login from "@/widgets/login";
 import Profile from "@/widgets/profile";
+import Login from "@/widgets/login";
 import {
   useState
 } from "react";
@@ -38,9 +38,10 @@ import {
 
 
 const Navbar = () => {
+  const [activeParentId, setActiveParentId] = useState<number | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const { token } = useUserStore();
   const [searchVal, setSearchVal] = useState<string>('');
+  const { token } = useUserStore();
   const router = useRouter();
 
   const { data: categories, isLoading } = useCategories();
@@ -68,44 +69,82 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <ul className="hidden lg:flex items-center gap-5 flex-1 justify-center">
+        <ul className="hidden lg:flex items-center gap-7 flex-1 justify-center">
           <DropdownMenu>
-            <DropdownMenuTrigger className="outline-none">
-              <li className="flex items-center gap-1 cursor-pointer transition-all">
-                <span>Kategoriya</span>
-                <ArrowDown size={16} />
+            <DropdownMenuTrigger className="outline-none group/trigger">
+              <li className="flex items-center gap-1 cursor-pointer transition-all hover:text-black/70">
+                <span className="text-sm uppercase tracking-wider">Kategoriya</span>
+                <ArrowDown size={14} className="group-data-[state=open]/trigger:rotate-180 transition-transform duration-300" />
               </li>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent className="grid grid-cols-8 grid-rows-2 p-4 mt-10 ml-10 bg-[#D6D3CC]/60 backdrop-blur-md border-none items-center gap-3">
-              {categories?.filter(c => !c.parentId).map((item, index) => (
-                <div key={index} className="group/cat relative">
-                  <Link
-                    href={`/filters?category=${item.id}`}
-                    className="w-full justify-center cursor-pointer px-4 py-3 bg-[#fff]/40 backdrop-blur-sm hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all text-sm font-medium block"
-                  >
-                    {item.name}
-                  </Link>
-                  {item.children && item.children.length > 0 && (
-                    <div className="hidden group-hover/cat:block absolute left-full top-2 ml-2 p-2 bg-[#D6D3CC] backdrop-blur-md rounded-lg shadow-xl w-48 z-10 border border-black/5">
-                      {item.children.map((child, cIdx) => (
+            <DropdownMenuContent className="p-6 bg-white/95 backdrop-blur-2xl border-none shadow-2xl rounded-[32px] w-[800px] mt-4 animate-in fade-in zoom-in-95 duration-300 z-[70]">
+              <div className="flex flex-col gap-8">
+                <div className="flex items-center gap-4 overflow-x-auto no-scrollbar pb-2 border-b border-black/5">
+                  {categories?.filter(c => !c.parentId).map((item, index) => {
+                    const isActive = activeParentId === item.id;
+                    return (
+                      <div
+                        key={index}
+                        onMouseEnter={() => setActiveParentId(item.id)}
+                        onClick={() => {
+                          if (!item.children || item.children.length === 0) {
+                            router.push(`/filters?category=${item.id}`);
+                          }
+                        }}
+                        className={cn(
+                          "px-6 py-3 rounded-2xl cursor-pointer transition-all whitespace-nowrap text-sm font-bold uppercase tracking-widest",
+                          isActive ? "bg-black text-white shadow-xl shadow-black/10 scale-105" : "bg-gray-50 text-gray-400 hover:bg-gray-100 hover:text-black"
+                        )}
+                      >
+                        {item.name}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="min-h-[150px]">
+                  {activeParentId ? (
+                    <div className="grid grid-cols-4 gap-4 animate-in fade-in slide-in-from-left-4 duration-500">
+                      {categories?.find(c => c.id === activeParentId)?.children?.map((child, cIdx) => (
                         <Link
                           key={cIdx}
                           href={`/filters?category=${child.id}`}
-                          className="block cursor-pointer px-4 py-2 hover:bg-white/40 rounded-md text-xs font-medium transition-all"
+                          className="group/item flex flex-col gap-2 p-4 rounded-2xl hover:bg-gray-50 transition-all border border-transparent hover:border-black/5"
                         >
-                          {child.name}
+                          <span className="text-sm font-bold text-gray-800 group-hover/item:text-black transition-colors">{child.name}</span>
+                          <span className="text-[10px] text-gray-400 uppercase tracking-widest font-black opacity-0 group-hover/item:opacity-100 transition-opacity">Ko'rish →</span>
                         </Link>
                       ))}
+                      {(!categories?.find(c => c.id === activeParentId)?.children || categories?.find(c => c.id === activeParentId)?.children?.length === 0) && (
+                        <div className="col-span-4 flex items-center justify-center py-10 text-gray-300 font-bold uppercase tracking-widest text-sm">
+                          Bu kategoriya uchun qismlar yo'q
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center py-10 text-gray-300 font-bold uppercase tracking-widest text-sm">
+                      Kategoriyani tanlang
                     </div>
                   )}
                 </div>
-              ))}
+
+                <div className="flex justify-end pt-4 border-t border-black/5">
+                  <Link
+                    href={activeParentId ? `/filters?category=${activeParentId}` : '/filters'}
+                    className="text-[10px] font-black uppercase tracking-[0.2em] text-black hover:opacity-70 transition-opacity"
+                  >
+                    Barcha mahsulotlarni ko'rish
+                  </Link>
+                </div>
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <Link href={"/about"} className="cursor-pointer transition-all">Biz haqimizda</Link>
-          <Link href={"/contact"} className="cursor-pointer transition-all">Bog'lanish</Link>
+          <div className="w-px h-4 bg-black/10 mx-2" />
+
+          <Link href={"/about"} className="text-sm uppercase tracking-wider text-gray-600 hover:text-black transition-all">Biz haqimizda</Link>
+          <Link href={"/contact"} className="text-sm uppercase tracking-wider text-gray-600 hover:text-black transition-all">Bog'lanish</Link>
         </ul>
 
         <form onSubmit={handleSearch} className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-full border-1 border-[#000]/20 shadow-sm bg-[#fff] flex-1 max-w-md">
@@ -182,13 +221,61 @@ const Navbar = () => {
           </form>
 
           <ul className="flex flex-col gap-6 text-lg font-bold">
-            <li className="flex items-center justify-between border-b border-black/5 pb-2">
-              <span>Shop</span>
-              <ArrowDown size={18} />
+            {categories?.filter(c => !c.parentId).map((item, index) => {
+              const isActive = activeParentId === item.id;
+              const hasChildren = item.children && item.children.length > 0;
+
+              return (
+                <li key={index} className="border-b border-black/5 pb-4">
+                  <div
+                    onClick={() => {
+                      if (hasChildren) {
+                        setActiveParentId(isActive ? null : item.id);
+                      } else {
+                        router.push(`/filters?category=${item.id}`);
+                        setIsMenuOpen(false);
+                      }
+                    }}
+                    className="flex items-center justify-between cursor-pointer"
+                  >
+                    <span className="uppercase tracking-tight">{item.name}</span>
+                    {hasChildren && (
+                      <ArrowDown
+                        size={20}
+                        className={cn("transition-transform duration-300", isActive ? "rotate-180" : "")}
+                      />
+                    )}
+                  </div>
+                  {hasChildren && isActive && (
+                    <div className="mt-4 ml-4 flex flex-col gap-4 animate-in slide-in-from-top-2 duration-300">
+                      <Link
+                        href={`/filters?category=${item.id}`}
+                        className="text-gray-400 text-sm uppercase font-black"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Barchasini ko'rish
+                      </Link>
+                      {item.children?.map((child, cIdx) => (
+                        <Link
+                          key={cIdx}
+                          href={`/filters?category=${child.id}`}
+                          className="text-black/80 text-base"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              );
+            })}
+            <li className="border-b border-black/5 pb-2">
+              <Link href="/about" onClick={() => setIsMenuOpen(false)}>Haqimizda</Link>
             </li>
-            <li className="border-b border-black/5 pb-2">To'plamlar</li>
-            <li className="border-b border-black/5 pb-2">Haqimizda</li>
-            <li className="border-b border-black/5 pb-2">Bog'lanish</li>
+            <li className="border-b border-black/5 pb-2">
+              <Link href="/contact" onClick={() => setIsMenuOpen(false)}>Bog'lanish</Link>
+            </li>
           </ul>
 
           <div className="mt-10 flex flex-col gap-4">
