@@ -325,7 +325,7 @@ export default function AddProductModal({ isOpen, onClose, product, viewOnly }: 
                                         />
                                     </div>
                                     <div className='space-y-2'>
-                                        <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Chegirma Narxi (UZS)</label>
+                                        <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Chegirma foizi (%)</label>
                                         <Input
                                             disabled={viewOnly}
                                             type='number'

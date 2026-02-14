@@ -319,7 +319,6 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
 export const deleteProduct = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        // Delete translations first if not handled by cascade
         await prisma.productTranslations.deleteMany({ where: { productId: Number(id) } });
         await prisma.products.delete({ where: { id: Number(id) } });
         return res.status(200).json({ message: "Product deleted successfully" });
