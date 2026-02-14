@@ -45,6 +45,7 @@ const logos = [
 ];
 
 import { useTopReviews } from '@/features/reviews/lib/hooks';
+import Login from '../login';
 
 export default function Welcome() {
   const { data: recommendedData, isLoading } = useRecommendedProducts();
@@ -57,7 +58,6 @@ export default function Welcome() {
   const newest = recommendedData?.newest || [];
   const mostSold = recommendedData?.mostSold || [];
   const styles = stylesData?.data || [];
-  const reviews = topReviewsData?.data || [];
 
   const displayNewest = showAllNewest ? newest : newest.slice(0, 4);
   const displayMostSold = showAllMostSold ? mostSold : mostSold.slice(0, 4);
@@ -88,7 +88,7 @@ export default function Welcome() {
   }, [topReviewsData]);
   return (
     <div>
-      <div className="flex flex-col lg:flex-row items-center justify-between max-lg:justify-center max-lg:items-start min-h-[calc(100vh-80px)]">
+      <div className="flex flex-col lg:flex-row items-center justify-between max-lg:justify-center max-lg:items-start">
         <div className="container flex flex-col lg:flex-row items-center justify-between gap-10 max-sm:gap-1 flex-1">
           <div className="flex flex-col gap-5 lg:w-1/2 justify-center py-10">
             <h1
@@ -107,7 +107,7 @@ export default function Welcome() {
               shunchaki kundalik vosita emas, u sizning tashqi ko‘rinishingiz va
               o‘zingizga bo‘lgan ishonchingizdir.
             </p>
-            <Link href="/filters">
+            <Link href="/filters" className='max-lg:hidden'>
               <Button
                 className="w-full lg:w-fit rounded-full btn-welcome font-bold max-sm:text-[12px] max-sm:py-2 max-sm:px-5"
                 size={'lg'}
@@ -116,6 +116,7 @@ export default function Welcome() {
                 Maxsulotlarni ko'rish
               </Button>
             </Link>
+            <Login className='lg:hidden' trigger={<Button className="w-full lg:w-fit rounded-full btn-welcome font-bold max-sm:text-[15px] max-sm:py-2 max-sm:px-5">Kirish</Button>} />
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 max-sm:gap-4 lg:gap-10 mt-5">
               <div className="text-center lg:text-left">
                 <p className="text-2xl lg:text-3xl font-bold text-center max-sm:text-[15px]">

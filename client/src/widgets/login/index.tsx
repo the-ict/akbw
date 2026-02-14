@@ -8,12 +8,21 @@ import {
   ModalTitle,
   ModalTrigger,
 } from '@/shared/ui/modal';
-import { cn } from '@/shared/lib/utils';
-import { X } from 'lucide-react';
+import {
+  cn
+} from '@/shared/lib/utils';
+import {
+  X
+} from 'lucide-react';
 import React from 'react';
 import * as z from 'zod';
-import { useMutation } from '@tanstack/react-query';
-import { sendSms, verifySms } from '@/shared/config/api/sms/sms.request';
+import {
+  useMutation
+} from '@tanstack/react-query';
+import {
+  sendSms,
+  verifySms
+} from '@/shared/config/api/sms/sms.request';
 import { login } from '@/shared/config/api/auth/auth.request';
 import { useUserStore } from '@/shared/store/user.store';
 import UseAuth from '@/shared/hooks/use-auth';
@@ -29,9 +38,10 @@ type Steps = 'register' | 'verify';
 
 interface LoginProps {
   trigger?: React.ReactNode;
+  className?: string;
 }
 
-function Login({ trigger }: LoginProps) {
+function Login({ trigger, className }: LoginProps) {
   const [errors, setErrors] = React.useState<Record<string, string>>({});
   const [steps, setSteps] = React.useState<Steps>('register');
   const [timeLeft, setTimeLeft] = React.useState(60);
@@ -206,7 +216,7 @@ function Login({ trigger }: LoginProps) {
     <Modal>
       <ModalTrigger asChild>{trigger || <Button>Kirish</Button>}</ModalTrigger>
       {/* ... rest of the modal ... */}
-      <ModalContent>
+      <ModalContent className={className}>
         <ModalClose>
           <X />
         </ModalClose>
