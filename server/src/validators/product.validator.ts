@@ -31,6 +31,7 @@ const categoriesSchema = Joi.object({
         name: Joi.string().required(),
         lang: Joi.string().required(),
     })).required(),
+    parentId: Joi.number().optional().allow(null),
 });
 
 const categoriesUpdateSchema = Joi.object({
@@ -38,6 +39,7 @@ const categoriesUpdateSchema = Joi.object({
         name: Joi.string(),
         lang: Joi.string(),
     })).required(),
+    parentId: Joi.number().optional().allow(null),
 });
 
 const sizesSchema = Joi.object({

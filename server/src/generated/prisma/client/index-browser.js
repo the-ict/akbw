@@ -177,6 +177,7 @@ exports.Prisma.ProductTranslationsScalarFieldEnum = {
 
 exports.Prisma.CategoriesScalarFieldEnum = {
   id: 'id',
+  parentId: 'parentId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

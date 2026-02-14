@@ -89,6 +89,9 @@ model Categories {
   products     Products[]
   translations CategoryTranslations[]
   styles       Styles[]
+  parentId     Int?
+  parent       Categories?            @relation("SubCategories", fields: [parentId], references: [id])
+  children     Categories[]           @relation("SubCategories")
   createdAt    DateTime               @default(now())
   updatedAt    DateTime               @updatedAt
 }

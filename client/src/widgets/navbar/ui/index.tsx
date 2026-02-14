@@ -83,15 +83,28 @@ const Navbar = () => {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="grid grid-cols-8 grid-rows-2 p-4 mt-10 ml-10 bg-[#D6D3CC]/60 backdrop-blur-md border-none items-center gap-3">
-              {categories?.map((item, index) => (
-                <DropdownMenuItem key={index} asChild>
+              {categories?.filter(c => !c.parentId).map((item, index) => (
+                <div key={index} className="group/cat relative">
                   <Link
                     href={`/filters?category=${item.id}`}
                     className="w-full justify-center cursor-pointer py-3 bg-[#fff]/40 backdrop-blur-sm hover:bg-[#fff] mt-2 rounded-lg shadow-sm text-center transition-all text-sm font-medium block"
                   >
                     {item.name}
                   </Link>
-                </DropdownMenuItem>
+                  {item.children && item.children.length > 0 && (
+                    <div className="hidden group-hover/cat:block absolute left-full top-2 ml-2 p-2 bg-[#D6D3CC] backdrop-blur-md rounded-lg shadow-xl w-48 z-10 border border-black/5">
+                      {item.children.map((child, cIdx) => (
+                        <Link
+                          key={cIdx}
+                          href={`/filters?category=${child.id}`}
+                          className="block px-4 py-2 hover:bg-white/40 rounded-md text-xs font-medium transition-all"
+                        >
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>

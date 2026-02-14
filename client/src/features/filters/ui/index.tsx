@@ -127,26 +127,51 @@ export default function FilterPage() {
 
                         <div id='categories' className='mt-6 space-y-1.5'>
                             {
-                                categories?.map((item, index) => {
+                                categories?.filter(c => !c.parentId).map((item, index) => {
                                     const isActive = Number(selectedCategory) === item.id;
-                                    if (isAll || index < 5 || isActive) {
+                                    const hasActiveChild = item.children?.some(child => Number(selectedCategory) === child.id);
+
+                                    if (isAll || index < 5 || isActive || hasActiveChild) {
                                         return (
-                                            <div
-                                                key={index}
-                                                onClick={() => setSelectedCategory(isActive ? null : item.id)}
-                                                className={cn(
-                                                    'flex items-center justify-between py-2.5 px-3 rounded-xl cursor-pointer hover:translate-x-1.5 transition-all group',
-                                                    isActive ? 'bg-black text-white' : 'hover:bg-white/40'
+                                            <div key={index} className="space-y-1">
+                                                <div
+                                                    onClick={() => setSelectedCategory(isActive ? null : item.id)}
+                                                    className={cn(
+                                                        'flex items-center justify-between py-2.5 px-3 rounded-xl cursor-pointer hover:translate-x-1.5 transition-all group',
+                                                        isActive ? 'bg-black text-white' : 'hover:bg-white/40'
+                                                    )}
+                                                >
+                                                    <p className={cn(
+                                                        'font-medium transition-colors text-sm',
+                                                        isActive ? 'text-white' : 'text-gray-600 group-hover:text-black'
+                                                    )}>{item.name}</p>
+                                                    <ArrowRight size={14} className={cn(
+                                                        'transition-opacity',
+                                                        isActive ? 'opacity-100' : 'opacity-30 group-hover:opacity-100'
+                                                    )} />
+                                                </div>
+                                                {item.children && (isActive || hasActiveChild) && (
+                                                    <div className="ml-4 border-l border-black/10 pl-2 space-y-1">
+                                                        {item.children.map((child, cIdx) => {
+                                                            const isChildActive = Number(selectedCategory) === child.id;
+                                                            return (
+                                                                <div
+                                                                    key={cIdx}
+                                                                    onClick={() => setSelectedCategory(isChildActive ? null : child.id)}
+                                                                    className={cn(
+                                                                        'flex items-center justify-between py-2 px-3 rounded-lg cursor-pointer hover:translate-x-1 transition-all group',
+                                                                        isChildActive ? 'bg-black/80 text-white' : 'hover:bg-white/40'
+                                                                    )}
+                                                                >
+                                                                    <p className={cn(
+                                                                        'text-xs font-medium transition-colors',
+                                                                        isChildActive ? 'text-white' : 'text-gray-500 group-hover:text-black'
+                                                                    )}>{child.name}</p>
+                                                                </div>
+                                                            )
+                                                        })}
+                                                    </div>
                                                 )}
-                                            >
-                                                <p className={cn(
-                                                    'font-medium transition-colors',
-                                                    isActive ? 'text-white' : 'text-gray-600 group-hover:text-black'
-                                                )}>{item.name}</p>
-                                                <ArrowRight size={14} className={cn(
-                                                    'transition-opacity',
-                                                    isActive ? 'opacity-100' : 'opacity-30 group-hover:opacity-100'
-                                                )} />
                                             </div>
                                         )
                                     }

@@ -8,7 +8,8 @@ import { prisma } from "../db/client.js";
 const localizeCategory = (c: any, lang: string) => ({
     ...c,
     name: c.translations?.find((t: any) => t.lang === lang)?.name || "",
-    translations: undefined
+    translations: undefined,
+    parentId: c.parentId
 });
 
 const localizeSize = (s: any, lang: string) => ({
@@ -56,10 +57,26 @@ export const getProducts = async (req: Request, res: Response, next: NextFunctio
 
         if (category_id && (category_id as string).length > 0) {
             const categoryIds = (category_id as string).split(',').map(Number);
+
+            // Fetch all child category IDs recursively
+            const getAllChildIds = async (ids: number[]): Promise<number[]> => {
+                const children = await prisma.categories.findMany({
+                    where: { parentId: { in: ids } },
+                    select: { id: true }
+                });
+                if (children.length === 0) return ids;
+                const childIds = children.map(c => c.id);
+                const nestedChildIds = await getAllChildIds(childIds);
+                return [...ids, ...nestedChildIds];
+            };
+
+            const allCategoryIds = await getAllChildIds(categoryIds);
+            const uniqueCategoryIds = Array.from(new Set(allCategoryIds));
+
             where.AND.push({
                 categories: {
                     some: {
-                        id: { in: categoryIds }
+                        id: { in: uniqueCategoryIds }
                     }
                 }
             });
@@ -309,11 +326,12 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
 
 export const createCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { translations } = req.body;
+        const { translations, parentId } = req.body;
         const languageCode = (req as any).languageCode || 'uz';
 
         const category = await prisma.categories.create({
             data: {
+                parentId: parentId ? Number(parentId) : null,
                 translations: {
                     create: translations
                 }
@@ -336,14 +354,16 @@ export const createCategory = async (req: Request, res: Response, next: NextFunc
 export const updateCategory = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { id } = req.params;
-        const { translations } = req.body;
+        const { translations, parentId } = req.body;
         const languageCode = (req as any).languageCode || 'uz';
+
+        await prisma.categoryTranslations.deleteMany({ where: { categoryId: Number(id) } });
 
         const category = await prisma.categories.update({
             where: { id: Number(id) },
             data: {
+                parentId: parentId ? Number(parentId) : null,
                 translations: {
-                    deleteMany: {},
                     create: translations
                 }
             },
@@ -406,10 +426,18 @@ export const getCategories = async (req: Request, res: Response, next: NextFunct
         const categories = await prisma.categories.findMany({
             where,
             include: {
-                translations: { where: { lang: languageCode } }
+                translations: { where: { lang: languageCode } },
+                children: {
+                    include: {
+                        translations: { where: { lang: languageCode } }
+                    }
+                }
             }
         });
-        return res.status(200).json(categories.map(c => localizeCategory(c, languageCode)));
+        return res.status(200).json(categories.map(c => ({
+            ...localizeCategory(c, languageCode),
+            children: c.children?.map(child => localizeCategory(child, languageCode))
+        })));
     } catch (error) {
         next(error);
     }

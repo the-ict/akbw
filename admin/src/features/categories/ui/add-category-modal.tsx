@@ -19,8 +19,8 @@ import {
 
 import {
     ICategory,
-} from '@/shared/config/api/product/product.modal';
-import { useCreateCategory, useUpdateCategory, useCategory } from '../lib/hooks';
+} from '@/shared/config/api/product/product.model';
+import { useCreateCategory, useUpdateCategory, useCategory, useCategories } from '../lib/hooks';
 import { toast } from 'sonner';
 
 interface AddCategoryModalProps {
@@ -43,7 +43,9 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
         [LanguageRoutes.RU]: '',
         [LanguageRoutes.EN]: '',
     });
+    const [parentId, setParentId] = useState<number | null>(null);
 
+    const { data: categories = [] } = useCategories();
     const { data: categoryData, isLoading: isLoadingCategory } = useCategory(category?.id);
     const createMutation = useCreateCategory();
     const updateMutation = useUpdateCategory();
@@ -59,12 +61,14 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
                 transMap[t.lang] = t.name;
             });
             setTranslations(transMap);
+            setParentId(categoryData.parentId || null);
         } else if (!category) {
             setTranslations({
                 [LanguageRoutes.UZ]: '',
                 [LanguageRoutes.RU]: '',
                 [LanguageRoutes.EN]: '',
             });
+            setParentId(null);
         }
     }, [categoryData, category, isOpen]);
 
@@ -76,7 +80,8 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
                 .map(([lang, name]) => ({
                     lang,
                     name
-                }))
+                })),
+            parentId
         };
 
         if (payload.translations.length === 0) {
@@ -102,6 +107,8 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
             [activeLang]: val
         }));
     };
+
+    const availableCategories = categories.filter(c => c.id !== category?.id);
 
     return (
         <Modal open={isOpen} onOpenChange={onClose}>
@@ -146,6 +153,21 @@ export default function AddCategoryModal({ isOpen, onClose, category, viewOnly }
                                 value={translations[activeLang] || ''}
                                 onChange={(e) => handleTranslationChange(e.target.value)}
                             />
+                        </div>
+
+                        <div className='space-y-2'>
+                            <label className='text-[10px] uppercase tracking-widest font-black text-gray-400'>Ota kategoriya (Tanlov ixtiyoriy)</label>
+                            <select
+                                disabled={viewOnly}
+                                className='w-full h-12 px-4 bg-white border border-gray-100 rounded-2xl focus:ring-1 focus:ring-black/10 outline-none font-bold text-sm appearance-none cursor-pointer'
+                                value={parentId || ''}
+                                onChange={(e) => setParentId(e.target.value ? Number(e.target.value) : null)}
+                            >
+                                <option value="">Ota kategoriya yo'q</option>
+                                {availableCategories.map(c => (
+                                    <option key={c.id} value={c.id}>{c.name}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
 
