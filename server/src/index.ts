@@ -21,6 +21,7 @@ import reviewRoutes from "./routers/review.routes.js";
 import orderRoutes from "./routers/order.routes.js";
 import notificationRoutes from "./routers/notification.routes.js";
 import chatRoutes from "./routers/chat.routes.js";
+import dashboardRoutes from "./routers/dashboard.routes.js";
 import path from "path";
 
 
@@ -68,6 +69,7 @@ app.use("/api/order", orderRoutes);
 app.use("/api/style", styleRoutes);
 app.use("/api/notification", notificationRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 // 404 handler
 app.use((req: Request, res: Response) => {

@@ -16,6 +16,8 @@ const ENDP_UPLOAD = "/upload";
 const ENDP_ORDER = "/order"
 const ENDP_NOTIFICATION = "/notification";
 const ENDP_STYLE = "/style";
+const ENDP_DASHBOARD = "/dashboard";
+const ENDP_STATISTICS = "/dashboard/statistics";
 
 export {
   BASE_URL,
@@ -33,5 +35,7 @@ export {
   ENDP_UPLOAD,
   ENDP_ORDER,
   ENDP_NOTIFICATION,
-  ENDP_STYLE
+  ENDP_STYLE,
+  ENDP_DASHBOARD,
+  ENDP_STATISTICS
 };

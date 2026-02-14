@@ -28,38 +28,48 @@ import {
 } from 'recharts';
 import { Button } from '@/shared/ui/button';
 
-// Mock Data
-const salesTrend = [
-    { name: 'DUSH', sales: 4000 },
-    { name: 'SESH', sales: 3000 },
-    { name: 'CHOR', sales: 2000 },
-    { name: 'PAY', sales: 2780 },
-    { name: 'JUM', sales: 1890 },
-    { name: 'SHAN', sales: 2390 },
-    { name: 'YAK', sales: 3490 },
-];
-
-const trafficData = [
-    { name: 'Instagram', value: 45, color: '#000000', icon: Instagram },
-    { name: 'Telegram', value: 30, color: '#333333', icon: Send },
-    { name: 'Direct', value: 25, color: '#666666', icon: MousePointer2 },
-];
-
-const variantData = [
-    { name: 'XS', value: 45 },
-    { name: 'S', value: 80 },
-    { name: 'M', value: 120 },
-    { name: 'L', value: 95 },
-    { name: 'XL', value: 30 },
-];
-
-const colorData = [
-    { name: 'Black', value: 150, hex: '#000000' },
-    { name: 'White', value: 80, hex: '#FFFFFF' },
-    { name: 'Gray', value: 45, hex: '#808080' },
-];
+import { useStatisticsData } from '../lib/hooks';
 
 export default function Statistics() {
+    const [dayRange, setDayRange] = React.useState(30);
+    const { data: statsData, isLoading } = useStatisticsData(dayRange);
+
+    if (isLoading) {
+        return <div className='flex items-center justify-center min-h-[400px]'>
+            <div className='animate-pulse text-gray-400 font-bold uppercase tracking-widest'>Yuklanmoqda...</div>
+        </div>;
+    }
+
+    const salesTrend = (dayRange === 7 ? statsData?.weekSales : statsData?.monthSales)?.map(item => ({
+        name: item.date.split('-').slice(1).reverse().join('.'),
+        sales: item.count
+    })).reverse() || [];
+
+    const topStats = [
+        { label: 'O‘rtacha Chek', value: `${(statsData?.averageCheckPrice || 0).toLocaleString()} so'm`, change: '+0%', up: true, icon: Target },
+        { label: 'Kunlik Savdo', value: `${(statsData?.dailyAverageOrdersPrice || 0).toLocaleString()} so'm`, change: '+0%', up: true, icon: DollarSign },
+        { label: 'Oylik Buyurtma', value: statsData?.monthsOrdersNumber || 0, change: '+0%', up: true, icon: ShoppingBag },
+        { label: 'Yangi Mijoz', value: statsData?.newUserCount || 0, change: '+0%', up: true, icon: Users },
+    ];
+
+    const variantData = statsData?.mostSoldSizes?.map(s => ({
+        name: s.details?.name || s.sizeId,
+        value: s._sum.quantity
+    })) || [];
+
+    const maxVariantValue = Math.max(...variantData.map(v => v.value), 1);
+
+    const colorData = statsData?.mostSoldColors?.map(c => ({
+        name: c.details?.name || c.colorId,
+        value: c._sum.quantity,
+        hex: c.details?.color_hex || '#000'
+    })) || [];
+
+    const trafficData = [
+        { name: 'Instagram', value: 45, color: '#000000', icon: Instagram },
+        { name: 'Telegram', value: 30, color: '#333333', icon: Send },
+        { name: 'Direct', value: 25, color: '#666666', icon: MousePointer2 },
+    ];
     return (
         <div className='space-y-8 pb-10'>
             {/* Header */}
@@ -70,12 +80,7 @@ export default function Statistics() {
 
             {/* Top Stats Grid */}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-                {[
-                    { label: 'O‘rtacha Chek', value: '$124.00', change: '+12%', up: true, icon: Target },
-                    { label: 'Kunlik Savdo', value: '$4,520', change: '+18%', up: true, icon: DollarSign },
-                    { label: 'Oylik Buyurtma', value: '1,234', change: '-2%', up: false, icon: ShoppingBag },
-                    { label: 'Yangi Mijoz', value: '456', change: '+5%', up: true, icon: Users },
-                ].map((stat, i) => (
+                {topStats.map((stat, i) => (
                     <div key={i} className='bg-white p-6 rounded-[24px] border border-gray-100 shadow-sm'>
                         <div className='flex justify-between items-start mb-4'>
                             <div className='p-3 bg-gray-50 rounded-2xl'>
@@ -101,9 +106,13 @@ export default function Statistics() {
                 <div className='lg:col-span-2 bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
                     <div className='flex justify-between items-center mb-8'>
                         <h2 className='text-lg font-black uppercase tracking-wider'>Savdo Dinamikasi</h2>
-                        <select className='bg-gray-50 border-none rounded-xl px-4 py-2 text-[10px] font-black uppercase tracking-widest cursor-pointer'>
-                            <option>Haftalik</option>
-                            <option>Oylik</option>
+                        <select
+                            value={dayRange}
+                            onChange={(e) => setDayRange(Number(e.target.value))}
+                            className='bg-gray-50 border-none rounded-xl px-4 py-2 text-[10px] font-black uppercase tracking-widest cursor-pointer'
+                        >
+                            <option value={7}>Haftalik</option>
+                            <option value={30}>Oylik</option>
                         </select>
                     </div>
                     <div className='h-[350px] w-full'>
@@ -182,7 +191,7 @@ export default function Statistics() {
                                     <div key={i} className='flex-1 flex flex-col items-center gap-2'>
                                         <div
                                             className='w-full bg-gray-50 rounded-lg relative overflow-hidden group hover:bg-black transition-all cursor-pointer'
-                                            style={{ height: `${(item.value / 120) * 100}%` }}
+                                            style={{ height: `${(item.value / maxVariantValue) * 100}%` }}
                                         >
                                             <div className='absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity' />
                                         </div>
@@ -194,7 +203,7 @@ export default function Statistics() {
                         <hr className='border-gray-50' />
                         <div>
                             <p className='text-[10px] font-black uppercase text-gray-400 tracking-[0.2em] mb-4'>Eng ommabop ranglar</p>
-                            <div className='flex gap-4'>
+                            <div className='flex flex-wrap gap-4'>
                                 {colorData.map((color, i) => (
                                     <div key={i} className='flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-xl'>
                                         <div className='w-4 h-4 rounded-full border border-gray-200' style={{ backgroundColor: color.hex }} />
@@ -211,37 +220,29 @@ export default function Statistics() {
                 <div className='bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
                     <h2 className='text-lg font-black uppercase tracking-wider mb-8'>Eng ko‘p sotilgan mahsulotlar</h2>
                     <div className='space-y-6'>
-                        {[
-                            { name: 'Oversized Graphics T-Shirt', sales: 452, trend: '+12%', image: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80' },
-                            { name: 'Slim Denim Jacket', sales: 289, trend: '+5%', image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=200&q=80' },
-                            { name: 'Classic Sneakers', sales: 156, trend: '-2%', image: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=200&q=80' },
-                            { name: 'Essential Hoody', sales: 98, trend: '+20%', image: 'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=200&q=80' },
-                        ].map((item, i) => (
+                        {statsData?.mostSoldProducts?.map((item, i) => (
                             <div key={i} className='flex items-center justify-between p-4 hover:bg-gray-50 rounded-2xl transition-all cursor-pointer group'>
                                 <div className='flex items-center gap-4'>
                                     <span className='text-sm font-black text-gray-300 w-4'>{i + 1}</span>
                                     <div className='w-12 h-12 rounded-xl bg-gray-100 overflow-hidden shadow-sm'>
-                                        <img src={item.image} alt={item.name} className='w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all' />
+                                        <img src={item.details?.images?.[0] || 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=200&q=80'} alt={item.details?.translations?.[0]?.name} className='w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all' />
                                     </div>
-                                    <div>
-                                        <p className='text-sm font-black uppercase'>{item.name}</p>
-                                        <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>{item.sales} ta sotildi</p>
+                                    <div className='flex-1'>
+                                        <p className='text-sm font-black uppercase line-clamp-1'>{item.details?.translations?.[0]?.name || 'Mahsulot'}</p>
+                                        <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>{item._sum.quantity} ta sotildi</p>
                                     </div>
                                 </div>
-                                <div className={cn(
-                                    'text-[10px] font-black px-2 py-1 rounded-lg',
-                                    item.trend.startsWith('+') ? 'text-green-600' : 'text-red-500'
-                                )}>
-                                    {item.trend}
+                                <div className='text-[10px] font-black px-2 py-1 rounded-lg text-green-600'>
+                                    +0%
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <Button variant='outline' className='w-full mt-8 rounded-2xl h-12 border-gray-100 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer'>
-                        Barcha mahsulotlar hisoboti
-                    </Button>
                 </div>
             </div>
+            <Button variant='outline' className='w-full mt-8 rounded-2xl h-12 border-gray-100 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer'>
+                Barcha mahsulotlar hisoboti
+            </Button>
         </div>
     );
 }

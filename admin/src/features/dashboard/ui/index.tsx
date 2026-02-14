@@ -18,53 +18,62 @@ import {
     Tooltip,
     ResponsiveContainer
 } from 'recharts';
-
-const data = [
-    { name: 'Mon', sales: 4000 },
-    { name: 'Tue', sales: 3000 },
-    { name: 'Wed', sales: 2000 },
-    { name: 'Thu', sales: 2780 },
-    { name: 'Fri', sales: 1890 },
-    { name: 'Sat', sales: 2390 },
-    { name: 'Sun', sales: 3490 },
-];
-
-const stats = [
-    {
-        title: 'Umumiy Savdo',
-        value: '$12,450',
-        change: '+12.5%',
-        isUp: true,
-        icon: DollarSign,
-        color: 'bg-green-500',
-    },
-    {
-        title: 'Buyurtmalar',
-        value: '456',
-        change: '+18.2%',
-        isUp: true,
-        icon: ShoppingBag,
-        color: 'bg-blue-500',
-    },
-    {
-        title: 'Mijozlar',
-        value: '1,234',
-        change: '-2.4%',
-        isUp: false,
-        icon: Users,
-        color: 'bg-purple-500',
-    },
-    {
-        title: 'O‘sish sur’ati',
-        value: '+24.5%',
-        change: '+4.3%',
-        isUp: true,
-        icon: TrendingUp,
-        color: 'bg-orange-500',
-    },
-];
+import { useDashboardData, useStatisticsData } from '../lib/hooks';
+import { useOrders } from '../../orders/lib/hooks';
 
 export default function Dashboard() {
+    const [dayRange, setDayRange] = React.useState(7);
+    const { data: dashboardData, isLoading: isDashboardLoading } = useDashboardData(dayRange);
+    const { data: statsData, isLoading: isStatsLoading } = useStatisticsData(dayRange);
+    const { data: ordersData, isLoading: isOrdersLoading } = useOrders();
+
+    if (isDashboardLoading || isStatsLoading || isOrdersLoading) {
+        return <div className='flex items-center justify-center min-h-[400px]'>
+            <div className='animate-pulse text-gray-400 font-bold uppercase tracking-widest'>Yuklanmoqda...</div>
+        </div>;
+    }
+
+    const stats = [
+        {
+            title: 'Umumiy Savdo',
+            value: `${(dashboardData?.overAllSales?._sum?.total_price || 0).toLocaleString()} so'm`,
+            change: '+0%', // Can be calculated if we fetch and compare
+            isUp: true,
+            icon: DollarSign,
+            color: 'bg-green-500',
+        },
+        {
+            title: 'Buyurtmalar',
+            value: dashboardData?.ordersNumber || 0,
+            change: `${(dashboardData?.grownPercentsAtOrders || 0).toFixed(1)}%`,
+            isUp: (dashboardData?.grownPercentsAtOrders || 0) >= 0,
+            icon: ShoppingBag,
+            color: 'bg-blue-500',
+        },
+        {
+            title: 'Mijozlar',
+            value: dashboardData?.usersNumber || 0,
+            change: '+0%',
+            isUp: true,
+            icon: Users,
+            color: 'bg-purple-500',
+        },
+        {
+            title: 'O‘sish sur’ati',
+            value: `${(dashboardData?.grownPercentsAtOrders || 0).toFixed(1)}%`,
+            change: '+0%',
+            isUp: true,
+            icon: TrendingUp,
+            color: 'bg-orange-500',
+        },
+    ];
+
+    const chartData = (dayRange === 7 ? statsData?.weekSales : statsData?.monthSales)?.map(item => ({
+        name: item.date.split('-').slice(1).reverse().join('.'), // Format DD.MM
+        sales: item.count
+    })).reverse() || [];
+
+    const recentOrders = ordersData?.data?.slice(0, 5) || [];
     return (
         <div className='space-y-8 pb-10'>
             {/* Stats Grid */}
@@ -103,17 +112,21 @@ export default function Dashboard() {
                     <div className='flex justify-between items-center mb-8'>
                         <div>
                             <h2 className='text-lg font-black uppercase tracking-wider'>Savdo Grafikasi</h2>
-                            <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>Haftalik hisobot</p>
+                            <p className='text-xs text-gray-400 font-bold uppercase tracking-widest'>{dayRange === 7 ? 'Haftalik' : 'Oylik'} hisobot</p>
                         </div>
-                        <select className='bg-gray-50 border-none rounded-xl px-4 py-2 text-xs font-bold uppercase focus:ring-0 cursor-pointer'>
-                            <option>Oxirgi 7 kun</option>
-                            <option>Oxirgi 30 kun</option>
+                        <select
+                            value={dayRange}
+                            onChange={(e) => setDayRange(Number(e.target.value))}
+                            className='bg-gray-50 border-none rounded-xl px-4 py-2 text-xs font-bold uppercase focus:ring-0 cursor-pointer'
+                        >
+                            <option value={7}>Oxirgi 7 kun</option>
+                            <option value={30}>Oxirgi 30 kun</option>
                         </select>
                     </div>
 
                     <div className='h-[350px] w-full'>
                         <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={data}>
+                            <AreaChart data={chartData}>
                                 <defs>
                                     <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor="#000" stopOpacity={0.1} />
@@ -125,7 +138,7 @@ export default function Dashboard() {
                                     dataKey="name"
                                     axisLine={false}
                                     tickLine={false}
-                                    tick={{ fill: '#9ca3af', fontSize: 12, fontWeight: 600 }}
+                                    tick={{ fill: '#9ca3af', fontSize: 10, fontWeight: 900 }}
                                     dy={10}
                                 />
                                 <YAxis
@@ -156,25 +169,31 @@ export default function Dashboard() {
                 <div className='bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm'>
                     <h2 className='text-lg font-black uppercase tracking-wider mb-6'>Oxirgi Buyurtmalar</h2>
                     <div className='space-y-6'>
-                        {[1, 2, 3, 4, 5].map((item) => (
-                            <div key={item} className='flex items-center justify-between group hover:bg-gray-50/50 p-2 rounded-2xl transition-all cursor-pointer'>
+                        {recentOrders.map((order: any) => (
+                            <div key={order.id} className='flex items-center justify-between group hover:bg-gray-50/50 p-2 rounded-2xl transition-all cursor-pointer'>
                                 <div className='flex items-center gap-4'>
                                     <div className='w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center font-bold text-gray-400 group-hover:bg-black group-hover:text-white transition-all overflow-hidden'>
-                                        <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${item}`} alt="avatar" />
+                                        <div className='text-xs'>O-{order.id}</div>
                                     </div>
                                     <div>
-                                        <p className='text-sm font-bold uppercase'>Mijoz #{1234 + item}</p>
-                                        <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>Bugun, 14:20</p>
+                                        <p className='text-sm font-bold uppercase'>{order.user?.name} {order.user?.lastName}</p>
+                                        <p className='text-[10px] text-gray-400 font-bold uppercase tracking-widest'>{new Date(order.createdAt).toLocaleDateString()} {new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                                     </div>
                                 </div>
                                 <div className='text-right'>
-                                    <p className='text-sm font-black'>$120.00</p>
-                                    <p className='text-[10px] text-green-500 font-bold uppercase tracking-widest'>To‘landi</p>
+                                    <p className='text-sm font-black'>{(order.total_price || 0).toLocaleString()} so'm</p>
+                                    <p className={cn(
+                                        'text-[10px] font-bold uppercase tracking-widest',
+                                        order.status === 'paid' ? 'text-green-500' : 'text-orange-400'
+                                    )}>{order.status}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
-                    <button className='w-full mt-8 py-4 border-2 border-gray-50 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer'>
+                    <button
+                        onClick={() => window.location.replace('/orders')}
+                        className='w-full mt-8 py-4 border-2 border-gray-50 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all cursor-pointer'
+                    >
                         Barchasini ko‘rish
                     </button>
                 </div>
