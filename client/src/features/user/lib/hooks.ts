@@ -1,11 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { userRequest } from '@/shared/config/api/user/user.request';
 import { IUpdateUserRequest } from '@/shared/config/api/user/user.model';
+import { useUserStore } from '@/shared/store/user.store';
 
 export const useUser = () => {
+  const { token } = useUserStore();
   return useQuery({
     queryKey: ['user', 'me'],
     queryFn: () => userRequest.getMe(),
+    enabled: !!token,
   });
 };
 

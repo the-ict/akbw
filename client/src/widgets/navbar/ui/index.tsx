@@ -44,7 +44,7 @@ const Navbar = () => {
     e.preventDefault();
     if (searchVal.trim()) {
       router.push(`/filters?q=${searchVal.trim()}`);
-    }
+    };
   };
 
   if (isLoading) return null;
