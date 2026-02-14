@@ -38,6 +38,10 @@ import { useUser, useUpdateUser } from '@/features/user/lib/hooks';
 import { useSupportChat, useProductInquiry } from './lib/hooks';
 import { toast } from '@/shared/ui/toast';
 import { uploadRequest } from '@/shared/config/api/upload/upload.request';
+import Login from '../login';
+import Register from '../register';
+import { Link } from '@/shared/config/i18n/navigation';
+import { Info, Phone } from 'lucide-react';
 
 const profileSchema = z.object({
   name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
@@ -91,7 +95,7 @@ function Profile({ children }: ProfileProps) {
   const activeTab = activeProfileTab as TabType;
   const activeSubSection = activeProfileSubSection as SubSectionType;
 
-  const { setToken } = useUserStore();
+  const { token, setToken } = useUserStore();
 
   const formatPhone = (value: string) => {
     let cleaned = value.replace(/[^\d+]/g, '');
@@ -255,6 +259,22 @@ function Profile({ children }: ProfileProps) {
       icon: HelpCircle,
       color: 'from-indigo-600 to-indigo-700',
     },
+    {
+      id: 'about',
+      title: 'Biz haqimizda',
+      description: "Kompaniya haqida ma'lumot",
+      icon: Info,
+      color: 'from-blue-600 to-blue-700',
+      href: '/about',
+    },
+    {
+      id: 'contact',
+      title: "Bog'lanish",
+      description: "Aloqa ma'lumotlari",
+      icon: Phone,
+      color: 'from-green-600 to-green-700',
+      href: '/contact',
+    },
   ];
 
   const renderProfileHeader = () => (
@@ -274,6 +294,7 @@ function Profile({ children }: ProfileProps) {
     <MenuItems
       menuItems={menuItems}
       setProfileSubSection={setProfileSubSection}
+      onClose={() => onOpenChange(false)}
     />
   );
 
@@ -350,6 +371,59 @@ function Profile({ children }: ProfileProps) {
     onOpenChange(false);
     window.location.reload();
   };
+
+  // Guest view
+  if (!token) {
+    return (
+      <Modal open={isProfileOpen} onOpenChange={onOpenChange}>
+        <ModalTrigger asChild>
+          {children || <User size={24} className="cursor-pointer" />}
+        </ModalTrigger>
+        <ModalContent className="max-w-[95%] md:max-w-xl overflow-hidden flex flex-col bg-white rounded-2xl p-6">
+          <ModalTitle className="text-xl font-bold mb-4">Mehmon rejimi</ModalTitle>
+          <ModalClose className="absolute right-4 top-4 z-10">
+            <X className="h-5 w-5" />
+          </ModalClose>
+
+          <div className="flex flex-col gap-4">
+            <div className="bg-gray-50 p-4 rounded-xl text-center">
+              <p className="text-gray-600 mb-4 text-sm">To'liq imkoniyatlardan foydalanish uchun tizimga kiring</p>
+              <div className="flex flex-col gap-3">
+                <Login
+                  trigger={
+                    <Button className="w-full">Kirish</Button>
+                  }
+                />
+                <Register
+                  trigger={
+                    <Button variant="outline" className="w-full">Ro'yxatdan o'tish</Button>
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="border-t border-gray-100 pt-4">
+              <h3 className="font-semibold mb-3">Foydali havolalar</h3>
+              <div className="flex flex-col gap-2">
+                <Link href="/about" onClick={() => onOpenChange(false)} className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                  <div className="bg-blue-100 text-blue-600 p-2 rounded-lg">
+                    <Info size={18} />
+                  </div>
+                  <span className="font-medium">Biz haqimizda</span>
+                </Link>
+                <Link href="/contact" onClick={() => onOpenChange(false)} className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition-colors">
+                  <div className="bg-green-100 text-green-600 p-2 rounded-lg">
+                    <Phone size={18} />
+                  </div>
+                  <span className="font-medium">Bog'lanish</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </ModalContent>
+      </Modal>
+    )
+  }
 
   return (
     <Modal open={isProfileOpen} onOpenChange={onOpenChange}>

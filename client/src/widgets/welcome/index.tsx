@@ -116,7 +116,9 @@ export default function Welcome() {
                 Maxsulotlarni ko'rish
               </Button>
             </Link>
-            <Login className='lg:hidden' trigger={<Button className="w-full lg:w-fit rounded-full btn-welcome font-bold max-sm:text-[15px] max-sm:py-2 max-sm:px-5">Kirish</Button>} />
+            <div className="lg:hidden w-full">
+              <Login trigger={<Button className="w-full rounded-full btn-welcome font-bold max-sm:text-[15px] max-sm:py-2 max-sm:px-5">Kirish</Button>} />
+            </div>
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 max-sm:gap-4 lg:gap-10 mt-5">
               <div className="text-center lg:text-left">
                 <p className="text-2xl lg:text-3xl font-bold text-center max-sm:text-[15px]">

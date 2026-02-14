@@ -7,12 +7,15 @@ import {
   sendAskMessage,
   createAskChat,
 } from '@/shared/config/api/profile/profile.requests';
+import { useUserStore } from '@/shared/store/user.store';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useNotifications = () => {
+  const { token } = useUserStore();
   const query = useQuery({
     queryKey: ['notifications'],
     queryFn: getNotifications,
+    enabled: !!token,
   });
 
   return query;
@@ -20,10 +23,12 @@ export const useNotifications = () => {
 
 export const useSupportChat = () => {
   const queryClient = useQueryClient();
+  const { token } = useUserStore();
 
   const query = useQuery({
     queryKey: ['support-chat'],
     queryFn: getHelpChat,
+    enabled: !!token,
   });
 
   const sendMessageMutation = useMutation({
@@ -49,10 +54,12 @@ export const useSupportChat = () => {
 
 export const useProductInquiry = () => {
   const queryClient = useQueryClient();
+  const { token } = useUserStore();
 
   const query = useQuery({
     queryKey: ['product-inquiry'],
     queryFn: getAskChat,
+    enabled: !!token,
   });
 
   const sendMessageMutation = useMutation({

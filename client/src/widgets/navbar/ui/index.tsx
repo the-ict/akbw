@@ -27,7 +27,7 @@ import { useCategories } from '../lib/hooks';
 
 const Navbar = () => {
   const [activeParentId, setActiveParentId] = useState<number | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
   const [searchVal, setSearchVal] = useState<string>('');
   const { token } = useUserStore();
   const [isChildren, setIsChildren] = useState<boolean>(false);
@@ -216,10 +216,17 @@ const Navbar = () => {
           </select>
 
           {token === null ? (
-            <div className="hidden sm:flex items-center gap-2">
-              <Login />
-              <Register />
-            </div>
+            <>
+              <div className="hidden lg:flex items-center gap-2">
+                <Login />
+                <Register />
+              </div>
+              <div className="lg:hidden">
+                <Profile>
+                  <User size={24} className="cursor-pointer" />
+                </Profile>
+              </div>
+            </>
           ) : (
             <Profile>
               <User
