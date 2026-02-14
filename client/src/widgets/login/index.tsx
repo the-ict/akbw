@@ -150,7 +150,9 @@ function Login({ trigger, className }: LoginProps) {
                 <p className="text-xs text-red-500">{errors.phone}</p>
               )}
 
-              <p className="text-xs text-black mt-3">Agar ro'yhatdan o'tmagan bo'lsangiz! <Register trigger={<Button variant="link" className='p-0 mx-1'>Ro'yhatdan o'tish</Button>} /></p>
+              <p className="text-gray-500 mt-3 text-[11px] text-center">
+                Agar ro'yhatdan o'tmagan bo'lsangiz <Register trigger={<span className='text-gray-600 underline font-bold'>Ro'yhatdan o'ting</span>} />
+              </p>
             </div>
 
             <Button onClick={handleRegister} className="mt-5 w-full">
