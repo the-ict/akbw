@@ -41,7 +41,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className='grid grid-cols-3 gap-3 justify-between'>
+          <div className='lg:col-span-3 grid grid-cols-3 gap-3 justify-between items-start lg:flex lg:justify-between lg:w-full'>
             <div>
               <h3 className="font-display text-sm mb-4">Shop</h3>
               <ul className="space-y-3">

@@ -169,8 +169,6 @@ const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <div className="w-px h-4 bg-black/10 mx-2" />
-
           <Link
             href={'/about'}
             className="text-sm uppercase tracking-wider text-gray-600 hover:text-black transition-all font-bold"
