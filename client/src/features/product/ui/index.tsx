@@ -10,7 +10,8 @@ import {
     Plus,
     Check,
     Loader2,
-    EllipsisVertical
+    EllipsisVertical,
+    StarOff
 } from 'lucide-react';
 import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/utils';
@@ -197,17 +198,34 @@ export default function Product({ id }: ProductProps) {
 
                         <div className='flex items-center gap-3 mb-6'>
                             <div className='flex gap-1'>
-                                {[1, 2, 3, 4, 5].map((s) => (
-                                    <Star
-                                        key={s}
-                                        size={18}
-                                        className='text-yellow-400'
-                                        fill='currentColor'
-                                    />
-                                ))}
+                                {
+                                    product.rating == null ? (
+                                        <Star
+                                            size={18}
+                                            className='text-gray-400'
+                                        />
+                                    ) : (
+                                        Array.from({ length: product.rating }).map((_, idx) => (
+                                            <Star
+                                                key={idx}
+                                                size={18}
+                                                className='text-yellow-400'
+                                                fill='currentColor'
+                                            />
+                                        ))
+                                    )
+                                }
                             </div>
                             <span className='text-sm font-medium'>
-                                {product.rating}/<span className='text-gray-400 font-normal'>5</span>
+                                {
+                                    product.rating === null ? (
+                                        <p>Hali reyting berilmagan</p>
+                                    ) : (
+                                        <>
+                                            {product.rating} / <span className='text-gray-400 font-normal'>5</span>
+                                        </>
+                                    )
+                                }
                             </span>
                         </div>
 

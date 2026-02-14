@@ -11,7 +11,7 @@ export const useProducts = (params: IProductFilters = {}) => {
 
 export const useProduct = (id: string | number) => {
     return useQuery({
-        queryKey: ['product', id],
+        queryKey: ['product'],
         queryFn: () => getProductByIdRequest(id),
         enabled: !!id,
     });

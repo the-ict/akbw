@@ -17,6 +17,7 @@ export const useCreateReview = () => {
         mutationFn: (data: ICreateReviewRequest) => createReviewRequest(data),
         onSuccess: (_, variables) => {
             queryClient.invalidateQueries({ queryKey: ['reviews'] });
+            queryClient.invalidateQueries({ queryKey: ["product"] })
         },
     });
 };
@@ -27,6 +28,7 @@ export const useUpdateReview = (reviewId: number) => {
         mutationFn: (data: ICreateReviewRequest) => updateReviewRequest(reviewId, data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['reviews'] });
+            queryClient.invalidateQueries({ queryKey: ["product"] })
         },
     });
 };
