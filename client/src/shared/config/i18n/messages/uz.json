@@ -90,5 +90,38 @@
     "resend_code_btn": "Qayta kod yuborish",
     "verify_btn": "Tasdiqlash",
     "edit_info_btn": "Ma'lumotlarni tahrirlash"
+  },
+  "AboutPage": {
+    "hero_subtitle": "Oddiy, Sifatli Cheksiz Dizayn",
+    "intro_title": "O'zbekistonda tashkil topgan zamonaviy platforma",
+    "akbw_full_name": "AKBW (AKBARA KRAFT BRAND WEAR)",
+    "intro_description_1": "— O‘zbekistonda tashkil topgan zamonaviy kiyim platformasi bo‘lib, soddalik, sifat va minimal dizayn g‘oyalariga asoslangan.",
+    "intro_description_2": "Platformaning asosiy maqsadi kundalik hayot uchun qulay, zamonaviy va estetik jihatdan toza kiyimlarni taklif qilish orqali o‘ziga xos uslubni shakllantirishdir.",
+    "vision_label": "Vizyon",
+    "vision_title": "Vaqt sinovidan o'tadigan uslubni tanlash",
+    "vision_description": "Platforma g‘oyasi shovqinli trendlar va tez o‘zgaruvchan modadan ko‘ra, uzoq muddatli qiymatga ega bo‘lgan dizayn, sokin ranglar va sifatli materiallarga tayanadi.",
+    "founder_name": "Akbarov Abdulloh",
+    "founder_role": "AKBW Asoschisi",
+    "features": {
+      "minimalism_title": "Minimalizm",
+      "minimalism_description": "Ortiqcha bezaklarsiz, tushunarli shakllar va sokin ranglar orqali xarakter ifodasi.",
+      "quality_title": "Sifat",
+      "quality_description": "Har bir mahsulot tanlashdan tortib mijozga yetib borguncha qat'iy nazorat.",
+      "future_title": "Kelajak",
+      "future_description": "O'zbekistonda boshlanib, xalqaro miqyosga intilayotgan barqaror rivojlanish."
+    },
+    "growth_title": "Rivojlanish va Maqsadlar",
+    "growth_description_1": "Platforma Toshkent shahrida tashkil topgan bo‘lib, faoliyati AKBARA GROUP tarkibida olib boriladi. AKBW jamoasi dizayn, sifat nazorati va onlayn savdo jarayonlariga alohida e’tibor qaratadi.",
+    "growth_description_2": "AKBW dastlab sifatli ishlab chiqaruvchilar bilan hamkorlik qilish orqali bozorda o‘z o‘rnini mustahkamlashni maqsad qilgan. Kelajakda esa platforma o‘z dizayniga ega bo‘lgan, AKBW falsafasini to‘liq aks ettiruvchi mahsulotlarni yaratishni rejalashtiradi.",
+    "values": {
+      "honesty_title": "Halollik",
+      "honesty_description": "Bizning barcha jarayonlarimizda shaffoflik va ishonch birinchi o'rinda.",
+      "online_exp_title": "Onlayn Tajriba",
+      "online_exp_description": "Raqamli muhitda ochiq, tushunarli va qulay xarid tajribasi."
+    },
+    "bottom_quote": "AKBW — bu faqat dizayn emas, balki fikrlash uslubidir.",
+    "bottom_description": "Ortiqcha bezaklarsiz, tushunarli shakllar va sokin ranglar orqali o'zingizni namoyon qiling.",
+    "home_link": "Bosh sahifa",
+    "contact_link": "Bog'lanish"
   }
 }

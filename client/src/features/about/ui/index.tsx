@@ -3,28 +3,31 @@ import { Leaf, Globe, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import AkbaraAbout from '../../../../public/assets/akbw-about.jpg';
+import { useTranslations } from 'next-intl';
 
 export default function AboutPage() {
   const features = [
     {
       icon: Leaf,
-      title: 'Minimalizm',
+      title: 'features.minimalism_title',
       description:
-        'Ortiqcha bezaklarsiz, tushunarli shakllar va sokin ranglar orqali xarakter ifodasi.',
+        'features.minimalism_description',
     },
     {
       icon: ShieldCheck,
-      title: 'Sifat',
+      title: 'features.quality_title',
       description:
-        "Har bir mahsulot tanlashdan tortib mijozga yetib borguncha qat'iy nazorat.",
+        "features.quality_description",
     },
     {
       icon: Globe,
-      title: 'Kelajak',
+      title: 'features.future_title',
       description:
-        "O'zbekistonda boshlanib, xalqaro miqyosga intilayotgan barqaror rivojlanish.",
+        "features.future_description",
     },
   ];
+
+  const t = useTranslations('AboutPage');
 
   return (
     <div className="min-h-screen bg-white text-black font-sans selection:bg-black selection:text-white">
@@ -36,7 +39,7 @@ export default function AboutPage() {
             AKBW
           </h1>
           <p className="text-xl md:text-2xl font-light text-neutral-600 max-w-2xl mx-auto tracking-wide">
-            Oddiy, Sifatli Cheksiz Dizayn
+            {t("hero_subtitle")}
           </p>
           <div className="h-1 w-24 bg-black mx-auto mt-8"></div>
         </div>
@@ -48,23 +51,19 @@ export default function AboutPage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                O'zbekistonda tashkil topgan zamonaviy platforma
+                {t("intro_title")}
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
                 <span className="font-bold text-black">
-                  AKBW (AKBARA KRAFT BRAND WEAR)
+                  {t("akbw_full_name")}
                 </span>{' '}
-                — O‘zbekistonda tashkil topgan zamonaviy kiyim platformasi
-                bo‘lib, soddalik, sifat va minimal dizayn g‘oyalariga
-                asoslangan.
+                {t("intro_description_1")}
               </p>
               <p className="text-lg text-gray-600 leading-relaxed">
-                Platformaning asosiy maqsadi kundalik hayot uchun qulay,
-                zamonaviy va estetik jihatdan toza kiyimlarni taklif qilish
-                orqali o‘ziga xos uslubni shakllantirishdir.
+                {t("intro_description_2")}
               </p>
             </div>
-            <div className="h-full min-h-[400px] bg-gray-200 rounded-2xl relative overflow-hidden group relative">
+            <div className="h-full min-h-[400px] bg-gray-200 rounded-2xl overflow-hidden group relative">
               <Image
                 src={AkbaraAbout.src}
                 alt="AKBW"
@@ -83,20 +82,18 @@ export default function AboutPage() {
           <div className="mb-24">
             <div className="max-w-3xl mx-auto text-center space-y-8">
               <span className="text-sm font-semibold tracking-widest uppercase text-gray-500">
-                Vizyon
+                {t('vision_label')}
               </span>
               <h3 className="text-3xl md:text-5xl font-bold leading-tight">
-                Vaqt sinovidan o'tadigan uslubni tanlash
+                {t('vision_title')}
               </h3>
               <p className="text-xl text-gray-600 leading-relaxed font-light">
-                "Platforma g‘oyasi shovqinli trendlar va tez o‘zgaruvchan
-                modadan ko‘ra, uzoq muddatli qiymatga ega bo‘lgan dizayn, sokin
-                ranglar va sifatli materiallarga tayanadi."
+                {t('vision_description')}
               </p>
               <div className="pt-4">
                 <div className="inline-block border-t border-gray-300 pt-4">
-                  <p className="font-bold text-lg">Akbarov Abdulloh</p>
-                  <p className="text-sm text-gray-500">AKBW Asoschisi</p>
+                  <p className="font-bold text-lg">{t("founder_name")}</p>
+                  <p className="text-sm text-gray-500">{t("founder_role")}</p>
                 </div>
               </div>
             </div>
@@ -128,21 +125,14 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-12 gap-12">
             <div className="lg:col-span-5 space-y-8">
               <h2 className="text-3xl md:text-4xl font-bold">
-                Rivojlanish va Maqsadlar
+                {t("growth_title")}
               </h2>
               <div className="space-y-6 text-gray-600 text-lg">
                 <p>
-                  Platforma Toshkent shahrida tashkil topgan bo‘lib, faoliyati{' '}
-                  <span className="font-semibold text-black">AKBARA GROUP</span>{' '}
-                  tarkibida olib boriladi. AKBW jamoasi dizayn, sifat nazorati
-                  va onlayn savdo jarayonlariga alohida e’tibor qaratadi.
+                  {t("growth_description_1")}
                 </p>
                 <p>
-                  AKBW dastlab sifatli ishlab chiqaruvchilar bilan hamkorlik
-                  qilish orqali bozorda o‘z o‘rnini mustahkamlashni maqsad
-                  qilgan. Kelajakda esa platforma o‘z dizayniga ega bo‘lgan,
-                  AKBW falsafasini to‘liq aks ettiruvchi mahsulotlarni
-                  yaratishni rejalashtiradi.
+                  {t("growth_description_2")}
                 </p>
               </div>
             </div>
@@ -150,17 +140,16 @@ export default function AboutPage() {
             <div className="lg:col-span-7 grid grid-cols-2 gap-4">
               <div className="bg-neutral-100 rounded-2xl p-8 flex flex-col justify-end min-h-[300px] hover:bg-neutral-200 transition-colors">
                 <span className="text-5xl mb-4">✨</span>
-                <h4 className="text-xl font-bold mb-2">Halollik</h4>
+                <h4 className="text-xl font-bold mb-2">{t("values.honesty_title")}</h4>
                 <p className="text-gray-600">
-                  Bizning barcha jarayonlarimizda shaffoflik va ishonch birinchi
-                  o'rinda.
+                  {t("values.honesty_description")}
                 </p>
               </div>
               <div className="bg-neutral-900 text-white rounded-2xl p-8 flex flex-col justify-end min-h-[300px] mt-12 hover:bg-neutral-800 transition-colors">
                 <span className="text-5xl mb-4">🚀</span>
-                <h4 className="text-xl font-bold mb-2">Onlayn Tajriba</h4>
+                <h4 className="text-xl font-bold mb-2">{t("values.online_exp_title")}</h4>
                 <p className="text-gray-400">
-                  Raqamli muhitda ochiq, tushunarli va qulay xarid tajribasi.
+                  {t("values.online_exp_description")}
                 </p>
               </div>
             </div>
@@ -172,24 +161,23 @@ export default function AboutPage() {
       <section className="bg-black text-white py-24 px-6 text-center">
         <div className="container mx-auto max-w-3xl">
           <h2 className="text-2xl md:text-4xl font-bold mb-8 leading-snug">
-            "AKBW — bu faqat dizayn emas, balki fikrlash uslubidir."
+            {t("bottom_quote")}
           </h2>
           <p className="text-neutral-400 text-lg md:text-xl mb-10 font-light">
-            Ortiqcha bezaklarsiz, tushunarli shakllar va sokin ranglar orqali
-            o'zingizni namoyon qiling.
+            {t("bottom_description")}
           </p>
           <div className="flex justify-center gap-6">
             <Link
               href="/"
               className="border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-all"
             >
-              Bosh sahifa
+              {t("home_link")}
             </Link>
             <Link
               href="/contact"
               className="border-b border-white pb-1 hover:text-gray-300 hover:border-gray-300 transition-all"
             >
-              Bog'lanish
+              {t("contact_link")}
             </Link>
           </div>
         </div>
