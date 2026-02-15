@@ -30,7 +30,10 @@ import {
 } from '@/shared/ui/modal';
 import { OrderProgress } from './order-progress';
 import { useCartStore } from '@/shared/store/cart.store';
-import { useOrders, useCreateOrder } from '@/features/order/lib/hooks';
+import {
+  useOrders,
+  useCreateOrder
+} from '@/features/order/lib/hooks';
 import { useUserStore } from '@/shared/store/user.store';
 import { IOrder } from '@/shared/config/api/order/order.model';
 

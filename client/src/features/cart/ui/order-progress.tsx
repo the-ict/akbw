@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { Truck, MapPin, Home, Package, Plane } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { monsterrat } from '@/shared/fonts';
+import { useTranslations } from 'next-intl';
 
 interface OrderProgressProps {
   status: 'china' | 'uzbekistan' | 'delivering' | 'delivered';
@@ -22,13 +23,14 @@ export const OrderProgress = ({ status, progress }: OrderProgressProps) => {
   };
 
   const checkpoints = [
-    { id: 'china', label: 'Xitoy (Ombor)', icon: Package },
-    { id: 'uzbekistan', label: "O'zbekiston (Bojxona)", icon: Plane },
-    { id: 'delivering', label: 'Yetkazilmoqda (UzPost)', icon: Truck },
-    { id: 'delivered', label: 'Yetkazildi', icon: Home },
+    { id: 'china', label: 'china', icon: Package },
+    { id: 'uzbekistan', label: "uzbekistan", icon: Plane },
+    { id: 'delivering', label: 'delivering', icon: Truck },
+    { id: 'delivered', label: 'delivered', icon: Home },
   ];
 
   const activeStage = getStageIndex();
+  const t = useTranslations();
 
   return (
     <div className="w-full py-6">
@@ -55,7 +57,7 @@ export const OrderProgress = ({ status, progress }: OrderProgressProps) => {
           <div className="relative -translate-x-1/2 -translate-y-1/2">
             {/* Tooltip */}
             <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black text-white text-[9px] font-bold px-2 py-1 rounded-md whitespace-nowrap shadow-sm">
-              {progress < 100 ? 'On the way' : 'Arrived'}
+              {progress < 100 ? t("onTheWay") : t("arrived")}
               <div className="absolute bottom-[-3px] left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-black rotate-45" />
             </div>
 
@@ -97,7 +99,7 @@ export const OrderProgress = ({ status, progress }: OrderProgressProps) => {
                   )}
                 >
                   <span className="text-[9px] font-bold uppercase tracking-wider block">
-                    {point.label}
+                    {t(point.label)}
                   </span>
                 </div>
               </div>
@@ -110,7 +112,7 @@ export const OrderProgress = ({ status, progress }: OrderProgressProps) => {
       <div className="flex justify-center mt-6">
         <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-50 text-green-600 rounded-full text-xs font-bold border border-green-100">
           <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-          <span className="uppercase tracking-wide">Tracking Active</span>
+          <span className="uppercase tracking-wide">{t("trackingActive")}</span>
         </div>
       </div>
     </div>

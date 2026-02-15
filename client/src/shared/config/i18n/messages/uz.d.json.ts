@@ -194,7 +194,14 @@ declare const messages: {
     "pay_now_btn": "Hozir to'lash",
     "order_received_title": "Buyurtma qabul qilindi!",
     "order_received_desc": "To'lov muvaffaqiyatli amalga oshirildi. Buyurtmangiz yo'lga chiqdi.",
-    "close_btn": "Yopish"
+    "close_btn": "Yopish",
+    "china": "Xitoy (Ombor)",
+    "uzbekistan": "O'zbekiston (Bojxona)",
+    "delivering": "Yetkazilmoqda (UzPost)",
+    "delivered": "Yetkazildi",
+    "trackingActive": "Tracking Active",
+    "onTheWay": "Yo‘lda",
+    "arrived": "Yetib keldi"
   }
 };
 export default messages;
