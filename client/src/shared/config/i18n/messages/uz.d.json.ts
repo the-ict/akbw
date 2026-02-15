@@ -43,7 +43,7 @@ declare const messages: {
     "terms_of_use": "Foydalanish shartlari",
     "shop": "Do'kon",
     "support": "Qo'llab-quvvatlash",
-    "Company": "Kompaniya",
+    "company": "Kompaniya",
     "copyright": " © «2026© XK MCHJ «AKBW». STIR 00000000. Barcha huquqlar himoyalangan»",
     "privacy": "Shaxsiy",
     "terms": "Shartlar"
