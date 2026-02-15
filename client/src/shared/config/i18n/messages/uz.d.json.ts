@@ -126,6 +126,34 @@ declare const messages: {
     "bottom_description": "Ortiqcha bezaklarsiz, tushunarli shakllar va sokin ranglar orqali o'zingizni namoyon qiling.",
     "home_link": "Bosh sahifa",
     "contact_link": "Bog'lanish"
+  },
+  "ContactPage": {
+    "title": "Bog'lanish",
+    "subtitle": "Savollaringiz bormi yoki hamkorlik qilmoqchimisiz? Biz bilan aloqaga chiqing.",
+    "contact_methods": {
+      "phone_title": "Telefon",
+      "phone_description": "Har kuni 09:00 dan 18:00 gacha",
+      "email_title": "Email",
+      "email_description": "Bizga istalgan vaqtda yozing",
+      "address_title": "Manzil",
+      "address_description": "Bosh ofis joylashuvi"
+    },
+    "socials_title": "Ijtimoiy tarmoqlar",
+    "socials_description": "Yangiliklar, aksiyalar va yangi to'plamlardan xabardor bo'lish uchun bizni kuzatib boring.",
+    "working_hours_title": "Ish vaqti",
+    "working_days": "Dushanba - Shanba",
+    "working_time": "09:00 - 18:00",
+    "weekend": "Yakshanba - Dam olish kuni",
+    "faq_title": "Ko'p beriladigan savollar",
+    "faq": {
+      "delivery_question": "Yetkazib berish qancha vaqt oladi?",
+      "delivery_answer": "Xalqaro yetkazib berish (1-bosqich) va ichki yetkazib berish (2-bosqich) birgalikda o'rtacha 5-15 kun davom etishi mumkin.",
+      "payment_question": "To'lov turlari qanday?",
+      "payment_answer": "Biz Click, Payme, Uzum va Paynet orqali to'lovlarni qabul qilamiz.",
+      "partnership_question": "Hamkorlik bo'yicha kimga murojaat qilish kerak?",
+      "partnership_answer": "Tijoriy takliflar uchun {email} elektron pochta manziliga yozishingiz mumkin."
+    },
+    "terms_link": "Foydalanish shartlari va qoidalari bilan tanishib chiqing"
   }
 };
 export default messages;

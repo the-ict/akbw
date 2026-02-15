@@ -7,33 +7,32 @@ import {
   Instagram,
   Send,
   Clock,
-  Facebook,
 } from 'lucide-react';
-import { Button } from '@/shared/ui/button';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 export default function ContactPage() {
   const contactMethods = [
     {
       icon: Phone,
-      title: 'Telefon',
+      title: 'contact_methods.phone_title',
       value: '+998 90 566 11 07',
       action: 'tel:+998905661107',
-      description: 'Har kuni 09:00 dan 18:00 gacha',
+      description: 'contact_methods.phone_description',
     },
     {
       icon: Mail,
-      title: 'Email',
+      title: 'contact_methods.email_title',
       value: 'akbw.uz@gmail.com',
       action: 'mailto:akbw.uz@gmail.com',
-      description: 'Bizga istalgan vaqtda yozing',
+      description: 'contact_methods.email_description',
     },
     {
       icon: MapPin,
-      title: 'Manzil',
+      title: 'contact_methods.address_title',
       value: 'Toshkent sh., Shayxontoxur tumani',
       action: null,
-      description: 'Bosh ofis joylashuvi',
+      description: 'contact_methods.address_description',
     },
   ];
 
@@ -53,17 +52,18 @@ export default function ContactPage() {
     { icon: Globe, name: 'Website', link: '/', color: 'hover:text-black' },
   ];
 
+  const t = useTranslations("ContactPage");
+
   return (
     <div className="min-h-screen bg-gray-50 text-black font-sans">
       {/* Header Section */}
       <div className="bg-white border-b border-gray-100">
         <div className="container mx-auto px-6 py-16 md:py-24 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
-            Bog'lanish
+            {t("title")}
           </h1>
           <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light">
-            Savollaringiz bormi yoki hamkorlik qilmoqchimisiz? Biz bilan aloqaga
-            chiqing.
+            {t("subtitle")}
           </p>
         </div>
       </div>
@@ -102,10 +102,9 @@ export default function ContactPage() {
           {/* Social Media & Info */}
           <div className="space-y-8">
             <div>
-              <h2 className="text-3xl font-bold mb-4">Ijtimoiy tarmoqlar</h2>
+              <h2 className="text-3xl font-bold mb-4">{t("socials_title")}</h2>
               <p className="text-gray-600 text-lg mb-8">
-                Yangiliklar, aksiyalar va yangi to'plamlardan xabardor bo'lish
-                uchun bizni kuzatib boring.
+                {t("socials_description")}
               </p>
               <div className="flex flex-wrap gap-4">
                 {socials.map((social, idx) => (
@@ -127,13 +126,13 @@ export default function ContactPage() {
               <div className="flex items-start gap-4 mb-4">
                 <Clock className="text-neutral-400 mt-1" />
                 <div>
-                  <h3 className="font-bold text-lg mb-1">Ish vaqti</h3>
-                  <p className="text-neutral-400">Dushanba - Shanba</p>
+                  <h3 className="font-bold text-lg mb-1">{t("working_hours_title")}</h3>
+                  <p className="text-neutral-400">{t("working_days")}</p>
                   <p className="text-white text-xl font-medium mt-1">
-                    09:00 - 18:00
+                    {t("working_time")}
                   </p>
                   <p className="text-neutral-500 text-sm mt-3">
-                    Yakshanba - Dam olish kuni
+                    {t("weekend")}
                   </p>
                 </div>
               </div>
@@ -143,40 +142,31 @@ export default function ContactPage() {
           {/* FAQ / Simple Support Text */}
           <div className="bg-white p-8 md:p-10 rounded-2xl border border-gray-100">
             <h2 className="text-2xl font-bold mb-6">
-              Ko'p beriladigan savollar
+              {t("faq_title")}
             </h2>
             <div className="space-y-6">
               <div className="pb-6 border-b border-gray-100">
                 <h4 className="font-semibold text-lg mb-2">
-                  Yetkazib berish qancha vaqt oladi?
+                  {t("faq.delivery_question")}
                 </h4>
                 <p className="text-gray-600">
-                  Xalqaro yetkazib berish (1-bosqich) va ichki yetkazib berish
-                  (2-bosqich) birgalikda o'rtacha 5-15 kun davom etishi mumkin.
+                  {t("faq.delivery_answer")}
                 </p>
               </div>
               <div className="pb-6 border-b border-gray-100">
                 <h4 className="font-semibold text-lg mb-2">
-                  To'lov turlari qanday?
+                  {t("faq.payment_question")}
                 </h4>
                 <p className="text-gray-600">
-                  Biz Click, Payme, Uzum va Paynet orqali to'lovlarni qabul
-                  qilamiz.
+                  {t("faq.payment_answer")}
                 </p>
               </div>
               <div>
                 <h4 className="font-semibold text-lg mb-2">
-                  Hamkorlik bo'yicha kimga murojaat qilish kerak?
+                  {t("faq.partnership_question")}
                 </h4>
                 <p className="text-gray-600">
-                  Tijoriy takliflar uchun{' '}
-                  <a
-                    href="mailto:akbw.uz@gmail.com"
-                    className="text-black font-medium underline"
-                  >
-                    akbw.uz@gmail.com
-                  </a>{' '}
-                  elektron pochta manziliga yozishingiz mumkin.
+                  {t("faq.partnership_answer", { email: "akbw.uz@gmail.com" })}
                 </p>
               </div>
             </div>
@@ -185,7 +175,7 @@ export default function ContactPage() {
                 href="/terms"
                 className="text-sm text-gray-400 hover:text-black transition-colors"
               >
-                Foydalanish shartlari va qoidalari bilan tanishib chiqing &rarr;
+                {t("terms_link")}
               </Link>
             </div>
           </div>
