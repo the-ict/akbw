@@ -14,22 +14,26 @@ import RegisterStep from './RegisterStep';
 import VerifyStep from './VerifyStep';
 import UseAuth from '@/shared/hooks/use-auth';
 import { useMutation } from '@tanstack/react-query';
-import { sendSms, verifySms } from '@/shared/config/api/sms/sms.request';
+import {
+  sendSms,
+  verifySms
+} from '@/shared/config/api/sms/sms.request';
 import { register } from '@/shared/config/api/auth/auth.request';
 import { useUserStore } from '@/shared/store/user.store';
 import { toast } from '@/shared/ui/toast';
 import { onError } from '@/shared/config/api/isAxiosError';
+import { useTranslations } from 'next-intl';
 
 const registerSchema = z.object({
-  name: z.string().min(2, "Ism kamida 2 ta harfdan iborat bo'lishi kerak"),
+  name: z.string().min(2, "name_invalid"),
   lastName: z
     .string()
-    .min(2, "Familiya kamida 2 ta harfdan iborat bo'lishi kerak"),
-  gender: z.string().min(2, "Jins kamida 2 ta harfdan iborat bo'lishi kerak"),
+    .min(2, "lastname_invalid"),
+  gender: z.string().min(2, "gender_invalid"),
   phone: z
     .string()
-    .min(12, "Telefon raqami noto'g'ri")
-    .regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "Telefon raqami noto'g'ri"),
+    .min(12, "phone_invalid")
+    .regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "phone_invalid"),
 });
 
 type Steps = 'register' | 'verify';
@@ -56,6 +60,8 @@ function Register({ trigger }: RegisterProps) {
     setOtp,
   );
 
+  const t = useTranslations("Register");
+
   const registerMutation = useMutation({
     mutationKey: ['register'],
     mutationFn: register,
@@ -63,7 +69,7 @@ function Register({ trigger }: RegisterProps) {
     onSuccess: (data: any) => {
       console.log(data);
       if (data.data.ok) {
-        toast.success("Ro'yhatdan o'tish muvaffaqiyatli bajarildi");
+        toast.success(t("register_success"));
         setToken(data.data.token);
       }
 
@@ -119,7 +125,7 @@ function Register({ trigger }: RegisterProps) {
     if (!result.success) {
       const newErrors: Record<string, string> = {};
       result.error.issues.forEach((issue: z.ZodIssue) => {
-        newErrors[issue.path[0] as string] = issue.message;
+        newErrors[issue.path[0] as string] = t(issue.message);
       });
       setErrors(newErrors);
       return;
@@ -129,7 +135,7 @@ function Register({ trigger }: RegisterProps) {
 
   const handleVerify = async () => {
     if (otp.length < 5) {
-      setErrors({ otp: "Kod 5 ta raqamdan iborat bo'lishi kerak" });
+      setErrors({ otp: t("otp_invalid") });
       return;
     }
     setErrors({});
@@ -188,7 +194,7 @@ function Register({ trigger }: RegisterProps) {
             variant={'outline'}
             className="bg-[#fff]/50 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl text-sm font-bold"
           >
-            Ro&apos;yhatdan o&apos;tish
+            {t("register_btn")}
           </Button>
         )}
       </ModalTrigger>
@@ -201,15 +207,15 @@ function Register({ trigger }: RegisterProps) {
           AKBW
         </h1>
         <ModalTitle className="text-center">
-          {steps === 'register' ? "Ro'yhatdan o'tish" : 'Tasdiqlash kodi'}
+          {steps === 'register' ? t("register_title") : t("verify_title")}
         </ModalTitle>
 
         {renderRegisterSteps()}
 
         <ModalDescription className="text-gray-500 mt-3 text-[11px] text-center">
-          Davom etgan holda men{' '}
+          {t("continue_terms_text")} {' '}
           <a href="/terms" className="text-gray-600 underline font-bold">
-            AKBW ma&apos;lumotlarni qayta ishlash siyosatiga rozilik bildiraman!
+            {t("terms_link_text")}
           </a>
         </ModalDescription>
       </ModalContent>

@@ -2,6 +2,7 @@ import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 import { ChevronDown } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 interface Props {
@@ -29,12 +30,13 @@ export default function RegisterStep({
   setLastName,
   setGender,
 }: Props) {
+  const t = useTranslations("Register");
   return (
     <>
       <div className="flex flex-col gap-1 mt-3">
-        <label className="text-sm font-medium">Ism</label>
+        <label className="text-sm font-medium">{t("name_label")}</label>
         <Input
-          placeholder="Abdullox"
+          placeholder={t("name_placeholder")}
           value={name}
           onChange={(e) => setName(e.target.value)}
           className={errors.name ? 'border-red-500' : 'placeholder:opacity-50'}
@@ -43,9 +45,9 @@ export default function RegisterStep({
       </div>
 
       <div className="flex flex-col gap-1 mt-3">
-        <label className="text-sm font-medium">Familiya</label>
+        <label className="text-sm font-medium">{t("lastname_label")}</label>
         <Input
-          placeholder="Akbarov"
+          placeholder={t("lastname_placeholder")}
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
           className={
@@ -58,7 +60,7 @@ export default function RegisterStep({
       </div>
 
       <div className="flex flex-col gap-1 mt-3">
-        <label className="text-sm font-medium">Jins</label>
+        <label className="text-sm font-medium">{t("gender_label")}</label>
         <div className="relative">
           <select
             name="gender"
@@ -70,8 +72,8 @@ export default function RegisterStep({
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
-            <option value="male">Erkak</option>
-            <option value="female">Ayol</option>
+            <option value="male">{t("gender_male")}</option>
+            <option value="female">{t("gender_female")}</option>
           </select>
           <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500 pointer-events-none" />
         </div>
@@ -81,9 +83,9 @@ export default function RegisterStep({
       </div>
 
       <div className="flex flex-col gap-1 mt-3">
-        <label className="text-sm font-medium">Telefon raqami</label>
+        <label className="text-sm font-medium">{t("phone_label")}</label>
         <Input
-          placeholder="+998 90 123 45 67"
+          placeholder={t("phone_placeholder")}
           value={phone}
           onChange={handlePhoneChange}
           className={errors.phone ? 'border-red-500' : 'placeholder:opacity-50'}
@@ -92,7 +94,7 @@ export default function RegisterStep({
       </div>
 
       <Button onClick={handleRegister} className="mt-5 w-full">
-        Kod yuborish
+        {t("send_code_btn")}
       </Button>
     </>
   );

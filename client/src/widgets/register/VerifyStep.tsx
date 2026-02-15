@@ -1,6 +1,7 @@
 import { cn } from '@/shared/lib/utils';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 interface Props {
@@ -26,11 +27,12 @@ export default function VerifyStep({
   setSteps,
   setTimeLeft,
 }: Props) {
+  const t = useTranslations("Register");
   return (
     <>
       <div className="flex flex-col gap-1 mt-5">
         <Input
-          placeholder="00000"
+          placeholder={t("otp_placeholder")}
           value={otp}
           onChange={handleOtpChange}
           className={cn(
@@ -43,7 +45,7 @@ export default function VerifyStep({
         />
         <div className="flex justify-between items-center mt-2">
           <p className="text-xs text-gray-500">
-            {phone} raqamiga yuborilgan 5 xonali kodni kiriting
+            {t("otp_sent_text", { phone })}
           </p>
           {timeLeft > 0 ? (
             <p className="text-xs font-medium text-black">
@@ -54,7 +56,7 @@ export default function VerifyStep({
               onClick={handleResendCode}
               className="text-xs cursor-pointer font-bold text-black underline hover:opacity-70 transition-opacity"
             >
-              Qayta kod yuborish
+              {t("resend_code_btn")}
             </button>
           )}
         </div>
@@ -62,7 +64,7 @@ export default function VerifyStep({
       </div>
 
       <Button onClick={handleVerify} className="mt-8 w-full">
-        Tasdiqlash
+        {t("verify_btn")}
       </Button>
 
       <Button
@@ -72,7 +74,7 @@ export default function VerifyStep({
         }}
         className="bg-[#fff]/50 mt-3 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl text-sm font-bold w-full"
       >
-        Malumotlarni tahrirlash
+        {t("edit_info_btn")}
       </Button>
     </>
   );

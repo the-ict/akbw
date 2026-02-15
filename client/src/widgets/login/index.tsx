@@ -27,12 +27,13 @@ import { login } from '@/shared/config/api/auth/auth.request';
 import { useUserStore } from '@/shared/store/user.store';
 import UseAuth from '@/shared/hooks/use-auth';
 import Register from '../register';
+import { useTranslations } from 'next-intl';
 
 const registerSchema = z.object({
   phone: z
     .string()
-    .min(12, "Telefon raqami noto'g'ri")
-    .regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "Telefon raqami noto'g'ri"),
+    .min(12, "phone_invalid")
+    .regex(/^\+998 \d{2} \d{3} \d{2} \d{2}$/, "phone_invalid"),
 });
 
 type Steps = 'register' | 'verify';
@@ -107,7 +108,7 @@ function Login({ trigger, className }: LoginProps) {
     if (!result.success) {
       const newErrors: Record<string, string> = {};
       result.error.issues.forEach((issue: z.ZodIssue) => {
-        newErrors[issue.path[0] as string] = issue.message;
+        newErrors[issue.path[0] as string] = t(issue.message);
       });
       setErrors(newErrors);
       return;
@@ -131,15 +132,17 @@ function Login({ trigger, className }: LoginProps) {
     await sendSmsMutation.mutateAsync(phone);
   };
 
+  const t = useTranslations("Login");
+
   const renderRegisterSteps = () => {
     switch (steps) {
       case 'register':
         return (
           <>
             <div className="flex flex-col gap-1 mt-3">
-              <label className="text-sm font-medium">Telefon raqami</label>
+              <label className="text-sm font-medium">{t("phone_label")}</label>
               <Input
-                placeholder="+998 90 123 45 67"
+                placeholder={t("phone_placeholder")}
                 value={phone}
                 onChange={handlePhoneChange}
                 className={
@@ -151,12 +154,12 @@ function Login({ trigger, className }: LoginProps) {
               )}
 
               <p className="text-gray-500 mt-3 text-[11px] text-center">
-                Agar ro'yhatdan o'tmagan bo'lsangiz <Register trigger={<span className='text-gray-600 underline font-bold'>Ro'yhatdan o'ting</span>} />
+                {t("not_registered_text")} <Register trigger={<span className='text-gray-600 underline font-bold'>{t("register_link")}</span>} />
               </p>
             </div>
 
             <Button onClick={handleRegister} className="mt-5 w-full">
-              Kod yuborish
+              {t("send_code_btn")}
             </Button>
           </>
         );
@@ -179,7 +182,7 @@ function Login({ trigger, className }: LoginProps) {
               />
               <div className="flex justify-between items-center mt-2">
                 <p className="text-xs text-gray-500">
-                  {phone} raqamiga yuborilgan 5 xonali kodni kiriting
+                  {t("otp_sent_text", { phone: phone, })}
                 </p>
                 {timeLeft > 0 ? (
                   <p className="text-xs font-medium text-black">
@@ -190,7 +193,7 @@ function Login({ trigger, className }: LoginProps) {
                     onClick={handleResendCode}
                     className="text-xs font-bold text-black underline hover:opacity-70 transition-opacity"
                   >
-                    Qayta kod yuborish
+                    {t("resend_code_btn")}
                   </button>
                 )}
               </div>
@@ -200,7 +203,7 @@ function Login({ trigger, className }: LoginProps) {
             </div>
 
             <Button onClick={handleVerify} className="mt-8 w-full">
-              Tasdiqlash
+              {t("verify_btn")}
             </Button>
 
             <Button
@@ -210,7 +213,7 @@ function Login({ trigger, className }: LoginProps) {
               }}
               className="bg-[#fff]/50 mt-3 text-[#000] btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl text-sm font-bold w-full"
             >
-              Raqamni o&apos;zgartirish
+              {t("change_phone_btn")}
             </Button>
           </>
         );
@@ -229,14 +232,14 @@ function Login({ trigger, className }: LoginProps) {
           AKBW
         </h1>
         <ModalTitle className="text-center">
-          {steps === 'register' ? 'Kirish' : 'Tasdiqlash kodi'}
+          {steps === 'register' ? t("login_title") : t("verify_title")}
         </ModalTitle>
         {renderRegisterSteps()}
 
         <ModalDescription className="text-gray-500 mt-3 text-[11px] text-center">
-          Davom etgan holda men{' '}
+          {t("continue_terms_text")} {' '}
           <a href="/terms" className="text-gray-600 underline font-bold">
-            AKBW ma&apos;lumotlarni qayta ishlash siyosatiga rozilik bildiraman!
+            {t("terms_link_text")}
           </a>
         </ModalDescription>
       </ModalContent>

@@ -1,27 +1,36 @@
 'use client';
 
 import Link from 'next/link';
-import { PRODUCT_INFO } from '@/shared/constants/data';
-import { Instagram, Send, Globe2Icon } from 'lucide-react';
+import {
+  PRODUCT_INFO
+} from '@/shared/constants/data';
+import {
+  Instagram,
+  Send,
+  Globe2Icon
+} from 'lucide-react';
 import { useUIStore } from '@/shared/model/use-ui-store';
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
   const openProfileChat = useUIStore((state) => state.openProfileChat);
 
+  const t = useTranslations('Footer');
+
   const footerLinks = {
     shop: [
-      { name: 'New Arrivals', href: '/shop/new' },
-      { name: 'Best Sellers', href: '/shop/bestsellers' },
-      { name: 'All Products', href: '/shop' },
+      { name: t('new_arrivals'), href: '/filters/new' },
+      { name: t('best_sellers'), href: '/filters' },
+      { name: t('all_products'), href: '/filters' },
     ],
     support: [
-      { name: 'Contact Us', href: '/contact' },
-      { name: 'Chat', href: '/' },
+      { name: t('contact_us'), href: '/contact' },
+      { name: t("chat"), href: '/' },
     ],
     company: [
-      { name: 'About AKBW', href: '/about' },
-      { name: 'Privacy Policy', href: PRODUCT_INFO.privacy_policy },
-      { name: 'Terms of Use', href: PRODUCT_INFO.terms_of_use },
+      { name: t('about_akbw'), href: '/about' },
+      { name: t("privacy_policy"), href: PRODUCT_INFO.privacy_policy },
+      { name: t("terms_of_use"), href: PRODUCT_INFO.terms_of_use },
     ],
   };
 
@@ -43,7 +52,7 @@ const Footer = () => {
 
           <div className='lg:col-span-3 grid grid-cols-3 gap-3 justify-between items-start lg:flex lg:justify-between lg:w-full'>
             <div>
-              <h3 className="font-display text-sm mb-4">Shop</h3>
+              <h3 className="font-display text-sm mb-4">{t("shop")}</h3>
               <ul className="space-y-3">
                 {footerLinks.shop.map((link) => (
                   <li key={link.name}>
@@ -59,7 +68,7 @@ const Footer = () => {
             </div>
 
             <div>
-              <h3 className="font-display text-sm mb-4">Support</h3>
+              <h3 className="font-display text-sm mb-4">{t("support")}</h3>
               <ul className="space-y-3">
                 {footerLinks.support.map((link) => (
                   <li key={link.name}>
@@ -81,7 +90,7 @@ const Footer = () => {
             </div>
 
             <div>
-              <h3 className="font-display text-sm mb-4">Company</h3>
+              <h3 className="font-display text-sm mb-4">{t("company")}</h3>
               <ul className="space-y-3 mb-6">
                 {footerLinks.company.map((link) => (
                   <li key={link.name}>
@@ -131,21 +140,20 @@ const Footer = () => {
         <div className="pt-8 border-t border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-sm text-black">
-              © «2026© XK MCHJ «AKBW». STIR 00000000. Barcha huquqlar
-              himoyalangan»
+              {t('copyright')}
             </p>
             <div className="flex space-x-6 text-sm text-black">
               <Link
                 href={PRODUCT_INFO.privacy_policy}
                 className="hover:font-bold transition-colors"
               >
-                Privacy
+                {t("privacy")}
               </Link>
               <Link
                 href={PRODUCT_INFO.terms_of_use}
                 className="hover:font-bold transition-colors"
               >
-                Terms
+                {t("terms")}
               </Link>
             </div>
           </div>
