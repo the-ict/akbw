@@ -372,6 +372,12 @@ declare const messages: {
       }
     ],
     "relatedProductsTitle": "Sizga yoqishi mumkin!"
+  },
+  "SearchPage": {
+    "placeholder": "Qidirish...",
+    "recentOrHint": "Qidiruv natijalarini ko'rish uchun yozing...",
+    "backButtonAria": "Orqaga",
+    "searchButtonAria": "Qidirish"
   }
 };
 export default messages;

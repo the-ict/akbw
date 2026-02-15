@@ -5,15 +5,15 @@ import { Search, ArrowLeft } from 'lucide-react';
 import { useRouter } from '@/shared/config/i18n/navigation';
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
-import { cn } from '@/shared/lib/utils';
+import { useTranslations } from 'next-intl';
 
 export default function SearchPage() {
     const [searchVal, setSearchVal] = useState('');
     const router = useRouter();
     const inputRef = React.useRef<HTMLInputElement>(null);
+    const t = useTranslations("SearchPage");
 
     useEffect(() => {
-        // Auto-focus input on mount
         if (inputRef.current) {
             inputRef.current.focus();
         }
@@ -43,7 +43,7 @@ export default function SearchPage() {
                         <Input
                             ref={inputRef}
                             type="text"
-                            placeholder="Qidirish..."
+                            placeholder={t("placeholder")}
                             value={searchVal}
                             onChange={(e) => setSearchVal(e.target.value)}
                             className="w-full pl-4 pr-10 py-6 text-lg rounded-2xl bg-gray-50 border-none focus-visible:ring-1 focus-visible:ring-black"
@@ -59,7 +59,7 @@ export default function SearchPage() {
 
                 {/* Optional: Add recent searches or popular categories hereafter if needed */}
                 <div className="mt-8 px-2 text-center text-gray-400 text-sm">
-                    Qidiruv natijalarini ko'rish uchun yozing...
+                    {t("recentOrHint")}
                 </div>
             </div>
         </div>
