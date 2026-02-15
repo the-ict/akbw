@@ -214,6 +214,7 @@ import Uzum from '../../../../public/icons/uzum.png';
 import Click from '../../../../public/icons/click.png';
 import Payme from '../../../../public/icons/payme.png';
 import Paynet from '../../../../public/icons/paynet.svg';
+import { useTranslations } from 'next-intl';
 
 export default function Cart() {
   const {
@@ -241,6 +242,8 @@ export default function Cart() {
   );
   const [promoCode, setPromoCode] = useState('');
   const [appliedDiscount, setAppliedDiscount] = useState(0);
+
+  const t = useTranslations("Cart");
 
   const handleApplyPromoCode = () => {
     if (promoCode.trim().toUpperCase() === 'NON') {
@@ -335,9 +338,9 @@ export default function Cart() {
     <div className="min-h-screen bg-white">
       <div className="container py-10 px-4 md:px-6">
         <div className="flex gap-2 text-sm text-gray-500 mb-10">
-          <span>Home</span>
+          <span>{t("breadcrumb_home")}</span>
           <span>/</span>
-          <span className="text-black font-medium">Cart</span>
+          <span className="text-black font-medium">{t("breadcrumb_cart")}</span>
         </div>
 
         <h1
@@ -346,7 +349,7 @@ export default function Cart() {
             monsterrat.className,
           )}
         >
-          Your Cart
+          {t("title")}
         </h1>
 
         <div className="flex flex-col lg:flex-row gap-8 items-start mb-20">
@@ -373,7 +376,7 @@ export default function Cart() {
                           </h3>
                           {item.selectedSize && (
                             <p className="text-sm text-gray-500">
-                              Size:{' '}
+                              {t("size")}:{' '}
                               <span className="text-gray-400">
                                 {item.selectedSize}
                               </span>
@@ -381,7 +384,7 @@ export default function Cart() {
                           )}
                           {item.selectedColor && (
                             <p className="text-sm text-gray-500">
-                              Color:{' '}
+                              {t("color")}:{' '}
                               <span className="text-gray-400">
                                 {item.selectedColor}
                               </span>
@@ -430,31 +433,31 @@ export default function Cart() {
             ) : (
               <div className="py-20 text-center">
                 <p className="text-gray-400 text-lg">
-                  Sizning savatingiz bo'sh.
+                  {t("empty_cart_text")}
                 </p>
                 <Button
                   onClick={() => window.location.replace('/filters')}
                   className="mt-6 rounded-full px-10 py-6 font-bold cursor-pointer"
                 >
-                  Mahsulotlarni ko'rish
+                  {t("view_products_btn")}
                 </Button>
               </div>
             )}
           </div>
 
           <div className="w-full lg:w-[400px] border border-gray-100 rounded-[20px] p-6 space-y-6">
-            <h2 className="text-2xl font-bold">Order Summary</h2>
+            <h2 className="text-2xl font-bold">{t("order_summary")}</h2>
 
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span className="text-gray-500 text-lg">Subtotal</span>
+                <span className="text-gray-500 text-lg">{t("subtotal")}</span>
                 <span className="font-bold text-lg">
                   {subtotal.toLocaleString()} so'm
                 </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-gray-500 text-lg">
-                  Discount{' '}
+                  {t("discount")}{' '}
                   {appliedDiscount > 0 ? `(-${appliedDiscount * 100}%)` : ''}
                 </span>
                 <span className="font-bold text-lg text-red-500">
@@ -462,7 +465,7 @@ export default function Cart() {
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-gray-500 text-lg">Delivery Fee</span>
+                <span className="text-gray-500 text-lg">{t("delivery_fee")}</span>
                 <span className="font-bold text-lg">
                   {deliveryFee.toLocaleString()} so'm
                 </span>
@@ -471,7 +474,7 @@ export default function Cart() {
               <hr className="border-gray-50" />
 
               <div className="flex justify-between items-center py-2">
-                <span className="text-lg font-medium">Total</span>
+                <span className="text-lg font-medium">{t("total")}</span>
                 <span className="text-2xl font-bold">
                   {total.toLocaleString()} so'm
                 </span>
@@ -486,7 +489,7 @@ export default function Cart() {
                 <Input
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
-                  placeholder="Add promo code"
+                  placeholder={t("promo_placeholder")}
                   className="pl-12 rounded-full h-12 bg-gray-50 border-none shadow-none text-sm"
                 />
               </div>
@@ -494,7 +497,7 @@ export default function Cart() {
                 onClick={handleApplyPromoCode}
                 className="rounded-full px-8 py-6 h-12 font-bold cursor-pointer"
               >
-                Apply
+                {t("apply_btn")}
               </Button>
             </div>
 
@@ -503,7 +506,7 @@ export default function Cart() {
               disabled={cartItems.length === 0}
               className="w-full rounded-full py-8 max-sm:text-[15px] font-black text-lg bg-black hover:bg-black/90 shadow-2xl hover:shadow-black/20 transition-all uppercase tracking-widest flex items-center justify-center gap-3 cursor-pointer"
             >
-              tekshiruvga yuborish
+              {t("checkout_btn")}
               <ArrowRight size={22} />
             </Button>
           </div>
@@ -517,7 +520,7 @@ export default function Cart() {
                 monsterrat.className,
               )}
             >
-              Active Orders
+              {t("active_orders")}
             </h2>
             <div className="space-y-6">
               {ordersData.data.map((order: IOrder) => (
@@ -532,7 +535,7 @@ export default function Cart() {
                     <div className="flex gap-4 items-center">
                       <div className="ml-4">
                         <p className="text-sm text-gray-400 font-medium">
-                          Order ID:{' '}
+                          {t("order_id")}:{' '}
                           <span className="text-black">
                             #{order.id.toString().slice(-6)}
                           </span>
@@ -569,31 +572,31 @@ export default function Cart() {
                         {order.status === 'review' && (
                           <>
                             <div className="w-2 h-2 rounded-full bg-gray-400 animate-pulse" />
-                            Reviewing...
+                            {t("status_review")}
                           </>
                         )}
                         {order.status === 'paid' && (
                           <>
                             <Check size={16} strokeWidth={3} />
-                            Paid
+                            {t('status_paid')}
                           </>
                         )}
                         {order.status === 'approved' && (
                           <>
                             <Check size={16} strokeWidth={3} />
-                            Approved
+                            {t("status_approved")}
                           </>
                         )}
                         {order.status === 'delivering' && (
                           <>
                             <Truck size={16} strokeWidth={2.5} />
-                            On the way
+                            {t("status_delivering")}
                           </>
                         )}
                         {order.status === 'cancelled' && (
                           <>
                             <X size={16} strokeWidth={3} />
-                            Cancelled
+                            {t("status_cancelled")}
                           </>
                         )}
                       </div>
@@ -603,7 +606,7 @@ export default function Cart() {
                           onClick={() => handleOrderNow(order)}
                           className="rounded-full px-10 py-6 font-black uppercase text-sm bg-black hover:bg-black/90 shadow-xl transition-all cursor-pointer"
                         >
-                          Order Now
+                          {t("order_now_btn")}
                         </Button>
                       )}
                       {order.status === 'delivering' && (
@@ -615,7 +618,7 @@ export default function Cart() {
                           }}
                           className="rounded-full px-10 py-6 font-bold uppercase text-sm bg-white text-black border-2 border-black hover:bg-gray-50 transition-all cursor-pointer"
                         >
-                          Track Order
+                          {t("track_order_btn")}
                         </Button>
                       )}
                     </div>
@@ -638,10 +641,10 @@ export default function Cart() {
                     Radiant.className,
                   )}
                 >
-                  Finalize Your Order
+                  {t("modal_finalize_title")}
                 </ModalTitle>
                 <ModalDescription className="text-gray-400 font-medium">
-                  Provide your delivery address and choose a payment method.
+                  {t("modal_finalize_desc")}
                 </ModalDescription>
               </div>
 
@@ -665,12 +668,12 @@ export default function Cart() {
               <div className="space-y-4">
                 <h3 className="font-bold text-lg flex items-center gap-2 text-black">
                   <MapPin size={20} />
-                  Delivery Address
+                  {t('delivery_address')}
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">
-                      Region
+                      {t("region")}
                     </label>
                     <div className="relative">
                       <select
@@ -681,7 +684,7 @@ export default function Cart() {
                         }}
                         className="w-full bg-gray-50 border-none rounded-2xl h-14 px-5 text-sm font-semibold appearance-none cursor-pointer focus:ring-2 focus:ring-black/5"
                       >
-                        <option value="">Select Region</option>
+                        <option value="">{t("select_region")}</option>
                         {Object.keys(UZBEKISTAN_DATA).map((r) => (
                           <option key={r} value={r}>
                             {r}
@@ -696,7 +699,7 @@ export default function Cart() {
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">
-                      District
+                      {t("district")}
                     </label>
                     <div className="relative">
                       <select
@@ -705,7 +708,7 @@ export default function Cart() {
                         onChange={(e) => setDistrict(e.target.value)}
                         className="w-full bg-gray-50 border-none rounded-2xl h-14 px-5 text-sm font-semibold appearance-none cursor-pointer focus:ring-2 focus:ring-black/5 disabled:opacity-50"
                       >
-                        <option value="">Select District</option>
+                        <option value="">{t('select_district')}</option>
                         {region &&
                           UZBEKISTAN_DATA[region].map((d) => (
                             <option key={d} value={d}>
@@ -722,12 +725,12 @@ export default function Cart() {
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-bold uppercase tracking-widest text-gray-400 px-1">
-                    Detailed Address (Street, House, Apartment)
+                    {t("detailed_address_label")}
                   </label>
                   <Input
                     value={detailedAddress}
                     onChange={(e) => setDetailedAddress(e.target.value)}
-                    placeholder="e.g. Amir Temur Avenue, 108"
+                    placeholder={t("detailed_address_placeholder")}
                     className="h-14 rounded-2xl bg-gray-50 border-none px-5 text-sm font-semibold focus:ring-2 focus:ring-black/5"
                   />
                 </div>
@@ -736,7 +739,7 @@ export default function Cart() {
               <div className="space-y-4">
                 <h3 className="font-bold text-lg flex items-center gap-2">
                   <CreditCard size={20} className="text-black" />
-                  Payment Method
+                  {t('payment_method')}
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {[
@@ -769,7 +772,7 @@ export default function Cart() {
               <div className="bg-black rounded-[28px] p-6 flex justify-between items-center text-white shadow-xl shadow-black/10">
                 <div className="flex flex-col">
                   <span className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-1">
-                    Total to Pay
+                    {t("total_to_pay")}
                   </span>
                   <span
                     className={cn('text-3xl font-black', Radiant.className)}
@@ -781,7 +784,7 @@ export default function Cart() {
                   onClick={finalizePayment}
                   className="rounded-full px-10 py-7 font-black text-lg bg-white text-black hover:bg-white/90 transition-all uppercase tracking-widest cursor-pointer border-none"
                 >
-                  Pay Now
+                  {t("pay_now_btn")}
                 </Button>
               </div>
             </div>
@@ -797,11 +800,10 @@ export default function Cart() {
                     Radiant.className,
                   )}
                 >
-                  Buyurtma Qabul Qilindi!
+                  {t("order_received_title")}
                 </ModalTitle>
                 <ModalDescription className="text-gray-400 font-medium">
-                  To'lov muvaffaqiyatli amalga oshirildi. Buyurtmangiz yo'lga
-                  chiqdi.
+                  {t("order_received_desc")}
                 </ModalDescription>
               </div>
 
@@ -831,7 +833,7 @@ export default function Cart() {
                   onClick={() => setIsCheckoutOpen(false)}
                   className="w-full rounded-full py-7 font-bold text-lg bg-black text-white hover:bg-black/80 transition-all cursor-pointer"
                 >
-                  Yopish
+                  {t("close_btn")}
                 </Button>
               </div>
             </div>
