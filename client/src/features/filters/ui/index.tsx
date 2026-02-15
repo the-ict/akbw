@@ -19,6 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
+import { useTranslations } from 'next-intl';
 
 const HorizontalLine = () => {
   return <hr className="border-gray-300" />;
@@ -79,6 +80,8 @@ export default function FilterPage() {
   const { data: productsData, isLoading: productsLoading } =
     useProducts(appliedFilters);
 
+  const t = useTranslations("FilterPage");
+
   const handleApplyFilters = () => {
     setAppliedFilters({
       category_id: selectedCategory?.toString(),
@@ -109,7 +112,7 @@ export default function FilterPage() {
   return (
     <div className="min-h-screen container py-10 px-4 md:px-6">
       <div>
-        <p className="text-gray-500 text-sm">Home / Filters</p>
+        <p className="text-gray-500 text-sm">{t("breadcrumbs")}</p>
       </div>
 
       <div className="flex flex-col lg:flex-row items-start gap-12 mt-8">
@@ -119,7 +122,7 @@ export default function FilterPage() {
             id="sidebar"
           >
             <div className="flex items-center justify-between pb-6">
-              <h1 className="font-bold text-2xl">Filters</h1>
+              <h1 className="font-bold text-2xl">{t("filters")}</h1>
               <Image
                 src={FiltersIcon}
                 alt="filter"
@@ -240,12 +243,12 @@ export default function FilterPage() {
               <HorizontalLine />
               <div className="py-7">
                 <h1 className="font-bold mb-6 uppercase tracking-widest text-xs text-gray-500">
-                  Narx
+                  {t("price")}
                 </h1>
                 <div className="flex items-center gap-4">
                   <div className="flex-1">
                     <p className="text-[10px] text-gray-400 uppercase font-bold mb-1 ml-1">
-                      Min
+                      {t("min")}
                     </p>
                     <Input
                       type="number"
@@ -256,7 +259,7 @@ export default function FilterPage() {
                   </div>
                   <div className="flex-1">
                     <p className="text-[10px] text-gray-400 uppercase font-bold mb-1 ml-1">
-                      Max
+                      {t("max")}
                     </p>
                     <Input
                       type="number"
@@ -271,7 +274,7 @@ export default function FilterPage() {
               <HorizontalLine />
               <div className="py-7">
                 <h1 className="font-bold mb-6 uppercase tracking-widest text-xs text-gray-500">
-                  Ranglar
+                  {t("colors")}
                 </h1>
                 <div className="flex flex-wrap gap-3">
                   {colors?.map((color, i) => (
@@ -311,7 +314,7 @@ export default function FilterPage() {
               <HorizontalLine />
               <div className="py-7">
                 <h1 className="font-bold mb-6 uppercase tracking-widest text-xs text-gray-500">
-                  O'lchamlar
+                  {t("sizes")}
                 </h1>
                 <div className="flex flex-wrap gap-2.5">
                   {sizes?.map((size) => (
@@ -336,7 +339,7 @@ export default function FilterPage() {
               onClick={handleApplyFilters}
               className="w-full mt-6 rounded-full py-7 font-bold text-base shadow-xl hover:shadow-2xl transition-all"
             >
-              Filterlarni qo'llash
+              {t("applyFilters")}
             </Button>
           </div>
         </aside>
@@ -346,12 +349,12 @@ export default function FilterPage() {
             <h1 className="text-3xl md:text-4xl font-bold">
               {searchParam ? (
                 <>
-                  <span>"{searchParam}"</span> bo'yicha qidiruv
+                  <span>{t('searchResult', { query: searchParam })}</span>
                 </>
               ) : (
                 categories?.find(
                   (item: any) => item.id === Number(selectedCategory),
-                )?.name || 'Barcha maxsulotlar'
+                )?.name || t("allProducts")
               )}
             </h1>
             <div className="flex items-center gap-3 text-sm text-gray-500">
@@ -359,13 +362,13 @@ export default function FilterPage() {
                 <DropdownMenuTrigger asChild>
                   <div className="flex items-center gap-2 cursor-pointer hover:text-black transition-colors bg-white/50 px-4 py-2 rounded-full border border-gray-100 shadow-sm">
                     <p>
-                      Saralash:{' '}
+                      {t('sort')}:{' '}
                       <span className="font-bold text-black">
                         {sortBy === 'price'
                           ? sortOrder === 'asc'
-                            ? 'Eng arzon'
-                            : 'Eng qimmat'
-                          : 'Eng yangi'}
+                            ? t("sortCheapest")
+                            : t("sortMostExpensive")
+                          : t("sortNewest")}
                       </span>
                     </p>
                     <ArrowDown size={14} className="mt-0.5" />
@@ -379,7 +382,7 @@ export default function FilterPage() {
                     }}
                     className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium"
                   >
-                    Eng yangi
+                    {t("sortNewest")}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => {
@@ -388,7 +391,7 @@ export default function FilterPage() {
                     }}
                     className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium"
                   >
-                    Eng arzon
+                    {t("sortCheapest")}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => {
@@ -397,7 +400,7 @@ export default function FilterPage() {
                     }}
                     className="cursor-pointer py-2.5 px-3 rounded-lg hover:bg-gray-50 text-sm font-medium"
                   >
-                    Eng qimmat
+                    {t("sortMostExpensive")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -407,11 +410,11 @@ export default function FilterPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
             {productsLoading ? (
               <div className="col-span-full py-20 text-center text-gray-400">
-                Loading products...
+                {t("loadingProducts")}
               </div>
             ) : productsData?.data.length === 0 ? (
               <div className="col-span-full py-20 text-center text-gray-400">
-                No products found for the selected filters.
+                {t("noProducts")}
               </div>
             ) : (
               productsData?.data.map((item: any) => (
@@ -432,7 +435,7 @@ export default function FilterPage() {
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 className="px-8 py-6 rounded-xl font-bold text-sm"
               >
-                Oldingi
+                {t("previous")}
               </Button>
               <div className="flex items-center gap-1.5 overflow-x-auto max-w-full pb-2 sm:pb-0">
                 {[1, 2, 3, '...', 8, 9, 10].map((page, i) => (
@@ -458,7 +461,7 @@ export default function FilterPage() {
                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, 10))}
                 className="px-8 py-6 rounded-xl font-bold text-sm"
               >
-                Keyingi
+                {t("next")}
               </Button>
             </div>
           )}

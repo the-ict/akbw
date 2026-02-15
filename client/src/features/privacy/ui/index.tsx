@@ -11,95 +11,102 @@ import {
   UserCheck,
   RefreshCw,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export default function Privacy() {
+
+  const t = useTranslations("PrivacyPage");
+
   const sections = [
     {
       id: 1,
       icon: FileText,
-      title: "1. Qaysi ma'lumotlarni yig'amiz",
-      content: "Biz quyidagi ma'lumotlarni yig'ishimiz mumkin:",
+      title: t("sections.0.title"),
+      content: t("sections.0.content"),
       list: [
-        'Ism va familiya',
-        'Telefon raqami',
-        'Elektron pochta (email)',
-        'Yetkazib berish manzili',
-        'Buyurtmalar tarixi',
-        "To'lovga oid texnik ma'lumotlar (karta raqami saqlanmaydi)",
+        t("sections.0.list.0"),
+        t("sections.0.list.1"),
+        t("sections.0.list.2"),
+        t("sections.0.list.3"),
+        t("sections.0.list.4"),
+        t("sections.0.list.5"),
       ],
     },
     {
       id: 2,
       icon: Users,
-      title: "2. Ma'lumotlardan qanday foydalanamiz",
-      content: "Yig'ilgan ma'lumotlar quyidagi maqsadlarda ishlatiladi:",
+      title: t("sections.1.title"),
+      content: t("sections.1.content"),
       list: [
-        'Buyurtmalarni qabul qilish va yetkazib berish',
-        "Foydalanuvchi bilan bog'lanish",
-        "To'lovlarni amalga oshirish",
-        'Xizmat sifatini yaxshilash',
-        'Qonunchilik talablarini bajarish',
+        t("sections.1.list.0"),
+        t("sections.1.list.1"),
+        t("sections.1.list.2"),
+        t("sections.1.list.3"),
+        t("sections.1.list.4"),
+        t("sections.1.list.5"),
+        t("sections.1.list.6"),
       ],
     },
     {
       id: 3,
       icon: Lock,
-      title: "3. To'lov ma'lumotlari",
-      content:
-        "To'lovlar uchinchi tomon to'lov tizimlari (Click, Payme, Uzcard, Humo va boshqalar) orqali amalga oshiriladi.",
-      note: "Platforma bank karta ma'lumotlarini saqlamaydi va ko'rmaydi.",
+      title: t("sections.2.title"),
+      content: t("sections.2.content"),
+      note: t("sections.2.note"),
     },
     {
       id: 4,
       icon: UserCheck,
-      title: "4. Ma'lumotlarni uchinchi shaxslarga berish",
-      content: "Biz foydalanuvchi ma'lumotlarini:",
-      list: ['sotmaymiz', 'ijaraga bermaymiz', 'ruxsatsiz tarqatmaymiz'],
-      note: 'Faqat quyidagi hollarda berilishi mumkin:',
+      title: t("sections.3.title"),
+      content: t("sections.3.content"),
+      list: [
+        t("sections.3.list.0"),
+        t("sections.3.list.1"),
+        t("sections.3.list.2"),
+      ],
+      note: t("sections.3.note"),
       subList: [
-        'qonun talabi bilan (sud yoki davlat organlari)',
-        'yetkazib berish xizmati (faqat manzil va aloqa uchun)',
+        t("sections.3.subList.0"),
+        t("sections.3.subList.1"),
       ],
     },
     {
       id: 5,
       icon: Shield,
-      title: "5. Ma'lumotlar xavfsizligi",
-      content: "Platforma foydalanuvchi ma'lumotlarini himoyalash uchun:",
+      title: t("sections.4.title"),
+      content: t("sections.4.content"),
       list: [
-        'zamonaviy texnik vositalar',
-        'xavfsiz serverlar',
-        'parollarni shifrlash (hash)',
+        t("sections.4.list.0"),
+        t("sections.4.list.1"),
+        t("sections.4.list.2"),
       ],
-      note: 'usullaridan foydalanadi.',
+      note: t("sections.4.note"),
     },
     {
       id: 6,
       icon: Cookie,
-      title: '6. Cookies (fayllar)',
-      content:
-        'Platforma foydalanuvchi tajribasini yaxshilash uchun cookies dan foydalanishi mumkin.',
-      note: "Foydalanuvchi xohlasa brauzer sozlamalaridan cookies'ni o'chirishi mumkin.",
+      title: t("sections.5.title"),
+      content: t("sections.5.content"),
+      note: t("sections.5.note"),
     },
     {
       id: 7,
       icon: UserCheck,
-      title: '7. Foydalanuvchi huquqlari',
+      title: t("sections.6.title"),
       content: 'Siz:',
       list: [
-        "o'z ma'lumotlaringizni ko'rish",
-        'tahrirlash',
-        "o'chirishni so'rash",
+        t("sections.6.list.0"),
+        t("sections.6.list.1"),
+        t("sections.6.list.2"),
       ],
-      note: 'huquqiga egasiz.',
+      note: t("sections.6.note"),
     },
     {
       id: 8,
       icon: RefreshCw,
-      title: "8. Siyosatga o'zgartirishlar",
-      content:
-        'Platforma ushbu Maxfiylik siyosatini vaqti-vaqti bilan yangilashi mumkin.',
-      note: 'Yangilangan versiya saytga joylashtirilgan paytdan boshlab kuchga kiradi.',
+      title: t("sections.7.title"),
+      content: t("sections.7.content"),
+      note: t("sections.7.note"),
     },
   ];
 
@@ -112,11 +119,10 @@ export default function Privacy() {
             <Shield size={48} className="text-white" />
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-4">
-            Maxfiylik Siyosati
+            {t("hero.title")}
           </h1>
           <p className="text-center text-gray-300 text-lg max-w-2xl mx-auto">
-            AKBW platformasi foydalanuvchilarining shaxsiy ma'lumotlarini qanday
-            yig'ish, saqlash va ishlatishni tushuntiradi
+            {t("hero.description")}
           </p>
         </div>
       </div>
@@ -125,8 +131,7 @@ export default function Privacy() {
       <div className="container mx-auto px-4 max-w-4xl py-12">
         <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-lg mb-12">
           <p className="text-gray-800 leading-relaxed">
-            Platformadan foydalanish orqali siz ushbu siyosat shartlariga
-            rozilik bildirasiz.
+            {t("intro")}
           </p>
         </div>
 
@@ -189,10 +194,10 @@ export default function Privacy() {
         <div className="mt-12 bg-gradient-to-br from-black to-gray-900 text-white rounded-xl p-8">
           <div className="flex items-center gap-3 mb-6">
             <Mail size={32} />
-            <h2 className="text-3xl font-bold">9. Aloqa</h2>
+            <h2 className="text-3xl font-bold">{t("contact.title")}</h2>
           </div>
           <p className="text-gray-300 mb-6">
-            Agar savollaringiz bo'lsa, biz bilan bog'laning:
+            {t("contact.description")}
           </p>
           <div className="space-y-4">
             <div className="flex items-center gap-4">
@@ -200,12 +205,12 @@ export default function Privacy() {
                 <Mail size={20} />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Email</p>
+                <p className="text-sm text-gray-400">{t("contact.emailLabel")}</p>
                 <a
                   href="mailto:akbw.uz@gmail.com"
                   className="text-white hover:text-gray-300 transition-colors"
                 >
-                  akbw.uz@gmail.com
+                  {t("contact.email")}
                 </a>
               </div>
             </div>
@@ -214,12 +219,12 @@ export default function Privacy() {
                 <Phone size={20} />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Telefon</p>
+                <p className="text-sm text-gray-400">{t("contact.phoneLabel")}</p>
                 <a
                   href="tel:+998901234567"
                   className="text-white hover:text-gray-300 transition-colors"
                 >
-                  +998 90 566 11 07
+                  {t("contact.phone")}
                 </a>
               </div>
             </div>
@@ -228,9 +233,9 @@ export default function Privacy() {
                 <MapPin size={20} />
               </div>
               <div>
-                <p className="text-sm text-gray-400">Manzil</p>
+                <p className="text-sm text-gray-400">{t("contact.addressLabel")}</p>
                 <p className="text-white">
-                  Toshkent shahar, Shayxontoxur tumani
+                  {t("contact.address")}
                 </p>
               </div>
             </div>
@@ -240,7 +245,7 @@ export default function Privacy() {
         {/* Footer Note */}
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-500">
-            Oxirgi yangilanish: 2026 yil 1-fevral
+            {t("footerNote")}
           </p>
         </div>
       </div>

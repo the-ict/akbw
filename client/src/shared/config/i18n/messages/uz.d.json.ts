@@ -202,6 +202,126 @@ declare const messages: {
     "trackingActive": "Tracking Active",
     "onTheWay": "Yo‘lda",
     "arrived": "Yetib keldi"
+  },
+  "FavoritesPage": {
+    "title": "Sevimlilar",
+    "description": "Siz yoqtirgan mahsulotlar ro'yxati. Ularni keyinroq sotib olish uchun saqlab qo'ydik.",
+    "emptyTitle": "Sevimlilar ro'yxati bo'sh",
+    "emptyDescription": "Siz hali hech qanday mahsulotni sevimlilar ro'yxatiga qo'shmagansiz.",
+    "productCount": "{{count}} ta mahsulot",
+    "viewProducts": "Mahsulotlarni ko'rish"
+  },
+  "FilterPage": {
+    "breadcrumbs": "Bosh sahifa / Filtrlar",
+    "filters": "Filtrlar",
+    "price": "Narx",
+    "min": "Min",
+    "max": "Max",
+    "colors": "Ranglar",
+    "sizes": "O'lchamlar",
+    "applyFilters": "Filterlarni qo'llash",
+    "sort": "Saralash",
+    "sortNewest": "Eng yangi",
+    "sortCheapest": "Eng arzon",
+    "sortMostExpensive": "Eng qimmat",
+    "allProducts": "Barcha mahsulotlar",
+    "searchResult": "\"{{query}}\" bo'yicha qidiruv",
+    "loadingProducts": "Mahsulotlar yuklanmoqda...",
+    "noProducts": "Tanlangan filtrlarga mos mahsulot topilmadi.",
+    "previous": "Oldingi",
+    "next": "Keyingi"
+  },
+  "PrivacyPage": {
+    "hero": {
+      "title": "Maxfiylik Siyosati",
+      "description": "AKBW platformasi foydalanuvchilarining shaxsiy ma'lumotlarini qanday yig'ish, saqlash va ishlatishni tushuntiradi"
+    },
+    "intro": "Platformadan foydalanish orqali siz ushbu siyosat shartlariga rozilik bildirasiz.",
+    "sections": [
+      {
+        "title": "1. Qaysi ma'lumotlarni yig'amiz",
+        "content": "Biz quyidagi ma'lumotlarni yig'ishimiz mumkin:",
+        "list": [
+          "Ism va familiya",
+          "Telefon raqami",
+          "Elektron pochta (email)",
+          "Yetkazib berish manzili",
+          "Buyurtmalar tarixi",
+          "To'lovga oid texnik ma'lumotlar (karta raqami saqlanmaydi)"
+        ]
+      },
+      {
+        "title": "2. Ma'lumotlardan qanday foydalanamiz",
+        "content": "Yig'ilgan ma'lumotlar quyidagi maqsadlarda ishlatiladi:",
+        "list": [
+          "Buyurtmalarni qabul qilish va yetkazib berish",
+          "Foydalanuvchi bilan bog'lanish",
+          "To'lovlarni amalga oshirish",
+          "Xizmat sifatini yaxshilash",
+          "Qonunchilik talablarini bajarish"
+        ]
+      },
+      {
+        "title": "3. To'lov ma'lumotlari",
+        "content": "To'lovlar uchinchi tomon to'lov tizimlari (Click, Payme, Uzcard, Humo va boshqalar) orqali amalga oshiriladi.",
+        "note": "Platforma bank karta ma'lumotlarini saqlamaydi va ko'rmaydi."
+      },
+      {
+        "title": "4. Ma'lumotlarni uchinchi shaxslarga berish",
+        "content": "Biz foydalanuvchi ma'lumotlarini:",
+        "list": [
+          "sotmaymiz",
+          "ijaraga bermaymiz",
+          "ruxsatsiz tarqatmaymiz"
+        ],
+        "note": "Faqat quyidagi hollarda berilishi mumkin:",
+        "subList": [
+          "qonun talabi bilan (sud yoki davlat organlari)",
+          "yetkazib berish xizmati (faqat manzil va aloqa uchun)"
+        ]
+      },
+      {
+        "title": "5. Ma'lumotlar xavfsizligi",
+        "content": "Platforma foydalanuvchi ma'lumotlarini himoyalash uchun:",
+        "list": [
+          "zamonaviy texnik vositalar",
+          "xavfsiz serverlar",
+          "parollarni shifrlash (hash)"
+        ],
+        "note": "usullaridan foydalanadi."
+      },
+      {
+        "title": "6. Cookies (fayllar)",
+        "content": "Platforma foydalanuvchi tajribasini yaxshilash uchun cookies dan foydalanishi mumkin.",
+        "note": "Foydalanuvchi xohlasa brauzer sozlamalaridan cookies'ni o'chirishi mumkin."
+      },
+      {
+        "title": "7. Foydalanuvchi huquqlari",
+        "content": "Siz:",
+        "list": [
+          "o'z ma'lumotlaringizni ko'rish",
+          "tahrirlash",
+          "o'chirishni so'rash"
+        ],
+        "note": "huquqiga egasiz."
+      },
+      {
+        "title": "8. Siyosatga o'zgartirishlar",
+        "content": "Platforma ushbu Maxfiylik siyosatini vaqti-vaqti bilan yangilashi mumkin.",
+        "note": "Yangilangan versiya saytga joylashtirilgan paytdan boshlab kuchga kiradi."
+      }
+    ],
+    "contact": {
+      "title": "9. Aloqa",
+      "description": "Agar savollaringiz bo'lsa, biz bilan bog'laning:",
+      "email": "akbw.uz@gmail.com",
+      "emailLabal": "Pochta",
+      "phoneLabel": "Telefon raqami",
+      "phone": "+998 90 566 11 07",
+      "addressLabel": "Manzil",
+      "address": "Toshkent shahar, Shayxontoxur tumani"
+    },
+    "footerNote": "Oxirgi yangilanish: 2026 yil 1-fevral"
   }
 };
 export default messages;
