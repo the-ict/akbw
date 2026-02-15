@@ -34,6 +34,7 @@ import DeleteConfirmModal from '@/widgets/delete-confirm/ui';
 import { useDeleteReviewMutation } from '../lib/hooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { useCartStore } from '@/shared/store/cart.store';
+import { useTranslations } from 'next-intl';
 
 interface ProductProps {
   id: string;
@@ -52,6 +53,8 @@ export default function Product({ id }: ProductProps) {
   const [reviewText, setReviewText] = useState<string>('');
   const [reviewId, setReviewId] = useState<number | null>(null);
   const [editingReviewId, setEditingReviewId] = useState<number | null>(null);
+
+  const t = useTranslations("ProductPage");
 
   const { data: reviewsData, isLoading: reviewsLoading } = useProductReviews(
     parseInt(id),
@@ -165,13 +168,11 @@ export default function Product({ id }: ProductProps) {
     <div className="min-h-screen bg-white">
       <div className="container py-10 px-4 md:px-6">
         <div className="flex gap-2 text-sm text-gray-500 mb-10">
-          <span>Bosh sahifa</span>
+          <span>{t("breadcrumbs.0")}</span>
           <span>/</span>
-          <span>Do'kon</span>
+          <span>{t("breadcrumbs.1")}</span>
           <span>/</span>
-          <span className="text-black font-medium">Erkaklar</span>
-          <span>/</span>
-          <span className="text-black font-medium">T-shirts</span>
+          <span className="text-black font-medium">{product.name}</span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-20 mb-20">
@@ -234,7 +235,7 @@ export default function Product({ id }: ProductProps) {
               </div>
               <span className="text-sm font-medium">
                 {product.rating === null ? (
-                  <p>Hali reyting berilmagan</p>
+                  <p>{t("rating.noRated")}</p>
                 ) : (
                   <>
                     {product.rating} /{' '}
@@ -258,7 +259,7 @@ export default function Product({ id }: ProductProps) {
 
             <div className="mb-8">
               <h3 className="text-gray-500 font-medium mb-4 uppercase tracking-widest text-xs">
-                Rangni tanlang
+                {t("selectColor")}
               </h3>
               <div className="flex gap-4">
                 {product.colors?.map((color) => (
@@ -285,7 +286,7 @@ export default function Product({ id }: ProductProps) {
 
             <div className="mb-10">
               <h3 className="text-gray-500 font-medium mb-4 uppercase tracking-widest text-xs">
-                O'lchamni tanlang
+                {t("selectSize")}
               </h3>
               <div className="flex flex-wrap gap-3">
                 {product.sizes?.map((size) => (
@@ -327,7 +328,7 @@ export default function Product({ id }: ProductProps) {
                 onClick={handleAddToCart}
                 className="flex-1 rounded-full cursor-pointer h-full py-8 font-black text-lg bg-black hover:bg-black/90 shadow-2xl hover:shadow-black/20 transition-all uppercase tracking-widest"
               >
-                Savatga qo'shish
+                {t("addToCart")}
               </Button>
             </div>
           </div>
@@ -335,24 +336,19 @@ export default function Product({ id }: ProductProps) {
 
         <div className="mt-20 border-b border-gray-100 mb-10">
           <div className="flex justify-between md:justify-around overflow-x-auto no-scrollbar">
-            {['reviews', 'faqs'].map((tab) => (
+            {[{ name: t("tabs.reviews"), id: "reviews" }, { name: t("tabs.faqs"), id: "faqs" }].map((tab) => (
               <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
                 className={cn(
                   'pb-6 px-10 text-lg font-medium transition-all relative shrink-0 cursor-pointer',
-                  activeTab === tab
+                  activeTab === tab.id
                     ? 'text-black'
                     : 'text-gray-400 hover:text-gray-600',
                 )}
               >
-                {tab.charAt(0).toUpperCase() +
-                  tab
-                    .slice(1)
-                    .replace('faqs', 'FAQs')
-                    .replace('reviews', 'Rating & Reviews')
-                    .replace('details', 'Product Details')}
-                {activeTab === tab && (
+                {tab.name}
+                {activeTab === tab.id && (
                   <div className="absolute bottom-0 left-0 w-full h-0.5 bg-black transition-all" />
                 )}
               </button>
@@ -367,17 +363,17 @@ export default function Product({ id }: ProductProps) {
                 isOpen={openDeleteReview}
                 onClose={() => setOpenDeleteReview(false)}
                 onConfirm={handleDeleteReview}
-                title={`Izohni o'chirish`}
-                description={`Izohni o'chirishga ishonchingiz komilmi?`}
+                title={t('rating.deleteConfirmTitle')}
+                description={t('rating.deleteConfirmDesc')}
               />
 
               {token && (
                 <div className="mb-10 p-8 border border-gray-100 rounded-[32px] bg-[#D6D3CC]/40 shadow-sm">
-                  <h3 className="text-xl font-bold mb-6">Izoh qoldirish</h3>
+                  <h3 className="text-xl font-bold mb-6">{t('rating.leaveReview')}</h3>
 
                   <div className="mb-6">
                     <p className="text-sm text-gray-500 mb-3">
-                      Bu mahsulotga baho bering
+                      {t('rating.giveRating')}
                     </p>
                     <div className="flex gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -403,7 +399,7 @@ export default function Product({ id }: ProductProps) {
 
                   <div className="relative">
                     <textarea
-                      placeholder="Bu mahsulot haqida fikringizni yozing..."
+                      placeholder={t('rating.reviewPlaceholder')}
                       value={reviewText}
                       onChange={(e) => setReviewText(e.target.value)}
                       className="w-full p-4 pr-24 border border-gray-200 rounded-[20px] resize-none focus:outline-none focus:border-black bg-white transition-all min-h-[100px] text-sm"
@@ -433,7 +429,7 @@ export default function Product({ id }: ProductProps) {
 
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-2">
-                  <h2 className="text-2xl font-bold">Izohlar</h2>
+                  <h2 className="text-2xl font-bold">{t("rating.reviews")}</h2>
                   <span className="text-gray-400 font-normal">
                     ({reviewsData?.meta.total || 0})
                   </span>
@@ -442,7 +438,7 @@ export default function Product({ id }: ProductProps) {
 
               {reviewsLoading ? (
                 <div className="text-center py-10">
-                  <p className="text-gray-500">Izohlar yuklanmoqda...</p>
+                  <p className="text-gray-500">{t("rating.loadingReviews")}</p>
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -515,7 +511,7 @@ export default function Product({ id }: ProductProps) {
                               }}
                               className="cursor-pointer px-4 py-2 hover:bg-gray-100 rounded-md"
                             >
-                              O'chirish
+                              {t("rating.deleteConfirmTitle")}
                             </DropdownMenuLabel>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -532,10 +528,10 @@ export default function Product({ id }: ProductProps) {
                       <Star size={32} className="text-gray-300" />
                     </div>
                     <h3 className="text-xl font-bold mb-2">
-                      Hali izohlar yo'q
+                      {t("rating.noReviews.title")}
                     </h3>
                     <p className="text-gray-500">
-                      Birinchi bo'lib o'z fikringizni bildiring!
+                      {t("rating.noReviews.desc")}
                     </p>
                   </div>
                 )}
@@ -549,7 +545,7 @@ export default function Product({ id }: ProductProps) {
                       variant="outline"
                       className="rounded-full px-10 py-6 font-bold border-gray-200 hover:bg-black hover:text-white transition-all cursor-pointer"
                     >
-                      Ko'proq yuklash
+                      {t("rating.loadMore")}
                     </Button>
                   </div>
                 )}
@@ -560,16 +556,16 @@ export default function Product({ id }: ProductProps) {
             <div className="max-w-4xl mx-auto space-y-4">
               {[
                 {
-                  q: 'How long does shipping take?',
-                  a: 'Standard shipping takes 3-5 business days within Uzbekistan and 7-14 days internationally.',
+                  q: t("faqs.0.q"),
+                  a: t("faqs.0.a"),
                 },
                 {
-                  q: 'What is your return policy?',
-                  a: 'We offer a 30-day money-back guarantee for all unworn and unwashed items with original tags.',
+                  q: t("faqs.1.q"),
+                  a: t("faqs.1.a"),
                 },
                 {
-                  q: 'How do I choose the right size?',
-                  a: 'Please refer to our size guide link below the size selectors for detailed measurements.',
+                  q: t("faqs.2.q"),
+                  a: t("faqs.2.a"),
                 },
               ].map((faq, i) => (
                 <div
@@ -599,7 +595,7 @@ export default function Product({ id }: ProductProps) {
               monsterrat.className,
             )}
           >
-            Sizga yoqishi mumkin!
+            {t("relatedProductsTitle")}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {relatedProducts?.data?.map((relatedProduct) => (

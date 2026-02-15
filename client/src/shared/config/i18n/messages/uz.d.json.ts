@@ -322,6 +322,56 @@ declare const messages: {
       "address": "Toshkent shahar, Shayxontoxur tumani"
     },
     "footerNote": "Oxirgi yangilanish: 2026 yil 1-fevral"
+  },
+  "ProductPage": {
+    "breadcrumbs": [
+      "Bosh sahifa",
+      "Maxsulotlar"
+    ],
+    "rating": {
+      "notRated": "Hali reyting berilmagan",
+      "reviews": "Izohlar",
+      "leaveReview": "Izoh qoldirish",
+      "giveRating": "Bu mahsulotga baho bering",
+      "submit": "Joylash",
+      "reviewPlaceholder": "Bu mahsulot haqida fikringizni yozing...",
+      "reviewChars": "{count}/500",
+      "deleteConfirmTitle": "Izohni o'chirish",
+      "deleteConfirmDesc": "Izohni o'chirishga ishonchingiz komilmi?",
+      "noReviews": {
+        "title": "Hali izohlar yo'q",
+        "desc": "Birinchi bo'lib o'z fikringizni bildiring!"
+      },
+      "loadMore": "Ko'proq yuklash",
+      "loadingReviews": "Izohlar yuklanmoqda..."
+    },
+    "price": "{price} so'm",
+    "selectColor": "Rangni tanlang",
+    "selectSize": "O'lchamni tanlang",
+    "quantity": {
+      "decrease": "Kamaytirish",
+      "increase": "Ko'paytirish"
+    },
+    "addToCart": "Savatga qo'shish",
+    "tabs": {
+      "reviews": "Baho & Izohlar",
+      "faqs": "Savollar"
+    },
+    "faqs": [
+      {
+        "q": "Yetkazib berish qancha vaqt oladi?",
+        "a": "O'zbekistonda standart yetkazib berish 3-5 ish kuni, xalqaro yetkazib berish 7-14 kun davom etadi."
+      },
+      {
+        "q": "Qaytarish siyosati qanday?",
+        "a": "Biz barcha ishlatilmagan va yuvilmagan buyumlar uchun 30 kunlik pulni qaytarish kafolati taqdim etamiz."
+      },
+      {
+        "q": "Qanday qilib to'g'ri o'lchamni tanlash mumkin?",
+        "a": "Iltimos, o'lcham tanlovlari ostidagi o'lcham qo'llanmasiga murojaat qiling."
+      }
+    ],
+    "relatedProductsTitle": "Sizga yoqishi mumkin!"
   }
 };
 export default messages;
