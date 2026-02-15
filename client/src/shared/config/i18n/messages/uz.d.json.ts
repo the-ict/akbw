@@ -315,7 +315,7 @@ declare const messages: {
       "title": "9. Aloqa",
       "description": "Agar savollaringiz bo'lsa, biz bilan bog'laning:",
       "email": "akbw.uz@gmail.com",
-      "emailLabal": "Pochta",
+      "emailLabel": "Pochta",
       "phoneLabel": "Telefon raqami",
       "phone": "+998 90 566 11 07",
       "addressLabel": "Manzil",

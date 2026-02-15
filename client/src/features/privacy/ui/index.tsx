@@ -43,8 +43,6 @@ export default function Privacy() {
         t("sections.1.list.2"),
         t("sections.1.list.3"),
         t("sections.1.list.4"),
-        t("sections.1.list.5"),
-        t("sections.1.list.6"),
       ],
     },
     {
