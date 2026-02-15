@@ -21,31 +21,33 @@ import Futbolka from '../../../public/icons/futbolka.png';
 import TufliIcon from '../../../public/icons/tufli.png';
 import KiyimIcon from '../../../public/icons/kiyim.png';
 
-const logos = [
-  {
-    name: 'VERCAGE',
-    style: 'font-radiant text-sm font-bold text-5xl',
-  },
-  {
-    name: 'ZARA',
-    style: 'font-didot text-sm font-bold text-5xl',
-  },
-  {
-    name: 'GUCCI',
-    style: 'font-granjon text-sm font-bold text-5xl',
-  },
-  {
-    name: 'PRADA',
-    style: 'font-rosan text-sm font-bold text-5xl',
-  },
-  {
-    name: 'Calvin Klein',
-    style: 'font-futura text-sm font-bold text-5xl',
-  },
-];
+
+// const logos = [
+// {
+//   name: 'VERCAGE',
+//   style: 'font-radiant text-sm font-bold text-5xl',
+// },
+// {
+//   name: 'ZARA',
+//   style: 'font-didot text-sm font-bold text-5xl',
+// },
+// {
+//   name: 'GUCCI',
+//   style: 'font-granjon text-sm font-bold text-5xl',
+// },
+// {
+//   name: 'PRADA',
+//   style: 'font-rosan text-sm font-bold text-5xl',
+// },
+// {
+//   name: 'Calvin Klein',
+//   style: 'font-futura text-sm font-bold text-5xl',
+// },
+//];
 
 import { useTopReviews } from '@/features/reviews/lib/hooks';
 import Login from '../login';
+import { useTranslations } from 'next-intl';
 
 export default function Welcome() {
   const { data: recommendedData, isLoading } = useRecommendedProducts();
@@ -86,6 +88,8 @@ export default function Welcome() {
       setShowAllReviews(false);
     }
   }, [topReviewsData]);
+
+  const t = useTranslations();
   return (
     <div>
       <div className="flex flex-col lg:flex-row items-center justify-between max-lg:justify-center max-lg:items-start">
@@ -97,15 +101,12 @@ export default function Welcome() {
                 monsterrat.className,
               )}
             >
-              AKBW YANGI AVLOD ONLINE KIYIM PLATFORMASI
+              {t("HomePage.akbw-title")}
             </h1>
             <p className="text-sm text-gray-500 lg:text-base max-sm:text-[12px] max-sm:text-center">
-              Maqsadimiz nafaqat O‘zbekistonda, balki xalqaro bozorda ham
-              ishonchli brendga aylanish.
+              {t("HomePage.akbw-subtitle-1")}
               <br />
-              Biz kiyimga bo‘lgan munosabatni o‘zgartiramiz. Chunki kiyim —
-              shunchaki kundalik vosita emas, u sizning tashqi ko‘rinishingiz va
-              o‘zingizga bo‘lgan ishonchingizdir.
+              {t("HomePage.akbw-subtitle-2")}
             </p>
             <Link href="/filters" className='max-lg:hidden'>
               <Button
@@ -113,34 +114,34 @@ export default function Welcome() {
                 size={'lg'}
                 variant={'outline'}
               >
-                Maxsulotlarni ko'rish
+                {t("HomePage.watch_products_btn")}
               </Button>
             </Link>
             <div className="lg:hidden w-full">
-              <Login trigger={<Button className="w-full rounded-full btn-welcome font-bold max-sm:text-[15px] max-sm:py-2 max-sm:px-5">Kirish yoki Ro'yhatdan o'tish</Button>} />
+              <Login trigger={<Button className="w-full rounded-full btn-welcome font-bold max-sm:text-[15px] max-sm:py-2 max-sm:px-5">{t("HomePage.login_register_btn")}</Button>} />
             </div>
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-5 max-sm:gap-4 lg:gap-10 mt-5">
               <div className="text-center lg:text-left">
                 <p className="text-2xl lg:text-3xl font-bold text-center max-sm:text-[15px]">
                   1000+
                 </p>
-                <p className="text-xs text-gray-500 max-sm:text-[12px]">Mijozlar</p>
+                <p className="text-xs text-gray-500 max-sm:text-[12px]">{t("HomePage.customers")}</p>
               </div>
               <div className="text-center lg:text-left">
                 <p className="text-2xl lg:text-3xl font-bold text-center max-sm:text-[15px]">
                   300+
                 </p>
-                <p className="text-xs text-gray-500 max-sm:text-[12px]">Maxsulotlar</p>
+                <p className="text-xs text-gray-500 max-sm:text-[12px]">{t("HomePage.products")}</p>
               </div>
               <div className="text-center lg:text-left">
                 <p className="text-2xl lg:text-3xl font-bold text-center max-sm:text-[15px]">
                   900+
                 </p>
-                <p className="text-xs text-gray-500 max-sm:text-[12px]">Minnatdor Mijozlar</p>
+                <p className="text-xs text-gray-500 max-sm:text-[12px]">{t("HomePage.favorite_customers")}</p>
               </div>
               <div className="text-center lg:text-left">
                 <p className="text-2xl lg:text-3xl font-bold text-center max-sm:text-[15px]">5+</p>
-                <p className="text-xs text-gray-500 max-sm:text-[12px]">Asartimentlar</p>
+                <p className="text-xs text-gray-500 max-sm:text-[12px]">{t("HomePage.styles")}</p>
               </div>
             </div>
           </div>
@@ -211,7 +212,7 @@ export default function Welcome() {
               monsterrat.className,
             )}
           >
-            Yangi Qo'shilganlar
+            {t("HomePage.newest")}
           </h1>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
@@ -233,7 +234,7 @@ export default function Welcome() {
                 onClick={() => setShowAllNewest(!showAllNewest)}
                 className="bg-[#fff]/50 text-[#000] hover:border-[#000]/100 btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl"
               >
-                {showAllNewest ? "Kamroq ko'rish" : "Ko'proq ko'rish"}
+                {showAllNewest ? t("HomePage.show_less") : t("HomePage.show_more")}
               </Button>
             </div>
           )}
@@ -249,7 +250,7 @@ export default function Welcome() {
               monsterrat.className,
             )}
           >
-            Eng ko'p sotilayotganlar
+            {t("HomePage.most-sold")}
           </h1>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-5">
@@ -271,7 +272,7 @@ export default function Welcome() {
                 onClick={() => setShowAllMostSold(!showAllMostSold)}
                 className="bg-[#fff]/50 text-[#000] hover:border-[#000]/100 btn-register-padding hover:bg-[#fff]/80 border-1 border-[#000]/20 shadow-xl"
               >
-                {showAllMostSold ? "Kamroq ko'rish" : "Ko'proq ko'rish"}
+                {showAllMostSold ? t("HomePage.show_less") : t("HomePage.show_more")}
               </Button>
             </div>
           )}
@@ -285,7 +286,7 @@ export default function Welcome() {
             monsterrat.className,
           )}
         >
-          Fasllar
+          {t("HomePage.seasons")}
         </h1>
 
         <div className="flex flex-col gap-5 w-full">
@@ -331,7 +332,7 @@ export default function Welcome() {
 
           {styles.length === 0 && !isLoading && (
             <div className="py-20 text-center text-gray-400">
-              <p>Hozircha fasllar mavjud emas</p>
+              <p>{t("HomePage.no_seasons")}</p>
             </div>
           )}
         </div>
@@ -346,7 +347,7 @@ export default function Welcome() {
                 monsterrat.className,
               )}
             >
-              Bizning minnatdor mijozlarimiz
+              {t("HomePage.happy_customers_title")}
             </h1>
             <div className="flex gap-4">
               <button
@@ -391,7 +392,7 @@ export default function Welcome() {
                   </div>
                   <div className="flex items-center gap-2">
                     <h1 className="font-bold">
-                      {review.user?.name || 'Anonim'}
+                      {review.user?.name || t("HomePage.anonymous_user")}
                     </h1>
                     <MapPinCheckInside size={20} />
                   </div>
@@ -400,7 +401,7 @@ export default function Welcome() {
               ))
               : !isLoadingReviews && (
                 <div className="w-full py-10 text-center text-gray-400">
-                  <p>Hozircha sharhlar yetarli emas</p>
+                  <p>{t("HomePage.not_enough_reviews")}</p>
                 </div>
               )}
           </div>

@@ -29,6 +29,7 @@ import {
 import {
   useCategories
 } from '../lib/hooks';
+import { useTranslations } from 'next-intl';
 
 const Navbar = () => {
   const [activeParentId, setActiveParentId] = useState<number | null>(null);
@@ -47,6 +48,8 @@ const Navbar = () => {
     };
   };
 
+  const t = useTranslations("Navbar");
+
   if (isLoading) return null;
   return (
     <nav className="bg-[#D6D3CC] py-5 sticky top-0 z-50">
@@ -64,7 +67,7 @@ const Navbar = () => {
             <DropdownMenuTrigger className="outline-none group/trigger">
               <li className="flex items-center gap-1 cursor-pointer font-bold transition-all hover:text-black/70">
                 <span className="text-sm uppercase tracking-wider">
-                  Kategoriya
+                  {t("category")}
                 </span>
                 <ArrowDown
                   size={14}
@@ -78,7 +81,7 @@ const Navbar = () => {
                 {!isChildren && (
                   <div className="flex flex-col gap-1 p-2 animate-in slide-in-from-left-4 duration-300">
                     <p className="px-3 py-2 text-[10px] font-black uppercase text-gray-500 tracking-widest mb-1">
-                      Kategoriyalar
+                      {t("categories")}
                     </p>
                     {categories
                       ?.filter((c) => !c.parentId)
@@ -116,7 +119,7 @@ const Navbar = () => {
                       className="group flex items-center justify-between px-4 py-3 rounded-xl hover:bg-black hover:text-white cursor-pointer transition-all"
                     >
                       <span className="font-bold text-xs uppercase tracking-widest">
-                        Barchasini ko'rish
+                        {t("see_all")}
                       </span>
                       <ArrowDown
                         size={16}
@@ -134,7 +137,7 @@ const Navbar = () => {
                     >
                       <ChevronLeft size={16} />
                       <span className="text-[10px] font-black uppercase tracking-widest">
-                        Ortga
+                        {t("back")}
                       </span>
                     </div>
 
@@ -165,7 +168,7 @@ const Navbar = () => {
                       className="group flex items-center justify-between px-4 py-3 rounded-xl hover:bg-black hover:text-white cursor-pointer transition-all"
                     >
                       <span className="font-bold text-xs uppercase tracking-widest">
-                        Kategoriya bo'yicha barchasi
+                        {t("category_by_category")}
                       </span>
                     </Link>
                   </div>
@@ -178,13 +181,13 @@ const Navbar = () => {
             href={'/about'}
             className="text-sm uppercase tracking-wider text-gray-600 hover:text-black transition-all font-bold"
           >
-            Biz haqimizda
+            {t("about")}
           </Link>
           <Link
             href={'/contact'}
             className="text-sm uppercase tracking-wider text-gray-600 hover:text-black transition-all font-bold"
           >
-            Bog'lanish
+            {t("contact")}
           </Link>
         </ul>
 
@@ -197,7 +200,7 @@ const Navbar = () => {
           </button>
           <input
             type="text"
-            placeholder="Maxsulotlarni qidiring"
+            placeholder={t("search")}
             className="bg-transparent outline-none flex-1 text-sm"
             value={searchVal}
             onChange={(e) => setSearchVal(e.target.value)}

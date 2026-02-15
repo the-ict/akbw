@@ -1,6 +1,32 @@
 {
+  "Navbar": {
+    "category": "Kategoriya",
+    "categories": "Kategoriyalar",
+    "see_all": "Barchasini ko'rish",
+    "back": "Ortga",
+    "category_by_category": "Kategoriya bo'yicha barchasi",
+    "about": "Biz haqimizda",
+    "contact": "Bog'lanish",
+    "search": "Maxsulotlarni qidiring"
+  },
   "HomePage": {
-    "title": "Salom dunyo!",
-    "about": "Go to the about page"
+    "akbw-title": "AKBW YANGI AVLOD ONLINE KIYIM PLATFORMASI",
+    "akbw-subtitle-1": "Maqsadimiz nafaqat O‘zbekistonda, balki xalqaro bozorda ham ishonchli brendga aylanish",
+    "akbw-subtitle-2": "Biz kiyimga bo‘lgan munosabatni o‘zgartiramiz. Chunki kiyim — shunchaki kundalik vosita emas, u sizning tashqi ko‘rinishingiz va o‘zingizga bo‘lgan ishonchingizdir.",
+    "watch_products_btn": "Maxsulotlarni ko'rish",
+    "customers": "Mijozlar",
+    "products": "Maxsulotlar",
+    "favorite_customers": "Minnatdor Mijozlar",
+    "styles": "Asartimentlar",
+    "newest": "Yangi Qo'shilganlar",
+    "most-sold": "Eng ko'p sotilayotganlar",
+    "login_register_btn": "Kirish yoki Ro'yhatdan o'tish",
+    "show_more": "Ko'proq ko'rish",
+    "show_less": "Kamroq ko'rish",
+    "seasons": "Fasllar",
+    "no_seasons": "Hozircha fasllar mavjud emas",
+    "happy_customers_title": "Bizning minnatdor mijozlarimiz",
+    "not_enough_reviews": "Hozircha sharhlar yetarli emas",
+    "anonymous_user": "Anonim"
   }
 }

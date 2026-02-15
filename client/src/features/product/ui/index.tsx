@@ -60,9 +60,13 @@ export default function Product({ id }: ProductProps) {
   const createReviewMutation = useCreateReview();
   const updateReviewMutation = useUpdateReview(editingReviewId!);
   const queryClient = useQueryClient();
-  const { addItem } = useCartStore();
+  const {
+    addItem
+  } = useCartStore();
 
-  const { token } = useUserStore();
+  const {
+    token
+  } = useUserStore();
 
   React.useEffect(() => {
     if (product) {
